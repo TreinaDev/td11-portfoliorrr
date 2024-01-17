@@ -42,8 +42,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_135059) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role", default: 0
     t.string "full_name"
+    t.integer "role", default: 0
     t.string "citizen_id_number"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number"
     t.index ["email"], name: "index_users_on_email", unique: true

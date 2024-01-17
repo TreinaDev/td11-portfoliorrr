@@ -9,3 +9,7 @@
     <%= f.submit 'Criar' %>
   </div>
 <% end %>
+
+<% @job_categories.each do |category| %>
+  <%= category.name %>
+<% end %>
