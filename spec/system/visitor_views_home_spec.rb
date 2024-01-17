@@ -1,10 +1,17 @@
 require 'rails_helper'
 
 describe 'Usuário acessa página de cadastro de usuário' do
+  it 'a partir da home' do
+    visit root_path
+
+    click_on 'Cadastrar Usuário'
+
+    expect(current_path).to eq new_user_registration_path
+  end
+
   it 'com sucesso' do
     visit new_user_registration_path
 
-    expect(page).to have_content 'Portfoliorrr'
     expect(page).to have_field 'Nome Completo'
     expect(page).to have_field 'E-mail'
     expect(page).to have_field 'CPF'

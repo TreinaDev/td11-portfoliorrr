@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      user: Usuário        
+
+    attributes:
+      user:
+        full_name: Nome Completo
+        email: E-mail
+        citizen_id_number: CPF       
