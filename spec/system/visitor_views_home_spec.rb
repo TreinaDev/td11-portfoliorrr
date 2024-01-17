@@ -1,10 +1,16 @@
 require 'rails_helper'
 
-describe 'Visitor views home' do
-  it 'successfully' do
-    visit root_path
+describe 'Usuário acessa página de cadastro de usuário' do
+  it 'com sucesso' do
+    visit new_user_registration_path
 
     expect(page).to have_content 'Portfoliorrr'
+    expect(page).to have_field 'Nome Completo'
+    expect(page).to have_field 'E-mail'
+    expect(page).to have_field 'CPF'
+    expect(page).to have_field 'Senha'
+    expect(page).to have_field 'Confirmação da Senha'
+    expect(page).to have_button 'Cadastrar'
   end
 
   it 'and prints message' do
