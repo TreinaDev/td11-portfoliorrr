@@ -1,5 +1,9 @@
 <h2> Blog de <%= @user.full_name %> </h2>
 
-<% @user.posts.each do |post| %>
-  <%= link_to post.title, post_path(post) %> | <%= post.created_at.strftime("%d-%m-%y") %>
+<% @user.posts.sort_by(&:created_at).reverse.each do |post| %>
+<ul class="">
+  <li>
+    <%= link_to post.title, post_path(post) %> | <%= post.created_at.strftime("%d-%m-%y") %>
+  </li>
+</ul>
 <% end %>
