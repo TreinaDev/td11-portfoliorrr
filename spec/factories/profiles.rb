@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :profile do
-    user { nil }
-    full_name { "MyString" }
-    cover_letter { "MyString" }
+    user
+    cover_letter { 'Sou profissional organizado, esforçado e apaixonado pelo que faço' }
   end
 end
