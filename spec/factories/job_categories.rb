@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :job_category do
-    name { "MyString" }
+    name { 'Web Design' }
   end
 end

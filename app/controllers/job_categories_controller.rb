@@ -1,5 +1,5 @@
 class JobCategoriesController < ApplicationController
-  before_action :authenticate_user!, :is_user_admin?
+  before_action :authenticate_user!, :user_admin?
 
   def index
     @job_category = JobCategory.new
@@ -10,16 +10,17 @@ class JobCategoriesController < ApplicationController
     job_category_params = params.require(:job_category).permit(:name)
     @job_category = JobCategory.new(job_category_params)
     if @job_category.save
-      return redirect_to job_categories_path, notice: t('notices.job_category_created')
+      redirect_to job_categories_path, notice: t('notices.job_category_created')
+    else
+      render :index
     end
-    render :index
   end
 
   private
 
-  def is_user_admin?
-    unless current_user.admin?
-      return redirect_to root_path, alert: t('alerts.unauthorized')
-    end
+  def user_admin?
+    return if current_user.admin?
+
+    redirect_to root_path, alert: t('alerts.unauthorized')
   end
 end
