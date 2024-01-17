@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário cria categoria de trabalho' do
   it 'a partir do menu' do
-    user = create(:user, role: :admin)
+    user = create(:user, :admin)
 
     login_as user
     visit root_path
