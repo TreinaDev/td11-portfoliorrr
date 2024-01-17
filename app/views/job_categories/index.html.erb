@@ -1,0 +1,11 @@
+<h1>Cadastro de categorias de trabalho</h1>
+
+<%= form_with model: @job_category do |f| %>
+  <div>
+    <%= f.label :name, 'Nome da categoria' %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.submit 'Criar' %>
+  </div>
+<% end %>
