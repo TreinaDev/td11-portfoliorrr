@@ -1,5 +1,5 @@
 <h2> Blog de <%= @user.full_name %> </h2>
 
 <% @user.posts.each do |post| %>
-  <%= link_to post.title, post_path(post) %>
+  <%= link_to post.title, post_path(post) %> | <%= post.created_at.strftime("%d-%m-%y") %>
 <% end %>

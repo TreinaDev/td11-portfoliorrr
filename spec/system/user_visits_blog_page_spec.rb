@@ -14,4 +14,15 @@ describe 'Usuário visita uma página de blog' do
     expect(page).to have_link 'Postagem B', href: post_path(post_b)
     expect(page).to have_link 'Texto C', href: post_path(post_c)
   end
+
+  it 'e vê a data de cada publicação' do
+    user = create(:user, full_name: 'Gabriel Castro')
+    post_a = create(:post, user: user, title: 'Post A', content: 'Primeira postagem')    
+    
+    visit user_posts_path(user)
+
+    post_date = post_a.created_at
+    
+    expect(page).to have_content post_date.to_date.strftime("%d-%m-%y")
+  end
 end
