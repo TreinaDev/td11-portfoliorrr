@@ -29,5 +29,14 @@ RSpec.describe User, type: :model do
         expect(user).not_to be_valid
       end
     end
+
+    context 'validade' do
+      it 'usuário deve ser inválido se o CPF é inválido' do
+        user = User.new email: 'usuario_b@email.com', password: '123456',
+                        full_name: 'Usuário B', citizen_id_number: '88257290060'
+
+        expect(user).not_to be_valid
+      end
+    end
   end
 end
