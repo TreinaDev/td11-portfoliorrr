@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   validates :full_name, :citizen_id_number, presence: true
+  validates :citizen_id_number, uniqueness: true
 end
