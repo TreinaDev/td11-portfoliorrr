@@ -7,6 +7,7 @@ describe 'Usuário cria categoria de trabalho' do
     expect(current_path).to eq(new_user_session_path)
     expect(page).to have_content('Para continuar, faça login ou registre-se.')
   end
+
   it 'e deve ser administrador' do
     user = create(:user)
 
@@ -41,5 +42,16 @@ describe 'Usuário cria categoria de trabalho' do
     expect(page).to have_current_path(job_categories_path)
     expect(page).to have_content('Categoria de Trabalho criada com sucesso!')
     expect(page).to have_content('Web Design')
+  end
+
+  it 'com dados faltando' do
+    admin = create(:user, :admin)
+
+    login_as admin
+    visit job_categories_path
+    click_on 'Criar'
+
+    expect(page).to have_content('Não foi possível cadastrar Categoria de Trabalho.')
+    expect(page).to have_content('Nome não pode ficar em branco')
   end
 end

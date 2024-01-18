@@ -12,7 +12,9 @@ class JobCategoriesController < ApplicationController
     if @job_category.save
       redirect_to job_categories_path, notice: t('notices.job_category_created')
     else
-      render :index
+      @job_categories = JobCategory.all
+      flash.now[:alert] = t('alerts.job_category_fail')
+      render 'index', status: :internal_server_error
     end
   end
 
