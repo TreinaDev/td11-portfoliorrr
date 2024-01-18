@@ -1,7 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+joao = User.create(email: 'joao@almeida.com', password: '123456', full_name: 'João CampusCode Almeida')
+andre = User.create(email: 'akaninja@email.com', password: 'usemogit', full_name: 'André Kanamura')
+gabriel = User.create(email: 'gabriel@campos.com', password: 'oigaleraaa', full_name: 'Gabriel Campos')
+
+post_joao_1 = joao.posts.create(title: 'Turma 11', content: 'A melhor turma de todas')
+post_joao_2 = joao.posts.create(title: 'Warehouses', content: 'Vamos aprender a fazer um app de gestão de galpões')
+post_joao_3 = joao.posts.create(title: 'Rubocop: devo usar?', content: 'No começo, tem que aprender na marra.')
+post_andre_1 = andre.posts.create(title: 'Pull Request', content: 'Façam o Pull Request na main antes de usar o código nas branches dos outros')
+post_andre_2 = andre.posts.create(title: 'Desafios Exclusivos', content: 'Eu fiz o batalha naval mesmo para desafiar a galera')
+post_andre_3 = andre.posts.create(title: 'SOLID', content: 'Hoje, vamos falar sobre boas prática de desenvolvimento de código')
+post_gabriel_1 = gabriel.posts.create(title: 'Como fazer uma app Vue', content: 'Não esqueça de usar o app.mount')
+post_gabriel_2 = gabriel.posts.create(title: 'Boas práticas em Zoom', content: 'Hoje vamos falar sobre breakout rooms!')
+post_gabriel_3 = gabriel.posts.create(title: 'Robô Saltitante: como resolver?', content: 'Vamos falar sobre a tarefa mais complexa do Code Saga!')

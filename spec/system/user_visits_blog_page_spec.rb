@@ -3,9 +3,9 @@ require 'rails_helper'
 describe 'Usuário visita uma página de blog' do
   it 'e vê uma lista de links para publicações' do
     user = create(:user, full_name: 'Gabriel Castro')
-    post_a = create(:post, user:, title: 'Post A', content: 'Primeira postagem')
-    post_b = create(:post, user:, title: 'Postagem B', content: 'Segunda postagem')
-    post_c = create(:post, user:, title: 'Texto C', content: 'Último post')
+    post_a = create(:post, user:, title: 'Post A')
+    post_b = create(:post, user:, title: 'Postagem B')
+    post_c = create(:post, user:, title: 'Texto C')
 
     visit user_posts_path(user)
 
@@ -26,7 +26,6 @@ describe 'Usuário visita uma página de blog' do
   end
 
   it 'e vê as postagens ordenadas da mais recente à mais antiga' do
-    # arrange
     user = create(:user)
 
     travel_to(2.days.ago) do
