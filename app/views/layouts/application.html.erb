@@ -13,7 +13,7 @@
   <body>
     <header>
       <% if user_signed_in? %>
-        <%= form_with url: search_profiles_path do |form| %>
+        <%= form_with url: search_profiles_path, method: :get do |form| %>
           <%= form.label :query, "Busca de Perfis" %>
           <%= form.search_field :query %>
           <%= form.submit "Pesquisar" %>
@@ -21,8 +21,16 @@
       <% end %>
     </header>
 
-    <div class="container">
+    <main class="container">
+      <div class="flash-messages">
+        <p style="color: red">
+          <%= flash[:alert] %>
+        </p>
+        <p style="color: green">
+          <%= notice %>
+        </p>
+      </div>
       <%= yield %>
-    </div>
+    </main>
   </body>
 </html>
