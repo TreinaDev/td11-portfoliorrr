@@ -16,7 +16,7 @@ describe 'Usuário acessa página de cadastro de usuário' do
     expect(page).to have_field 'E-mail'
     expect(page).to have_field 'CPF'
     expect(page).to have_field 'Senha'
-    expect(page).to have_field 'Confirmação da Senha'
+    expect(page).to have_field 'Confirme sua Senha'
     expect(page).to have_button 'Cadastrar'
   end
 

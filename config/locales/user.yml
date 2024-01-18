@@ -1,10 +1,12 @@
 pt-BR:
   activerecord:
     models:
-      user: Usuário        
+      user: Usuário
 
     attributes:
       user:
         full_name: Nome Completo
         email: E-mail
-        citizen_id_number: CPF       
+        citizen_id_number: CPF
+        password: Senha
+        password_confirmation: Confirme sua Senha

@@ -5,7 +5,12 @@
 
   <div class="field">
     <%= f.label :full_name %><br />
-    <%= f.email_field :full_name, autofocus: true %>
+    <%= f.text_field :full_name, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :citizen_id_number %><br />
+    <%= f.text_field :citizen_id_number %>
   </div>
 
   <div class="field">
@@ -27,7 +32,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Cadastrar" %>
   </div>
 <% end %>
 
