@@ -4,4 +4,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: "home#index"
+
+  resources :profiles, only: [] do
+    get 'search', on: :collection
+  end
 end
