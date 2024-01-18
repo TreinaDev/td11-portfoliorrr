@@ -1,9 +1,12 @@
-<h2> Blog de <%= @user.full_name %> </h2>
+<h2><%= t('blog_title', full_name: @user.full_name) %> </h2>
 
 <% @user.posts.sort_by(&:created_at).reverse.each do |post| %>
-<ul class="">
+<ul>
   <li>
-    <%= link_to post.title, post_path(post) %> | <%= post.created_at.strftime("%d-%m-%y") %>
+    <em><time datetime="<%= post.created_at.to_date %>">
+      <%= post.created_at.strftime("%d-%m-%y") %>
+    </time></em> 
+    <br><h3><%= link_to post.title, post_path(post) %></h3>
   </li>
 </ul>
 <% end %>
