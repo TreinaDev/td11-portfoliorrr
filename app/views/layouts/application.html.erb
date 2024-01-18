@@ -11,6 +11,16 @@
   </head>
 
   <body>
+    <header>
+      <% if user_signed_in? %>
+        <%= form_with url: search_profiles_path do |form| %>
+          <%= form.label :query, "Busca de Perfis" %>
+          <%= form.search_field :query %>
+          <%= form.submit "Pesquisar" %>
+        <% end %>
+      <% end %>
+    </header>
+
     <div class="container">
       <%= yield %>
     </div>

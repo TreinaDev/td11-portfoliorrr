@@ -24,6 +24,8 @@ Capybara.default_max_wait_time = 5
 Capybara.disable_animation = true
 
 RSpec.configure do |config|
+  include Warden::Test::Helpers
+
   config.use_transactional_fixtures = true
 
   config.before(:each, type: :system) do

@@ -7,13 +7,24 @@ describe 'Usuário busca outros usuários' do
     expect(current_path).to eq new_user_session_path
   end
 
-  xit 'and prints message' do
+  it 'a partir da página inicial' do
+    user = create(:user)
+
+    login_as user
     visit root_path
 
-    fill_in 'Mensagem', with: 'Olá, pessoal!'
-    click_on 'Imprimir'
-
-    expect(page).not_to have_content 'Hello'
-    expect(page).to have_css('p', text: 'Olá, pessoal!')
+    within 'header' do
+      expect(page).to have_field 'Busca de Perfis'
+      expect(page).to have_button 'Pesquisar'
+    end
   end
+
+  it 'mas não vê o formulário por não estar logado' do
+    visit root_path
+
+    expect(page).not_to have_field 'Busca de Perfis'
+    expect(page).not_to have_button 'Pesquisar'
+  end
+
+  pending 'com sucesso e vê uma lista de nomes de usuários cadastrados'
 end
