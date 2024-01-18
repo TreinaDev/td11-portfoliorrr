@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one :profile, dependent: :destroy
   has_many :posts, dependent: :destroy
+
+  validates :full_name, :citizen_id_number, presence: true
 end
