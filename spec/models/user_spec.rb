@@ -1,11 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe '.search' do
+  describe '#search' do
     it 'retorna uma instância de acordo com o valor da procura' do
-      create(:user, email: 'joao@almeida.com', password: '123456', full_name: 'João CampusCode Almeida')
-      create(:user, email: 'akaninja@email.com', password: 'usemogit', full_name: 'André Kanamura')
-      create(:user, email: 'gabriel@campos.com', password: 'oigaleraaa', full_name: 'Gabriel Campos')
+      create(
+        :user,
+        email: 'joao@almeida.com',
+        password: '123456',
+        full_name: 'João CampusCode Almeida',
+        citizen_id_number: '00752496263'
+      )
+      create(
+        :user,
+        email: 'akaninja@email.com',
+        password: 'usemogit',
+        full_name: 'André Kanamura',
+        citizen_id_number: '00232728305'
+      )
+      create(
+        :user,
+        email: 'gabriel@campos.com',
+        password: 'oigaleraaa',
+        full_name: 'Gabriel Campos',
+        citizen_id_number: '02742567895'
+      )
 
       result = User.search_by_full_name('amp')
 
@@ -13,6 +31,22 @@ RSpec.describe User, type: :model do
       expect(result.first.full_name).to eq 'João CampusCode Almeida'
       expect(result.last.full_name).to eq 'Gabriel Campos'
     end
+
+    it 'Retorna nil se nenhum resultado for encontrado' do
+      create(
+        :user,
+        email: 'joao@almeida.com',
+        password: '123456',
+        full_name: 'João CampusCode Almeida',
+        citizen_id_number: '00752496263'
+      )
+
+      result = User.search_by_full_name('abobra')
+
+      expect(result.all.count).to eq 0
+      expect(result.first).to eq nil
+    end
+  end
 
   describe '#valid?' do
     context 'presença' do
@@ -51,4 +85,5 @@ RSpec.describe User, type: :model do
         expect(user).not_to be_valid
       end
     end
+  end
 end

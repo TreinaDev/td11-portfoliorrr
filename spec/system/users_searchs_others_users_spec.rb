@@ -7,18 +7,6 @@ describe 'Usuário busca outros usuários' do
     expect(current_path).to eq new_user_session_path
   end
 
-  it 'a partir da página inicial' do
-    user = create(:user)
-
-    login_as user
-    visit root_path
-
-    within 'header' do
-      expect(page).to have_field 'Busca de Perfis'
-      expect(page).to have_button 'Pesquisar'
-    end
-  end
-
   it 'mas não vê o formulário por não estar logado' do
     visit root_path
 
@@ -27,9 +15,9 @@ describe 'Usuário busca outros usuários' do
   end
 
   it 'com sucesso e vê uma lista de nomes de usuários cadastrados' do
-    create(:user, full_name: 'Horácio Fernandes', email: 'horacio@email.com')
-    create(:user, full_name: 'Geraldo José', email: 'geraldo@email.com')
-    user = create(:user, full_name: 'Geralda')
+    create(:user, full_name: 'Horácio Fernandes', email: 'horacio@email.com', citizen_id_number: '00752496263')
+    create(:user, full_name: 'Geraldo José', email: 'geraldo@email.com', citizen_id_number: '00232728305')
+    user = create(:user, full_name: 'Geralda', citizen_id_number: '02742567895')
 
     login_as user
     visit root_path
@@ -56,7 +44,7 @@ describe 'Usuário busca outros usuários' do
     expect(page).to have_content 'Não encontramos nenhum perfil com esse nome'
   end
 
-  it 'mas recebe um alerta de erro por não preencher o campo de pesquisa' do
+  it 'mas campo de pesquisa não pode ficar em branco' do
     user = create(:user)
 
     login_as user
@@ -65,6 +53,6 @@ describe 'Usuário busca outros usuários' do
     click_on 'Pesquisar'
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você precisa informar um nome para pesquisar'
+    expect(page).to have_content 'Você precisa informar um nome para fazer a pesquisa'
   end
 end
