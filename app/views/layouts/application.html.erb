@@ -11,12 +11,21 @@
   </head>
 
   <body>
-    <header>
+    <header class="container mt-3">
+        <% if user_signed_in? %>
+          <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %>
+        <% else %>
+          <%= link_to "Entrar", new_user_session_path, class: "btn btn-primary" %>
+        <% end %>
+      </ul>
+
       <% if user_signed_in? %>
         <%= form_with url: search_profiles_path, method: :get do |form| %>
-          <%= form.label :query, "Busca de Perfis" %>
-          <%= form.search_field :query %>
-          <%= form.submit "Pesquisar" %>
+          <p>
+            <%= form.label :query, "Busca de Perfis" %>
+            <%= form.search_field :query, placeholder: 'Digite o nome' %>
+            <%= form.submit "Pesquisar" %>
+          </p>
         <% end %>
       <% end %>
     </header>
