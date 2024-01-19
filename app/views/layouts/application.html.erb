@@ -14,7 +14,10 @@
     <div class="container">
       <nav>
         <ul>
-        <li><%= link_to 'Cadastrar Usuário', new_user_registration_path, 'data-turbo': 'false' %></li>
+          <% unless user_signed_in? %>
+            <li><%= link_to 'Entrar', new_user_session_path, 'data-turbo': 'false' %></li>
+            <li><%= link_to 'Cadastrar Usuário', new_user_registration_path, 'data-turbo': 'false' %></li>
+          <% end %>
         </ul>
       </nav>
 
