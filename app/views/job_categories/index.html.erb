@@ -1,0 +1,33 @@
+<h1>Cadastro de categorias de trabalho</h1>
+
+  <% if @job_category.errors.any? %>
+    <ul>
+      <% @job_category.errors.each do |error| %>
+        <li class="text-danger"><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= form_with model: @job_category do |f| %>
+    <%= f.label :name, 'Nome da categoria', class: "form-label" %>
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.text_field :name, class: "form-control", placeholder: "Ex: Web Design, Modelagem 3D" %>
+      </div>
+      <div class="col">
+        <%= f.submit 'Criar', class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+
+<div class="mt-5">
+  <h2>Categorias de trabalho cadastradas</h2>
+    <ul>
+      <% @job_categories.each do |category| %>
+        <li><%= category.name %></li>
+    <% end %>
+  </ul>
+</div>
+
+
+
