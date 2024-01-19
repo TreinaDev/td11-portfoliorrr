@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_19_143304) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_19_180251) do
   create_table "job_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -21,11 +21,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_19_143304) do
   create_table "personal_infos", force: :cascade do |t|
     t.integer "profile_id", null: false
     t.string "street"
-    t.string "area"
     t.string "city"
     t.string "state"
     t.string "phone"
+    t.string "area"
     t.boolean "visibility"
+    t.date "birth_date"
+    t.string "zip_code"
+    t.string "street_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_personal_infos_on_profile_id"
@@ -57,8 +60,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_19_143304) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
-    t.string "citizen_id_number"
     t.integer "role", default: 0
+    t.string "citizen_id_number"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
