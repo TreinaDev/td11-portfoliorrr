@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 describe 'Usuário cria categoria de trabalho' do
+  it 'com sucesso' do
+    admin = create(:user, :admin)
+
+    login_as admin
+    visit job_categories_path
+    fill_in 'Nome da categoria', with: 'Web Design'
+    click_on 'Criar'
+
+    expect(page).to have_current_path(job_categories_path)
+    expect(page).to have_content('Categoria de Trabalho criada com sucesso!')
+    expect(page).to have_content('Web Design')
+  end
+
   it 'e deve estar logado' do
     visit job_categories_path
 
@@ -29,19 +42,6 @@ describe 'Usuário cria categoria de trabalho' do
     expect(page).to have_content('Cadastro de categorias de trabalho')
     expect(page).to have_field('Nome da categoria')
     expect(page).to have_button('Criar')
-  end
-
-  it 'com sucesso' do
-    admin = create(:user, :admin)
-
-    login_as admin
-    visit job_categories_path
-    fill_in 'Nome da categoria', with: 'Web Design'
-    click_on 'Criar'
-
-    expect(page).to have_current_path(job_categories_path)
-    expect(page).to have_content('Categoria de Trabalho criada com sucesso!')
-    expect(page).to have_content('Web Design')
   end
 
   it 'com dados faltando' do

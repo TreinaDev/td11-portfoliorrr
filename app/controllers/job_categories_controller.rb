@@ -1,5 +1,5 @@
 class JobCategoriesController < ApplicationController
-  before_action :authenticate_user!, :user_admin?
+  before_action :authenticate_user!, :authorize!
 
   def index
     @job_category = JobCategory.new
@@ -20,7 +20,7 @@ class JobCategoriesController < ApplicationController
 
   private
 
-  def user_admin?
+  def authorize!
     return if current_user.admin?
 
     redirect_to root_path, alert: t('alerts.unauthorized')

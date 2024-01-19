@@ -5,9 +5,7 @@ RSpec.describe JobCategory, type: :model do
     it 'nome não pode ficar em branco' do
       job_category = build(:job_category, name: '')
 
-      result = job_category.valid?
-
-      expect(result).to be false
+      expect(job_category).not_to be_valid
       expect(job_category.errors[:name]).to include('não pode ficar em branco')
     end
 
@@ -15,9 +13,7 @@ RSpec.describe JobCategory, type: :model do
       create(:job_category, name: 'Web Design')
       job_category = build(:job_category, name: 'web design')
 
-      result = job_category.valid?
-
-      expect(result).to be false
+      expect(job_category).not_to be_valid
       expect(job_category.errors[:name]).to include('já está em uso')
     end
   end
