@@ -1,0 +1,11 @@
+
+<%= link_to 'Editar Informações Pessoais', edit_user_personal_info_path %>
+<%= @profile.user.full_name %>
+<%= @profile.user.email %>
+<%= @profile.personal_info.street %>
+<%= @profile.personal_info.area %>
+<%= @profile.personal_info.zip_code %>
+<%= @profile.personal_info.city %>
+<%= @profile.personal_info.state %>
+<%= @profile.personal_info.phone %>
+<%= @profile.personal_info.birth_date.strftime("%d/%m/%Y") %>
