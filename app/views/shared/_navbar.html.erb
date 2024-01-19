@@ -1,0 +1,5 @@
+<nav>
+  <% if user_signed_in? && current_user.admin? %>
+    <%= link_to 'Categorias de trabalho', job_categories_path %>
+  <% end %>
+</nav>

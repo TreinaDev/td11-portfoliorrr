@@ -1,0 +1,7 @@
+pt-BR:
+  activerecord:
+    models:
+      job_category: 'Categoria de Trabalho'
+    attributes:
+      job_category:
+        name: 'Nome'

@@ -1,0 +1,4 @@
+pt-BR:
+  alerts:
+    unauthorized: 'Você não têm permissão para realizar essa ação.'
+    job_category_fail: Não foi possível cadastrar Categoria de Trabalho.

@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_17_131201) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_18_054350) do
+  create_table "job_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_job_categories_on_name", unique: true
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title"
@@ -37,6 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_131201) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
+    t.integer "role", default: 0
     t.string "citizen_id_number"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number"
     t.index ["email"], name: "index_users_on_email", unique: true
