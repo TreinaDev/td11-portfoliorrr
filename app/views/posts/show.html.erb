@@ -1,0 +1,12 @@
+<h2><%= @post.title %></h2>
+
+<div id="post-data">
+  <p><%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %></p>
+  <p>
+    <time>
+      <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %>
+    </time>
+  </p>
+</div>
+
+<p><%= @post.content %></p>

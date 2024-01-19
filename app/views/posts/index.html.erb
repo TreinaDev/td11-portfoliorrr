@@ -1,4 +1,4 @@
-<h2><%= t('blog_title', full_name: @user.full_name) %> </h2>
+<h2><%= t('posts.views.index.blog_title', full_name: @user.full_name) %> </h2>
 
 <% @user.posts.sort_by(&:created_at).reverse.each do |post| %>
 <ul>

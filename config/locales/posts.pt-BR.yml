@@ -1,2 +1,22 @@
 pt-BR:
-  blog_title: "Blog de %{full_name}"
+  activerecord:
+    models:
+      post: 
+        one: Postagem
+        other: Postagens
+    attributes:
+      post:
+        title: Título da Publicação
+        content: Conteúdo
+  posts:
+    create:
+      success: Publicação criada com sucesso!
+      error: Não foi possível criar sua publicação
+    new:
+      invalid_user: Você não pode realizar essa ação
+    views:
+      index:
+        blog_title: "Blog de %{full_name}"
+      show:
+        authored_by: "Criado por %{author_name}"
+        publish_date: "Publicado em: %{publish_date}"

@@ -11,8 +11,25 @@
   </head>
 
   <body>
-    <div class="container">
+    <header>
+      <nav>
+        <ul>
+          <% if user_signed_in? %>
+          <li><%= link_to 'Criar Nova Publicação', new_user_post_path(current_user.id) %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+
+    <p>
+      <%= notice %>
+    </p>
+    <p>
+      <%= alert %>
+    </p>
+
+    <main class="container">
       <%= yield %>
-    </div>
+    </main>
   </body>
 </html>
