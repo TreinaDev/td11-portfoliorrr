@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      personal_info: 'Informações Pessoais'
+    attributes:
+      personal_info:
+        street: 'Rua'
+        city: 'Cidade'
+        state: 'Estado'
+        area: 'Bairro'
+        phone: 'Telefone'
+        zip_code: 'CEP'
+        street_number: 'Número'
+        birth_date: 'Data de Nascimento'
