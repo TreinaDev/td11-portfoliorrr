@@ -39,4 +39,12 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#create_profile' do
+    it 'cria um perfil após criação de usuário' do
+      user = create(:user)
+
+      expect(user.profile).to be_present
+    end
+  end
 end
