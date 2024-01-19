@@ -18,6 +18,12 @@ class JobCategoriesController < ApplicationController
     end
   end
 
+  def destroy
+    job_category = JobCategory.find(params[:id])
+    job_category.destroy
+    redirect_to job_categories_path, notice: t('notices.job_category_deleted')
+  end
+
   private
 
   def authorize!
