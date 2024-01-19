@@ -1,10 +1,20 @@
 <h2><%= @post.title %></h2>
 
 <div id="post-data">
+  <% if current_user == @post.user %>
+  <div>
+    <%= link_to "Editar", edit_post_path(@post) %>
+  </div>
+  <% end %>
   <p><%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %></p>
   <p>
     <time>
       <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %>
+    </time>
+  </p>
+  <p>
+    <time>
+      <%= t('posts.views.show.last_update', update_date: I18n.l(@post.updated_at.to_date)) %>
     </time>
   </p>
 </div>

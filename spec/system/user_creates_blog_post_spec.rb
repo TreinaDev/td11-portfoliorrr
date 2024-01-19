@@ -22,7 +22,7 @@ describe 'Usuário cria uma postagem no blog' do
     fill_in 'Conteúdo', with: 'Primeira publicação'
 
     travel_to Time.zone.local(1910, 9, 1, 0, 0, 0) do
-      click_on 'Criar Publicação'
+      click_on 'Salvar'
     end
 
     expect(Post.count).to eq 1
@@ -54,11 +54,20 @@ describe 'Usuário cria uma postagem no blog' do
     fill_in 'Título da Publicação', with: ''
     fill_in 'Conteúdo', with: ''
 
-    click_on 'Criar Publicação'
+    click_on 'Salvar'
 
     expect(Post.count).to eq 0
     expect(page).to have_content 'Não foi possível criar sua publicação'
     expect(page).to have_content 'Título da Publicação não pode ficar em branco'
     expect(page).to have_content 'Conteúdo não pode ficar em branco'
+  end
+
+  it 'e cai em uma página de erro caso post não exista' do 
+    user = create(:user)
+
+    login_as user
+    visit new_user_post_path(0)
+
+    expect(current_path).to eq '/404'
   end
 end

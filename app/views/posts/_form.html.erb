@@ -1,0 +1,12 @@
+<%= form_with model: [@user, @post] do |f| %>
+  <p>
+    <%= f.label :title, 'Título da Publicação' %>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :content, 'Conteúdo' %>
+    <%= f.text_area :content %>
+  </p>
+
+  <%= f.submit 'Salvar' %>
+<% end %>

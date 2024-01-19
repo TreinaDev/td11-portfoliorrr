@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   root to: "home#index"
   resources :users, only: [] do
-    resources :posts, shallow: true, only: %i[index show new create]
+    resources :posts, shallow: true, only: %i[index show new create edit update]
   end
 end

@@ -41,4 +41,10 @@ describe 'Usuário visita uma página de blog' do
     expect(page.body.index('Conteúdo C')).to be < page.body.index('Texto B')
     expect(page.body.index('Texto B')).to be < page.body.index('Post A')
   end
+
+  it 'e cai em uma página de erro caso o usuário não exista' do 
+    visit user_posts_path(0)
+
+    expect(current_path).to eq '/404'
+  end
 end
