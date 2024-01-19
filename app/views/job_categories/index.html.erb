@@ -24,7 +24,14 @@
   <h2>Categorias de trabalho cadastradas</h2>
     <ul>
       <% @job_categories.each do |category| %>
-        <li><%= category.name %></li>
+        <li class="row">
+          <div class="col">
+            <p><%= category.name %></p>
+          </div>
+          <div class="col">
+            <%= button_to 'Remover', blabla_path %>
+          </div>
+        </li>
     <% end %>
   </ul>
 </div>
