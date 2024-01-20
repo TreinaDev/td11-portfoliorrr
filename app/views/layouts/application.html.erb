@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cola?Bora</title>
+    <title>Portfoliorrr</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,24 +12,16 @@
 
   <body>
     <header>
-      <nav>
-        <ul>
-          <% if user_signed_in? %>
-          <li><%= link_to 'Criar Nova Publicação', new_user_post_path(current_user.id) %></li>
-          <% end %>
-        </ul>
-      </nav>
+      <%= render 'shared/navbar' %>
     </header>
-
-    <p>
-      <%= notice %>
-    </p>
-    <p>
-      <%= alert %>
-    </p>
-
-    <main class="container">
-      <%= yield %>
+    <main>    
+      <div class="container">
+        <div>
+          <%= alert %>
+          <%= notice %>
+        </div>
+        <%= yield %>
+      </div>
     </main>
   </body>
 </html>

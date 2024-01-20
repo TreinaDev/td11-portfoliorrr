@@ -30,7 +30,7 @@ describe 'Usuário edita uma publicação do blog' do
   end
 
   it 'e é redirecionado ao tentar atualizar publicação que não é sua' do
-    user = create(:user, email: 'paulo@email.com')
+    user = create(:user, email: 'paulo@email.com', citizen_id_number: '61328427056')
     post = create(:post)
 
     login_as user
@@ -41,7 +41,7 @@ describe 'Usuário edita uma publicação do blog' do
   end
 
   it 'mas não vê o link de editar caso não seja seu post' do
-    user = create(:user, email: 'email@provider.com')
+    user = create(:user, email: 'email@provider.com', citizen_id_number: '61328427056')
     post = create(:post)
 
     login_as user

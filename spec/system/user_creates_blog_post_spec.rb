@@ -35,7 +35,7 @@ describe 'Usuário cria uma postagem no blog' do
 
   it 'apenas no perfil da sua conta, e é redirecionado caso contrário' do
     user1 = create(:user, email: 'user1@email.com')
-    user2 = create(:user, email: 'user2@email.com')
+    user2 = create(:user, email: 'user2@email.com', citizen_id_number: '294.444.580-40')
 
     login_as user2
 
