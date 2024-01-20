@@ -61,13 +61,4 @@ describe 'Usuário cria uma postagem no blog' do
     expect(page).to have_content 'Título da Publicação não pode ficar em branco'
     expect(page).to have_content 'Conteúdo não pode ficar em branco'
   end
-
-  it 'e cai em uma página de erro caso post não exista' do 
-    user = create(:user)
-
-    login_as user
-    visit new_user_post_path(0)
-
-    expect(current_path).to eq '/404'
-  end
 end

@@ -30,7 +30,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to post_path(@post), notice: t('.success')
     else
-      flash.now[:notice] = 'A publicação não pode ser editada'
+      flash.now[:notice] = t('.error')
       render 'edit', status: :unprocessable_entity
     end
   end
@@ -42,19 +42,11 @@ class PostsController < ApplicationController
   end
 
   def set_user
-    begin
-      @user = User.find(params[:user_id])
-    rescue ActiveRecord::RecordNotFound => e
-      redirect_to '/404'
-    end
+    @user = User.find(params[:user_id])
   end
 
   def set_post
-    begin
-      @post = Post.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      redirect_to '/404'
-    end
+    @post = Post.find(params[:id])
   end
 
   def ensure_user_is_author

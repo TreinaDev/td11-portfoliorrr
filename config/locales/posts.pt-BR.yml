@@ -16,6 +16,7 @@ pt-BR:
       error: Não foi possível criar sua publicação
     update:
       success: Publicação editada com sucesso!
+      error: A publicação não pôde ser editada
     views:
       index:
         blog_title: "Blog de %{full_name}"

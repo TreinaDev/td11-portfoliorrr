@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :users, only: [] do
     resources :posts, shallow: true, only: %i[index show new create edit update]
+    resources :profiles, shallow: true, only: %i[show]
   end
 end

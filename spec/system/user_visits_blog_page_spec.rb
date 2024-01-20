@@ -1,14 +1,17 @@
 require 'rails_helper'
 
 describe 'Usuário visita uma página de blog' do
-  it 'e vê uma lista de links para publicações' do
+  it 'e vê uma lista de links para publicações a partir da tela de perfil' do
     user = create(:user, full_name: 'Gabriel Castro')
+    profile = user.create_profile!
     post_a = create(:post, user:, title: 'Post A')
     post_b = create(:post, user:, title: 'Postagem B')
     post_c = create(:post, user:, title: 'Texto C')
 
-    visit user_posts_path(user)
+    visit profile_path(profile)
+    click_on 'Publicações'
 
+    expect(current_path).to eq user_posts_path(user)
     expect(page).to have_content 'Blog de Gabriel Castro'
     expect(page).to have_link 'Post A', href: post_path(post_a)
     expect(page).to have_link 'Postagem B', href: post_path(post_b)
@@ -40,11 +43,5 @@ describe 'Usuário visita uma página de blog' do
 
     expect(page.body.index('Conteúdo C')).to be < page.body.index('Texto B')
     expect(page.body.index('Texto B')).to be < page.body.index('Post A')
-  end
-
-  it 'e cai em uma página de erro caso o usuário não exista' do 
-    visit user_posts_path(0)
-
-    expect(current_path).to eq '/404'
   end
 end
