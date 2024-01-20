@@ -1,0 +1,37 @@
+
+<%= form_with model: @profile, url: user_profile_path, method: :patch do |form| %>
+  <%= form.fields_for :personal_info do |personal_info| %>
+    <%= personal_info.label :street %>
+    <%= personal_info.text_field :street %>
+
+    <%= personal_info.label :street_number %>
+    <%= personal_info.text_field :street_number %>
+
+    <%= personal_info.label :area %>
+    <%= personal_info.text_field :area %>
+
+    <%= personal_info.label :city %>
+    <%= personal_info.text_field :city %>
+
+    <%= personal_info.label :state %>
+    <%= personal_info.text_field :state %>
+
+    <%= personal_info.label :zip_code %>
+    <%= personal_info.text_field :zip_code %>
+
+    <%= personal_info.label :phone %>
+    <%= personal_info.text_field :phone %>
+
+    <%= personal_info.label :birth_date %>
+    <%= personal_info.date_field :birth_date %>
+
+    <%= personal_info.label :visibility %>
+    <%= personal_info.check_box :visibility %>
+  <% end %>
+
+  <%= form.label :cover_letter %>
+  <%= form.text_area :cover_letter %>
+
+
+  <%= form.submit 'Salvar' %>
+<% end %>

@@ -9,17 +9,16 @@ describe 'Usuário edita informações pessoais' do
       visit root_path
       click_on 'Meu Perfil'
       click_on 'Editar Informações Pessoais'
-      expect(current_path).to eq edit_user_personal_info_path
+      expect(current_path).to eq edit_user_profile_path
     end
 
     it 'com sucesso' do
-      user = create(:user)
-      profile = create(:profile, user:)
-      PersonalInfo.create! profile:, birth_date: '1970-01-01'
+      personal_info = create(:personal_info)
+      login_as personal_info.profile.user
 
-      login_as user
+      visit edit_user_profile_path
 
-      visit edit_user_personal_info_path
+      fill_in 'Resumo Pessoal', with: 'Eu estou tentando ser um dev melhor...'
 
       fill_in 'Rua', with: 'Avenida Campus Code'
       fill_in 'Número', with: '1230'
@@ -30,9 +29,10 @@ describe 'Usuário edita informações pessoais' do
       fill_in 'Telefone', with: '11 4002 8922'
       fill_in 'Data de Nascimento', with: '1980-12-25'
 
-      click_on 'Atualizar Informações Pessoais'
+      click_on 'Salvar'
 
       expect(current_path).to eq user_profile_path
+      expect(page).to have_content 'Eu estou tentando ser um dev melhor...'
       expect(page).to have_content 'Avenida Campus Code'
       expect(page).to have_content '1230'
       expect(page).to have_content 'TreinaDev'
@@ -46,7 +46,7 @@ describe 'Usuário edita informações pessoais' do
 
   context 'quando não logado' do
     it 'e é redirecionado para a tela de login' do
-      visit edit_user_personal_info_path
+      visit edit_user_profile_path
 
       expect(current_path).to eq new_user_session_path
       expect(page).to have_content 'Para continuar, faça login ou registre-se'

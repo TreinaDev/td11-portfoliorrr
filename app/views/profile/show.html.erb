@@ -1,11 +1,12 @@
 
-<%= link_to 'Editar Informações Pessoais', edit_user_personal_info_path %>
+<%= link_to 'Editar Informações Pessoais', edit_user_profile_path %>
 <%= @profile.user.full_name %>
 <%= @profile.user.email %>
-<%= @profile.personal_info.street %>
-<%= @profile.personal_info.area %>
-<%= @profile.personal_info.zip_code %>
-<%= @profile.personal_info.city %>
-<%= @profile.personal_info.state %>
-<%= @profile.personal_info.phone %>
-<%= @profile.personal_info.birth_date.strftime("%d/%m/%Y") %>
+<%= @profile.cover_letter %>
+<%= @profile.user.personal_info.street %>
+<%= @profile.user.personal_info.area %>
+<%= @profile.user.personal_info.zip_code %>
+<%= @profile.user.personal_info.city %>
+<%= @profile.user.personal_info.state %>
+<%= @profile.user.personal_info.phone %>
+<%= @profile.user.personal_info&.birth_date&.strftime("%d/%m/%Y") %>

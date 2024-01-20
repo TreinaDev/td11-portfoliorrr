@@ -6,6 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :profile, dependent: :destroy
+  has_one :personal_info, through: :profile
   has_many :posts, dependent: :destroy
 
   validates :full_name, :citizen_id_number, presence: true
