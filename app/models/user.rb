@@ -15,11 +15,11 @@ class User < ApplicationRecord
 
   after_create :'create_profile!'
 
+  enum role: { user: 0, admin: 10 }
+
   private
 
   def validate_citizen_id_number
     errors.add(:citizen_id_number, 'inválido') unless CPF.valid?(citizen_id_number)
   end
-
-  enum role: { user: 0, admin: 10 }
 end
