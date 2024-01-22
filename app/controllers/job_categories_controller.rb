@@ -10,18 +10,22 @@ class JobCategoriesController < ApplicationController
     job_category_params = params.require(:job_category).permit(:name)
     @job_category = JobCategory.new(job_category_params)
     if @job_category.save
-      redirect_to job_categories_path, notice: t('notices.job_category_created')
+      redirect_to job_categories_path, notice: t('.success')
     else
       @job_categories = JobCategory.all
-      flash.now[:alert] = t('alerts.job_category_fail')
+      flash.now[:alert] = t('.error')
       render 'index', status: :internal_server_error
     end
   end
 
   def destroy
     job_category = JobCategory.find(params[:id])
-    job_category.destroy
-    redirect_to job_categories_path, notice: t('notices.job_category_deleted')
+    begin
+      job_category.destroy
+      redirect_to job_categories_path, notice: t('.success')
+    rescue ActiveRecord::InvalidForeignKey
+      redirect_to job_categories_path, alert: t('.error')
+    end
   end
 
   private

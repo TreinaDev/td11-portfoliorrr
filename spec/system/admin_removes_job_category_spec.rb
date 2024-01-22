@@ -30,4 +30,23 @@ describe 'Usuário remove categoria de trabalho' do
     expect(page).not_to have_content('Web Design')
     expect(JobCategory.count).to eq 1
   end
+
+  it 'e não remove se categoria estiver em uso' do
+    admin = create(:user, :admin)
+    job_category = create(:job_category, name: 'Web Design')
+    user = create(:user, email: 'common_user@email.com', citizen_id_number: '96663589059')
+
+    create(:profile_job_category,
+           job_category:,
+           profile: user.profile,
+           description: 'Experiência com Web Design')
+
+    login_as admin
+    visit job_categories_path
+    click_on 'Remover'
+
+    expect(page).to have_content('Categoria de Trabalho está em uso e não pode ser removida!')
+    expect(page).to have_content('Web Design')
+    expect(JobCategory.count).to eq 1
+  end
 end

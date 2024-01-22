@@ -12,6 +12,8 @@ class User < ApplicationRecord
   validates :citizen_id_number, uniqueness: true
   validate :validate_citizen_id_number
 
+  after_create :'create_profile!'
+
   private
 
   def validate_citizen_id_number
