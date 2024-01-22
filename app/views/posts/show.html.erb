@@ -1,22 +1,29 @@
-<h2><%= @post.title %></h2>
+<div class="container mt-4">
+  <h2 class="mb-3"><%= @post.title %></h2>
 
-<div id="post-data">
-  <% if current_user == @post.user %>
-  <div>
-    <%= link_to "Editar", edit_post_path(@post) %>
+  <div id="post-data" class="mb-4">
+    <% if current_user == @post.user %>
+      <div class="mb-2">
+        <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+
+    <p class="text-muted">
+      <%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %>
+    </p>
+    <p class="text-muted">
+      <time datetime="<%= @post.created_at.to_date %>">
+        <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %>
+      </time>
+    </p>
+    <p class="text-muted">
+      <time datetime="<%= @post.updated_at.to_date %>">
+        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.updated_at.to_date)) %>
+      </time>
+    </p>
   </div>
-  <% end %>
-  <p><%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %></p>
-  <p>
-    <time>
-      <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %>
-    </time>
-  </p>
-  <p>
-    <time>
-      <%= t('posts.views.show.last_update', update_date: I18n.l(@post.updated_at.to_date)) %>
-    </time>
-  </p>
-</div>
 
-<p><%= @post.content %></p>
+  <div class="post-content">
+    <p><%= @post.content %></p>
+  </div>
+</div>

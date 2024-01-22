@@ -1,5 +1,9 @@
 <% if @post.errors.present? %>
-  <% @post.errors.full_messages.each do |msg| %>
-    <%= msg %>
-  <% end %>
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>

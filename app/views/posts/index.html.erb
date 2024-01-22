@@ -1,12 +1,17 @@
-<h2><%= t('posts.views.index.blog_title', full_name: @user.full_name) %> </h2>
+<div class="container">
+  <h2><%= t('posts.views.index.blog_title', full_name: @user.full_name) %> </h2>
 
-<% @user.posts.sort_by(&:created_at).reverse.each do |post| %>
-<ul>
-  <li>
-    <em><time datetime="<%= post.created_at.to_date %>">
-      <%= post.created_at.strftime("%d-%m-%y") %>
-    </time></em> 
-    <br><h3><%= link_to post.title, post_path(post) %></h3>
-  </li>
-</ul>
-<% end %>
+  <div class="list-group">
+    <% @user.posts.sort_by(&:created_at).reverse.each do |post| %>
+      <div class="list-group-item">
+        <em>
+          <time datetime="<%= post.created_at.to_date %>">
+            <%= post.created_at.strftime("%d-%m-%y") %>
+          </time>
+        </em> 
+        <br>
+        <h3 class="mb-1"><%= link_to post.title, post_path(post) %></h3>
+      </div>
+    <% end %>
+  </div>
+</div>

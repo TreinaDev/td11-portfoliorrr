@@ -1,6 +1,6 @@
-joao = User.create(email: 'joao@almeida.com', password: '123456', full_name: 'João CampusCode Almeida')
-andre = User.create(email: 'akaninja@email.com', password: 'usemogit', full_name: 'André Kanamura')
-gabriel = User.create(email: 'gabriel@campos.com', password: 'oigaleraaa', full_name: 'Gabriel Campos')
+joao = User.create(email: 'joao@almeida.com', password: '123456', full_name: 'João CampusCode Almeida', citizen_id_number: '72647559082')
+andre = User.create(email: 'akaninja@email.com', password: 'usemogit', full_name: 'André Kanamura', citizen_id_number: '81450892043')
+gabriel = User.create(email: 'gabriel@campos.com', password: 'oigaleraaa', full_name: 'Gabriel Campos', citizen_id_number: '02010828020')
 
 post_joao_1 = joao.posts.create(title: 'Turma 11', content: 'A melhor turma de todas')
 post_joao_2 = joao.posts.create(title: 'Warehouses', content: 'Vamos aprender a fazer um app de gestão de galpões')
