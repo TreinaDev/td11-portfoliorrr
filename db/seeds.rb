@@ -1,4 +1,4 @@
-joao = User.create(email: 'joao@almeida.com', password: '123456', full_name: 'João CampusCode Almeida', citizen_id_number: '72647559082')
+joao = User.create(email: 'joao@almeida.com', password: '123456', full_name: 'João CampusCode Almeida', citizen_id_number: '72647559082', role: 'admin')
 andre = User.create(email: 'akaninja@email.com', password: 'usemogit', full_name: 'André Kanamura', citizen_id_number: '81450892043')
 gabriel = User.create(email: 'gabriel@campos.com', password: 'oigaleraaa', full_name: 'Gabriel Campos', citizen_id_number: '02010828020')
 
@@ -11,3 +11,9 @@ post_andre_3 = andre.posts.create(title: 'SOLID', content: 'Hoje, vamos falar so
 post_gabriel_1 = gabriel.posts.create(title: 'Como fazer uma app Vue', content: 'Não esqueça de usar o app.mount')
 post_gabriel_2 = gabriel.posts.create(title: 'Boas práticas em Zoom', content: 'Hoje vamos falar sobre breakout rooms!')
 post_gabriel_3 = gabriel.posts.create(title: 'Robô Saltitante: como resolver?', content: 'Vamos falar sobre a tarefa mais complexa do Code Saga!')
+
+JobCategory.create(name: 'Web Design')
+JobCategory.create(name: 'Programador Full Stack')
+JobCategory.create(name: 'Ruby on Rails')
+
+ProfileJobCategory.create(profile: User.last.profile, job_category: JobCategory.last)

@@ -2,6 +2,9 @@ pt-BR:
   sign up: 'Cadastrar'
   log in: 'Entrar'
   log out: 'Sair'
+  login_required: 'Você não está logado'
+  true: 'Sim'
+  false: 'Não'
   activerecord:
     errors:
       messages:
@@ -225,3 +228,4 @@ pt-BR:
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
     pm: pm
+

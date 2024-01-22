@@ -11,17 +11,23 @@
   </head>
 
   <body>
-    <header>
+    <header class="container mt-3">
       <%= render 'shared/navbar' %>
     </header>
-    <main>    
-      <div class="container">
-        <div>
-          <%= alert %>
-          <%= notice %>
-        </div>
-        <%= yield %>
+    <main class="container mt-3">
+      <div id="flash-msgs">
+        <% if alert %>
+          <div class="alert alert-warning" role="alert">
+            <%= alert %>
+          </div>
+        <% end %>
+        <% if notice %>
+          <div class="alert alert-info" role="alert">
+            <%= notice %>
+          </div>
+        <% end %>
       </div>
+      <%= yield %>
     </main>
   </body>
 </html>
