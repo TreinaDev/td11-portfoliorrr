@@ -5,6 +5,7 @@ pt-BR:
     attributes:
       job_category:
         name: 'Nome'
+        profile_job_categories: 'Perfis'
 
   job_categories:
     create:

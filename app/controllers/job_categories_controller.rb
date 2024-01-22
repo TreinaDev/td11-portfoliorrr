@@ -20,11 +20,10 @@ class JobCategoriesController < ApplicationController
 
   def destroy
     job_category = JobCategory.find(params[:id])
-    begin
-      job_category.destroy
+    if job_category.destroy
       redirect_to job_categories_path, notice: t('.success')
-    rescue ActiveRecord::InvalidForeignKey
-      redirect_to job_categories_path, alert: t('.error')
+    else
+      redirect_to job_categories_path, alert: job_category.errors.full_messages.first
     end
   end
 

@@ -45,7 +45,7 @@ describe 'Usuário remove categoria de trabalho' do
     visit job_categories_path
     click_on 'Remover'
 
-    expect(page).to have_content('Categoria de Trabalho está em uso e não pode ser removida!')
+    expect(page).to have_content('Não é possível excluir o registro pois existem perfis dependentes')
     expect(page).to have_content('Web Design')
     expect(JobCategory.count).to eq 1
   end
