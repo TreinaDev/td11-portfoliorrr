@@ -14,5 +14,6 @@
     <li>Estado: <%= @profile.user.personal_info.state %></li>
     <li>Telefone: <%= @profile.user.personal_info.phone %></li>
     <li>Data de Nascimento: <%= @profile.user.personal_info&.birth_date&.strftime("%d/%m/%Y") %></li>
+    <li>Visível: <%= t(@profile.user.personal_info.visibility) %></li>
   </ul>
 </div>

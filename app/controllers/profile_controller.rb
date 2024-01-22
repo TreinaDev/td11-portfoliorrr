@@ -14,7 +14,7 @@ class ProfileController < ApplicationController
 
   def profile_params
     personal_info_attributes = %i[street city state
-                                  area phone zip_code
+                                  area phone zip_code visibility
                                   street_number birth_date]
     params.require(:profile).permit :cover_letter, personal_info_attributes:
   end
