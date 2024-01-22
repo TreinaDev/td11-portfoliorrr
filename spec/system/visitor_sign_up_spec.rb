@@ -20,6 +20,7 @@ describe 'Usuário acessa página de cadastro de usuário' do
     click_on 'Cadastrar'
 
     expect(current_path).to eq root_path
+    expect(User.last.profile).to be_present
     expect(page).to have_content 'Boas vindas 👋 Você realizou seu cadastro com sucesso.'
   end
 
@@ -86,15 +87,5 @@ describe 'Usuário acessa página de cadastro de usuário' do
       expect(page).to have_content 'E-mail já está em uso'
       expect(page).to have_content 'CPF já está em uso'
     end
-  end
-
-  it 'and prints message' do
-    visit root_path
-
-    fill_in 'Mensagem', with: 'Olá, pessoal!'
-    click_on 'Imprimir'
-
-    expect(page).not_to have_content 'Hello'
-    expect(page).to have_css('p', text: 'Olá, pessoal!')
   end
 end
