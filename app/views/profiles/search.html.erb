@@ -1,0 +1,11 @@
+<h2>Resultado da Pesquisa</h2>
+
+<% if @users.any? %>
+  <ul>
+    <% @users.each do |user| %>
+      <li><%= user.full_name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Não encontramos nenhum perfil com esse nome</p>
+<% end %>

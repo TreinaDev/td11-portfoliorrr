@@ -3,4 +3,9 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :job_categories, only: %i[index create destroy]
+  resources :profiles, only: [] do
+    get 'search', on: :collection
+  end
+
+  resources :job_categories, only: %i[index create]
 end
