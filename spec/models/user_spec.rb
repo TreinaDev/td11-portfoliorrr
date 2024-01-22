@@ -44,7 +44,6 @@ RSpec.describe User, type: :model do
       result = User.search_by_full_name('abobra')
 
       expect(result.all.count).to eq 0
-      expect(result.first).to eq nil
     end
   end
 
