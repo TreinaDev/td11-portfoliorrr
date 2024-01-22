@@ -1,0 +1,26 @@
+pt-BR:
+  activerecord:
+    models:
+      post: 
+        one: Postagem
+        other: Postagens
+    attributes:
+      post:
+        title: Título da Publicação
+        content: Conteúdo
+  posts:
+    redirect_alert:
+      invalid_user: Você não pode realizar essa ação
+    create:
+      success: Publicação criada com sucesso!
+      error: Não foi possível criar sua publicação
+    update:
+      success: Publicação editada com sucesso!
+      error: A publicação não pôde ser editada
+    views:
+      index:
+        blog_title: "Blog de %{full_name}"
+      show:
+        authored_by: "Criado por %{author_name}"
+        publish_date: "Publicado em: %{publish_date}"
+        last_update: "Última atualização em: %{update_date}"

@@ -24,6 +24,7 @@ Capybara.disable_animation = true
 
 RSpec.configure do |config|
   include Warden::Test::Helpers
+
   config.use_transactional_fixtures = true
 
   config.before(:each, type: :system) do
@@ -38,4 +39,6 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  config.include ActiveSupport::Testing::TimeHelpers
 end

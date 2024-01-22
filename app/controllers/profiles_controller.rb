@@ -1,6 +1,11 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: %w[search]
 
+  def show
+    @profile = Profile.find(params[:id])
+    @user = @profile.user
+  end
+
   def search
     query = params[:query]
 
