@@ -2,4 +2,7 @@ pt-BR:
   sign up: 'Cadastrar'
   log in: 'Entrar'
   log out: 'Sair'
+  login_required: 'Você não está logado'
+  true: 'Sim'
+  false: 'Não'
   

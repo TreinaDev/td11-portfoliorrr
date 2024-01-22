@@ -85,4 +85,13 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#create_profile' do
+    it 'cria um perfil após criação de usuário' do
+      user = User.create(email: 'joaoalmeida@email', citizen_id_number: '38031825068',
+                         password: '123456', full_name: 'João Almeida')
+
+      expect(user.profile).to be_present
+    end
+  end
 end

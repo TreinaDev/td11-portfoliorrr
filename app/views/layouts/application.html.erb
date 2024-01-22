@@ -14,16 +14,19 @@
     <header class="container mt-3">
       <%= render 'shared/navbar' %>
     </header>
-    <main class="container">
-      <div class="flash-messages">
-        <p style="color: red">
-          <%= flash[:alert] %>
-        </p>
-        <p style="color: green">
+    <div class="container mt-3">
+      <% if alert %>
+        <div class="alert alert-warning" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+      <% if notice %>
+        <div class="alert alert-info" role="alert">
           <%= notice %>
-        </p>
-      </div>
+        </div>
+      <% end %>
       <%= yield %>
     </main>
   </body>
+
 </html>

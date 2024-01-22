@@ -1,0 +1,19 @@
+<%= link_to 'Editar Informações Pessoais', edit_user_profile_path %>
+
+<div>
+  <h2><%= @profile.user.full_name %></h2>
+  <p>Email: <%= @profile.user.email %></p>
+  <p>Carta de Apresentação: <%= @profile.cover_letter %></p>
+
+  <h3>Informações Pessoais</h3>
+  <ul>
+    <li>Endereço: <%= @profile.user.personal_info.street %></li>
+    <li>Área: <%= @profile.user.personal_info.area %></li>
+    <li>CEP: <%= @profile.user.personal_info.zip_code %></li>
+    <li>Cidade: <%= @profile.user.personal_info.city %></li>
+    <li>Estado: <%= @profile.user.personal_info.state %></li>
+    <li>Telefone: <%= @profile.user.personal_info.phone %></li>
+    <li>Data de Nascimento: <%= @profile.user.personal_info&.birth_date&.strftime("%d/%m/%Y") %></li>
+    <li>Visível: <%= t(@profile.user.personal_info.visibility) %></li>
+  </ul>
+</div>

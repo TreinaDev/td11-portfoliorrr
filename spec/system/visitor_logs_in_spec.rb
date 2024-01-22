@@ -24,6 +24,18 @@ describe 'Usuário acessa a página de login' do
     end
   end
 
+  it 'e realiza o log out com sucesso' do
+    user = create(:user)
+
+    login_as user
+
+    visit root_path
+    click_on 'Sair'
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Logout efetuado com sucesso'
+  end
+
   context 'e falha' do
     it 'e-mail e senha não conferem' do
       visit root_path
