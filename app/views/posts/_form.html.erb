@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_with model: [@user, @post], class: 'mt-3' do |f| %>
+  <%= form_with model: @post, class: 'mt-3' do |f| %>
     <div class="form-group">
       <%= f.label :title, 'Título da Publicação' %>
       <%= f.text_field :title, class: 'form-control' %>

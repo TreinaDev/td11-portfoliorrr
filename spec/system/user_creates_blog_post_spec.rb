@@ -2,8 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário cria uma postagem no blog' do
   it 'apenas quando autenticado' do
-    user = create(:user)
-    visit new_user_post_path(user)
+    visit new_post_path
 
     expect(current_path).to eq new_user_session_path
   end
@@ -17,6 +16,7 @@ describe 'Usuário cria uma postagem no blog' do
     within 'nav' do
       click_on 'Criar Nova Publicação'
     end
+    save_page
 
     fill_in 'Título da Publicação', with: 'Olá Mundo!'
     fill_in 'Conteúdo', with: 'Primeira publicação'
@@ -33,23 +33,11 @@ describe 'Usuário cria uma postagem no blog' do
     expect(page).to have_content 'Publicado em: 01/09/1910'
   end
 
-  it 'apenas no perfil da sua conta, e é redirecionado caso contrário' do
-    user1 = create(:user, email: 'user1@email.com')
-    user2 = create(:user, email: 'user2@email.com', citizen_id_number: '294.444.580-40')
-
-    login_as user2
-
-    visit new_user_post_path(user1)
-
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não pode realizar essa ação'
-  end
-
   it 'apenas se fornecer um título e conteúdo ao post' do
     user = create(:user)
 
     login_as user
-    visit new_user_post_path(user)
+    visit new_post_path(user)
 
     fill_in 'Título da Publicação', with: ''
     fill_in 'Conteúdo', with: ''
