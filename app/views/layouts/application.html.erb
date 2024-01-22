@@ -14,12 +14,19 @@
     <header>
       <%= render 'shared/navbar' %>
     </header>
-    <div class="container">
-      <div>
-        <%= alert %>
-        <%= notice %>
-      </div>
+    <div class="container mt-3">
+      <% if alert %>
+        <div class="alert alert-warning" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+      <% if notice %>
+        <div class="alert alert-info" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
       <%= yield %>
     </div>
   </body>
+
 </html>
