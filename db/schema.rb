@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_18_140014) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_22_134436) do
   create_table "job_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -25,6 +25,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_140014) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "profile_job_categories", force: :cascade do |t|
+    t.integer "profile_id", null: false
+    t.integer "job_category_id", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_category_id"], name: "index_profile_job_categories_on_job_category_id"
+    t.index ["profile_id"], name: "index_profile_job_categories_on_profile_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -44,13 +54,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_140014) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
-    t.string "citizen_id_number"
     t.integer "role", default: 0
+    t.string "citizen_id_number"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "posts", "users"
+  add_foreign_key "profile_job_categories", "job_categories"
+  add_foreign_key "profile_job_categories", "profiles"
   add_foreign_key "profiles", "users"
 end

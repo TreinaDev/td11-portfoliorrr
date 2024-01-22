@@ -51,7 +51,7 @@ describe 'Usuário cria categoria de trabalho' do
     visit job_categories_path
     click_on 'Criar'
 
-    expect(page).to have_content('Não foi possível cadastrar Categoria de Trabalho.')
+    expect(page).to have_content('Não foi possível cadastrar Categoria de Trabalho!')
     expect(page).to have_content('Nome não pode ficar em branco')
   end
 end
