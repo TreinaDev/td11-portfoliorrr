@@ -18,19 +18,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_134436) do
     t.index ["name"], name: "index_job_categories_on_name", unique: true
   end
 
-  create_table "personal_infos", force: :cascade do |t|
-    t.integer "profile_id", null: false
-    t.string "street"
-    t.string "area"
-    t.string "city"
-    t.string "state"
-    t.string "phone"
-    t.boolean "visibility"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_personal_infos_on_profile_id"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title"
@@ -67,14 +54,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_134436) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
-    t.string "citizen_id_number"
     t.integer "role", default: 0
+    t.string "citizen_id_number"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "profile_job_categories", "job_categories"
   add_foreign_key "profile_job_categories", "profiles"
