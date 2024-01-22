@@ -4,10 +4,9 @@ describe 'Usuário visualiza suas informações pessoais' do
   context 'quando logado' do
     it 'a partir da home' do
       user = create(:user, full_name: 'João Almeida', email: 'joaoalmeida@email.com')
-      profile = create(:profile, user:)
-      create(:personal_info, profile:, street: 'Avenida Campus Code', area: 'TreinaDev',
-                             city: 'São Paulo', state: 'SP', zip_code: '34123069',
-                             phone: '11 4002 8922', birth_date: '1980-12-25')
+      user.profile.personal_info.update(street: 'Avenida Campus Code', area: 'TreinaDev',
+                                        city: 'São Paulo', state: 'SP', zip_code: '34123069',
+                                        phone: '11 4002 8922', birth_date: '1980-12-25')
 
       login_as user
       visit root_path
