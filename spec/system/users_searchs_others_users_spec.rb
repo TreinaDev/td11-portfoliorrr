@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário busca outros usuários' do
-  it 'apenas se autenticado' do
+  it 'só pode ver página de resultados se estiver logado' do
     visit search_profiles_path
 
     expect(current_path).to eq new_user_session_path
