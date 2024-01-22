@@ -5,3 +5,12 @@ pt-BR:
     attributes:
       job_category:
         name: 'Nome'
+        profile_job_categories: 'Perfis'
+
+  job_categories:
+    create:
+      success: 'Categoria de Trabalho criada com sucesso!'
+      error: 'Não foi possível cadastrar Categoria de Trabalho!'
+    destroy:
+      success: 'Categoria de Trabalho removida com sucesso!'
+      error: 'Categoria de Trabalho está em uso e não pode ser removida!'

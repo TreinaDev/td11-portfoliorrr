@@ -1,7 +1,12 @@
 pt-BR:
   activerecord:
     models:
-      profile: 'Perfil'
+      profile:
+        one: Perfil
+        other: Perfis
     attributes:
       profile:
-        cover_letter: 'Resumo Pessoal'
+        cover_letter: Resumo Profissional
+  profiles:
+    search:
+      error: 'Você precisa informar um nome para fazer a pesquisa'

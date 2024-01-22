@@ -18,7 +18,7 @@ describe 'Usuário edita informações pessoais' do
 
       visit edit_user_profile_path
 
-      fill_in 'Resumo Pessoal', with: 'Eu estou tentando ser um dev melhor...'
+      fill_in 'Resumo Profissional', with: 'Eu estou tentando ser um dev melhor...'
 
       fill_in 'Rua', with: 'Avenida Campus Code'
       fill_in 'Número', with: '1230'

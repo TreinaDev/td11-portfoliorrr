@@ -23,11 +23,18 @@
           <li class="nav-item">
             <%= link_to 'Entrar', new_user_session_path, class: 'nav-link', 'data-turbo': 'false' %>
           </li>
-          <li class="nav-item">
-            <%= link_to 'Cadastrar Usuário', new_user_registration_path, class: 'nav-link', 'data-turbo': 'false' %>
-          </li>
         <% end %>
       </ul>
     </div>
   </div>
 </nav>
+
+<% if user_signed_in? %>
+  <%= form_with url: search_profiles_path, method: :get do |form| %>
+    <p>
+      <%= form.label :query, "Busca de Perfis" %>
+      <%= form.search_field :query, placeholder: 'Digite o nome' %>
+      <%= form.submit "Pesquisar" %>
+    </p>
+  <% end %>
+<% end %>

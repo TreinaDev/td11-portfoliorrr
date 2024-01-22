@@ -4,7 +4,8 @@ describe 'Usuário acessa página de cadastro de usuário' do
   it 'a partir da home' do
     visit root_path
 
-    click_on 'Cadastrar Usuário'
+    click_on 'Entrar'
+    click_on 'Cadastrar'
 
     expect(current_path).to eq new_user_registration_path
   end
