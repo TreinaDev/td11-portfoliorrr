@@ -1,5 +1,6 @@
 class FollowersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_profile, only: %i[following index]
 
   def create
     followed_profile = Profile.find params[:profile_id]
@@ -8,6 +9,14 @@ class FollowersController < ApplicationController
     return unless new_follow.save
 
     redirect_to profile_path(followed_profile), notice: "Agora você está seguindo #{followed_profile.user.full_name}"
+  end
+
+  def following
+    @followed_profiles = @profile.followed_profiles.active.where(follower: @profile)
+  end
+
+  def index
+    @follower_profiles = @profile.followers.active.where(followed_profile: @profile)
   end
 
   def update
@@ -20,5 +29,11 @@ class FollowersController < ApplicationController
       follow_relationship.active!
       redirect_to profile_path(followed_profile), notice: "Agora você está seguindo #{followed_profile.user.full_name}"
     end
+  end
+
+  private
+
+  def set_profile
+    @profile = Profile.find params[:profile_id]
   end
 end

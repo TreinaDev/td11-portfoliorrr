@@ -1,0 +1,7 @@
+<h1>Usuários Seguidos por <%= @profile.user.full_name %></h1>
+
+<ul>
+  <% @followed_profiles.each do |followed| %>
+    <%= link_to followed.followed_profile.user.full_name, followed.followed_profile %>
+  <% end %>
+</ul>

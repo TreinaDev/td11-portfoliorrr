@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     resources :posts, shallow: true, only: %i[index show edit update]
     resources :profiles, shallow: true, only: %i[show] do
-      resources :followers, only: %i[create update]
+      resources :followers, only: %i[create index update] do
+      end
+      get 'following', controller: 'followers'
     end
   end
 

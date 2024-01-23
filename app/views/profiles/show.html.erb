@@ -11,3 +11,17 @@
 <% elsif current_user.blank? || current_user.profile != @profile  %>
   <%= button_to 'Seguir', profile_followers_path(@profile) %>
 <% end %>
+
+<aside class="d-flex gap-4">
+  <div class="text-center d-flex flex-column" id="followers-count">
+    <%= link_to profile_followers_path(@profile) do %>
+      <p><%= "#{@followers_count} Seguidores" %></p>
+    <% end %>
+  </div>
+
+  <div class="text-center d-flex flex-column" id="following-count">
+    <%= link_to profile_following_path(@profile) do %>
+      <p><%= "#{@followed_count} Seguindo" %> </p>
+    <% end %>
+  </div>
+</aside>
