@@ -10,27 +10,27 @@ describe 'Usuário cria uma postagem no blog' do
   it 'com sucesso' do
     user = create(:user, full_name: 'Seiya de Pégaso')
 
-    login_as user
-    visit root_path
+    travel_to 1.day.ago do
+      login_as user
+      visit root_path
 
-    within 'nav' do
-      click_on 'Criar Nova Publicação'
-    end
-    save_page
+      within 'nav' do
+        click_on 'Criar Nova Publicação'
+      end
 
-    fill_in 'Título da Publicação', with: 'Olá Mundo!'
-    fill_in 'Conteúdo', with: 'Primeira publicação'
+      fill_in 'Título da Publicação', with: 'Olá Mundo!'
+      fill_in 'Conteúdo', with: 'Primeira publicação'
 
-    travel_to Time.zone.local(1910, 9, 1, 0, 0, 0) do
       click_on 'Salvar'
     end
 
-    expect(Post.count).to eq 1
-    expect(current_path).to eq post_path(Post.first)
+    posts = Post.all
+    expect(posts.count).to eq 1
+    expect(current_path).to eq post_path(posts.first)
     expect(page).to have_content 'Olá Mundo!'
     expect(page).to have_content 'Primeira publicação'
     expect(page).to have_content 'Criado por Seiya de Pégaso'
-    expect(page).to have_content 'Publicado em: 01/09/1910'
+    expect(page).to have_content "Publicado em: #{1.day.ago.strftime('%d/%m/%Y')}"
   end
 
   it 'apenas se fornecer um título e conteúdo ao post' do
@@ -48,5 +48,16 @@ describe 'Usuário cria uma postagem no blog' do
     expect(page).to have_content 'Não foi possível criar sua publicação'
     expect(page).to have_content 'Título da Publicação não pode ficar em branco'
     expect(page).to have_content 'Conteúdo não pode ficar em branco'
+  end
+
+  it 'e vê tempo corrido desde a publicação' do
+    post = create(:post)
+
+    travel_to 1.minute.from_now do
+      login_as(post.user)
+      visit post_path(post)
+
+      expect(page).to have_content '59 s'
+    end
   end
 end

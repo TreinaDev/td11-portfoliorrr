@@ -26,7 +26,7 @@ class User < ApplicationRecord
     if admin?
       "#{full_name.split(' ').first} (Admin)"
     else
-      "#{full_name.split(' ').first}"
+      full_name.split(' ').first.to_s
     end
   end
 

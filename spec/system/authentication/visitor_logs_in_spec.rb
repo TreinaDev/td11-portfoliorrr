@@ -18,7 +18,7 @@ describe 'Usuário faz login' do
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Login efetuado com sucesso'
-      
+
       within 'nav' do
         expect(page).not_to have_link 'Entrar'
         expect(page).not_to have_link 'Cadastrar Usuário'
@@ -28,7 +28,7 @@ describe 'Usuário faz login' do
 
     it 'como administrador' do
       admin = create(:user, :admin, full_name: 'João')
-            
+
       login_as admin
       visit root_path
 
