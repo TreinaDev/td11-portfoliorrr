@@ -28,7 +28,7 @@ describe 'Usuário edita informações pessoais' do
       fill_in 'CEP', with: '34123069'
       fill_in 'Telefone', with: '11 4002 8922'
       fill_in 'Data de Nascimento', with: '1980-12-25'
-      check 'Visível'
+      check 'Visível', id: 'profile_personal_info_attributes_visibility'
 
       click_on 'Salvar'
 

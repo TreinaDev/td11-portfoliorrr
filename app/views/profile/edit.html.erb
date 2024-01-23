@@ -1,4 +1,4 @@
-
+<h2>Informações Pessoais</h2>
 <%= form_with model: @profile, url: user_profile_path, method: :patch do |form| %>
   <%= form.fields_for :personal_info do |personal_info| %>
     <p>
@@ -37,11 +37,37 @@
       <%= personal_info.label :visibility %>
       <%= personal_info.check_box :visibility %>
     </p>
+  
+    <p>
+      <%= form.label :cover_letter %>
+      <%= form.text_area :cover_letter %>
+    </p>
   <% end %>
-
-  <%= form.label :cover_letter %>
-  <%= form.text_area :cover_letter %>
-
+  
+<h2>Experiência Profissional</h2>
+  <%= form.fields_for :professional_infos do |professional_info| %>
+    
+    <p>
+      <%= professional_info.label :company %>
+      <%= professional_info.text_field :company %>
+    </p>
+    <p>
+      <%= professional_info.label :position %>
+      <%= professional_info.text_field :position %>
+    </p>
+    <p>
+      <%= professional_info.label :start_date %>
+      <%= professional_info.date_field :start_date %>
+    </p>
+    <p>
+      <%= professional_info.label :end_date %>
+      <%= professional_info.date_field :end_date %>
+    </p>
+    <p>
+      <%= professional_info.label :visibility %>
+      <%= professional_info.check_box :visibility %>
+    </p>
+  <% end %>
 
   <%= form.submit 'Salvar' %>
 <% end %>

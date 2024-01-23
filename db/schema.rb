@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_22_134436) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_23_134901) do
   create_table "job_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -41,6 +41,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_134436) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "professional_infos", force: :cascade do |t|
+    t.string "company"
+    t.string "position"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "visibility"
+    t.index ["profile_id"], name: "index_professional_infos_on_profile_id"
   end
 
   create_table "profile_job_categories", force: :cascade do |t|
@@ -79,6 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_134436) do
 
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
+  add_foreign_key "professional_infos", "profiles"
   add_foreign_key "profile_job_categories", "job_categories"
   add_foreign_key "profile_job_categories", "profiles"
   add_foreign_key "profiles", "users"

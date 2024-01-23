@@ -1,0 +1,15 @@
+pt-BR:
+  activerecord:
+    models:
+      professional_info:
+        one: 'Experiência Profissional'
+        other: 'Experiências Profissionais'
+    attributes:
+      professional_info:
+        company: 'Empresa'
+        position: 'Cargo'
+        state: 'Estado'
+        start_date: 'Entrada'
+        end_date: 'Término'
+        visibility: 'Visível'
+        

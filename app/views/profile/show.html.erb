@@ -8,12 +8,24 @@
   <h3>Informações Pessoais</h3>
   <ul>
     <li>Endereço: <%= @profile.user.personal_info.street %></li>
-    <li>Área: <%= @profile.user.personal_info.area %></li>
+    <li>Bairro: <%= @profile.user.personal_info.area %></li>
     <li>CEP: <%= @profile.user.personal_info.zip_code %></li>
     <li>Cidade: <%= @profile.user.personal_info.city %></li>
     <li>Estado: <%= @profile.user.personal_info.state %></li>
     <li>Telefone: <%= @profile.user.personal_info.phone %></li>
-    <li>Data de Nascimento: <%= @profile.user.personal_info&.birth_date&.strftime("%d/%m/%Y") %></li>
+    <li>Data de Nascimento: <%= l @profile.user.personal_info&.birth_date if @profile.user.personal_info&.birth_date %></li>
     <li>Visível: <%= t(@profile.user.personal_info.visibility) %></li>
   </ul>
+  
+  <h3>Experiência Profissional</h3>
+    <% @profile.professional_infos.each do |professional_info| %>
+      <ul>
+        <li>Empresa: <%= professional_info.company %></li>
+        <li>Cargo: <%= professional_info.position %></li>
+        <li>Entrada: <%= l professional_info.start_date if professional_info.start_date%></li>
+        <li>Saída: <%= l professional_info.end_date if professional_info.end_date %></li>
+
+        <li>Visível: <%= t(professional_info.visibility) %></li>
+      </ul>
+    <% end %>
 </div>
