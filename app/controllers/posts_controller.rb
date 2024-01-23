@@ -23,6 +23,8 @@ class PostsController < ApplicationController
 
   def show
     @comment = Comment.new
+    @likes_count = @post.likes.count
+    @liked = Like.find_by(user: current_user, post: @post)
   end
 
   def edit

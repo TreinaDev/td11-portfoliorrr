@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_one :personal_info, through: :profile
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   enum role: { user: 0, admin: 10 }
 

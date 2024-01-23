@@ -27,6 +27,20 @@
     <p><%= @post.content %></p>
   </div>
 
+  <div>
+    <p><%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %></p>
+  </div>
+  
+  <% if @liked %>
+    <div>
+      <%= button_to 'Descurtir', like_path(@liked), method: :delete %>
+    </div>
+  <% else %>
+    <div>
+      <%= button_to 'Curtir', likes_path(post_id: @post.id), method: :post %>
+    </div>
+  <% end %>
+
   <% if user_signed_in? %>
     <div>
       <%= form_with model: [@post, @comment] , method: :post do |form| %>
