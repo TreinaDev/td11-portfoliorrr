@@ -69,5 +69,30 @@
     </p>
   <% end %>
 
+  <h2>Formação Acadêmica</h2>
+  <%= form.fields_for :education_infos do |education_info| %>
+    
+    <p>
+      <%= education_info.label :institution %>
+      <%= education_info.text_field :institution %>
+    </p>
+    <p>
+      <%= education_info.label :course %>
+      <%= education_info.text_field :course %>
+    </p>
+    <p>
+      <%= education_info.label :start_date %>
+      <%= education_info.date_field :start_date %>
+    </p>
+    <p>
+      <%= education_info.label :end_date %>
+      <%= education_info.date_field :end_date %>
+    </p>
+    <p>
+      <%= education_info.label :visibility %>
+      <%= education_info.check_box :visibility %>
+    </p>
+  <% end %>
+
   <%= form.submit 'Salvar' %>
 <% end %>

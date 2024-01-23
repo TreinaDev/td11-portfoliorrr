@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_23_134901) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_23_201722) do
+  create_table "education_infos", force: :cascade do |t|
+    t.string "institution"
+    t.string "course"
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "visibility", default: true
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_education_infos_on_profile_id"
+  end
+
   create_table "job_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -89,6 +101,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_134901) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "education_infos", "profiles"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "professional_infos", "profiles"

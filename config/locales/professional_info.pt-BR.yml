@@ -10,6 +10,6 @@ pt-BR:
         position: 'Cargo'
         state: 'Estado'
         start_date: 'Entrada'
-        end_date: 'Término'
+        end_date: 'Saída'
         visibility: 'Visível'
         

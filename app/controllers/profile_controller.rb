@@ -4,6 +4,7 @@ class ProfileController < ApplicationController
 
   def edit
     @profile.professional_infos.build if @profile.professional_infos.empty?
+    @profile.education_infos.build if @profile.education_infos.empty?
   end
 
   def update
@@ -20,8 +21,11 @@ class ProfileController < ApplicationController
                                   street_number birth_date]
     professional_infos_attributes = %i[id company position
                                        start_date end_date visibility]
+    education_infos_attributes = %i[id institution course start_date end_date visibility]
+
     params.require(:profile).permit :cover_letter, personal_info_attributes:,
-                                                   professional_infos_attributes:
+                                                   professional_infos_attributes:,
+                                                   education_infos_attributes:
   end
 
   def set_profile
