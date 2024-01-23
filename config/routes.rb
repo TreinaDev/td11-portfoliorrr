@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
   
-  resources :posts, only: %i[new create]
+  resources :posts, only: %i[new create] do
+    resources :comments, only: %i[create]
+  end
 
   resources :users, only: [] do
     resources :posts, shallow: true, only: %i[index show edit update]

@@ -21,7 +21,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @comment = Comment.new
+  end
 
   def edit
     redirect_to root_path, notice: t('.redirect_alert.invalid_user') if @post.user != current_user
