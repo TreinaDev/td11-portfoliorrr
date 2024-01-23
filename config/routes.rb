@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :profiles, only: [] do
     get 'search', on: :collection
   end
-  
+
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]
   end
@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   end
 
   resources :job_categories, only: %i[index create]
-  resource :profile, only: %i[edit update show], controller: :profile, as: :user_profile
+  resource :profile, only: %i[edit update show], controller: :profile, as: :user_profile 
+
+  resources :likes, only: %i[create destroy]
 end

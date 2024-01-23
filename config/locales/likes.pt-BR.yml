@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      like: 
+        one: Curtida
+        other: Curtidas
+  likes:
+    create:    
+      success: Você curtiu esta publicação
