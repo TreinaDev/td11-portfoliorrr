@@ -28,6 +28,20 @@
           </li>
         <% end %>
       </ul>
+    </div>
+  </div>
+</nav>
+# Path: app/views/shared/_navbar.html.erb
+# Compare this snippet from spec/system/personal_info/user_edits_personal_info_spec.rb:
+# require 'rails_helper'
+# 
+# describe 'Usuário edita informações pessoais' do
+#
+  <div class="container-fluid">
+    <%= link_to 'Portfoliorrr', root_path, class: 'navbar-brand' %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
       <% if user_signed_in? %>
       <%= form_with url: search_profiles_path, method: :get do |form| %>
         <p>
