@@ -6,9 +6,11 @@ class FollowersController < ApplicationController
     followed_profile = Profile.find params[:profile_id]
     new_follow = followed_profile.followers.build(follower: current_user.profile)
 
-    return unless new_follow.save
-
-    redirect_to profile_path(followed_profile), notice: "Agora você está seguindo #{followed_profile.user.full_name}"
+    if new_follow.save
+      redirect_to profile_path(followed_profile), notice: t('.success', full_name: followed_profile.full_name)
+    else
+      redirect_to profile_path(followed_profile), alert: t('.error')
+    end
   end
 
   def following
@@ -24,10 +26,10 @@ class FollowersController < ApplicationController
     followed_profile = follow_relationship.followed_profile
     if follow_relationship.active?
       follow_relationship.inactive!
-      redirect_to profile_path(followed_profile), notice: "Você deixou de seguir #{followed_profile.user.full_name}"
+      redirect_to profile_path(followed_profile), notice: t('.inactivate', full_name: followed_profile.full_name)
     else
       follow_relationship.active!
-      redirect_to profile_path(followed_profile), notice: "Agora você está seguindo #{followed_profile.user.full_name}"
+      redirect_to profile_path(followed_profile), notice: t('.activate', full_name: followed_profile.full_name)
     end
   end
 

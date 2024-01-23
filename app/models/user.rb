@@ -17,6 +17,8 @@ class User < ApplicationRecord
 
   after_create :'create_profile!'
 
+  delegate :find_followed_profile, to: :profile
+
   def self.search_by_full_name(query)
     where('full_name LIKE ?',
           "%#{sanitize_sql_like(query)}%")

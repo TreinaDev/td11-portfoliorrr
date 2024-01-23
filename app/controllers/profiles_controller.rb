@@ -4,8 +4,8 @@ class ProfilesController < ApplicationController
   def show
     @profile = Profile.find(params[:id])
     @user = @profile.user
-    @followers_count = @profile.followers.active.where(followed_profile: @profile).count
-    @followed_count = @profile.followed_profiles.active.where(follower: @profile).count
+    @followers_count = @profile.followers_count
+    @followed_count = @profile.followed_count
   end
 
   def search

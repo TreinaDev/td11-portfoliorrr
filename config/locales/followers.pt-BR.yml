@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      follower: 
+        one: Seguidor
+        other: Seguidores
+    attributes:
+      follower:
+        follower_id:
+          one: Seguidor
+          other: Seguidores
+        followed_profile_id: Seguindo
+  followers:
+    create:
+      success: "Agora você está seguindo %{full_name}"
+      error: "Você já está seguindo este usuário"
+    update:
+      activate: "Agora você está seguindo %{full_name}"
+      inactivate: "Você deixou de seguir %{full_name}"
