@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_22_134436) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_23_124857) do
+  create_table "followers", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_profile_id", null: false
+    t.integer "status", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_profile_id", "follower_id"], name: "index_followers_on_followed_profile_id_and_follower_id", unique: true
+    t.index ["followed_profile_id"], name: "index_followers_on_followed_profile_id"
+    t.index ["follower_id"], name: "index_followers_on_follower_id"
+  end
+
   create_table "job_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -70,13 +81,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_134436) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
-    t.string "citizen_id_number"
     t.integer "role", default: 0
+    t.string "citizen_id_number"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "followers", "profiles", column: "followed_profile_id"
+  add_foreign_key "followers", "profiles", column: "follower_id"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "profile_job_categories", "job_categories"

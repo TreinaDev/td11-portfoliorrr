@@ -1,1 +1,13 @@
 <%= link_to "Publicações", user_posts_path(@user) %>
+
+<% if user_signed_in? && current_user.profile != @profile %>
+  <% if @profile.followers.active.where(follower: current_user.profile).any? %>
+    <%= button_to 'Deixar de Seguir', follower_path(current_user.profile.followed_profiles.find_by(followed_profile: @profile)), method: :patch %>
+  <% elsif @profile.followers.inactive.where(follower: current_user.profile).any? %>
+    <%= button_to 'Seguir', follower_path(current_user.profile.followed_profiles.find_by(followed_profile: @profile)), method: :patch %>
+  <% else %>
+    <%= button_to 'Seguir', profile_followers_path(@profile) %>
+  <% end %>
+<% elsif current_user.blank? || current_user.profile != @profile  %>
+  <%= button_to 'Seguir', profile_followers_path(@profile) %>
+<% end %>
