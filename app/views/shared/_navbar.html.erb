@@ -1,24 +1,34 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
+    
     <%= link_to 'Portfoliorrr', root_path, class: 'navbar-brand' %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <% if user_signed_in? %>
+      <div class="nav-item">
+        <%= form_with url: search_profiles_path, method: :get do |form| %>
+          <div class="input-group">
+            <%= form.search_field :query, placeholder: 'Buscar Perfil', class: 'form-control' %>
+            <%= form.submit "Pesquisar", class: 'btn btn-outline-secondary' %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto">
         <% if user_signed_in? %>
           <% if current_user.admin? %>
             <li class="nav-item">
               <%= link_to 'Categorias de trabalho', job_categories_path, class: 'nav-link' %>
             </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to 'Meu Perfil', user_profile_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Criar Nova Publicação', new_post_path, class: 'nav-link' %>
-            </li>
           <% end %>
+          <li class="nav-item">
+            <%= link_to "#{current_user.description}", user_profile_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Criar Nova Publicação', new_post_path, class: 'nav-link' %>
+          </li>
           <li class="nav-item">
             <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
           </li>
@@ -28,29 +38,6 @@
           </li>
         <% end %>
       </ul>
-    </div>
-  </div>
-</nav>
-# Path: app/views/shared/_navbar.html.erb
-# Compare this snippet from spec/system/personal_info/user_edits_personal_info_spec.rb:
-# require 'rails_helper'
-# 
-# describe 'Usuário edita informações pessoais' do
-#
-  <div class="container-fluid">
-    <%= link_to 'Portfoliorrr', root_path, class: 'navbar-brand' %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-      <% if user_signed_in? %>
-      <%= form_with url: search_profiles_path, method: :get do |form| %>
-        <p>
-          <%= form.label :query, "Busca de Perfis" %>
-          <%= form.search_field :query, placeholder: 'Digite o nome' %>
-          <%= form.submit "Pesquisar" %>
-        </p>
-      <% end %>
-    <% end %>
     </div>
   </div>
 </nav>
