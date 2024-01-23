@@ -26,4 +26,20 @@
   <div class="post-content">
     <p><%= @post.content %></p>
   </div>
+
+  <% if user_signed_in? %>
+    <div>
+      <%= form_with model: [@post, @comment] , method: :post do |form| %>
+        <%= form.text_area :message, placeholder: "Mensagem" %>
+        <%= form.submit "Comentar" %> 
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <% @post.comments.each do |comment| %>
+        <p><%= comment.message %></p>
+    <% end %>
+  </div>
+
 </div>
