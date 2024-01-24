@@ -9,9 +9,9 @@ class ProfileController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      redirect_to user_profile_path, notice: 'Experiência profissional atualizada com sucesso'
+      redirect_to user_profile_path, notice: t('.success')
     else
-      flash.now[:alert] = 'Não foi possível atualizar a experiência profissional'
+      flash.now[:alert] = t('.error')
       render :edit, status: :unprocessable_entity
     end
   end
@@ -36,5 +36,6 @@ class ProfileController < ApplicationController
 
   def set_profile
     @profile = current_user.profile
+    @professional_infos = @profile.professional_infos.order(start_date: :desc)
   end
 end

@@ -1,26 +1,21 @@
 require 'rails_helper'
 
-describe 'Usuário edita informações profissionais' do
+describe 'Usuário adiciona informações profissionais' do
   context 'quando logado' do
     it 'com sucesso' do
       user = create(:user)
-      create(:professional_info, profile: user.profile)
 
       login_as user
 
       visit user_profile_path
 
-      click_on 'Editar Experiência Profissional'
-
-      expect(page).to have_content 'Experiência Profissional'
+      click_on 'Adicionar Experiência Profissional'
 
       fill_in 'Empresa', with: 'Rebase'
       fill_in 'Cargo', with: 'Desenvolvedor Python'
       fill_in 'Data de Entrada', with: '2017-12-25'
       fill_in 'Data de Saída', with: '2022-12-31'
       fill_in 'Descrição', with: 'Trabalhava muito'
-
-      expect(page).to have_unchecked_field 'Vínculo Atual'
 
       check 'Visível'
 
@@ -38,11 +33,10 @@ describe 'Usuário edita informações profissionais' do
 
     it 'e os campos "Empresa", "Cargo" e "Data de Entrada" são obrigatórios' do
       user = create(:user)
-      professional_info = create(:professional_info, profile: user.profile)
 
       login_as user
 
-      visit edit_professional_info_path(professional_info)
+      visit new_user_profile_professional_info_path
 
       fill_in 'Empresa', with: ''
       fill_in 'Cargo', with: ''
@@ -52,31 +46,12 @@ describe 'Usuário edita informações profissionais' do
 
       click_on 'Salvar'
 
-      expect(current_path).to eq edit_professional_info_path(professional_info)
+      expect(current_path).to eq new_user_profile_professional_info_path
 
-      expect(page).to have_content 'Não foi possível atualizar experiência profissional'
+      expect(page).to have_content 'Não foi possível cadastrar experiência profissional'
       expect(page).to have_content 'Empresa não pode ficar em branco'
       expect(page).to have_content 'Cargo não pode ficar em branco'
       expect(page).to have_content 'Data de Entrada não pode ficar em branco'
-    end
-
-    it 'e atualiza somente alguns campos com sucesso' do
-      user = create(:user)
-      professional_info = create(:professional_info, profile: user.profile)
-
-      login_as user
-
-      visit edit_professional_info_path(professional_info)
-
-      fill_in 'Empresa', with: 'Vindi'
-
-      click_on 'Salvar'
-
-      expect(page).to have_content 'Vindi'
-      expect(page).to have_content user.profile.professional_infos.first.position
-      expect(page).to have_content '23/01/2022'
-      expect(page).to have_content '23/01/2024'
-      expect(page).to have_content 'Visível: Sim'
     end
   end
 end

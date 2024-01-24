@@ -40,31 +40,37 @@
   </ul>
   
   <h3><%= ProfessionalInfo.model_name.human %></h3>
-    <% @profile.professional_infos.each do |professional_info| %>
-      <ul>
-        <li>
-          <%= ProfessionalInfo.human_attribute_name(:current_job) %>: <%= t(professional_info.current_job) %>
-        </li>
-        <li>
-          <%= ProfessionalInfo.human_attribute_name(:company) %>: <%= professional_info.company %>
-        </li>
-        <li>
-          <%= ProfessionalInfo.human_attribute_name(:position) %>: <%= professional_info.position %>
-        </li>
-        <li>
-          <%= ProfessionalInfo.human_attribute_name(:description) %>: <%= professional_info.description %>
-        </li>
-        <li>
-          <%= ProfessionalInfo.human_attribute_name(:start_date) %>: <%= l professional_info.start_date if professional_info.start_date%>
-        </li>
-        <li>
-          <%= ProfessionalInfo.human_attribute_name(:end_date) %>: <%= l professional_info.end_date if professional_info.end_date %>
-        </li>
-        <li>
-          <%= ProfessionalInfo.human_attribute_name(:visibility) %>: <%= t(professional_info.visibility) %>
-        </li>
-      </ul>
-    <% end %>
+  <p>
+    <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path %>
+  </p>
+  <% @professional_infos.each do |professional_info| %>
+    <h4>
+      <%= ProfessionalInfo.human_attribute_name(:company) %>: <%= professional_info.company %>
+    </h4>
+    <ul>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:current_job) %>: <%= t(professional_info.current_job) %>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:position) %>: <%= professional_info.position %>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:description) %>: <%= professional_info.description %>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:start_date) %>: <%= l professional_info.start_date if professional_info.start_date%>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:end_date) %>: <%= l professional_info.end_date if professional_info.end_date %>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:visibility) %>: <%= t(professional_info.visibility) %>
+      </li>
+    </ul>
+    <p>
+      <%= link_to 'Editar Experiência Profissional', edit_professional_info_path(professional_info) %>
+    </p>
+  <% end %>
 
   <h3><%= EducationInfo.model_name.human %></h3>
     <% @profile.education_infos.each do |education_info| %>

@@ -10,3 +10,7 @@ pt-BR:
   profiles:
     search:
       error: 'Você precisa informar um nome para fazer a pesquisa'
+  profile:
+    update:
+      success: 'Experiência profissional atualizada com sucesso'
+      error: 'Não foi possível atualizar a experiência profissional'

@@ -14,3 +14,10 @@ pt-BR:
         visibility: 'Visível'
         description: 'Descrição'
         current_job: 'Vínculo Atual'
+  professional_infos:
+    create:
+      success: 'Experiência profissional cadastrada com sucesso'
+      error: 'Não foi possível cadastrar experiência profissional'
+    update:
+      success: 'Experiência profissional atualizada com sucesso'
+      error: 'Não foi possível atualizar experiência profissional'
