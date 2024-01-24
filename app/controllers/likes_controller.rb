@@ -2,31 +2,38 @@ class LikesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    if params[:post_id]
-      likeable = Post.find(params[:post_id])
-      post_id = likeable
-    elsif params[:comment_id]
-      likeable = Comment.find(params[:comment_id])
-      post_id = likeable.post
-    end
+    likeable, post_id = find_likeable_and_post_id
+    return unless likeable
 
-    like = current_user.likes.build(likeable: likeable)
-    if like.save
-      redirect_to post_path(post_id), notice:'Curtiu'
-    end  
+    like = current_user.likes.build(likeable:)
+    return unless like.save
+
+    redirect_to post_path(post_id), notice: t('.success')
   end
 
   def destroy
-    if params[:post_id]
-      like = Like.find(params[:post_id])
-      post_id = params[:post_id]
-    elsif params[:comment_id]
-      like = Like.find(params[:comment_id])
+    if params[:post_like_id]
+      like = Like.find(params[:post_like_id])
+      post_id = like.likeable
+    elsif params[:comment_like_id]
+      like = Like.find(params[:comment_like_id])
       post_id = like.likeable.post
     end
 
     like.destroy
 
     redirect_to post_path(post_id)
+  end
+
+  private
+
+  def find_likeable_and_post_id
+    if params[:post_id]
+      likeable = Post.find(params[:post_id])
+      [likeable, likeable.id]
+    elsif params[:comment_id]
+      likeable = Comment.find(params[:comment_id])
+      [likeable, likeable.post_id]
+    end
   end
 end

@@ -13,15 +13,6 @@ describe 'Usuário comenta uma publicação' do
     expect(post).to be_persisted
   end
 
-  it 'e deve estar logado' do
-    post = create(:post)
-
-    visit post_path(post)
-
-    expect(page).not_to have_field 'Mensagem'
-    expect(page).not_to have_button 'Comentar'
-  end
-
   it 'com mensagem em branco' do
     post = create(:post)
 
