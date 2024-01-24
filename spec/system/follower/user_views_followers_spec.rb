@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário vê lista de usuários seguidos' do
+describe 'Qualquer visitante vê lista de usuários seguidos' do
   context 'de outro usuário' do
     it 'a partir do perfil' do
       first_followed = create(:user)
@@ -15,7 +15,6 @@ describe 'Usuário vê lista de usuários seguidos' do
       Connection.create!(follower: follower.profile, followed_profile: second_followed.profile, status: 'active')
       Connection.create!(follower: follower.profile, followed_profile: third_followed.profile, status: 'active')
 
-      login_as first_followed
       visit profile_path(follower.profile)
       click_on '2 Seguindo'
 
@@ -28,7 +27,7 @@ describe 'Usuário vê lista de usuários seguidos' do
   end
 end
 
-describe 'Usuário vê lista de seguidores' do
+describe 'Qualquer visitante vê lista de seguidores' do
   context 'de outro usuário' do
     it 'a partir do perfil' do
       first_follower = create(:user)
@@ -42,7 +41,6 @@ describe 'Usuário vê lista de seguidores' do
       Connection.create!(follower: second_follower.profile, followed_profile: followed.profile, status: 'active')
       Connection.create!(follower: third_follower.profile, followed_profile: followed.profile, status: 'active')
 
-      login_as first_follower
       visit profile_path(followed.profile)
       click_on '2 Seguidores'
 

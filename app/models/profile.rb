@@ -16,10 +16,6 @@ class Profile < ApplicationRecord
 
   delegate :full_name, to: :user
 
-  def find_followed_profile(followed_profile)
-    followed_profiles.find_by(followed_profile:)
-  end
-
   def followers_count
     followers.active.count
   end

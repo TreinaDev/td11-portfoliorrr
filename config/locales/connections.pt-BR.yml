@@ -14,6 +14,9 @@ pt-BR:
     create:
       success: "Agora você está seguindo %{full_name}"
       error: "Você já está seguindo este usuário"
-    update:
-      activate: "Agora você está seguindo %{full_name}"
-      inactivate: "Você deixou de seguir %{full_name}"
+    follow_again:
+      success: "Agora você está seguindo %{full_name}"
+      error: "Você já está seguindo este usuário"
+    unfollow:
+      success: "Você deixou de seguir %{full_name}"
+      error: "Você ainda não segue este usuário"

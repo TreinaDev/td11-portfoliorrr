@@ -21,14 +21,14 @@
         <div class="w-75">
           <% if user_signed_in? && current_user.profile != @profile %>
             <% if @profile.following?(current_user.profile) %>
-              <%= button_to 'Deixar de Seguir', connection_path(current_user.find_followed_profile(@profile)), method: :patch, class: 'btn btn-danger w-100' %>
+              <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-100' %>
             <% elsif @profile.inactive_follower?(current_user.profile) %>
-              <%= button_to 'Seguir', connection_path(current_user.find_followed_profile(@profile)), method: :patch, class: 'btn btn-primary w-100' %>
+              <%= button_to 'Seguir', connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-100' %>
             <% else %>
-              <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
+              <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-100' %>
             <% end %>
           <% elsif current_user.blank? || current_user.profile != @profile  %>
-            <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
+            <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-100' %>
           <% end %>
         </div>
       </div>

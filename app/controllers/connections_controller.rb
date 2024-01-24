@@ -1,6 +1,7 @@
 class ConnectionsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[create unfollow follow_again]
   before_action :set_profile, only: %i[following index]
+  before_action :set_connection_and_profile, only: %i[unfollow follow_again]
 
   def create
     followed_profile = Profile.find params[:profile_id]
@@ -21,19 +22,30 @@ class ConnectionsController < ApplicationController
     @follower_profiles = @profile.followers.active
   end
 
-  def update
-    connection = Connection.find params[:id]
-    followed_profile = connection.followed_profile
-    if connection.active?
-      connection.inactive!
-      redirect_to profile_path(followed_profile), notice: t('.inactivate', full_name: followed_profile.full_name)
+  def unfollow
+    if @connection.active?
+      @connection.inactive!
+      redirect_to profile_path(@followed_profile), notice: t('.success', full_name: @followed_profile.full_name)
     else
-      connection.active!
-      redirect_to profile_path(followed_profile), notice: t('.activate', full_name: followed_profile.full_name)
+      redirect_to profile_path(@followed_profile), notice: t('.error')
+    end
+  end
+
+  def follow_again
+    if @connection.inactive?
+      @connection.active!
+      redirect_to profile_path(@followed_profile), notice: t('.success', full_name: @followed_profile.full_name)
+    else
+      redirect_to profile_path(@followed_profile), notice: t('.error')
     end
   end
 
   private
+
+  def set_connection_and_profile
+    @connection = Connection.find params[:connection_id]
+    @followed_profile = @connection.followed_profile
+  end
 
   def set_profile
     @profile = Profile.find params[:profile_id]
