@@ -1,66 +1,63 @@
-<div class="container mt-4">
-  <h2 class="mb-3"><%= @post.title %></h2>
+<h2 class="mb-3"><%= @post.title %></h2>
 
-  <div id="post-data" class="mb-4">
-    <% if current_user == @post.user %>
-      <div class="mb-2">
-        <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
-      </div>
-    <% end %>
+<div id="post-data" class="mb-4">
+  <% if current_user == @post.user %>
+    <div class="mb-2">
+      <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 
-    <p class="text-muted">
-      <%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %>
-    </p>
-    <p class="text-muted">
-      <time datetime="<%= @post.created_at.to_date %>">
-        <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %>
-      </time>
-    </p>
-    <p class="text-muted">
-      <time datetime="<%= @post.updated_at.to_date %>">
-        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.updated_at.to_date)) %>
-      </time>
-    </p>
-  </div>
+  <p class="text-muted">
+    <%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %>
+  </p>
 
-  <div class="post-content">
-    <p><%= @post.content %></p>
-  </div>
+  <p class="text-muted">
+    <time datetime="<%= @post.created_at.to_date %>">
+      <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %>
+    </time>
+  </p>
+  
+  <p class="text-muted">
+    <time datetime="<%= @post.updated_at.to_date %>">
+      <%= t('posts.views.show.last_update', update_date: I18n.l(@post.updated_at.to_date)) %>
+    </time>
+  </p>
+</div>
 
+<div class="post-content">
+  <p><%= @post.content %></p>
+</div>
+
+<div>
+  <p><%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %></p>
+</div>
+
+<% if @liked %>
   <div>
-    <p><%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %></p>
+    <%= button_to 'Descurtir', like_path(post_like_id: @liked), method: :delete %>
   </div>
-  
-  <% if @liked %>
-    <div>
-      <%= button_to 'Descurtir', like_path(post_id: @liked), method: :delete %>
-    </div>
-  <% else %>
-    <div>
-      <%= button_to 'Curtir', likes_path(post_id: @post), method: :post %>
-    </div>
-  <% end %>
-  
-  <% if user_signed_in? %>
-    <div>
-      <%= form_with model: [@post, @comment] , method: :post do |form| %>
-        <%= form.text_area :message, placeholder: "Mensagem" %>
-        <%= form.submit "Comentar" %> 
-      <% end %>
-    </div>
-  <% end %>
+<% else %>
+  <div>
+    <%= button_to 'Curtir', likes_path(post_id: @post), method: :post %>
+  </div>
+<% end %>
 
-  <div id="comments">
-    <% @post.comments.each do |comment| %>
-      <p><%= comment.message %></p>
-      <%= comment.likes.count %> Curtida
-      <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
-        <% like = comment.likes.find_by(user_id: current_user.id) %>
-        <%= button_to 'Descurtir', like_path(comment_id: like.id), method: :delete %>
-      <% else %>
-        <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post %>
-      <% end %>
+<div>
+  <%= form_with model: [@post, @comment] , method: :post do |form| %>
+    <%= form.text_area :message, placeholder: "Mensagem" %>
+    <%= form.submit "Comentar" %> 
+  <% end %>
+</div>
+
+<div id="comments">
+  <% @post.comments.each do |comment| %>
+    <p><%= comment.message %></p>
+    <%= comment.likes.count %> Curtida
+    <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+      <% like = comment.likes.find_by(user_id: current_user.id) %>
+      <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete %>
+    <% else %>
+      <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post %>
     <% end %>
-  </div>
-
+  <% end %>
 </div>

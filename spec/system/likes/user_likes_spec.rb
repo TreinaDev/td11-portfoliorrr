@@ -43,29 +43,25 @@ describe 'Usuário curte' do
 
       expect(page).to have_content('Curtiu')
       expect(page).to have_content('1 Curtida')
-      within '#comments' do 
+      within '#comments' do
         expect(page).not_to have_content('Curtir')
       end
       expect(page).to have_content('Descurtir')
     end
 
     it 'e deixa de curtir' do
-      like = create(:like, :for_comment)      
+      like = create(:like, :for_comment)
 
       login_as like.user
       visit post_path(like.likeable.post)
       within '#comments' do
-      click_on 'Descurtir'
-      save_page
-        
-        expect(page).to have_content '0 Curtida'      
+        click_on 'Descurtir'
+        save_page
+
+        expect(page).to have_content '0 Curtida'
         expect(page).to have_content 'Curtir'
-      end      
+      end
       expect(Like.count).to eq 0
     end
-  end
-
-  it 'e deve estar logado' do
-    
   end
 end
