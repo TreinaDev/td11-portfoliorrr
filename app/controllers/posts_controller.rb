@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   def show
     @comment = Comment.new
     @likes_count = @post.likes.count
-    @liked = Like.find_by(user: current_user, post: @post)
+    @liked = Like.find_by(user: current_user, likeable: @post)
   end
 
   def edit
