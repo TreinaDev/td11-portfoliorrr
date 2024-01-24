@@ -9,16 +9,16 @@ describe 'Usuário vê perfil de outro usuário' do
                                    citizen_id_number: '60599066059')
     followed = create(:user, full_name: 'Rosemilson Barbosa', email: 'rosemilson@email.com',
                              citizen_id_number: '03971055095')
-    Follower.create!(follower: first_follower.profile, followed_profile: followed.profile, status: 'inactive')
-    Follower.create!(follower: second_follower.profile, followed_profile: followed.profile,
-                     status: 'active')
-    Follower.create!(follower: third_follower.profile, followed_profile: followed.profile,
-                     status: 'active')
+    Connection.create!(follower: first_follower.profile, followed_profile: followed.profile, status: 'inactive')
+    Connection.create!(follower: second_follower.profile, followed_profile: followed.profile,
+                       status: 'active')
+    Connection.create!(follower: third_follower.profile, followed_profile: followed.profile,
+                       status: 'active')
 
     visit profile_path(followed.profile)
 
     within '#followers-count' do
-      expect(page).to have_link '2 Seguidores', href: profile_followers_path(followed.profile)
+      expect(page).to have_link '2 Seguidores', href: profile_connections_path(followed.profile)
     end
   end
 
@@ -31,9 +31,9 @@ describe 'Usuário vê perfil de outro usuário' do
     follower = create(:user, full_name: 'Rosemilson Barbosa', email: 'rosemilson@email.com',
                              citizen_id_number: '03971055095')
 
-    Follower.create!(follower: follower.profile, followed_profile: first_followed.profile, status: 'inactive')
-    Follower.create!(follower: follower.profile, followed_profile: second_followed.profile, status: 'active')
-    Follower.create!(follower: follower.profile, followed_profile: third_followed.profile, status: 'active')
+    Connection.create!(follower: follower.profile, followed_profile: first_followed.profile, status: 'inactive')
+    Connection.create!(follower: follower.profile, followed_profile: second_followed.profile, status: 'active')
+    Connection.create!(follower: follower.profile, followed_profile: third_followed.profile, status: 'active')
 
     visit profile_path(follower.profile)
 

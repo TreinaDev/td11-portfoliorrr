@@ -18,11 +18,11 @@ JobCategory.create(name: 'Ruby on Rails')
 
 ProfileJobCategory.create(profile: User.last.profile, job_category: JobCategory.last)
 
-Follower.create(follower: joao.profile, followed_profile: andre.profile)
-Follower.create(follower: gabriel.profile, followed_profile: andre.profile)
+Connection.create(follower: joao.profile, followed_profile: andre.profile)
+Connection.create(follower: gabriel.profile, followed_profile: andre.profile)
 
-Follower.create(follower: andre.profile, followed_profile: joao.profile)
-Follower.create(follower: gabriel.profile, followed_profile: joao.profile)
+Connection.create(follower: andre.profile, followed_profile: joao.profile)
+Connection.create(follower: gabriel.profile, followed_profile: joao.profile)
 
-Follower.create(follower: andre.profile, followed_profile: gabriel.profile)
-Follower.create(follower: joao.profile, followed_profile: gabriel.profile)
+Connection.create(follower: andre.profile, followed_profile: gabriel.profile)
+Connection.create(follower: joao.profile, followed_profile: gabriel.profile)

@@ -2,10 +2,14 @@ class Profile < ApplicationRecord
   belongs_to :user
   has_one :personal_info, dependent: :destroy
 
-  has_many :followers, foreign_key: :followed_profile_id, dependent: :destroy,
-                       inverse_of: :followed_profile
-  has_many :followed_profiles, foreign_key: :follower_id, class_name: 'Follower',
-                               dependent: :destroy, inverse_of: :follower
+  has_many :followers, class_name: 'Connection', foreign_key: :followed_profile_id, dependent: :destroy,
+                       inverse_of: :follower
+
+  has_many :followed_profiles, class_name: 'Connection', foreign_key: :follower_id,
+                               dependent: :destroy, inverse_of: :followed_profile
+
+  has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
+
   accepts_nested_attributes_for :personal_info
 
   after_create :create_personal_info!
@@ -17,11 +21,11 @@ class Profile < ApplicationRecord
   end
 
   def followers_count
-    followers.active.where(followed_profile: self).count
+    followers.active.count
   end
 
   def followed_count
-    followed_profiles.active.where(follower: self).count
+    followed_profiles.active.count
   end
 
   def following?(profile)

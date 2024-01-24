@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_23_124857) do
-  create_table "followers", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
+  create_table "connections", force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_profile_id", null: false
     t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["followed_profile_id", "follower_id"], name: "index_followers_on_followed_profile_id_and_follower_id", unique: true
-    t.index ["followed_profile_id"], name: "index_followers_on_followed_profile_id"
-    t.index ["follower_id"], name: "index_followers_on_follower_id"
+    t.index ["followed_profile_id", "follower_id"], name: "index_connections_on_followed_profile_id_and_follower_id", unique: true
+    t.index ["followed_profile_id"], name: "index_connections_on_followed_profile_id"
+    t.index ["follower_id"], name: "index_connections_on_follower_id"
   end
 
   create_table "job_categories", force: :cascade do |t|
@@ -88,8 +88,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_124857) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "followers", "profiles", column: "followed_profile_id"
-  add_foreign_key "followers", "profiles", column: "follower_id"
+  add_foreign_key "connections", "profiles", column: "followed_profile_id"
+  add_foreign_key "connections", "profiles", column: "follower_id"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "profile_job_categories", "job_categories"

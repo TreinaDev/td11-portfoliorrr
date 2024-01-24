@@ -1,16 +1,16 @@
 pt-BR:
   activerecord:
     models:
-      follower: 
-        one: Seguidor
-        other: Seguidores
+      connection: 
+        one: Conexão
+        other: Conexões
     attributes:
-      follower:
+      connection:
         follower_id:
           one: Seguidor
           other: Seguidores
         followed_profile_id: Seguindo
-  followers:
+  connections:
     create:
       success: "Agora você está seguindo %{full_name}"
       error: "Você já está seguindo este usuário"

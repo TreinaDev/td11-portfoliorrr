@@ -1,4 +1,4 @@
-class Follower < ApplicationRecord
+class Connection < ApplicationRecord
   belongs_to :follower, class_name: 'Profile'
   belongs_to :followed_profile, class_name: 'Profile'
 

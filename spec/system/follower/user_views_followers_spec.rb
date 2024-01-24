@@ -11,9 +11,9 @@ describe 'Usuário vê lista de usuários seguidos' do
       follower = create(:user, full_name: 'Rosemilson Barbosa', email: 'rosemilson@email.com',
                                citizen_id_number: '03971055095')
 
-      Follower.create!(follower: follower.profile, followed_profile: first_followed.profile, status: 'inactive')
-      Follower.create!(follower: follower.profile, followed_profile: second_followed.profile, status: 'active')
-      Follower.create!(follower: follower.profile, followed_profile: third_followed.profile, status: 'active')
+      Connection.create!(follower: follower.profile, followed_profile: first_followed.profile, status: 'inactive')
+      Connection.create!(follower: follower.profile, followed_profile: second_followed.profile, status: 'active')
+      Connection.create!(follower: follower.profile, followed_profile: third_followed.profile, status: 'active')
 
       login_as first_followed
       visit profile_path(follower.profile)
@@ -38,15 +38,15 @@ describe 'Usuário vê lista de seguidores' do
                                      citizen_id_number: '60599066059')
       followed = create(:user, full_name: 'Rosemilson Barbosa', email: 'rosemilson@email.com',
                                citizen_id_number: '03971055095')
-      Follower.create!(follower: first_follower.profile, followed_profile: followed.profile, status: 'inactive')
-      Follower.create!(follower: second_follower.profile, followed_profile: followed.profile, status: 'active')
-      Follower.create!(follower: third_follower.profile, followed_profile: followed.profile, status: 'active')
+      Connection.create!(follower: first_follower.profile, followed_profile: followed.profile, status: 'inactive')
+      Connection.create!(follower: second_follower.profile, followed_profile: followed.profile, status: 'active')
+      Connection.create!(follower: third_follower.profile, followed_profile: followed.profile, status: 'active')
 
       login_as first_follower
       visit profile_path(followed.profile)
       click_on '2 Seguidores'
 
-      expect(current_path).to eq profile_followers_path(followed.profile)
+      expect(current_path).to eq profile_connections_path(followed.profile)
       expect(page).to have_content "Usuários que seguem #{followed.full_name}"
       expect(page).not_to have_link first_follower.full_name
       expect(page).to have_link third_follower.full_name, href: profile_path(third_follower.profile)

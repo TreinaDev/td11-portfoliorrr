@@ -10,7 +10,7 @@ describe 'Usuário segue outro usuário' do
     visit profile_path(followed)
     click_on 'Seguir'
 
-    expect(Follower.count).to eq 1
+    expect(Connection.count).to eq 1
     expect(current_path).to eq profile_path(followed)
     expect(page).to have_content('Agora você está seguindo Eliseu Ramos')
     expect(page).not_to have_button('Seguir', exact: true)
@@ -31,13 +31,13 @@ describe 'Usuário segue outro usuário' do
     followed = create(:user, full_name: 'Eliseu Ramos')
     follower = create(:user, full_name: 'Gabriel Manika', email: 'emailaleatorio@email.com',
                              citizen_id_number: '24432047070')
-    Follower.create!(followed_profile: followed.profile, follower: follower.profile, status: 'inactive')
+    Connection.create!(followed_profile: followed.profile, follower: follower.profile, status: 'inactive')
 
     login_as follower
     visit profile_path(followed.profile)
     click_on 'Seguir'
 
-    follower_relationship = Follower.last
+    follower_relationship = Connection.last
     expect(current_path).to eq profile_path(followed.profile)
     expect(follower_relationship).to be_active
     expect(page).to have_content('Agora você está seguindo Eliseu Ramos')
@@ -63,7 +63,7 @@ describe 'Usuário segue outro usuário' do
 
     login_as follower
     visit profile_path(followed.profile)
-    Follower.create(follower: follower.profile, followed_profile: followed.profile)
+    Connection.create(follower: follower.profile, followed_profile: followed.profile)
     click_on 'Seguir'
 
     expect(page).to have_content 'Você já está seguindo este usuário'
@@ -77,13 +77,13 @@ describe 'Usuário deixa de seguir outro usuário' do
     followed = create(:user, full_name: 'Eliseu Ramos')
     follower = create(:user, full_name: 'Gabriel Manika', email: 'emailaleatorio@email.com',
                              citizen_id_number: '24432047070')
-    Follower.create!(followed_profile: followed.profile, follower: follower.profile)
+    Connection.create!(followed_profile: followed.profile, follower: follower.profile)
 
     login_as follower
     visit profile_path(followed.profile)
     click_on 'Deixar de Seguir'
 
-    follower_relationship = Follower.last
+    follower_relationship = Connection.last
     expect(current_path).to eq profile_path(followed.profile)
     expect(follower_relationship).to be_inactive
     expect(page).to have_content("Você deixou de seguir #{followed.full_name}")

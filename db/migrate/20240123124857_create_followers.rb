@@ -1,4 +1,4 @@
-class CreateFollowers < ActiveRecord::Migration[7.1]
+class CreateConnections < ActiveRecord::Migration[7.1]
   def change
     create_table :followers do |t|
       t.references :follower, null: false, index: true, foreign_key: { to_table: :profiles }
