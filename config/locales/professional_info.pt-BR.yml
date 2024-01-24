@@ -9,7 +9,8 @@ pt-BR:
         company: 'Empresa'
         position: 'Cargo'
         state: 'Estado'
-        start_date: 'Entrada'
-        end_date: 'Saída'
+        start_date: 'Data de Entrada'
+        end_date: 'Data de Saída'
         visibility: 'Visível'
-        
+        description: 'Descrição'
+        current_job: 'Vínculo Atual'

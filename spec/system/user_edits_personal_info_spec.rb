@@ -13,8 +13,16 @@ describe 'Usuário edita informações pessoais' do
     end
 
     it 'com sucesso' do
-      personal_info = create(:personal_info)
-      login_as personal_info.profile.user
+      user = create(:user)
+
+      user.personal_info.profile.professional_infos.create(
+        company: 'Campus Code',
+        position: 'Dev',
+        start_date: '2012-12-12',
+        end_date: '2013-12-12'
+      )
+
+      login_as user
 
       visit edit_user_profile_path
 
@@ -25,7 +33,7 @@ describe 'Usuário edita informações pessoais' do
       fill_in 'Bairro', with: 'TreinaDev'
       fill_in 'Cidade', with: 'São Paulo'
       fill_in 'Estado', with: 'SP'
-      fill_in 'CEP', with: '34123069'
+      fill_in 'CEP', with: '08720234'
       fill_in 'Telefone', with: '11 4002 8922'
       fill_in 'Data de Nascimento', with: '1980-12-25'
       check 'Visível', id: 'profile_personal_info_attributes_visibility'
@@ -39,7 +47,7 @@ describe 'Usuário edita informações pessoais' do
       expect(page).to have_content 'TreinaDev'
       expect(page).to have_content 'São Paulo'
       expect(page).to have_content 'SP'
-      expect(page).to have_content '34123069'
+      expect(page).to have_content '08720234'
       expect(page).to have_content '11 4002 8922'
       expect(page).to have_content '25/12/1980'
       expect(page).to have_content 'Visível: Sim'

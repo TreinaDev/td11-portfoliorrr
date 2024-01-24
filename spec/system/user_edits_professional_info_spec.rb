@@ -12,21 +12,27 @@ describe 'Usuário edita informações profissionais' do
 
       fill_in 'Empresa', with: 'Campus Code'
       fill_in 'Cargo', with: 'Desenvolvedor Ruby On Rails'
-      fill_in 'Entrada', with: '2012-12-25'
-      fill_in 'Saída', with: '2015-12-31'
+      fill_in 'Data de Entrada', with: '2012-12-25'
+      fill_in 'Data de Saída', with: '2015-12-31'
+      fill_in 'Descrição', with: 'Fazia muito código'
+
+      expect(page).to have_unchecked_field 'Vínculo Atual'
+
       check 'Visível', id: 'profile_professional_infos_attributes_0_visibility'
 
       click_on 'Salvar'
 
       expect(current_path).to eq user_profile_path
       expect(page).to have_content 'Campus Code'
+      expect(page).to have_content 'Vínculo Atual: Não'
       expect(page).to have_content 'Desenvolvedor Ruby On Rails'
+      expect(page).to have_content 'Fazia muito código'
       expect(page).to have_content '25/12/2012'
       expect(page).to have_content '31/12/2015'
       expect(page).to have_content 'Visível: Sim'
     end
 
-    it 'e campos vazios são permitidos' do
+    it 'e os campos "Empresa", "Cargo" e "Data de Entrada" são obrigatórios' do
       personal_info = create(:personal_info)
       login_as personal_info.profile.user
 
@@ -36,13 +42,18 @@ describe 'Usuário edita informações profissionais' do
 
       fill_in 'Empresa', with: ''
       fill_in 'Cargo', with: ''
-      fill_in 'Entrada', with: ''
-      fill_in 'Saída', with: ''
+      fill_in 'Data de Entrada', with: ''
+      fill_in 'Data de Saída', with: ''
       check 'Visível', id: 'profile_professional_infos_attributes_0_visibility'
 
       click_on 'Salvar'
 
-      expect(current_path).to eq user_profile_path
+      expect(current_path).to eq edit_user_profile_path
+
+      expect(page).to have_content 'Não foi possível atualizar a experiência profissional'
+      expect(page).to have_content 'Empresa não pode ficar em branco'
+      expect(page).to have_content 'Cargo não pode ficar em branco'
+      expect(page).to have_content 'Data de Entrada não pode ficar em branco'
     end
 
     it 'e atualiza somente alguns campos com sucesso' do

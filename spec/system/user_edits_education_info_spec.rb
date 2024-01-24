@@ -3,8 +3,18 @@ require 'rails_helper'
 describe 'Usuário edita informações sobre sua formação' do
   context 'quando logado' do
     it 'com sucesso' do
-      personal_info = create(:personal_info)
-      login_as personal_info.profile.user
+      user = create(:user)
+
+      personal_info = create(:personal_info, profile: user.profile)
+
+      personal_info.profile.professional_infos.create(
+        company: 'Campus Code',
+        position: 'Dev',
+        start_date: '2012-12-12',
+        end_date: '2013-12-12'
+      )
+
+      login_as user
 
       visit edit_user_profile_path
 
@@ -27,8 +37,18 @@ describe 'Usuário edita informações sobre sua formação' do
     end
 
     it 'e campos vazios são permitidos' do
-      personal_info = create(:personal_info)
-      login_as personal_info.profile.user
+      user = create(:user)
+
+      personal_info = create(:personal_info, profile: user.profile)
+
+      personal_info.profile.professional_infos.create(
+        company: 'Campus Code',
+        position: 'Dev',
+        start_date: '2012-12-12',
+        end_date: '2013-12-12'
+      )
+
+      login_as user
 
       visit edit_user_profile_path
 
@@ -48,7 +68,14 @@ describe 'Usuário edita informações sobre sua formação' do
     it 'e atualiza somente alguns campos com sucesso' do
       user = create(:user)
 
-      user.profile.personal_info = create(:personal_info, profile: user.profile)
+      personal_info = create(:personal_info, profile: user.profile)
+
+      personal_info.profile.professional_infos.create(
+        company: 'Campus Code',
+        position: 'Dev',
+        start_date: '2012-12-12',
+        end_date: '2013-12-12'
+      )
 
       user.profile.education_infos.create(
         institution: 'UFJF',

@@ -11,6 +11,9 @@
       <%= PersonalInfo.human_attribute_name(:street) %>: <%= @profile.user.personal_info.street %>
     </li>
     <li>
+      <%= PersonalInfo.human_attribute_name(:street_number) %>: <%= @profile.user.personal_info.street_number %>
+    </li>
+    <li>
       <%= PersonalInfo.human_attribute_name(:area) %>: <%= @profile.user.personal_info.area %>
     </li>
     <li>
@@ -29,6 +32,9 @@
       <%= PersonalInfo.human_attribute_name(:birth_date) %>: <%= l @profile.user.personal_info&.birth_date if @profile.user.personal_info&.birth_date %>
     </li>
     <li>
+      <%= Profile.human_attribute_name(:cover_letter) %>: <%= @profile.cover_letter %>
+    </li>
+    <li>
       <%= PersonalInfo.human_attribute_name(:visibility) %>: <%= t(@profile.user.personal_info.visibility) %>
     </li>
   </ul>
@@ -37,10 +43,16 @@
     <% @profile.professional_infos.each do |professional_info| %>
       <ul>
         <li>
+          <%= ProfessionalInfo.human_attribute_name(:current_job) %>: <%= t(professional_info.current_job) %>
+        </li>
+        <li>
           <%= ProfessionalInfo.human_attribute_name(:company) %>: <%= professional_info.company %>
         </li>
         <li>
           <%= ProfessionalInfo.human_attribute_name(:position) %>: <%= professional_info.position %>
+        </li>
+        <li>
+          <%= ProfessionalInfo.human_attribute_name(:description) %>: <%= professional_info.description %>
         </li>
         <li>
           <%= ProfessionalInfo.human_attribute_name(:start_date) %>: <%= l professional_info.start_date if professional_info.start_date%>
@@ -49,7 +61,7 @@
           <%= ProfessionalInfo.human_attribute_name(:end_date) %>: <%= l professional_info.end_date if professional_info.end_date %>
         </li>
         <li>
-          Visível: <%= t(professional_info.visibility) %>
+          <%= ProfessionalInfo.human_attribute_name(:visibility) %>: <%= t(professional_info.visibility) %>
         </li>
       </ul>
     <% end %>
@@ -70,7 +82,7 @@
           <%= EducationInfo.human_attribute_name(:end_date) %>: <%= l education_info.end_date if education_info.end_date %>
         </li>
         <li>
-          Visível: <%= t(education_info.visibility) %>
+        <%= EducationInfo.human_attribute_name(:visibility) %>: <%= t(education_info.visibility) %>
         </li>
       </ul>
     <% end %>

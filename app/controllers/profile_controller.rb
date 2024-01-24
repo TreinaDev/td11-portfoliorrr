@@ -8,7 +8,12 @@ class ProfileController < ApplicationController
   end
 
   def update
-    redirect_to user_profile_path if @profile.update(profile_params)
+    if @profile.update(profile_params)
+      redirect_to user_profile_path, notice: 'Experiência profissional atualizada com sucesso'
+    else
+      flash.now[:alert] = 'Não foi possível atualizar a experiência profissional'
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def show; end
@@ -20,7 +25,8 @@ class ProfileController < ApplicationController
                                   area phone zip_code visibility
                                   street_number birth_date]
     professional_infos_attributes = %i[id company position
-                                       start_date end_date visibility]
+                                       start_date end_date visibility
+                                       current_job description]
     education_infos_attributes = %i[id institution course start_date end_date visibility]
 
     params.require(:profile).permit :cover_letter, personal_info_attributes:,

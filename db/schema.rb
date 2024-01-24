@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_23_201722) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_24_140211) do
   create_table "education_infos", force: :cascade do |t|
     t.string "institution"
     t.string "course"
@@ -64,6 +64,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_201722) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "visibility"
+    t.text "description"
+    t.boolean "current_job"
     t.index ["profile_id"], name: "index_professional_infos_on_profile_id"
   end
 

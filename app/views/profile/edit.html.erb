@@ -37,23 +37,39 @@
       <%= personal_info.label :visibility %>
       <%= personal_info.check_box :visibility %>
     </p>
-  
-    <p>
-      <%= form.label :cover_letter %>
-      <%= form.text_area :cover_letter %>
-    </p>
   <% end %>
+
+  <p>
+    <%= form.label :cover_letter %>
+    <%= form.text_area :cover_letter %>
+  </p>
   
 <h2>Experiência Profissional</h2>
+  <% if @profile.professional_infos.first.errors.any? %>
+    <p>Verifique o(s) erro(s) abaixo:</p>
+      <ul> 
+        <% @profile.professional_infos.first.errors.full_messages.each do |msg| %>
+        <li><%= msg %> </li>
+        <% end %>
+      </ul>
+    <% end %>
+
   <%= form.fields_for :professional_infos do |professional_info| %>
-    
     <p>
       <%= professional_info.label :company %>
       <%= professional_info.text_field :company %>
     </p>
     <p>
+      <%= professional_info.label :current_job %>
+      <%= professional_info.check_box :current_job %>
+    </p>
+    <p>
       <%= professional_info.label :position %>
       <%= professional_info.text_field :position %>
+    </p>
+    <p>
+      <%= professional_info.label :description %>
+      <%= professional_info.text_area :description %>
     </p>
     <p>
       <%= professional_info.label :start_date %>
