@@ -50,14 +50,38 @@ describe 'Usuário cria uma postagem no blog' do
     expect(page).to have_content 'Conteúdo não pode ficar em branco'
   end
 
-  it 'e vê tempo corrido desde a publicação' do
-    post = create(:post)
+  context 'e vê tempo corrido desde a publicação' do
+    it 'menos de um minuto' do
+      post = create(:post)
 
-    travel_to 1.minute.from_now do
-      login_as(post.user)
-      visit post_path(post)
+      travel_to 30.seconds.from_now do
+        login_as(post.user)
+        visit post_path(post)
 
-      expect(page).to have_content '59 s'
+        expect(page).to have_content 'menos de um minuto'
+      end
+    end
+
+    it 'alguns minutos' do
+      post = create(:post)
+
+      travel_to 2.minutes.from_now do
+        login_as(post.user)
+        visit post_path(post)
+
+        expect(page).to have_content '2 minutos'
+      end
+    end
+
+    it 'alguns minutos' do
+      post = create(:post)
+
+      travel_to 2.hours.from_now do
+        login_as(post.user)
+        visit post_path(post)
+
+        expect(page).to have_content '2 horas'
+      end
     end
   end
 end

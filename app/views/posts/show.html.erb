@@ -14,7 +14,7 @@
     <p class="text-muted">
       <time datetime="<%= @post.created_at.to_date %>">
         <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %> -
-        <%= time_since(@post.created_at) %>
+        <%= distance_of_time_in_words(Time.now, @post.created_at) %>
       </time>
     </p>
     <p class="text-muted">
