@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <header class="container mt-3">
+    <header>
       <%= render 'shared/navbar' %>
     </header>
     <main class="container mt-3">
@@ -22,7 +22,7 @@
           </div>
         <% end %>
         <% if notice %>
-          <div class="alert alert-info" role="alert">
+          <div class="alert alert-primary" role="alert">
             <%= notice %>
           </div>
         <% end %>
