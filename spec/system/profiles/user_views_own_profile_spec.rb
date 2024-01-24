@@ -10,7 +10,7 @@ describe 'Usuário visualiza suas informações pessoais' do
 
       login_as user
       visit root_path
-      click_on 'Meu Perfil'
+      click_on 'João'
 
       expect(current_path).to eq user_profile_path
       expect(page).to have_content 'Avenida Campus Code'

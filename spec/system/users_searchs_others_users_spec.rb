@@ -21,7 +21,7 @@ describe 'Usuário busca outros usuários' do
 
     login_as user
     visit root_path
-    fill_in 'Busca de Perfis', with: 'gErAl'
+    fill_in 'Buscar Perfil', with: 'gErAl'
     click_on 'Pesquisar'
 
     expect(current_path).to eq search_profiles_path
@@ -38,7 +38,7 @@ describe 'Usuário busca outros usuários' do
 
     login_as user
     visit root_path
-    fill_in 'Busca de Perfis', with: 'Dorotéia'
+    fill_in 'Buscar Perfil', with: 'Dorotéia'
     click_on 'Pesquisar'
 
     expect(page).to have_content 'Não encontramos nenhum perfil com esse nome'
@@ -49,7 +49,7 @@ describe 'Usuário busca outros usuários' do
 
     login_as user
     visit root_path
-    fill_in 'Busca de Perfis', with: ''
+    fill_in 'Buscar Perfil', with: ''
     click_on 'Pesquisar'
 
     expect(current_path).to eq root_path
