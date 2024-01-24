@@ -6,4 +6,4 @@ pt-BR:
         other: Curtidas
   likes:
     create:    
-      success: Você curtiu esta publicação
+      success: Curtiu
