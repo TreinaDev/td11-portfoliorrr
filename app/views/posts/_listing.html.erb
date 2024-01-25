@@ -1,0 +1,11 @@
+<% posts.each do |post| %>
+  <div>
+    <%= link_to post, class:"text-decoration-none" do %>
+      <div class="bg-dark-subtle my-5 p-3 rounded-4 feed-post text-dark text-center">
+        <h3><%= post.title %></h3>
+        <p>Publicado por: <%= post.user.full_name %></p>
+        <p><%= I18n.l(post.created_at) %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>

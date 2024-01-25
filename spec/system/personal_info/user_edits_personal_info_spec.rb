@@ -4,10 +4,11 @@ describe 'Usuário edita informações pessoais' do
   context 'quando logado' do
     it 'a partir da home' do
       personal_info = create(:personal_info)
+      user_name = personal_info.profile.user.description
 
       login_as personal_info.profile.user
       visit root_path
-      click_on 'Meu Perfil'
+      click_on user_name
       click_on 'Editar Informações Pessoais'
       expect(current_path).to eq edit_user_profile_path
     end
