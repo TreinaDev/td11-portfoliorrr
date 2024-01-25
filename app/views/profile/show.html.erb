@@ -17,3 +17,17 @@
     <li>Visível: <%= t(@profile.user.personal_info.visibility) %></li>
   </ul>
 </div>
+<div id='profile-job-categories'>
+  <h3>Categorias de Trabalho</h3>
+  <%= link_to 'Adicionar nova categoria de trabalho', new_profile_job_category_path %>
+  <div>
+    <% @profile.profile_job_categories.each do |profile_job_category| %>
+      <p><strong><%= profile_job_category.job_category.name %></strong></p>
+      <% if profile_job_category.description.present? %>
+        <p><%= profile_job_category.description %></p>
+      <% else %>
+        <p>Não foi adicionada uma descrição para essa categoria.</p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

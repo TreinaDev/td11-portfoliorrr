@@ -1,0 +1,14 @@
+<h1>Cadastrar Categoria de Trabalho no Perfil</h1>
+<%= form_with model: @profile_job_category do |f| %>
+  <div>
+    <%= f.label :job_category_id, 'Categoria' %>
+    <%=  f.collection_select :job_category_id, JobCategory.order(:name), :id, :name, prompt: 'Selecione uma categoria' %>
+  </div>
+  <div>
+    <%= f.label :description, 'Descrição' %>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.submit 'Salvar' %>
+  </div>
+<% end %>

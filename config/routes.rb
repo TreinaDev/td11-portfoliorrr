@@ -17,4 +17,5 @@ Rails.application.routes.draw do
 
   resources :job_categories, only: %i[index create]
   resource :profile, only: %i[edit update show], controller: :profile, as: :user_profile
+  resources :profile_job_categories, only: %i[new create]
 end
