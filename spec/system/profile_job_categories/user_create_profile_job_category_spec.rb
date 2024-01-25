@@ -65,8 +65,34 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
     expect(page).to have_content 'Categoria de trabalho não pode ficar em branco'
   end
 
-  pending 'mas é redirecionado se não existem categorias de trabalho disponíveis'
-  pending 'apenas se for o dono do perfil sendo alterado'
-  pending 'usuário é alertado na tela de formulário que não é possível editar os dados'
-  # pending '[request] tenta cadastrar uma categoria que não existe'
+  it 'mas é redirecionado se não existem categorias de trabalho disponíveis' do
+    user = create(:user)
+
+    login_as user
+    visit new_profile_job_category_path
+
+    expect(page).to have_content 'Essa página não está disponível no momento, entre em contato com o administrador.'
+    expect(page).to have_current_path user_profile_path
+  end
+
+  it 'e é alertado no formulário sobre não poder editar ou remover os dados no futuro' do
+    user = create(:user)
+    create(:job_category)
+
+    login_as user
+    visit new_profile_job_category_path
+
+    alert_text = 'Atenção: Os dados cadastrados não poderão ser alterados após salvar. Preencha com cuidado.'
+    expect(page).to have_content alert_text
+  end
+
+  it 'e vê um link para retornar à página de meu perfil' do
+    user = create(:user)
+    create(:job_category)
+
+    login_as user
+    visit new_profile_job_category_path
+
+    expect(page).to have_link 'Voltar', href: user_profile_path
+  end
 end

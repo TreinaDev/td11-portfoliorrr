@@ -1,19 +1,20 @@
-<h1>Cadastrar Categoria de Trabalho no Perfil</h1>
+<h1><%= t('content.new_form_title') %></h1>
 <% if @profile_job_category.errors.any? %>
   <% @profile_job_category.errors.full_messages.each do |msg| %>
     <%= msg %>
   <% end %>
 <% end %>
 <%= form_with model: @profile_job_category do |f| %>
-  <div>
-    <%= f.label :job_category_id, 'Categoria' %>
-    <%=  f.collection_select :job_category_id, JobCategory.order(:name), :id, :name, prompt: 'Selecione uma categoria' %>
+  <div class="mb-3">
+    <%= f.label :job_category_id, class: 'form-laber' %>
+    <%= f.collection_select :job_category_id, JobCategory.order(:name), :id, :name, {prompt: 'Selecione uma categoria'}, class: 'form-select' %>
   </div>
-  <div>
-    <%= f.label :description, 'Descrição' %>
-    <%= f.text_area :description %>
+  <div class="mb-3">
+    <%= f.label :description, 'Descrição', class: 'form-laber' %>
+    <%= f.text_area :description, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.submit 'Salvar' %>
+  <div class="mb-3">
+    <%= f.submit t('buttons.save'), class: 'btn btn-primary' %>
+    <%= link_to t('buttons.return'), user_profile_path, class: 'btn btn-secondary' %>
   </div>
 <% end %>
