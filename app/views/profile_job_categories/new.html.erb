@@ -1,4 +1,9 @@
 <h1>Cadastrar Categoria de Trabalho no Perfil</h1>
+<% if @profile_job_category.errors.any? %>
+  <% @profile_job_category.errors.full_messages.each do |msg| %>
+    <%= msg %>
+  <% end %>
+<% end %>
 <%= form_with model: @profile_job_category do |f| %>
   <div>
     <%= f.label :job_category_id, 'Categoria' %>

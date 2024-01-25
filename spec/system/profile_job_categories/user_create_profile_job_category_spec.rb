@@ -16,7 +16,7 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
     fill_in 'Descrição', with: 'Sou princesa vitalícia de um reino constantemente em guerra com o mal.'
     click_on 'Salvar'
 
-    expect(user.profile.profile_job_categories).not_to be_empty
+    expect(ProfileJobCategory.all).not_to be_empty
     expect(page).to have_current_path user_profile_path
     expect(page).to have_content 'Categoria de trabalho adicionada com sucesso!'
     expect(page).to have_content 'Gestão de Reino Feudal'
@@ -35,14 +35,36 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
     fill_in 'Descrição', with: ''
     click_on 'Salvar'
 
-    expect(user.profile.profile_job_categories).not_to be_empty
+    expect(ProfileJobCategory.all).not_to be_empty
     expect(page).to have_content 'Categoria de trabalho adicionada com sucesso!'
     expect(page).to have_content 'Magia'
     expect(page).to have_content 'Não foi adicionada uma descrição para essa categoria.'
   end
 
-  pending 'apenas quando autenticado'
-  pending 'e deve escolher uma categoria de trabalho existente'
+  it 'apenas quando autenticado' do
+    visit new_profile_job_category_path
+
+    expect(page).to have_current_path new_user_session_path
+  end
+
+  it 'e deve escolher uma categoria de trabalho existente' do
+    user = create(:user)
+    create(:job_category, name: 'Desenvolvimento de Jogos')
+
+    login_as user
+    visit new_profile_job_category_path
+    select 'Selecione uma categoria', from: 'Categoria'
+    fill_in 'Descrição', with: 'Preguiça de escolher categoria...'
+    click_on 'Salvar'
+
+    expect(ProfileJobCategory.all).to be_empty
+    expect(page).to have_content 'Cadastrar Categoria de Trabalho no Perfil'
+    expect(page).to have_field 'Descrição', with: 'Preguiça de escolher categoria...'
+    expect(page).to have_content 'Não foi possível adicionar a categoria de trabalho.'
+    expect(page).to have_content 'Categoria de trabalho é obrigatório(a)'
+    expect(page).to have_content 'Categoria de trabalho não pode ficar em branco'
+  end
+
   pending 'mas é redirecionado se não existem categorias de trabalho disponíveis'
   pending 'apenas se for o dono do perfil sendo alterado'
   pending 'usuário é alertado na tela de formulário que não é possível editar os dados'

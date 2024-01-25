@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      profile_job_category: 
+        one: Categoria de trabalho
+        other: Categorias de trabalho
+    attributes:
+      profile_job_category:
+        job_category: Categoria de trabalho
+        description: Descrição
+  profile_job_categories:
+    create:
+      success: Categoria de trabalho adicionada com sucesso!
+      error: Não foi possível adicionar a categoria de trabalho.
