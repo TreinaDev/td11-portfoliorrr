@@ -1,9 +1,11 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!, only: %w[search]
+  before_action :authenticate_user!
 
   def show
     @profile = Profile.find(params[:id])
     @user = @profile.user
+    @followers_count = @profile.followers_count
+    @followed_count = @profile.followed_count
   end
 
   def search
