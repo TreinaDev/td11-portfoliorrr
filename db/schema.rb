@@ -21,6 +21,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_152615) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "connections", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_profile_id", null: false
+    t.integer "status", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_profile_id", "follower_id"], name: "index_connections_on_followed_profile_id_and_follower_id", unique: true
+    t.index ["followed_profile_id"], name: "index_connections_on_followed_profile_id"
+    t.index ["follower_id"], name: "index_connections_on_follower_id"
+  end
+
   create_table "job_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -99,6 +110,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_152615) do
 
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "connections", "profiles", column: "followed_profile_id"
+  add_foreign_key "connections", "profiles", column: "follower_id"
   add_foreign_key "likes", "users"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"

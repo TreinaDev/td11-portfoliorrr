@@ -1,4 +1,3 @@
-
 <div class="container">
   <div id="vue-app" class="card">
     <div class="card-body">
@@ -10,4 +9,31 @@
       <h1>Portfoliorrr</h1>
     </div>
   </div>
+
+  <section class="my-5">
+    <h2>Feed</h2>
+    <% if user_signed_in? %>
+      <% if current_user.profile.followed_count > 0 %>
+        <% if @followed_posts.any? %>
+        <div>
+          <%= render partial: 'posts/listing', locals: { posts: @followed_posts.each } %>
+        </div>
+        <% else %>
+          <div>
+            <h4>Não existem posts de perfis que você segue. Veja o que outras pessoas estão publicando:</h4>
+            <%= render partial: 'posts/listing', locals: { posts: @posts } %>
+          </div>
+        <% end %>
+      <% else %>
+        <div>
+          <h4>Você ainda não segue ninguém. Siga alguém para personalizar seu feed</h4>
+          <%= render partial: 'posts/listing', locals: { posts: @posts } %>
+        </div>
+      <% end %>
+    <% elsif current_user.nil? %>
+      <div>
+        <h4>Faça login ou crie uma conta para descobrir conteúdos relevantes para você.</h4>
+      </div>
+    <% end %>
+  </section>
 </div>

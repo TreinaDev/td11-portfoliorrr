@@ -23,6 +23,14 @@ class User < ApplicationRecord
           "%#{sanitize_sql_like(query)}%")
   end
 
+  def description
+    if admin?
+      "#{full_name.split(' ').first} (Admin)"
+    else
+      full_name.split(' ').first.to_s
+    end
+  end
+
   private
 
   def validate_citizen_id_number
