@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   def index
-    @posts = Post.last(3)
-
     return unless current_user
+
+    @posts = Post.get_sample(3)
 
     followed_users_id = Connection.where(follower: current_user.profile).active.pluck(:followed_profile_id)
 
