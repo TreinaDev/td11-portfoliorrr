@@ -11,3 +11,10 @@ pt-BR:
         start_date: 'Início'
         end_date: 'Término'
         visibility: 'Visível'
+  education_infos:
+    create:
+      success: 'Formação acadêmica cadastrada com sucesso'
+      error: 'Não foi possível cadastrar formação acadêmica'
+    update:
+      success: 'Formação acadêmica atualizada com sucesso'
+      error: 'Não foi possível atualizar formação acadêmica'

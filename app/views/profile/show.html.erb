@@ -72,18 +72,21 @@
     </p>
   <% end %>
 
-  <h3><%= EducationInfo.model_name.human %></h3>
+  <h3 class='mt-5'><%= EducationInfo.model_name.human %></h3>
+  <p>
+    <%= link_to 'Adicionar Formação Acadêmica', new_user_profile_education_info_path, class:'btn btn-primary'  %>
+  </p>
     <% @profile.education_infos.each do |education_info| %>
+      <h4>
+        <%= EducationInfo.human_attribute_name(:institution) %>: <%= education_info.institution %>
+      </h4>
       <ul>
         <li>
-          <%= EducationInfo.human_attribute_name(:institution) %>: <%= education_info.institution %>
-          </li>
-        <li>
           <%= EducationInfo.human_attribute_name(:course) %>: <%= education_info.course %>
-          </li>
+        </li>
         <li>
           <%= EducationInfo.human_attribute_name(:start_date) %>: <%= l education_info.start_date if education_info.start_date%>
-          </li>
+        </li>
         <li>
           <%= EducationInfo.human_attribute_name(:end_date) %>: <%= l education_info.end_date if education_info.end_date %>
         </li>

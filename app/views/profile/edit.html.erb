@@ -2,72 +2,47 @@
 <%= form_with model: @profile, url: user_profile_path, method: :patch do |form| %>
   <%= form.fields_for :personal_info do |personal_info| %>
     <p>
-      <%= personal_info.label :street %>
-      <%= personal_info.text_field :street %>
+      <%= personal_info.label :street, class:'form-label' %>
+      <%= personal_info.text_field :street, class:'form-control' %>
     </p>
     <p>
-      <%= personal_info.label :street_number %>
-      <%= personal_info.text_field :street_number %>
+      <%= personal_info.label :street_number, class:'form-label' %>
+      <%= personal_info.text_field :street_number, class:'form-control' %>
     </p>
     <p>
-      <%= personal_info.label :area %>
-      <%= personal_info.text_field :area %>
+      <%= personal_info.label :area, class:'form-label' %>
+      <%= personal_info.text_field :area, class:'form-control' %>
     </p>
     <p>
-      <%= personal_info.label :city %>
-      <%= personal_info.text_field :city %>
+      <%= personal_info.label :city, class:'form-label' %>
+      <%= personal_info.text_field :city, class:'form-control' %>
     </p>
     <p>
-      <%= personal_info.label :state %>
-      <%= personal_info.text_field :state %>
+      <%= personal_info.label :state, class:'form-label' %>
+      <%= personal_info.text_field :state, class:'form-control' %>
     </p>
     <p>
-      <%= personal_info.label :zip_code %>
-      <%= personal_info.text_field :zip_code %>
+      <%= personal_info.label :zip_code, class:'form-label' %>
+      <%= personal_info.text_field :zip_code, class:'form-control' %>
     </p>
     <p>
-      <%= personal_info.label :phone %>
-      <%= personal_info.text_field :phone %>
+      <%= personal_info.label :phone, class:'form-label' %>
+      <%= personal_info.text_field :phone, class:'form-control' %>
     </p>
     <p>
-      <%= personal_info.label :birth_date %>
-      <%= personal_info.date_field :birth_date %>
+      <%= personal_info.label :birth_date, class:'form-label' %>
+      <%= personal_info.date_field :birth_date, class:'form-control' %>
     </p>
-    <p>
-      <%= personal_info.label :visibility %>
-      <%= personal_info.check_box :visibility %>
+    <p class='form-check mt-3'>
+      <%= personal_info.check_box :visibility, class:"form-check-input"  %>
+      <%= personal_info.label :visibility, class:"form-check-label" %>
     </p>
   <% end %>
 
-  <p>
-    <%= form.label :cover_letter %>
-    <%= form.text_area :cover_letter %>
+  <p class='mt-3'>
+    <%= form.label :cover_letter, class:'form-label' %>
+    <%= form.text_area :cover_letter, class:'form-control'  %>
   </p>
 
-  <h2>Formação Acadêmica</h2>
-  <%= form.fields_for :education_infos do |education_info| %>
-    
-    <p>
-      <%= education_info.label :institution %>
-      <%= education_info.text_field :institution %>
-    </p>
-    <p>
-      <%= education_info.label :course %>
-      <%= education_info.text_field :course %>
-    </p>
-    <p>
-      <%= education_info.label :start_date %>
-      <%= education_info.date_field :start_date %>
-    </p>
-    <p>
-      <%= education_info.label :end_date %>
-      <%= education_info.date_field :end_date %>
-    </p>
-    <p>
-      <%= education_info.label :visibility %>
-      <%= education_info.check_box :visibility %>
-    </p>
-  <% end %>
-
-  <%= form.submit 'Salvar' %>
+  <%= form.submit 'Salvar', class:'btn btn-primary' %>
 <% end %>
