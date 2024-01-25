@@ -1,6 +1,25 @@
 require 'rails_helper'
 
 describe 'Usuário visita uma página de blog' do
+  it 'a partir da home' do
+    user = create(:user)
+    post = create(:post, user:)
+    visitor = create(:user, full_name: 'Andreia' , citizen_id_number: '430.910.060-00', email: 'visitor@email.com')
+    
+    login_as visitor
+    visit root_path
+    fill_in 'Buscar Perfil', with: user.full_name
+    click_on 'Pesquisar'
+    click_on user.full_name
+
+    expect(page).to have_current_path(profile_path(user))
+    within 'h2#post-list-title' do
+      expect(page).to have_content('Publicações')
+    end
+    expect(page).to have_content(user.full_name)
+    expect(page).to have_link(post.title, href: post_path(post))
+  end
+
   it 'e vê uma lista de links para publicações a partir da tela de perfil' do
     user = create(:user, full_name: 'Gabriel Castro')
     profile = user.create_profile!
