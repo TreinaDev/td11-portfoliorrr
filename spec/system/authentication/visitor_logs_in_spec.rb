@@ -1,26 +1,38 @@
 require 'rails_helper'
 
-describe 'Usuário acessa a página de login' do
-  it 'e realiza o log in com sucesso' do
-    create(:user, email: 'joaoalmeida@email.com', password: '123456')
+describe 'Usuário faz login' do
+  context 'com sucesso' do
+    it 'como usuário comum' do
+      create(:user, full_name: 'João', email: 'joaoalmeida@email.com', password: '123456')
 
-    visit root_path
-
-    click_on 'Entrar'
-
-    within '#new_user' do
-      fill_in 'E-mail', with: 'joaoalmeida@email.com'
-      fill_in 'Senha', with: '123456'
+      visit root_path
 
       click_on 'Entrar'
+
+      within '#new_user' do
+        fill_in 'E-mail', with: 'joaoalmeida@email.com'
+        fill_in 'Senha', with: '123456'
+
+        click_on 'Entrar'
+      end
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Login efetuado com sucesso'
+
+      within 'nav' do
+        expect(page).not_to have_link 'Entrar'
+        expect(page).not_to have_link 'Cadastrar Usuário'
+        expect(page).to have_content 'João'
+      end
     end
 
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'Login efetuado com sucesso'
+    it 'como administrador' do
+      admin = create(:user, :admin, full_name: 'João')
 
-    within 'nav' do
-      expect(page).not_to have_link 'Entrar'
-      expect(page).not_to have_link 'Cadastrar Usuário'
+      login_as admin
+      visit root_path
+
+      expect(page).to have_content 'João (Admin)'
     end
   end
 
