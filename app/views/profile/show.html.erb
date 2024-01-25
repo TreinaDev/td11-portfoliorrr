@@ -1,9 +1,7 @@
-<%= link_to 'Editar Informações Pessoais', edit_user_profile_path %>
-
 <div>
   <h2><%= @profile.user.full_name %></h2>
   <p>Email: <%= @profile.user.email %></p>
-  <p>Carta de Apresentação: <%= @profile.cover_letter %></p>
+  <p>Resumo Profissional: <%= @profile.cover_letter %></p>
 
   <h3><%= PersonalInfo.model_name.human %></h3>
   <ul>
@@ -38,10 +36,12 @@
       <%= PersonalInfo.human_attribute_name(:visibility) %>: <%= t(@profile.user.personal_info.visibility) %>
     </li>
   </ul>
+
+  <%= link_to 'Editar Informações Pessoais', edit_user_profile_path, class:'btn btn-secondary' %>
   
-  <h3><%= ProfessionalInfo.model_name.human %></h3>
+  <h3 class='mt-5'><%= ProfessionalInfo.model_name.human %></h3>
   <p>
-    <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path %>
+    <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path, class:'btn btn-primary'  %>
   </p>
   <% @professional_infos.each do |professional_info| %>
     <h4>
@@ -68,7 +68,7 @@
       </li>
     </ul>
     <p>
-      <%= link_to 'Editar Experiência Profissional', edit_professional_info_path(professional_info) %>
+      <%= link_to 'Editar Experiência Profissional', edit_professional_info_path(professional_info), class:'btn btn-secondary'  %>
     </p>
   <% end %>
 

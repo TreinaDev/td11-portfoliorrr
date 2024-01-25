@@ -1,6 +1,7 @@
+<h2><%= ProfessionalInfo.model_name.human %></h2>
+
 <%= render 'error_message', professional_info: @professional_info %>
 
-<h2><%= ProfessionalInfo.model_name.human %></h2>
 
 <%= form_with model: @professional_info, url: user_profile_professional_infos_path do |professional_info| %>
   <%= render 'form', professional_info: professional_info %>
