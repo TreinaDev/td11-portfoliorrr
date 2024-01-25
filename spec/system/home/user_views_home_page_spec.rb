@@ -34,15 +34,16 @@ describe 'Usuário visita a home page' do
       joao = create(:user, email: 'joao@almeida.com', full_name: 'João Almeida', citizen_id_number: '72647559082')
       gabriel = create(:user, email: 'gbriel@campos.com', full_name: 'Gabriel Campos', citizen_id_number: '02010828020')
 
-      first_displayed_post = gabriel.posts.create(title: 'Como fazer uma app Vue', content: 'Não esqueça de usar o app...')
+      displayed_post = []
+      displayed_post << gabriel.posts.create(title: 'Como fazer uma app Vue', content: 'Não esqueça de usar o app...')
       gabriel.posts.create(title: 'Como fazer uma app React', content: 'Não esqueça de usar o app...')
       gabriel.posts.create(title: 'Aprenda Ruby on Rails em 1 dia', content: 'Não esqueça...')
-      second_displayed_post = gabriel.posts.create(title: 'Rails new', content: 'Não esqueça de usar o app...')
-      third_displayed_post = gabriel.posts.create(title: 'Boas práticas em ruby', content: 'Não esqueça de usar o app...')
+      displayed_post << gabriel.posts.create(title: 'Rails new', content: 'Não esqueça de usar o app...')
+      displayed_post << gabriel.posts.create(title: 'Boas práticas em ruby', content: 'Não esqueça de usar o app...')
 
       Connection.create!(follower: follower.profile, followed_profile: joao.profile, status: 'active')
 
-      allow(Post).to receive(:get_sample).and_return([first_displayed_post, second_displayed_post, third_displayed_post])
+      allow(Post).to receive(:get_sample).and_return(displayed_post)
 
       login_as follower
       visit root_path
@@ -51,9 +52,9 @@ describe 'Usuário visita a home page' do
       expect(page).to_not have_content 'Aprenda Ruby on Rails em 1 dia'
       expect(page).to have_content 'Não existem posts de perfis que você segue'
       expect(page).to have_content 'Veja o que outras pessoas estão publicando:'
-      expect(page).to have_content  first_displayed_post.title
-      expect(page).to have_content  second_displayed_post.title
-      expect(page).to have_content  third_displayed_post.title
+      expect(page).to have_content  displayed_post[0].title
+      expect(page).to have_content  displayed_post[1].title
+      expect(page).to have_content  displayed_post[2].title
     end
 
     it 'e ainda não segue outros usuários' do

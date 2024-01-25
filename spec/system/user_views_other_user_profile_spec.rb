@@ -15,6 +15,7 @@ describe 'Usuário vê perfil de outro usuário' do
     Connection.create!(follower: third_follower.profile, followed_profile: followed.profile,
                        status: 'active')
 
+    login_as first_follower
     visit profile_path(followed.profile)
 
     within '#followers-count' do
@@ -35,6 +36,7 @@ describe 'Usuário vê perfil de outro usuário' do
     Connection.create!(follower: follower.profile, followed_profile: second_followed.profile, status: 'active')
     Connection.create!(follower: follower.profile, followed_profile: third_followed.profile, status: 'active')
 
+    login_as first_followed
     visit profile_path(follower.profile)
 
     within '#following-count' do

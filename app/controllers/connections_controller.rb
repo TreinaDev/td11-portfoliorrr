@@ -1,16 +1,15 @@
 class ConnectionsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create unfollow follow_again]
-  before_action :set_profile, only: %i[following index]
+  before_action :authenticate_user!
+  before_action :set_profile, only: %i[create following index]
   before_action :set_connection_and_profile, only: %i[unfollow follow_again]
 
   def create
-    followed_profile = Profile.find params[:profile_id]
-    new_follow = followed_profile.connections.build(follower: current_user.profile)
+    new_follow = @profile.connections.build(follower: current_user.profile)
 
     if new_follow.save
-      redirect_to profile_path(followed_profile), notice: t('.success', full_name: followed_profile.full_name)
+      redirect_to profile_path(@profile), notice: t('.success', full_name: @profile.full_name)
     else
-      redirect_to profile_path(followed_profile), alert: t('.error')
+      redirect_to profile_path(@profile), alert: t('.error')
     end
   end
 

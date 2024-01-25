@@ -1,8 +1,8 @@
 <div class="d-flex">
-  <div class="container d-flex flex-column">
+  <div class="container d-flex flex-column border-end vh-100 w-50">
     <%= link_to "Publicações", user_posts_path(@user) %>
   </div>
-  <div class="container border-start w-50 vh-100 d-flex flex-column px-5 align-items-end">
+  <div class="container w-50 d-flex flex-column px-5 align-items-end">
     <aside class="px-5 position-fixed">
       <div class="text-center d-flex flex-column align-items-center">
         <h2><%= @user.full_name %></h2>
@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="w-75">
-          <% if user_signed_in? && current_user.profile != @profile %>
+          <% if current_user.profile != @profile %>
             <% if @profile.following?(current_user.profile) %>
               <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-100' %>
             <% elsif @profile.inactive_follower?(current_user.profile) %>
@@ -27,8 +27,6 @@
             <% else %>
               <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-100' %>
             <% end %>
-          <% elsif current_user.blank? || current_user.profile != @profile  %>
-            <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-100' %>
           <% end %>
         </div>
       </div>
