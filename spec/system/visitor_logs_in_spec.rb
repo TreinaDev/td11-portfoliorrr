@@ -21,6 +21,7 @@ describe 'Usuário acessa a página de login' do
     within 'nav' do
       expect(page).not_to have_link 'Entrar'
       expect(page).not_to have_link 'Cadastrar Usuário'
+      expect(page).to have_content 'Sair'
     end
   end
 

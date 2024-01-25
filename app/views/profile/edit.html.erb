@@ -1,4 +1,7 @@
 <h2>Informações Pessoais</h2>
+<p>
+  <%= link_to 'Preencher Depois', root_path, class: 'btn btn-secondary' %> 
+</p>
 <%= form_with model: @profile, url: user_profile_path, method: :patch do |form| %>
   <%= form.fields_for :personal_info do |personal_info| %>
     <p>
