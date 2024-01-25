@@ -94,4 +94,18 @@ RSpec.describe User, type: :model do
       expect(user.profile).to be_present
     end
   end
+
+  describe '#description' do
+    it 'retorna o nome do usuário' do
+      user = create(:user, full_name: 'João Almeida')
+
+      expect(user.description).to eq 'João'
+    end
+
+    it 'retorna o nome e indicativo de admin' do
+      user = create(:user, :admin, full_name: 'João Almeida')
+
+      expect(user.description).to eq 'João (Admin)'
+    end
+  end
 end
