@@ -6,7 +6,7 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
     job_category = create(:job_category, name: 'Luta com espadas')
 
     login_as user
-    post profile_job_categories_path, params: { profile_job_category: { job_category_id: job_category.id, 
+    post profile_job_categories_path, params: { profile_job_category: { job_category_id: job_category.id,
                                                                         description: 'Sou um Jedi' } }
 
     expect(response).to redirect_to(user_profile_path)
@@ -19,9 +19,9 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
   it 'apenas quando autenticado' do
     job_category = create(:job_category, name: 'Luta com espadas')
 
-    post profile_job_categories_path, params: { profile_job_category: { job_category_id: job_category.id, 
+    post profile_job_categories_path, params: { profile_job_category: { job_category_id: job_category.id,
                                                                         description: 'Sou um Jedi' } }
-    
+
     expect(response).to redirect_to(new_user_session_path)
     expect(ProfileJobCategory.all).to be_empty
   end
@@ -32,7 +32,7 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
     job_category = create(:job_category)
 
     login_as hacker
-    post profile_job_categories_path, params: { profile_job_category: { job_category_id: job_category.id, 
+    post profile_job_categories_path, params: { profile_job_category: { job_category_id: job_category.id,
                                                                         description: 'Sou muito malvado',
                                                                         profile_id: user.id } }
 
