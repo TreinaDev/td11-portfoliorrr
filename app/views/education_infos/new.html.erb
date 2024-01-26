@@ -1,6 +1,6 @@
-<%= render 'error_message', education_info: @education_info %>
-
 <h2><%= EducationInfo.model_name.human %></h2>
+
+<%= render 'error_message', education_info: @education_info %>
 
 <%= form_with model: @education_info, url: user_profile_education_infos_path do |education_info| %>
   <%= render 'form', education_info: education_info %>

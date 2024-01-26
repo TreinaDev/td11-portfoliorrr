@@ -16,13 +16,6 @@ describe 'Usuário edita informações pessoais' do
     it 'com sucesso' do
       user = create(:user)
 
-      user.personal_info.profile.professional_infos.create(
-        company: 'Campus Code',
-        position: 'Dev',
-        start_date: '2012-12-12',
-        end_date: '2013-12-12'
-      )
-
       login_as user
 
       visit edit_user_profile_path

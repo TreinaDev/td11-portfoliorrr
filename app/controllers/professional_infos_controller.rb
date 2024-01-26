@@ -1,4 +1,5 @@
 class ProfessionalInfosController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found_error
   before_action :authenticate_user!
   before_action :set_professional_info, only: %i[edit update]
 

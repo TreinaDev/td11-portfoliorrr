@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :job_categories, only: %i[index create]
   resource :profile, only: %i[edit update show], controller: :profile, as: :user_profile do
-    resources :professional_infos, shallow: true, only: %i[new create show edit update]
-    resources :education_infos, shallow: true, only: %i[new create]
+    resources :professional_infos, shallow: true, only: %i[new create edit update]
+    resources :education_infos, shallow: true, only: %i[new create edit update]
   end
 end

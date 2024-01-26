@@ -88,7 +88,7 @@ describe 'Usuário acessa página de cadastro de usuário' do
       expect(page).to have_content 'CPF já está em uso'
     end
 
-    it 'e pula a etapa de cadastro' do
+    it 'e pula a etapa de registro de dados pessoais' do
       visit new_user_registration_path
 
       fill_in 'Nome Completo', with: 'João Almeida'

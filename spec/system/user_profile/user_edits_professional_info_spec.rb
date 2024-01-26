@@ -79,4 +79,20 @@ describe 'Usuário edita informações profissionais' do
       expect(page).to have_content 'Visível: Sim'
     end
   end
+
+  context 'quando logado como outro usuário' do
+    it 'e falha' do
+      user1 = create(:user)
+      user2 = create(:user, email: 'user2@email.com', citizen_id_number: '10491233019')
+
+      professional_info_user1 = create(:professional_info, profile: user1.profile)
+
+      login_as user2
+
+      visit edit_professional_info_path(professional_info_user1)
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Não foi possível completar sua ação'
+    end
+  end
 end

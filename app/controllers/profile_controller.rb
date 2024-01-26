@@ -24,14 +24,8 @@ class ProfileController < ApplicationController
     personal_info_attributes = %i[street city state
                                   area phone zip_code visibility
                                   street_number birth_date]
-    professional_infos_attributes = %i[id company position
-                                       start_date end_date visibility
-                                       current_job description]
-    education_infos_attributes = %i[id institution course start_date end_date visibility]
 
-    params.require(:profile).permit :cover_letter, personal_info_attributes:,
-                                                   professional_infos_attributes:,
-                                                   education_infos_attributes:
+    params.require(:profile).permit :cover_letter, personal_info_attributes:
   end
 
   def set_profile

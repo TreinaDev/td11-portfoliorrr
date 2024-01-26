@@ -94,5 +94,8 @@
         <%= EducationInfo.human_attribute_name(:visibility) %>: <%= t(education_info.visibility) %>
         </li>
       </ul>
+      <p>
+        <%= link_to 'Editar Formação Acadêmica', edit_education_info_path(education_info), class:'btn btn-secondary'  %>
+      </p>
     <% end %>
 </div>
