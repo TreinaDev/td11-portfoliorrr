@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      comment:
+        one: Comentário
+        other: Comentários
+    attributes:
+      comment:
+        message: Mensagem
+
+  comments:
+    create:
+      success: Comentário enviado com sucesso
+      error: Não foi possível fazer o comentário

@@ -9,8 +9,10 @@
     <% end %>
   <% if current_user == post.user %>
     <div class="w-50 text-center" id="post-<%= post.id %>">
-      <% btn_value =  post.pinned? ? 'Desfixar' : 'Fixar' %>
-      <%= button_to btn_value, pin_post_path(post), method: :post, class: "btn btn-primary" %>
+      <% if request.path == profile_path(post.user.profile) %>
+        <% btn_value =  post.pinned? ? 'Desfixar' : 'Fixar' %>
+        <%= button_to btn_value, pin_post_path(post), method: :post, class: "btn btn-primary" %>
+      <% end %>
     </div>
   <% end %>
   </div>

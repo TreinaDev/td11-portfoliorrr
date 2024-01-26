@@ -11,6 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
+  create_table "comments", force: :cascade do |t|
+    t.text "message"
+    t.integer "post_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "connections", force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_profile_id", null: false
@@ -41,6 +51,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
     t.index ["name"], name: "index_job_categories_on_name", unique: true
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "likeable_type"
+    t.integer "likeable_id"
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
+    t.index ["user_id", "likeable_id", "likeable_type"], name: "index_likes_on_user_id_and_likeable_id_and_likeable_type", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "personal_infos", force: :cascade do |t|
     t.integer "profile_id", null: false
     t.string "street"
@@ -64,7 +85,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-01-26 18:40:27"
+    t.datetime "edited_at", default: "2024-01-26 19:25:08"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -110,16 +131,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
-    t.string "citizen_id_number"
     t.integer "role", default: 0
+    t.string "citizen_id_number"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "connections", "profiles", column: "followed_profile_id"
   add_foreign_key "connections", "profiles", column: "follower_id"
   add_foreign_key "education_infos", "profiles"
+  add_foreign_key "likes", "users"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "professional_infos", "profiles"

@@ -1,3 +1,5 @@
+require 'cpf_cnpj'
+
 FactoryBot.define do
   factory :user do
     full_name { 'Joao Almeida' }
