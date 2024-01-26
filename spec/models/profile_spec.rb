@@ -100,4 +100,65 @@ RSpec.describe Profile, type: :model do
       expect(followed.profile.inactive_follower?(follower.profile)).to eq false
     end
   end
+
+  describe '#advanced_search' do
+    it 'encontra usuários procurando pelo nome' do
+      create(:user, full_name: 'João')
+      create(:user, full_name: 'André')
+      create(:user, full_name: 'Gyodai')
+      create(:user, full_name: 'Rodrigo Gyodai')
+      create(:user, full_name: 'Rosemilson')
+      create(:user, full_name: 'Rosemilson Barbosa')
+
+      found_profiles = Profile.advanced_search('ro')
+
+      expect(found_profiles.count).to eq(3)
+      expect(found_profiles[0].full_name).to eq('Rodrigo Gyodai')
+      expect(found_profiles[1].full_name).to eq('Rosemilson')
+      expect(found_profiles[2].full_name).to eq('Rosemilson Barbosa')
+    end
+
+    it 'encontra usuários procurando por cidade' do
+      joao = create(:user, full_name: 'João')
+      andre = create(:user, full_name: 'André')
+      joao.profile.personal_info.update!(city: 'São Paulo')
+      andre.profile.personal_info.update!(city: 'Curitiba')
+
+      found_profiles = Profile.advanced_search('são')
+
+      expect(found_profiles.count).to eq(1)
+      expect(found_profiles[0].full_name).to eq('João')
+    end
+
+    it 'encontra usuários procurando por categoria de trabalho' do
+      joao = create(:user, full_name: 'João')
+      andre = create(:user, full_name: 'André')
+      first_category = create(:job_category, name: 'Web Design')
+      second_category = create(:job_category, name: 'Modelagem 3D')
+      joao.profile.profile_job_categories.create!(job_category: first_category)
+      andre.profile.profile_job_categories.create!(job_category: second_category)
+
+      found_profiles = Profile.advanced_search('web')
+
+      expect(found_profiles.count).to eq(1)
+      expect(found_profiles[0].full_name).to eq('João')
+    end
+
+    it 'encontra resultados mistos' do
+      joao = create(:user, full_name: 'João')
+      andre = create(:user, full_name: 'André')
+      cesar = create(:user, full_name: 'César')
+      gabriel = create(:user, full_name: 'Gabriel')
+      first_category = create(:job_category, name: 'Jornalista')
+      second_category = create(:job_category, name: 'Modelagem 3D')
+      andre.profile.profile_job_categories.create!(job_category: first_category)
+      joao.profile.profile_job_categories.create!(job_category: second_category)
+      cesar.profile.personal_info.update!(city: 'São João')
+
+      found_profiles = Profile.advanced_search('jo')
+
+      expect(found_profiles.count).to eq(3)
+      expect(found_profiles).to_not include gabriel.profile
+    end
+  end
 end

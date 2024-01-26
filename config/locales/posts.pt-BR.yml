@@ -17,6 +17,13 @@ pt-BR:
     update:
       success: Publicação editada com sucesso!
       error: A publicação não pôde ser editada
+    pin:
+      pinned:
+        success: Publicação fixada com sucesso!
+        error: A publicação não pôde ser fixada
+      unpinned:
+        success: Publicação desfixada com sucesso!
+        error: A publicação não pôde ser desfixada
     views:
       index:
         blog_title: "Blog de %{full_name}"

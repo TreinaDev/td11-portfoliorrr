@@ -1,0 +1,25 @@
+pt-BR:
+  activerecord:
+    models:
+      profile_job_category: 
+        one: Categoria de trabalho
+        other: Categorias de trabalho
+    attributes:
+      profile_job_category:
+        job_category: Categoria de trabalho
+        job_category_id: Categoria de trabalho
+        description: Descrição
+  profile_job_categories:
+    create:
+      success: Categoria de trabalho adicionada com sucesso!
+      error: Não foi possível adicionar a categoria de trabalho.
+    new:
+      inform_user_edit_is_unavailable: 'Atenção: Os dados cadastrados não poderão ser alterados após salvar. Preencha com cuidado.'
+      check_if_job_categories_exist:
+        error: Essa página não está disponível no momento, entre em contato com o administrador.
+  links:        
+    new_profile_job_category_path: Adicionar nova categoria de trabalho
+  content:
+    profile_job_category_without_description: Não foi adicionada uma descrição para essa categoria.
+    section_title: Categorias de Trabalho
+    new_form_title: Cadastrar Categoria de Trabalho no Perfil
