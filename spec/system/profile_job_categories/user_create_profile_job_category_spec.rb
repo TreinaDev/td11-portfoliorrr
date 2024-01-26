@@ -95,4 +95,18 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
 
     expect(page).to have_link 'Voltar', href: user_profile_path
   end
+
+  it 'mas não pode cadastrar a mesma categoria duas ou mais vezes.' do
+    user = create(:user)
+    user.profile.profile_job_categories.create(job_category: create(:job_category, name: 'Web Design'))
+
+    login_as user
+    visit new_profile_job_category_path
+    select 'Web Design', from: 'Categoria'
+    click_on 'Salvar'
+
+    expect(page).to have_current_path new_profile_job_category_path
+    expect(page).to have_content 'Não foi possível adicionar a categoria de trabalho'
+    expect(page).to have_content 'Categoria de trabalho já está em uso'
+  end
 end

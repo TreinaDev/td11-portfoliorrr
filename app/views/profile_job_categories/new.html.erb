@@ -1,7 +1,9 @@
 <h1><%= t('content.new_form_title') %></h1>
 <% if @profile_job_category.errors.any? %>
   <% @profile_job_category.errors.full_messages.each do |msg| %>
-    <%= msg %>
+    <p class="alert alert-warning">
+      <%= msg %>
+    </p>
   <% end %>
 <% end %>
 <%= form_with model: @profile_job_category do |f| %>
