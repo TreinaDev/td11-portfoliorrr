@@ -22,4 +22,10 @@ Rails.application.routes.draw do
 
   resources :job_categories, only: %i[index create]
   resource :profile, only: %i[edit update show], controller: :profile, as: :user_profile
+
+  namespace :api do
+    namespace :v1 do 
+      resources :job_categories, only: %i[index]
+    end
+  end
 end
