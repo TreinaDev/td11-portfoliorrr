@@ -8,6 +8,7 @@ describe 'Usuário visita uma página de blog' do
     post_b = create(:post, user:, title: 'Postagem B')
     post_c = create(:post, user:, title: 'Texto C')
 
+    login_as user
     visit profile_path(profile)
     click_on 'Publicações'
 
