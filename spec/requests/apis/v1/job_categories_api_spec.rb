@@ -24,15 +24,14 @@ describe 'API categorias de trabalho' do
       expect(json_response.third['name']).to eq 'Ruby on Rails'
     end
 
-    it 'retorna um aviso de que não existem categorias cadastradas' do
+    it 'retorna uma array vazia caso não existam categorias cadastradas' do
       get '/api/v1/job_categories'
 
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
       json_response = JSON.parse(response.body)
-      expect(json_response.class).to eq Hash
-      empty_job_category_alert = 'Não há categorias de trabalho cadastradas. Contate um admin do Portfoliorrr.'
-      expect(json_response['message']).to eq empty_job_category_alert
+      expect(json_response.class).to eq Array
+      expect(json_response).to be_empty
     end
 
     it 'retorna um erro interno do servidor' do
