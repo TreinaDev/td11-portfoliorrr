@@ -18,8 +18,8 @@
       </time>
     </p>
     <p class="text-muted">
-      <time datetime="<%= @post.updated_at.to_date %>">
-        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.updated_at.to_date)) %>
+      <time datetime="<%= @post.edited_at.to_date %>">
+        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.edited_at.to_date)) %>
       </time>
     </p>
   </div>

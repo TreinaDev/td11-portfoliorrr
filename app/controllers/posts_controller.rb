@@ -34,10 +34,10 @@ class PostsController < ApplicationController
 
   def pin
     if @post.unpinned?
-      @post.update_pin(:pinned)
+      @post.pinned!
       redirect_to profile_path(current_user), notice: t('.pinned.success')
     else
-      @post.update_pin(:unpinned)
+      @post.unpinned!
       redirect_to profile_path(current_user), notice: t('.unpinned.success')
     end
   end
@@ -45,7 +45,9 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content)
+    post_params = params.require(:post).permit(:title, :content)
+    post_params['edited_at'] = Time.zone.now
+    post_params
   end
 
   def set_post
