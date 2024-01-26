@@ -78,6 +78,17 @@ describe 'Usuário edita informações profissionais' do
       expect(page).to have_content '23/01/2024'
       expect(page).to have_content 'Visível: Sim'
     end
+
+    it 'e tem a opção de voltar para a página anterior' do
+      user = create(:user)
+      professional_info = create(:professional_info, profile: user.profile)
+
+      login_as user
+
+      visit edit_professional_info_path(professional_info)
+
+      expect(page).to have_link 'Voltar', href: root_path
+    end
   end
 
   context 'quando logado como outro usuário' do

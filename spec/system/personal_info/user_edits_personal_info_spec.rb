@@ -46,6 +46,15 @@ describe 'Usuário edita informações pessoais' do
       expect(page).to have_content '25/12/1980'
       expect(page).to have_content 'Visível: Sim'
     end
+    it 'e tem a opção de voltar para a página anterior' do
+      user = create(:user)
+
+      login_as user
+
+      visit edit_user_profile_path
+
+      expect(page).to have_link 'Voltar', href: root_path
+    end
   end
 
   context 'quando não logado' do

@@ -51,5 +51,15 @@ describe 'Usuário adiciona informações acadêmicas' do
       expect(page).to have_content 'Início não pode ficar em branco'
       expect(page).to have_content 'Término não pode ficar em branco'
     end
+
+    it 'e tem a opção de voltar para a página anterior' do
+      user = create(:user)
+
+      login_as user
+
+      visit new_user_profile_education_info_path
+
+      expect(page).to have_link 'Voltar', href: root_path
+    end
   end
 end

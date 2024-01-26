@@ -73,5 +73,16 @@ describe 'Usuário edita informações sobre sua formação' do
       expect(page).to have_content education_info.end_date.strftime('%d/%m/%Y')
       expect(page).to have_content 'Visível: Sim'
     end
+
+    it 'e tem a opção de voltar para a página anterior' do
+      user = create(:user)
+      education_info = create(:education_info, profile: user.profile)
+
+      login_as user
+
+      visit edit_education_info_path(education_info)
+
+      expect(page).to have_link 'Voltar', href: root_path
+    end
   end
 end

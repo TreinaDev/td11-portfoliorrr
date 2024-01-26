@@ -31,27 +31,67 @@ describe 'Usuário adiciona informações profissionais' do
       expect(page).to have_content 'Visível: Sim'
     end
 
-    it 'e os campos "Empresa", "Cargo" e "Data de Entrada" são obrigatórios' do
+    context 'como emprego atual' do
+      it 'e os campos "Empresa", "Cargo" e "Data de Entrada" são obrigatórios' do
+        user = create(:user)
+
+        login_as user
+
+        visit new_user_profile_professional_info_path
+
+        check 'Vínculo Atual'
+        fill_in 'Empresa', with: ''
+        fill_in 'Cargo', with: ''
+        fill_in 'Data de Entrada', with: ''
+        fill_in 'Data de Saída', with: ''
+        check 'Visível'
+
+        click_on 'Salvar'
+
+        expect(current_path).to eq new_user_profile_professional_info_path
+
+        expect(page).to have_content 'Não foi possível cadastrar experiência profissional'
+        expect(page).to have_content 'Empresa não pode ficar em branco'
+        expect(page).to have_content 'Cargo não pode ficar em branco'
+        expect(page).to have_content 'Data de Entrada não pode ficar em branco'
+      end
+    end
+
+    context 'como emprego passado' do
+      it 'e os campos "Empresa", "Cargo", "Data de Entrada" e "Data de Saída" são obrigatórios' do
+        user = create(:user)
+
+        login_as user
+
+        visit new_user_profile_professional_info_path
+
+        fill_in 'Empresa', with: ''
+        fill_in 'Cargo', with: ''
+        fill_in 'Data de Entrada', with: ''
+        fill_in 'Data de Saída', with: ''
+        check 'Visível'
+
+        click_on 'Salvar'
+
+        expect(current_path).to eq new_user_profile_professional_info_path
+
+        expect(page).to have_content 'Não foi possível cadastrar experiência profissional'
+        expect(page).to have_content 'Empresa não pode ficar em branco'
+        expect(page).to have_content 'Cargo não pode ficar em branco'
+        expect(page).to have_content 'Data de Entrada não pode ficar em branco'
+        expect(page).to have_content 'Data de Saída não pode ficar em branco'
+      end
+    end
+
+    it 'e tem a opção de voltar para a página anterior' do
       user = create(:user)
+      create(:professional_info, profile: user.profile)
 
       login_as user
 
       visit new_user_profile_professional_info_path
 
-      fill_in 'Empresa', with: ''
-      fill_in 'Cargo', with: ''
-      fill_in 'Data de Entrada', with: ''
-      fill_in 'Data de Saída', with: ''
-      check 'Visível'
-
-      click_on 'Salvar'
-
-      expect(current_path).to eq new_user_profile_professional_info_path
-
-      expect(page).to have_content 'Não foi possível cadastrar experiência profissional'
-      expect(page).to have_content 'Empresa não pode ficar em branco'
-      expect(page).to have_content 'Cargo não pode ficar em branco'
-      expect(page).to have_content 'Data de Entrada não pode ficar em branco'
+      expect(page).to have_link 'Voltar', href: root_path
     end
   end
 end
