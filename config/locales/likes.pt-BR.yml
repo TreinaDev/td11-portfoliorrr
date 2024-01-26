@@ -7,3 +7,4 @@ pt-BR:
   likes:
     create:    
       success: Curtiu
+      error: Você já curtiu isso

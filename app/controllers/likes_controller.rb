@@ -6,9 +6,11 @@ class LikesController < ApplicationController
     return unless likeable
 
     like = current_user.likes.build(likeable:)
-    return unless like.save
-
-    redirect_to post_path(post_id), notice: t('.success')
+    if like.save
+      redirect_to post_path(post_id), notice: t('.success')
+    else
+      redirect_to post_path(post_id), alert: t('.error')
+    end
   end
 
   def destroy
