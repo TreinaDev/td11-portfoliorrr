@@ -1,7 +1,15 @@
 <div class="d-flex">
   <div class="container d-flex flex-column border-end vh-100 w-50">
-    <h2 id="post-list-title">Publicações</h2>
-    <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts } %>
+    <% if @profile.user.posts.pinned.any? %>
+      <div id="fixed">
+        <h2 id="post-list-title">Destaque</h2>
+        <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.pinned } %>
+      </div>
+    <% end %>
+    <div id="publications">
+      <h2 id="post-list-title">Publicações</h2>
+      <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.unpinned } %>
+    </div>
   </div>
   <div class="container w-50 d-flex flex-column px-5 align-items-end">
     <aside class="px-5 position-fixed">

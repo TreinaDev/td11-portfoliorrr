@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário visita uma página de blog' do
+describe 'Usuário vê a lista de publicações' do
   it 'a partir da home' do
     user = create(:user)
     post = create(:post, user:)
@@ -20,32 +20,15 @@ describe 'Usuário visita uma página de blog' do
     expect(page).to have_link(post.title, href: post_path(post))
   end
 
-  it 'e vê uma lista de links para publicações a partir da tela de perfil' do
-    user = create(:user, full_name: 'Gabriel Castro')
-    profile = user.create_profile!
-    post_a = create(:post, user:, title: 'Post A')
-    post_b = create(:post, user:, title: 'Postagem B')
-    post_c = create(:post, user:, title: 'Texto C')
-
-    login_as user
-    visit profile_path(profile)
-    click_on 'Publicações'
-
-    expect(current_path).to eq user_posts_path(user)
-    expect(page).to have_content 'Blog de Gabriel Castro'
-    expect(page).to have_link 'Post A', href: post_path(post_a)
-    expect(page).to have_link 'Postagem B', href: post_path(post_b)
-    expect(page).to have_link 'Texto C', href: post_path(post_c)
-  end
-
   it 'e vê a data de cada publicação' do
     user = create(:user, full_name: 'Gabriel Castro')
-    post_a = create(:post, user:, title: 'Post A', content: 'Primeira postagem')
+    post = create(:post, user:, title: 'Post A', content: 'Primeira postagem')
 
-    visit user_posts_path(user)
+    login_as user
+    visit profile_path(user)
 
-    post_date = post_a.created_at
-    expect(page).to have_content post_date.to_date.strftime('%d-%m-%y')
+    post_date = post.created_at
+    expect(page).to have_content I18n.l(post.created_at, format: :long)
   end
 
   it 'e vê as postagens ordenadas da mais recente à mais antiga' do
@@ -59,7 +42,8 @@ describe 'Usuário visita uma página de blog' do
     end
     create(:post, user:, title: 'Conteúdo C', content: 'Primeira postagem')
 
-    visit user_posts_path(user)
+    login_as user
+    visit profile_path(user)
 
     expect(page.body.index('Conteúdo C')).to be < page.body.index('Texto B')
     expect(page.body.index('Texto B')).to be < page.body.index('Post A')

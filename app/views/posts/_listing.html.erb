@@ -1,10 +1,19 @@
 <% posts.each do |post| %>
   <div>
+    <% if current_user == post.user %>
+      <div id="post-<%= post.id %>">
+        <% if post.pinned? %>
+          <%= button_to "Desfixar", pin_post_path(post), method: :post, class: "btn btn-primary" %>
+        <% else %>
+          <%= button_to "Fixar", pin_post_path(post), method: :post, class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    <% end %>
     <%= link_to post, class:"text-decoration-none" do %>
       <div class="bg-dark-subtle my-5 p-3 rounded-4 feed-post text-dark text-center">
         <h3><%= post.title %></h3>
-        <p>Publicado por: <%= post.user.full_name %></p>
-        <p><%= I18n.l(post.created_at) %></p>
+        <p>Publicado por: <%= post.user.full_name %></p>      
+        <%= I18n.l(post.created_at, format: :long) %>
       </div>
     <% end %>
   </div>

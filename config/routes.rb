@@ -8,10 +8,12 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
-  resources :posts, only: %i[new create]
+  resources :posts, only: %i[new create] do 
+    post 'pin', on: :member
+  end
 
   resources :users, only: [] do
-    resources :posts, shallow: true, only: %i[index show edit update]
+    resources :posts, shallow: true, only: %i[show edit update]
     resources :profiles, shallow: true, only: %i[show] do
       resources :connections, only: %i[create index] do
         patch 'unfollow', 'follow_again'

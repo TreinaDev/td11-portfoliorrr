@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário cria uma postagem no blog' do
+describe 'Usuário cria uma postagem' do
   it 'apenas quando autenticado' do
     visit new_post_path
 

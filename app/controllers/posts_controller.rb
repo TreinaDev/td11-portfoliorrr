@@ -1,9 +1,16 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %w[new create edit]
-  before_action :set_user, only: %w[index]
-  before_action :set_post, only: %w[show edit update]
+  before_action :set_post, only: %w[show edit update pin]
 
-  def index; end
+  def pin
+    if @post.unpinned?
+      @post.update_pin(:pinned) 
+      redirect_to profile_path(current_user), notice: t('.pinned.success')
+    else
+      @post.update_pin(:unpinned) 
+      redirect_to profile_path(current_user), notice: t('.unpinned.success')
+    end
+  end
 
   def new
     @user = current_user
@@ -40,10 +47,6 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content)
-  end
-
-  def set_user
-    @user = User.find(params[:user_id])
   end
 
   def set_post
