@@ -8,5 +8,3 @@ class CreateLikes < ActiveRecord::Migration[7.1]
     end
   end
 end
-
-rails g migration AddIndexToLikes user:references post:references
