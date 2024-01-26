@@ -4,7 +4,7 @@ class ProfileJobCategoriesController < ApplicationController
 
   def new
     @profile_job_category = current_user.profile.profile_job_categories.build
-    flash[:notice] = t('.inform_user_edit_is_unavaiable')
+    flash[:notice] = t('.inform_user_edit_is_unavailable')
   end
 
   def create

@@ -14,7 +14,7 @@ pt-BR:
       success: Categoria de trabalho adicionada com sucesso!
       error: Não foi possível adicionar a categoria de trabalho.
     new:
-      inform_user_edit_is_unavaiable: 'Atenção: Os dados cadastrados não poderão ser alterados após salvar. Preencha com cuidado.'
+      inform_user_edit_is_unavailable: 'Atenção: Os dados cadastrados não poderão ser alterados após salvar. Preencha com cuidado.'
       check_if_job_categories_exist:
         error: Essa página não está disponível no momento, entre em contato com o administrador.
   links:        
