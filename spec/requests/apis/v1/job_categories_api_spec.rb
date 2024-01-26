@@ -24,7 +24,7 @@ describe 'API categorias de trabalho' do
       expect(json_response.third['name']).to eq 'Ruby on Rails'
     end
 
-    it 'retorna uma aviso de que não existem categorias cadastradas' do
+    it 'retorna um aviso de que não existem categorias cadastradas' do
       get '/api/v1/job_categories'
 
       expect(response.status).to eq 200
@@ -43,7 +43,7 @@ describe 'API categorias de trabalho' do
       expect(response.status).to eq 500
       json_response = JSON.parse(response.body)
       expect(json_response.class).to eq Hash
-      expect(json_response['error']).to eq 'Houve um erro interno no servidor ao processar sua solicitação.' 
+      expect(json_response['error']).to eq 'Houve um erro interno no servidor ao processar sua solicitação.'
     end
   end
 end
