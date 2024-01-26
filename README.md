@@ -1,24 +1,31 @@
-# README
+# Portfoliorrr
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+O Portfoliorrr é uma rede social com funcionalidades de portfólio para pessoas que querem compartilhar o seu trabalho e procurar outros trabalhos, seja para buscar inspiração ou novos conhecimentos.
 
-Things you may want to cover:
+## Conteúdo
+* [Informações técnicas](https://github.com/TreinaDev/td11-portfoliorrr#informacoes-tecnicas)
+* [Como configurar a aplicação](https://github.com/TreinaDev/td11-portfoliorrr#como-configurar-a-aplicacao)
+* [Como visualizar a aplicação no navegador](https://github.com/TreinaDev/td11-portfoliorrr#como-visualizar-a-aplicacao-no-navegador)
+* [Documentação da API](https://github.com/TreinaDev/td11-portfoliorrr#documentacao-da-api)
 
-* Ruby version
+## Informações técnicas
+* Versão Ruby: 3.2.2
+* Versão Rails: 7.1.2
 
-* System dependencies
+## Como configurar a aplicação
+* Abra a pasta raiz da aplicação em um terminal;
+* Rode o comando `bin/setup` e aguarde sua conclusão;
+* Rode o comando `yarn install` (necessário ter `node` instalado em sua máquina);
 
-* Configuration
+## Como visualizar a aplicação no navegador
+* Siga as instruções de configuração da aplicação
+* Rode o comando `bin/dev`;
+* Acesse a aplicação através do endereço `http://localhost:3000/`
 
-* Database creation
+## Como rodar os testes da aplicação
+* Siga as instruções de configuração da aplicação
+* Rode `rake spec`, após ter a aplicação configurada;
 
-* Database initialization
+## Documentação da API
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+A documentação da API pode ser consultada [neste link](https://github.com/TreinaDev/td11-portfoliorrr/blob/main/api_doc.md)
