@@ -91,7 +91,7 @@ describe 'Usuário edita uma publicação' do
 
     login_as user
     visit profile_path(user)
-    within "div#fixed" do
+    within 'div#fixed' do
       click_on 'Desfixar'
     end
 
@@ -103,7 +103,7 @@ describe 'Usuário edita uma publicação' do
     end
     expect(page).to have_content 'Publicação desfixada com sucesso!'
   end
-  
+
   it 'e não fixa outras publicações' do
     user = create(:user)
     post = create(:post, user:, title: 'Post A', content: 'Primeira postagem')
@@ -128,13 +128,13 @@ describe 'Usuário edita uma publicação' do
 
   it 'e botão de fixar e desfixar não aparece para outros usuários' do
     user = create(:user)
-    post = create(:post, user:, title: 'Post A', content: 'Primeira postagem', pin: 'pinned')
-    post2 = create(:post, user:, title: 'Post B', content: 'Segunda postagem', pin: 'unpinned')
+    create(:post, user:, title: 'Post A', content: 'Primeira postagem', pin: 'pinned')
+    create(:post, user:, title: 'Post B', content: 'Segunda postagem', pin: 'unpinned')
     other_user = create(:user, citizen_id_number: '61328427056', email: 'visitor@email.com')
 
     login_as other_user
     visit profile_path(user)
-  
+
     expect(page).not_to have_content 'Fixar'
     expect(page).not_to have_content 'Desfixar'
   end

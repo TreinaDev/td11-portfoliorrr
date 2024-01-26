@@ -4,8 +4,8 @@ describe 'Usuário vê a lista de publicações' do
   it 'a partir da home' do
     user = create(:user)
     post = create(:post, user:)
-    visitor = create(:user, full_name: 'Andreia' , citizen_id_number: '430.910.060-00', email: 'visitor@email.com')
-    
+    visitor = create(:user, full_name: 'Andreia', citizen_id_number: '430.910.060-00', email: 'visitor@email.com')
+
     login_as visitor
     visit root_path
     fill_in 'Buscar Perfil', with: user.full_name
@@ -27,7 +27,6 @@ describe 'Usuário vê a lista de publicações' do
     login_as user
     visit profile_path(user)
 
-    post_date = post.created_at
     expect(page).to have_content I18n.l(post.created_at, format: :long)
   end
 
