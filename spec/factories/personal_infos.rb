@@ -9,6 +9,6 @@ FactoryBot.define do
     state { 'SP' }
     phone { '11999991234' }
     birth_date { '1980-12-25' }
-    visibility { false }
+    visibility { true }
   end
 end

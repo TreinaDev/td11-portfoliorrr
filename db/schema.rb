@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
   create_table "connections", force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_profile_id", null: false
@@ -32,17 +32,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_education_infos_on_profile_id"
-  end
-
-  create_table "followers", force: :cascade do |t|
-    t.integer "follower_id", null: false
-    t.integer "followed_profile_id", null: false
-    t.integer "status", default: 1
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["followed_profile_id", "follower_id"], name: "index_followers_on_followed_profile_id_and_follower_id", unique: true
-    t.index ["followed_profile_id"], name: "index_followers_on_followed_profile_id"
-    t.index ["follower_id"], name: "index_followers_on_follower_id"
   end
 
   create_table "job_categories", force: :cascade do |t|
@@ -74,6 +63,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "pin", default: 0
+    t.datetime "edited_at", default: "2024-01-26 18:40:27"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -86,6 +77,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "visibility"
+    t.text "description"
+    t.boolean "current_job"
     t.index ["profile_id"], name: "index_professional_infos_on_profile_id"
   end
 
@@ -95,6 +88,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["job_category_id", "profile_id"], name: "index_profile_job_categories_on_job_category_id_and_profile_id", unique: true
     t.index ["job_category_id"], name: "index_profile_job_categories_on_job_category_id"
     t.index ["profile_id"], name: "index_profile_job_categories_on_profile_id"
   end
@@ -116,8 +110,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
-    t.integer "role", default: 0
     t.string "citizen_id_number"
+    t.integer "role", default: 0
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -126,8 +120,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
   add_foreign_key "connections", "profiles", column: "followed_profile_id"
   add_foreign_key "connections", "profiles", column: "follower_id"
   add_foreign_key "education_infos", "profiles"
-  add_foreign_key "followers", "profiles", column: "followed_profile_id"
-  add_foreign_key "followers", "profiles", column: "follower_id"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "professional_infos", "profiles"

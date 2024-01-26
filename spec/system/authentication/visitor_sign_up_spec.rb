@@ -20,7 +20,6 @@ describe 'Usuário acessa página de cadastro de usuário' do
     fill_in 'Confirme sua Senha', with: '123456'
     click_on 'Cadastrar'
 
-    expect(current_path).to eq root_path
     expect(User.last.profile).to be_present
     expect(page).to have_content 'Boas vindas 👋 Você realizou seu cadastro com sucesso.'
   end
@@ -87,6 +86,22 @@ describe 'Usuário acessa página de cadastro de usuário' do
       expect(page).to have_content 'Não foi possível salvar usuário'
       expect(page).to have_content 'E-mail já está em uso'
       expect(page).to have_content 'CPF já está em uso'
+    end
+
+    it 'e pula a etapa de registro de dados pessoais' do
+      visit new_user_registration_path
+
+      fill_in 'Nome Completo', with: 'João Almeida'
+      fill_in 'E-mail', with: 'joaoalmeida@email.com'
+      fill_in 'CPF', with: '88257290068'
+      fill_in 'Senha', with: '123456'
+      fill_in 'Confirme sua Senha', with: '123456'
+
+      click_on 'Cadastrar'
+
+      click_link 'Preencher Depois'
+
+      expect(current_path).to eq root_path
     end
   end
 end
