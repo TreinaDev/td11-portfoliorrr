@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :posts, only: %i[new create] do
+    resources :comments, only: %i[create]
     post 'pin', on: :member
   end
 
@@ -22,7 +23,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :likes, only: %i[create destroy]  
   resources :job_categories, only: %i[index create]
+  
   resource :profile, only: %i[edit update show], controller: :profile, as: :user_profile do
     resources :professional_infos, shallow: true, only: %i[new create edit update]
     resources :education_infos, shallow: true, only: %i[new create edit update]

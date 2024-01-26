@@ -19,7 +19,11 @@ class PostsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @comment = Comment.new
+    @likes_count = @post.likes.count
+    @liked = Like.find_by(user: current_user, likeable: @post)
+  end
 
   def edit; end
 

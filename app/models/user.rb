@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :professional_infos, through: :profile
   has_many :education_infos, through: :profile
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   enum role: { user: 0, admin: 10 }
 

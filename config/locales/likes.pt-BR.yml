@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      like: 
+        one: Curtida
+        other: Curtidas
+  likes:
+    create:    
+      success: Curtiu
+      error: Você já curtiu isso

@@ -1,18 +1,18 @@
-<div class="container mt-4">
-  <h2 class="mb-3"><%= @post.title %></h2>
-
-  <div id="post-data" class="mb-4">
+<div class="card">
+  <div class="card-body">
+    <h2 class="card-title"><%= @post.title %> 
     <% if current_user == @post.user %>
-      <div class="mb-2">
-        <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
-      </div>
-    <% end %>
+      <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
+    <% end %></h2>
 
-    <p class="text-muted">
+    <h6 class="card-subtitle mb-2 text-body-secondary">
       <%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %>
-    </p>
-    <p class="text-muted">
-      <time datetime="<%= @post.created_at.to_date %>">
+    </h6>
+
+    <p class="card-text"><%= @post.content %></p>
+
+    <p class="card-subtitle mb-2 text-body-secondary">
+      <time datetime="<%= @post.created_at.to_date %>">  
         <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %> -
         <%= distance_of_time_in_words(Time.now, @post.created_at) %>
       </time>
@@ -22,9 +22,50 @@
         <%= t('posts.views.show.last_update', update_date: I18n.l(@post.edited_at.to_date)) %>
       </time>
     </p>
-  </div>
 
-  <div class="post-content">
-    <p><%= @post.content %></p>
+    <div class="btn-group">
+      <div class="me-2">
+        <%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %>
+      </div>
+      <% if @liked %>
+          <%= button_to 'Descurtir', like_path(post_like_id: @liked), method: :delete, class: 'btn btn-danger btn-sm' %>
+      <% else %>
+          <%= button_to 'Curtir', likes_path(post_id: @post), method: :post, class: 'btn btn-primary btn-sm' %>
+      <% end %>
+    </div>
   </div>
+</div>
+
+<%= form_with model: [@post, @comment] , method: :post, class: 'mt-3' do |form| %>
+  <%= form.text_area :message, placeholder: "Mensagem", class:"form-control" %>
+  <%= form.submit "Comentar", class:"btn btn-primary mt-2" %>
+<% end %>
+
+
+<div id="comments", class="card mt-3 mb-3">
+  <div class="card-header">
+    <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
+  </div>
+  <% @post.comments.each do |comment| %>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p><%= comment.message %></p>
+        <footer class="blockquote-footer">
+          <%= comment.user.full_name %>
+        </footer>
+      </blockquote>
+
+      <div class="btn-group">
+        <div class="me-2">
+          <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
+        </div>
+        <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+          <% like = comment.likes.find_by(user_id: current_user.id) %>
+          <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
+        <% else %>
+          <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
