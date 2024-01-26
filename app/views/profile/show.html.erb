@@ -17,3 +17,17 @@
     <li>Visível: <%= t(@profile.user.personal_info.visibility) %></li>
   </ul>
 </div>
+<div id='profile-job-categories'>
+  <h3><%= t('content.section_title') %></h3>
+  <%= link_to t('links.new_profile_job_category_path'), new_profile_job_category_path, class:'btn btn-primary' %>
+  <div class='mt-2'>
+    <% @profile.profile_job_categories.each do |profile_job_category| %>
+      <p><strong><%= profile_job_category.job_category.name %></strong></p>
+      <% if profile_job_category.description.present? %>
+        <p><%= profile_job_category.description %></p>
+      <% else %>
+        <p><%= t('content.profile_job_category_without_description') %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

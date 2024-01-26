@@ -1,9 +1,7 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: %w[new create edit]
-  before_action :set_user, only: %w[index]
-  before_action :set_post, only: %w[show edit update]
-
-  def index; end
+  before_action :authenticate_user!, only: %w[new create edit pin]
+  before_action :set_post, only: %w[show edit update pin]
+  before_action :authorize!, only: %w[edit update pin]
 
   def new
     @user = current_user
@@ -27,9 +25,7 @@ class PostsController < ApplicationController
     @liked = Like.find_by(user: current_user, likeable: @post)
   end
 
-  def edit
-    redirect_to root_path, notice: t('.redirect_alert.invalid_user') if @post.user != current_user
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
@@ -40,17 +36,29 @@ class PostsController < ApplicationController
     end
   end
 
+  def pin
+    if @post.unpinned?
+      @post.pinned!
+      redirect_to profile_path(current_user), notice: t('.pinned.success')
+    else
+      @post.unpinned!
+      redirect_to profile_path(current_user), notice: t('.unpinned.success')
+    end
+  end
+
   private
 
   def post_params
-    params.require(:post).permit(:title, :content)
-  end
-
-  def set_user
-    @user = User.find(params[:user_id])
+    post_params = params.require(:post).permit(:title, :content)
+    post_params['edited_at'] = Time.zone.now
+    post_params
   end
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def authorize!
+    redirect_to root_path, alert: t('.redirect_alert.invalid_user') unless @post.user == current_user
   end
 end

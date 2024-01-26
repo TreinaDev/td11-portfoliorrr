@@ -1,6 +1,7 @@
 class Profile < ApplicationRecord
   belongs_to :user
   has_one :personal_info, dependent: :destroy
+  has_many :profile_job_categories, dependent: :destroy
 
   has_many :followers, class_name: 'Connection', foreign_key: :followed_profile_id, dependent: :destroy,
                        inverse_of: :follower
@@ -10,11 +11,23 @@ class Profile < ApplicationRecord
 
   has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
 
+  has_many :profile_job_categories, dependent: :destroy
+
+  has_many :job_categories, through: :profile_job_categories
+
   accepts_nested_attributes_for :personal_info
 
   after_create :create_personal_info!
 
   delegate :full_name, to: :user
+
+  def self.advanced_search(search_query)
+    left_outer_joins(:job_categories, :personal_info, :user).where(
+      "job_categories.name LIKE :term OR
+                 personal_infos.city LIKE :term OR
+                 users.full_name LIKE :term", { term: "%#{sanitize_sql_like(search_query)}%" }
+    ).uniq
+  end
 
   def followers_count
     followers.active.count

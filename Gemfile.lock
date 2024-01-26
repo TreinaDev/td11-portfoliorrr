@@ -122,6 +122,8 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
+    faker (3.2.3)
+      i18n (>= 1.8.11, < 2)
     ferrum (0.14)
       addressable (~> 2.5)
       concurrent-ruby (~> 1.1)
@@ -314,6 +316,7 @@ DEPENDENCIES
   debug
   devise
   factory_bot_rails
+  faker
   jbuilder
   jsbundling-rails
   puma (~> 6.0)
