@@ -1,0 +1,117 @@
+<div>
+  <% user_is_owner = profile.user == current_user %>
+
+  <p>Email: <%= profile.user.email %></p>
+  <h3>Resumo Profissional: <%= profile.cover_letter %></h3><br>
+
+  <h3><%= PersonalInfo.model_name.human %></h3>
+  <ul>
+    <li>
+      <%= PersonalInfo.human_attribute_name(:street) %>: <%= profile.user.personal_info.street %>
+    </li>
+    <li>
+      <%= PersonalInfo.human_attribute_name(:street_number) %>: <%= profile.user.personal_info.street_number %>
+    </li>
+    <li>
+      <%= PersonalInfo.human_attribute_name(:area) %>: <%= profile.user.personal_info.area %>
+    </li>
+    <li>
+      <%= PersonalInfo.human_attribute_name(:zip_code) %>: <%= profile.user.personal_info.zip_code %>
+    </li>
+    <li>
+      <%= PersonalInfo.human_attribute_name(:city) %>: <%= profile.user.personal_info.city %>
+    </li>
+    <li>
+      <%= PersonalInfo.human_attribute_name(:state) %>: <%= profile.user.personal_info.state %>
+    </li>
+    <li>
+      <%= PersonalInfo.human_attribute_name(:phone) %>: <%= profile.user.personal_info.phone %>
+    </li>
+    <li>
+      <%= PersonalInfo.human_attribute_name(:birth_date) %>: <%= l profile.user.personal_info&.birth_date if profile.user.personal_info&.birth_date %>
+    </li>
+    <li>
+      <%= Profile.human_attribute_name(:cover_letter) %>: <%= profile.cover_letter %>
+    </li>
+    <li>
+      <%= PersonalInfo.human_attribute_name(:visibility) %>: <%= t(profile.user.personal_info.visibility) %>
+    </li>
+  </ul>
+
+
+  <%= link_to 'Editar Informações Pessoais', edit_user_profile_path, class:'btn btn-secondary' if user_is_owner %>
+  
+  <h3 class='mt-5'><%= ProfessionalInfo.model_name.human %></h3>
+  <p>
+    <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path, class:'btn btn-primary' if user_is_owner %>
+  </p>
+  <% professional_infos.each do |professional_info| %>
+    <h4>
+      <%= ProfessionalInfo.human_attribute_name(:company) %>: <%= professional_info.company %>
+    </h4>
+    <ul>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:current_job) %>: <%= t(professional_info.current_job) %>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:position) %>: <%= professional_info.position %>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:description) %>: <%= professional_info.description %>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:start_date) %>: <%= l professional_info.start_date if professional_info.start_date%>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:end_date) %>: <%= l professional_info.end_date if professional_info.end_date %>
+      </li>
+      <li>
+        <%= ProfessionalInfo.human_attribute_name(:visibility) %>: <%= t(professional_info.visibility) %>
+      </li>
+    </ul>
+    <p>
+      <%= link_to 'Editar Experiência Profissional', edit_professional_info_path(professional_info), class:'btn btn-secondary' if user_is_owner %>
+    </p>
+  <% end %>
+
+  <h3 class='mt-5'><%= EducationInfo.model_name.human %></h3>
+  <p>
+    <%= link_to 'Adicionar Formação Acadêmica', new_user_profile_education_info_path, class:'btn btn-primary' if user_is_owner %>
+  </p>
+    <% profile.education_infos.each do |education_info| %>
+      <h4>
+        <%= EducationInfo.human_attribute_name(:institution) %>: <%= education_info.institution %>
+      </h4>
+      <ul>
+        <li>
+          <%= EducationInfo.human_attribute_name(:course) %>: <%= education_info.course %>
+        </li>
+        <li>
+          <%= EducationInfo.human_attribute_name(:start_date) %>: <%= l education_info.start_date if education_info.start_date%>
+        </li>
+        <li>
+          <%= EducationInfo.human_attribute_name(:end_date) %>: <%= l education_info.end_date if education_info.end_date %>
+        </li>
+        <li>
+        <%= EducationInfo.human_attribute_name(:visibility) %>: <%= t(education_info.visibility) %>
+        </li>
+      </ul>
+      <p>
+        <%= link_to 'Editar Formação Acadêmica', edit_education_info_path(education_info), class:'btn btn-secondary' if user_is_owner %>
+      </p>
+    <% end %>
+</div>
+<div id='profile-job-categories'>
+  <h3><%= t('content.section_title') %></h3>
+  <%= link_to t('links.new_profile_job_category_path'), new_profile_job_category_path, class:'btn btn-primary' if user_is_owner %>
+  <div class='mt-2'>
+    <% profile.profile_job_categories.each do |profile_job_category| %>
+      <p><strong><%= profile_job_category.job_category.name %></strong></p>
+      <% if profile_job_category.description.present? %>
+        <p><%= profile_job_category.description %></p>
+      <% else %>
+        <p><%= t('content.profile_job_category_without_description') %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

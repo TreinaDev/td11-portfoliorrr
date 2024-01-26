@@ -9,7 +9,7 @@ class ProfileController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      redirect_to user_profile_path, notice: t('.success')
+      redirect_to profile_path(@profile), notice: t('.success')
     else
       flash.now[:alert] = t('.error')
       render :edit, status: :unprocessable_entity

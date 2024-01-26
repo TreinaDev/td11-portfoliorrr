@@ -8,7 +8,7 @@ describe 'Usuário edita informações profissionais' do
 
       login_as user
 
-      visit user_profile_path
+      visit profile_path(user.profile)
 
       click_on 'Editar Experiência Profissional'
 
@@ -26,7 +26,7 @@ describe 'Usuário edita informações profissionais' do
 
       click_on 'Salvar'
 
-      expect(current_path).to eq user_profile_path
+      expect(current_path).to eq profile_path(user.profile)
       expect(page).to have_content 'Rebase'
       expect(page).to have_content 'Vínculo Atual: Não'
       expect(page).to have_content 'Desenvolvedor Python'

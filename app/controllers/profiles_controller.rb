@@ -6,6 +6,7 @@ class ProfilesController < ApplicationController
     @user = @profile.user
     @followers_count = @profile.followers_count
     @followed_count = @profile.followed_count
+    @professional_infos = @profile.professional_infos.order(start_date: :desc)
   end
 
   def search

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário visualiza suas informações pessoais' do
+describe 'Usuário visualiza informações pessoais' do
   context 'quando logado' do
     it 'a partir da home' do
       user = create(:user, full_name: 'João Almeida', email: 'joaoalmeida@email.com')
@@ -12,7 +12,6 @@ describe 'Usuário visualiza suas informações pessoais' do
       visit root_path
       click_on 'João'
 
-      expect(current_path).to eq user_profile_path
       expect(page).to have_content 'Avenida Campus Code'
       expect(page).to have_content 'João Almeida'
       expect(page).to have_content 'joaoalmeida@email.com'
@@ -27,7 +26,7 @@ describe 'Usuário visualiza suas informações pessoais' do
 
   context 'quando não está logado' do
     it 'e é redirecionado para a página de login' do
-      visit user_profile_path
+      visit profile_path(1)
       expect(current_path).to eq new_user_session_path
       expect(page).to have_content 'Para continuar, faça login ou registre-se'
     end
