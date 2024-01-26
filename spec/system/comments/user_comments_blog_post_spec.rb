@@ -13,7 +13,7 @@ describe 'Usuário comenta uma publicação' do
     expect(post).to be_persisted
   end
 
-  it 'com mensagem em branco' do
+  it 'com mensagem em branco e falha' do
     post = create(:post)
 
     login_as post.user

@@ -57,7 +57,7 @@
 
       <div class="btn-group">
         <div class="me-2">
-          <%= comment.likes.count %> Curtida
+          <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
         </div>
         <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
           <% like = comment.likes.find_by(user_id: current_user.id) %>

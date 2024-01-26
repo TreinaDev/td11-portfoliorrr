@@ -10,7 +10,6 @@ describe 'Usuário curte' do
       visit post_path(post)
       click_on 'Curtir'
 
-      expect(page).to have_content('Curtiu')
       expect(page).to have_content('1 Curtida')
       expect(page).not_to have_content('Curtir')
       expect(page).to have_content('Descurtir')
@@ -41,7 +40,6 @@ describe 'Usuário curte' do
         click_on 'Curtir'
       end
 
-      expect(page).to have_content('Curtiu')
       expect(page).to have_content('1 Curtida')
       within '#comments' do
         expect(page).not_to have_content('Curtir')
@@ -56,7 +54,6 @@ describe 'Usuário curte' do
       visit post_path(like.likeable.post)
       within '#comments' do
         click_on 'Descurtir'
-        save_page
 
         expect(page).to have_content '0 Curtida'
         expect(page).to have_content 'Curtir'

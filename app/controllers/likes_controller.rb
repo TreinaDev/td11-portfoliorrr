@@ -7,7 +7,7 @@ class LikesController < ApplicationController
 
     like = current_user.likes.build(likeable:)
     if like.save
-      redirect_to post_path(post_id), notice: t('.success')
+      redirect_to post_path(post_id)
     else
       redirect_to post_path(post_id), alert: t('.error')
     end

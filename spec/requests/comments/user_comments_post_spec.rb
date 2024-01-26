@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário faz um comentário' do
-  it 'não esta logado' do
+  it 'não esta logado e é redirecionado' do
     post = create(:post)
 
     post post_comments_path(post)
