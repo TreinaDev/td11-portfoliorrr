@@ -22,6 +22,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
     t.index ["follower_id"], name: "index_connections_on_follower_id"
   end
 
+  create_table "education_infos", force: :cascade do |t|
+    t.string "institution"
+    t.string "course"
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "visibility", default: true
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_education_infos_on_profile_id"
+  end
+
+  create_table "followers", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_profile_id", null: false
+    t.integer "status", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_profile_id", "follower_id"], name: "index_followers_on_followed_profile_id_and_follower_id", unique: true
+    t.index ["followed_profile_id"], name: "index_followers_on_followed_profile_id"
+    t.index ["follower_id"], name: "index_followers_on_follower_id"
+  end
+
   create_table "job_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -52,6 +75,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "professional_infos", force: :cascade do |t|
+    t.string "company"
+    t.string "position"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "visibility"
+    t.index ["profile_id"], name: "index_professional_infos_on_profile_id"
   end
 
   create_table "profile_job_categories", force: :cascade do |t|
@@ -90,8 +125,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_133754) do
 
   add_foreign_key "connections", "profiles", column: "followed_profile_id"
   add_foreign_key "connections", "profiles", column: "follower_id"
+  add_foreign_key "education_infos", "profiles"
+  add_foreign_key "followers", "profiles", column: "followed_profile_id"
+  add_foreign_key "followers", "profiles", column: "follower_id"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
+  add_foreign_key "professional_infos", "profiles"
   add_foreign_key "profile_job_categories", "job_categories"
   add_foreign_key "profile_job_categories", "profiles"
   add_foreign_key "profiles", "users"
