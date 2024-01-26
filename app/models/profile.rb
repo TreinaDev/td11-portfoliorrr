@@ -33,6 +33,14 @@ class Profile < ApplicationRecord
     ).uniq
   end
 
+  def self.search_by_job_categories(query)
+    left_outer_joins(:job_categories, :profile_job_categories).where(
+      "job_categories.name LIKE :term OR
+                 profile_job_categories.description LIKE :term",
+                 { term: "%#{sanitize_sql_like(query)}%" }
+    ).uniq
+  end
+
   def followers_count
     followers.active.count
   end
