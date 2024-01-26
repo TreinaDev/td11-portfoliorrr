@@ -10,10 +10,10 @@ pt-BR:
   profiles:
     search:
       error: 'Você precisa informar um nome para fazer a pesquisa'
+      results:
+        one: 'resultado'
+        other: 'resultados'
   profile:
     update:
       success: 'Experiência profissional atualizada com sucesso'
       error: 'Não foi possível atualizar a experiência profissional'
-      results:
-        one: 'resultado'
-        other: 'resultados'
