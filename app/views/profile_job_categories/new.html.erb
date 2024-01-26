@@ -1,0 +1,22 @@
+<h1><%= t('content.new_form_title') %></h1>
+<% if @profile_job_category.errors.any? %>
+  <% @profile_job_category.errors.full_messages.each do |msg| %>
+    <p class="alert alert-warning">
+      <%= msg %>
+    </p>
+  <% end %>
+<% end %>
+<%= form_with model: @profile_job_category do |f| %>
+  <div class="mb-3">
+    <%= f.label :job_category_id, class: 'form-label' %>
+    <%= f.collection_select :job_category_id, JobCategory.order(:name), :id, :name, {prompt: 'Selecione uma categoria'}, class: 'form-select' %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :description, 'Descrição', class: 'form-label' %>
+    <%= f.text_area :description, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= f.submit t('buttons.save'), class: 'btn btn-primary' %>
+    <%= link_to t('buttons.return'), user_profile_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

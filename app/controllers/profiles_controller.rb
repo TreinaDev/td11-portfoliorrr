@@ -9,10 +9,10 @@ class ProfilesController < ApplicationController
   end
 
   def search
-    query = params[:query]
+    @query = params[:query]
 
-    return redirect_back(fallback_location: root_path, alert: t('.error')) if query.blank?
+    return redirect_back(fallback_location: root_path, alert: t('.error')) if @query.blank?
 
-    @users = User.search_by_full_name(query)
+    @profiles = Profile.advanced_search(@query)
   end
 end

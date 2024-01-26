@@ -11,16 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
-  create_table "comments", force: :cascade do |t|
-    t.text "message"
-    t.integer "post_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
   create_table "connections", force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_profile_id", null: false
@@ -37,17 +27,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_job_categories_on_name", unique: true
-  end
-
-  create_table "likes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "likeable_type"
-    t.integer "likeable_id"
-    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
-    t.index ["user_id", "likeable_id", "likeable_type"], name: "index_likes_on_user_id_and_likeable_id_and_likeable_type", unique: true
-    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "personal_infos", force: :cascade do |t|
@@ -73,7 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-01-26 13:44:19"
+    t.datetime "edited_at", default: "2024-01-26 18:01:20"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -83,6 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["job_category_id", "profile_id"], name: "index_profile_job_categories_on_job_category_id_and_profile_id", unique: true
     t.index ["job_category_id"], name: "index_profile_job_categories_on_job_category_id"
     t.index ["profile_id"], name: "index_profile_job_categories_on_profile_id"
   end
@@ -111,11 +91,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "posts"
-  add_foreign_key "comments", "users"
   add_foreign_key "connections", "profiles", column: "followed_profile_id"
   add_foreign_key "connections", "profiles", column: "follower_id"
-  add_foreign_key "likes", "users"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "profile_job_categories", "job_categories"

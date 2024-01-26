@@ -17,11 +17,6 @@ class User < ApplicationRecord
 
   after_create :'create_profile!'
 
-  def self.search_by_full_name(query)
-    where('full_name LIKE ?',
-          "%#{sanitize_sql_like(query)}%")
-  end
-
   def description
     if admin?
       "#{full_name.split(' ').first} (Admin)"

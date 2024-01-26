@@ -5,3 +5,6 @@ pt-BR:
   login_required: 'Você não está logado'
   true: 'Sim'
   false: 'Não'
+  buttons:
+    save: Salvar
+    return: Voltar

@@ -1,13 +1,24 @@
-<section id="results">
-  <h2>Resultado da Pesquisa</h2>
+<h2>Resultado da Pesquisa</h2>
 
-  <% if @users.any? %>
-    <ul>
-      <% @users.each do |user| %>
-        <li><%= link_to user.full_name, profile_path(user) %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>Não encontramos nenhum perfil com esse nome</p>
-  <% end %>
-</section>
+<% if @profiles.any? %>
+  <h3><%= @profiles.count %> <%= t('profiles.search.results', count: @profiles.count) %> para: <%= @query %></h3>
+    <% @profiles.each do |profile| %>
+    <div class="w-50 mt-5 p-3 border-bottom border-1">
+      <div class="search-result">
+        <h3 class="text-center"><%= link_to profile.full_name, profile %></h3>
+        <% if profile.personal_info.city && profile.personal_info.state %>
+          <p class="text-center"><%= profile.personal_info.city %> - <%= profile.personal_info.state %></p>
+        <% end %>
+        <% if profile.job_categories.any? %>
+          <div class="d-flex gap-3 justify-content-center">
+            <% profile.job_categories.first(3).each do |category| %>
+              <p class="border border-2 p-2 bg-dark-subtle"> <%= category.name %> </p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+<% else %>
+  <p>Nenhum perfil encontrado com: <%= @query %></p>
+<% end %>

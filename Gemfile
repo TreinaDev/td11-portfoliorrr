@@ -9,6 +9,8 @@ gem 'cpf_cnpj'
 
 gem 'cssbundling-rails'
 gem 'devise'
+
+gem 'faker'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'puma', '~> 6.0'
