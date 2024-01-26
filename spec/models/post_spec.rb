@@ -13,4 +13,14 @@ RSpec.describe Post, type: :model do
       expect(Post.get_sample(5).count).to eq 3
     end
   end
+  describe '#pinned' do
+    it 'e não altera o edited_at' do
+      user = create(:user)
+      post = create(:post, user:, title: 'Post A', content: 'Primeira postagem')
+
+      post.pinned!
+
+      expect(post.edited_at.to_date).to eq post.created_at.to_date
+    end
+  end
 end

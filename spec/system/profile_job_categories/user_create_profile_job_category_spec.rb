@@ -14,6 +14,7 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
 
     select 'Gestão de Reino Feudal', from: 'Categoria'
     fill_in 'Descrição', with: 'Sou princesa vitalícia de um reino constantemente em guerra com o mal.'
+    save_page
     click_on 'Salvar'
 
     expect(ProfileJobCategory.all).not_to be_empty
