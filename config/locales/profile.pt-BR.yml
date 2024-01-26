@@ -13,3 +13,7 @@ pt-BR:
       results:
         one: 'resultado'
         other: 'resultados'
+  profile:
+    update:
+      success: 'Experiência profissional atualizada com sucesso'
+      error: 'Não foi possível atualizar a experiência profissional'

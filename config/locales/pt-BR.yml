@@ -8,3 +8,5 @@ pt-BR:
   buttons:
     save: Salvar
     return: Voltar
+  application_errors:
+    not_found: 'Não foi possível completar sua ação'

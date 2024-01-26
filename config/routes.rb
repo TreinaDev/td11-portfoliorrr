@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
 
   root to: "home#index"
 
@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
-  resources :posts, only: %i[new create] do 
+  resources :posts, only: %i[new create] do
     post 'pin', on: :member
   end
 
@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   end
 
   resources :job_categories, only: %i[index create]
-  resource :profile, only: %i[edit update show], controller: :profile, as: :user_profile
+  resource :profile, only: %i[edit update show], controller: :profile, as: :user_profile do
+    resources :professional_infos, shallow: true, only: %i[new create edit update]
+    resources :education_infos, shallow: true, only: %i[new create edit update]
+  end
+
   resources :profile_job_categories, only: %i[new create]
 end

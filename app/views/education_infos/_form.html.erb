@@ -1,0 +1,23 @@
+<p>
+  <%= education_info.label :institution, class:'form-label' %>
+  <%= education_info.text_field :institution, class:'form-control' %>
+</p>
+<p>
+  <%= education_info.label :course, class:'form-label' %>
+  <%= education_info.text_field :course, class:'form-control' %>
+</p>
+<p>
+  <%= education_info.label :start_date, class:'form-label' %>
+  <%= education_info.date_field :start_date, class:'form-control' %>
+</p>
+<p>
+  <%= education_info.label :end_date, class:'form-label' %>
+  <%= education_info.date_field :end_date, class:'form-control' %>
+</p>
+<p class='form-check'>
+  <%= education_info.check_box :visibility, class:"form-check-input" %>
+  <%= education_info.label :visibility, class:"form-check-label" %>
+</p>
+<p class='mt-3'>
+  <%= education_info.submit 'Salvar', class:'btn btn-primary' %>
+</p>

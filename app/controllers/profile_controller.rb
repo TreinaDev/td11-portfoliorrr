@@ -2,10 +2,18 @@ class ProfileController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile, only: %i[edit update show]
 
-  def edit; end
+  def edit
+    @profile.professional_infos.build if @profile.professional_infos.empty?
+    @profile.education_infos.build if @profile.education_infos.empty?
+  end
 
   def update
-    redirect_to user_profile_path if @profile.update(profile_params)
+    if @profile.update(profile_params)
+      redirect_to user_profile_path, notice: t('.success')
+    else
+      flash.now[:alert] = t('.error')
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def show; end
@@ -16,10 +24,12 @@ class ProfileController < ApplicationController
     personal_info_attributes = %i[street city state
                                   area phone zip_code visibility
                                   street_number birth_date]
+
     params.require(:profile).permit :cover_letter, personal_info_attributes:
   end
 
   def set_profile
     @profile = current_user.profile
+    @professional_infos = @profile.professional_infos.order(start_date: :desc)
   end
 end

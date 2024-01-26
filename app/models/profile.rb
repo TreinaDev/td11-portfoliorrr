@@ -1,6 +1,8 @@
 class Profile < ApplicationRecord
   belongs_to :user
   has_one :personal_info, dependent: :destroy
+  has_many :professional_infos, dependent: :destroy
+  has_many :education_infos, dependent: :destroy
   has_many :profile_job_categories, dependent: :destroy
 
   has_many :followers, class_name: 'Connection', foreign_key: :followed_profile_id, dependent: :destroy,
@@ -16,6 +18,8 @@ class Profile < ApplicationRecord
   has_many :job_categories, through: :profile_job_categories
 
   accepts_nested_attributes_for :personal_info
+  accepts_nested_attributes_for :professional_infos
+  accepts_nested_attributes_for :education_infos
 
   after_create :create_personal_info!
 
