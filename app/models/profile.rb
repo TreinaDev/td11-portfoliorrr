@@ -1,6 +1,7 @@
 class Profile < ApplicationRecord
   belongs_to :user
   has_one :personal_info, dependent: :destroy
+  has_many :profile_job_categories, dependent: :destroy
 
   has_many :followers, class_name: 'Connection', foreign_key: :followed_profile_id, dependent: :destroy,
                        inverse_of: :follower
