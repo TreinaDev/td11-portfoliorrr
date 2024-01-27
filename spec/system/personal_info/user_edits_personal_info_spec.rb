@@ -5,7 +5,7 @@ describe 'Usuário edita informações pessoais' do
     it 'a partir da home' do
       user = create(:user)
       personal_info = create(:personal_info, profile: user.profile)
-      user_name = personal_info.profile.user.description
+      user_name = user.description
 
       login_as user
       visit root_path
