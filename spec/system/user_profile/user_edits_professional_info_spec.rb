@@ -87,7 +87,7 @@ describe 'Usuário edita informações profissionais' do
 
       visit edit_professional_info_path(professional_info)
 
-      expect(page).to have_link 'Voltar', href: root_path
+      expect(page).to have_link 'Voltar', href: profile_path(user.profile)
     end
   end
 

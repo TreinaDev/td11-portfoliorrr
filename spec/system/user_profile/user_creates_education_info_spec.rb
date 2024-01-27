@@ -59,7 +59,7 @@ describe 'Usuário adiciona informações acadêmicas' do
 
       visit new_user_profile_education_info_path
 
-      expect(page).to have_link 'Voltar', href: root_path
+      expect(page).to have_link 'Voltar', href: profile_path(user.profile)
     end
   end
 end

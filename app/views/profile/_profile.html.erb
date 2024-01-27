@@ -2,42 +2,18 @@
   <% user_is_owner = profile.user == current_user %>
 
   <p>Email: <%= profile.user.email %></p>
+
   <h3>Resumo Profissional: <%= profile.cover_letter %></h3><br>
 
   <h3><%= PersonalInfo.model_name.human %></h3>
-  <ul>
-    <li>
-      <%= PersonalInfo.human_attribute_name(:street) %>: <%= profile.user.personal_info.street %>
-    </li>
-    <li>
-      <%= PersonalInfo.human_attribute_name(:street_number) %>: <%= profile.user.personal_info.street_number %>
-    </li>
-    <li>
-      <%= PersonalInfo.human_attribute_name(:area) %>: <%= profile.user.personal_info.area %>
-    </li>
-    <li>
-      <%= PersonalInfo.human_attribute_name(:zip_code) %>: <%= profile.user.personal_info.zip_code %>
-    </li>
-    <li>
-      <%= PersonalInfo.human_attribute_name(:city) %>: <%= profile.user.personal_info.city %>
-    </li>
-    <li>
-      <%= PersonalInfo.human_attribute_name(:state) %>: <%= profile.user.personal_info.state %>
-    </li>
-    <li>
-      <%= PersonalInfo.human_attribute_name(:phone) %>: <%= profile.user.personal_info.phone %>
-    </li>
-    <li>
-      <%= PersonalInfo.human_attribute_name(:birth_date) %>: <%= l profile.user.personal_info&.birth_date if profile.user.personal_info&.birth_date %>
-    </li>
-    <li>
-      <%= Profile.human_attribute_name(:cover_letter) %>: <%= profile.cover_letter %>
-    </li>
-    <li>
-      <%= PersonalInfo.human_attribute_name(:visibility) %>: <%= t(profile.user.personal_info.visibility) %>
-    </li>
-  </ul>
 
+  <% if current_user == profile.user%>
+    <% personal_info_attributes =  profile.personal_info.non_date_attributes %>
+  <% else%>
+    <% personal_info_attributes = profile.personal_info.non_empty_attributes %>
+  <% end%>
+
+  <%= render 'profile/personal_info', personal_info: personal_info_attributes %>
 
   <%= link_to 'Editar Informações Pessoais', edit_user_profile_path, class:'btn btn-secondary' if user_is_owner %>
   

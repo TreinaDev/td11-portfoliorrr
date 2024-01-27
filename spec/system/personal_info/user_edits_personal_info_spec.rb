@@ -54,7 +54,7 @@ describe 'Usuário edita informações pessoais' do
 
       visit edit_user_profile_path
 
-      expect(page).to have_link 'Voltar', href: root_path
+      expect(page).to have_link 'Voltar', href: profile_path(user.profile)
     end
   end
 
