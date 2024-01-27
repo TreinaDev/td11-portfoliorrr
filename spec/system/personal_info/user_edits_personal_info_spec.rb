@@ -4,7 +4,7 @@ describe 'Usuário edita informações pessoais' do
   context 'quando logado' do
     it 'a partir da home' do
       user = create(:user)
-      personal_info = create(:personal_info, profile: user.profile)
+      create(:personal_info, profile: user.profile)
       user_name = user.description
 
       login_as user
