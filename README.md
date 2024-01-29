@@ -3,10 +3,10 @@
 O Portfoliorrr é uma rede social com funcionalidades de portfólio para pessoas que querem compartilhar o seu trabalho e procurar outros trabalhos, seja para buscar inspiração ou novos conhecimentos.
 
 ## Conteúdo
-* [Informações técnicas](https://github.com/TreinaDev/td11-portfoliorrr#informacoes-tecnicas)
-* [Como configurar a aplicação](https://github.com/TreinaDev/td11-portfoliorrr#como-configurar-a-aplicacao)
-* [Como visualizar a aplicação no navegador](https://github.com/TreinaDev/td11-portfoliorrr#como-visualizar-a-aplicacao-no-navegador)
-* [Documentação da API](https://github.com/TreinaDev/td11-portfoliorrr#documentacao-da-api)
+* [Informações técnicas](https://github.com/TreinaDev/td11-portfoliorrr?tab=readme-ov-file#informa%C3%A7%C3%B5es-t%C3%A9cnicas)
+* [Como configurar a aplicação](https://github.com/TreinaDev/td11-portfoliorrr?tab=readme-ov-file#como-configurar-a-aplica%C3%A7%C3%A3o)
+* [Como visualizar a aplicação no navegador](https://github.com/TreinaDev/td11-portfoliorrr?tab=readme-ov-file#como-visualizar-a-aplica%C3%A7%C3%A3o-no-navegador)
+* [Documentação da API](https://github.com/TreinaDev/td11-portfoliorrr?tab=readme-ov-file#documenta%C3%A7%C3%A3o-da-api)
 
 ## Informações técnicas
 * Versão Ruby: 3.2.2
