@@ -31,6 +31,15 @@ class Profile < ApplicationRecord
     ).uniq
   end
 
+  def self.get_profile_job_categories_json(query)
+    profiles = search_by_job_categories(query)
+    profiles_json = profiles.map do |profile|
+      { user_id: profile.user_id, full_name: profile.full_name,
+        job_categories: ProfileJobCategory.generate_profile_job_categories_json(profile.id) }
+    end
+    profiles_json.as_json
+  end
+
   def followers_count
     followers.active.count
   end
@@ -46,4 +55,13 @@ class Profile < ApplicationRecord
   def inactive_follower?(profile)
     followers.inactive.where(follower: profile).any?
   end
+end
+
+private
+
+def search_by_job_categories(query)
+  left_outer_joins(:job_categories, :profile_job_categories).where(
+    "job_categories.name LIKE :term OR
+               profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
+  ).uniq
 end
