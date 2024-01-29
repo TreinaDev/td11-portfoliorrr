@@ -26,7 +26,7 @@ describe 'Usuário cria uma postagem' do
 
     posts = Post.all
     expect(posts.count).to eq 1
-    expect(current_path).to eq post_path(posts.first)
+    expect(page).to have_current_path post_path(posts.first)
     expect(page).to have_content 'Olá Mundo!'
     expect(page).to have_content 'Primeira publicação'
     expect(page).to have_content 'Criado por Seiya de Pégaso'

@@ -14,11 +14,10 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
 
     select 'Gestão de Reino Feudal', from: 'Categoria'
     fill_in 'Descrição', with: 'Sou princesa vitalícia de um reino constantemente em guerra com o mal.'
-    save_page
     click_on 'Salvar'
 
     expect(ProfileJobCategory.all).not_to be_empty
-    expect(page).to have_current_path user_profile_path
+    expect(page).to have_current_path profile_path(user.profile)
     expect(page).to have_content 'Categoria de trabalho adicionada com sucesso!'
     expect(page).to have_content 'Gestão de Reino Feudal'
     expect(page).to have_content 'Sou princesa vitalícia de um reino constantemente em guerra com o mal.'
@@ -73,7 +72,7 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
     visit new_profile_job_category_path
 
     expect(page).to have_content 'Essa página não está disponível no momento, entre em contato com o administrador.'
-    expect(page).to have_current_path user_profile_path
+    expect(page).to have_current_path profile_path(user.profile)
   end
 
   it 'e é alertado no formulário sobre não poder editar ou remover os dados no futuro' do
@@ -92,9 +91,11 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
     create(:job_category)
 
     login_as user
-    visit new_profile_job_category_path
+    visit profile_path(user.profile)
+    click_on 'Adicionar nova categoria de trabalho'
+    click_on 'Voltar'
 
-    expect(page).to have_link 'Voltar', href: user_profile_path
+    expect(page).to have_current_path(profile_path(user.profile))
   end
 
   it 'mas não pode cadastrar a mesma categoria duas ou mais vezes.' do

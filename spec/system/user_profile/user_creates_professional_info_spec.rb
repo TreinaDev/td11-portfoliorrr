@@ -7,7 +7,7 @@ describe 'Usuário adiciona informações profissionais' do
 
       login_as user
 
-      visit user_profile_path
+      visit profile_path(user.profile)
 
       click_on 'Adicionar Experiência Profissional'
 
@@ -21,7 +21,7 @@ describe 'Usuário adiciona informações profissionais' do
 
       click_on 'Salvar'
 
-      expect(current_path).to eq user_profile_path
+      expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'Rebase'
       expect(page).to have_content 'Vínculo Atual: Não'
       expect(page).to have_content 'Desenvolvedor Python'
@@ -91,7 +91,7 @@ describe 'Usuário adiciona informações profissionais' do
 
       visit new_user_profile_professional_info_path
 
-      expect(page).to have_link 'Voltar', href: root_path
+      expect(page).to have_link 'Voltar', href: profile_path(user.profile)
     end
   end
 end

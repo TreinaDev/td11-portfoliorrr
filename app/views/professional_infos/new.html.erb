@@ -5,5 +5,4 @@
 
 <%= form_with model: @professional_info, url: user_profile_professional_infos_path do |professional_info| %>
   <%= render 'form', professional_info: professional_info %>
-  <%= link_to 'Voltar', request.referer || root_path, class: 'btn btn-secondary' %>
 <% end %>

@@ -8,7 +8,7 @@ describe 'Usuário edita informações sobre sua formação' do
 
       login_as user
 
-      visit user_profile_path
+      visit profile_path(user.profile)
 
       click_on 'Editar Formação Acadêmica'
 
@@ -20,7 +20,7 @@ describe 'Usuário edita informações sobre sua formação' do
 
       click_on 'Salvar'
 
-      expect(current_path).to eq user_profile_path
+      expect(current_path).to eq profile_path(user.profile)
       expect(page).to have_content 'UFJF'
       expect(page).to have_content 'Bacharelado em Ciência da Computação'
       expect(page).to have_content '25/12/2012'
@@ -35,7 +35,7 @@ describe 'Usuário edita informações sobre sua formação' do
 
       login_as user
 
-      visit user_profile_path
+      visit profile_path(user.profile)
 
       click_on 'Editar Formação Acadêmica'
 
@@ -82,7 +82,7 @@ describe 'Usuário edita informações sobre sua formação' do
 
       visit edit_education_info_path(education_info)
 
-      expect(page).to have_link 'Voltar', href: root_path
+      expect(page).to have_link 'Voltar', href: profile_path(user.profile)
     end
   end
 end

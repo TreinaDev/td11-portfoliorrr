@@ -4,19 +4,25 @@
     <% if @profile.user.posts.pinned.any? %>
       <div id="fixed">
         <h2 class="text-primary" id="post-list-title">Destaque</h2>
-        <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.pinned } %>
+        <section>
+          <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.pinned } %>
+        </section>
       </div>
     <% end %>
 
     <div id="publications">
       <h2 id="post-list-title">Publicações</h2>
-      <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.unpinned.order(created_at: :desc) } %>
+      <section>
+        <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.unpinned.order(created_at: :desc) } %>
+      </section>
     </div>
 
   </div>
-  <div class="container w-25 d-flex flex-column px-5 align-items-end">
-    <aside class="px-5 position-fixed">
-      <div class="text-center d-flex flex-column align-items-center">
+
+  <div class="container w-50 d-flex flex-column px-5 align-items-end">
+    <aside class="px-5">
+      <section class="text-center d-flex flex-column align-items-center">
+        
         <h4><%= @user.full_name %></h4>
         <div class="d-flex gap-4">
           <div class="d-flex flex-column" id="followers-count">
@@ -41,7 +47,11 @@
             <% end %>
           <% end %>
         </div>
-      </div>
+        
+      </section>
+      <section>
+        <%= render 'profile/profile', profile: @profile, professional_infos: @professional_infos, personal_info: @personal_info %>
+      </section>
     </aside>
   </div>
 </div>

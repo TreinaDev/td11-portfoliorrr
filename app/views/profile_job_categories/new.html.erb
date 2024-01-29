@@ -17,6 +17,6 @@
   </div>
   <div class="mb-3">
     <%= f.submit t('buttons.save'), class: 'btn btn-primary' %>
-    <%= link_to t('buttons.return'), user_profile_path, class: 'btn btn-secondary' %>
+    <%= link_to 'Voltar', profile_path(current_user.profile), class: 'btn btn-secondary' %>
   </div>
 <% end %>

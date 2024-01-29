@@ -5,4 +5,3 @@
 <%= form_with model: @professional_info, url: professional_info_path(@professional_info) do |professional_info| %>
   <%= render 'form', professional_info: professional_info %>
 <% end %>
-<%= link_to 'Voltar', request.referer || root_path, class: 'btn btn-secondary' %>

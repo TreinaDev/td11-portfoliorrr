@@ -11,7 +11,7 @@ class EducationInfosController < ApplicationController
     @education_info = current_user.profile.education_infos.build(education_info_params)
 
     if @education_info.save
-      redirect_to user_profile_path, notice: t('.success')
+      redirect_to profile_path(current_user.profile), notice: t('.success')
     else
       flash.now[:alert] = t('.error')
       render :new, status: :unprocessable_entity
@@ -22,7 +22,7 @@ class EducationInfosController < ApplicationController
 
   def update
     if @education_info.update(education_info_params)
-      redirect_to user_profile_path, notice: t('.success')
+      redirect_to profile_path(current_user.profile), notice: t('.success')
     else
       flash.now[:alert] = t('.error')
       render :edit, status: :unprocessable_entity

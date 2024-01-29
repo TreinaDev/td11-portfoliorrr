@@ -3,14 +3,15 @@ require 'rails_helper'
 describe 'Usuário edita informações pessoais' do
   context 'quando logado' do
     it 'a partir da home' do
-      personal_info = create(:personal_info)
-      user_name = personal_info.profile.user.description
+      user = create(:user)
+      create(:personal_info, profile: user.profile)
+      user_name = user.description
 
-      login_as personal_info.profile.user
+      login_as user
       visit root_path
       click_on user_name
       click_on 'Editar Informações Pessoais'
-      expect(current_path).to eq edit_user_profile_path
+      expect(page).to have_current_path edit_user_profile_path
     end
 
     it 'com sucesso' do
@@ -34,7 +35,7 @@ describe 'Usuário edita informações pessoais' do
 
       click_on 'Salvar'
 
-      expect(current_path).to eq user_profile_path
+      expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'Eu estou tentando ser um dev melhor...'
       expect(page).to have_content 'Avenida Campus Code'
       expect(page).to have_content '1230'
@@ -53,7 +54,7 @@ describe 'Usuário edita informações pessoais' do
 
       visit edit_user_profile_path
 
-      expect(page).to have_link 'Voltar', href: root_path
+      expect(page).to have_link 'Voltar', href: profile_path(user.profile)
     end
   end
 

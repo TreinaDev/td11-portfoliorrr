@@ -15,5 +15,4 @@ pt-BR:
         other: 'resultados'
   profile:
     update:
-      success: 'Experiência profissional atualizada com sucesso'
-      error: 'Não foi possível atualizar a experiência profissional'
+      success: 'Informações pessoais atualizadas com sucesso'

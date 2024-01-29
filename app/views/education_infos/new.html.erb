@@ -5,4 +5,3 @@
 <%= form_with model: @education_info, url: user_profile_education_infos_path do |education_info| %>
   <%= render 'form', education_info: education_info %>
 <% end %>
-<%= link_to 'Voltar', request.referer || root_path, class: 'btn btn-secondary' %>

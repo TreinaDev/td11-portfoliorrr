@@ -7,7 +7,7 @@ describe 'Usuário adiciona informações acadêmicas' do
 
       login_as user
 
-      visit user_profile_path
+      visit profile_path(user.profile)
 
       click_on 'Adicionar Formação Acadêmica'
 
@@ -20,7 +20,7 @@ describe 'Usuário adiciona informações acadêmicas' do
 
       click_on 'Salvar'
 
-      expect(current_path).to eq user_profile_path
+      expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'Campus Code'
       expect(page).to have_content 'Web Dev'
       expect(page).to have_content '25/12/2017'
@@ -59,7 +59,7 @@ describe 'Usuário adiciona informações acadêmicas' do
 
       visit new_user_profile_education_info_path
 
-      expect(page).to have_link 'Voltar', href: root_path
+      expect(page).to have_link 'Voltar', href: profile_path(user.profile)
     end
   end
 end

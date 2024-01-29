@@ -9,7 +9,7 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
     post profile_job_categories_path, params: { profile_job_category: { job_category_id: job_category.id,
                                                                         description: 'Sou um Jedi' } }
 
-    expect(response).to redirect_to(user_profile_path)
+    expect(response).to redirect_to(profile_path(user.profile))
     expect(ProfileJobCategory.all).not_to be_empty
     expect(ProfileJobCategory.first.profile).to eq user.profile
     expect(ProfileJobCategory.first.job_category).to eq job_category
