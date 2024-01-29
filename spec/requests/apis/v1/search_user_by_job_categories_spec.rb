@@ -34,8 +34,35 @@ describe 'Api busca usuários por categoria de trabalho' do
                                                               'description' => 'Eu uso Bootstrap.' }]
     end
 
-    pending 'não encontrar nenhum usuário'
-    pending 'e não recebe um parâmetro de busca'
-    pending 'retorna um erro interno do servidor'
+    it 'e retorna array vazio ao não encontrar nenhum usuário' do
+      user = create(:user)
+      python = create(:job_category, name: 'Python')
+      user.profile.profile_job_categories.create(job_category: python, description: 'Uso Django.')
+
+      get '/api/v1/profiles/search', params: { search: 'ruby' }
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to include 'application/json'
+      expect(JSON.parse(response.body)).to eq []
+    end
+
+    it 'e não recebe um parâmetro de busca' do
+      get '/api/v1/profiles/search', params: { search: '' }
+
+      expect(response.status).to eq 400
+      expect(response.content_type).to include 'application/json'
+      expect(JSON.parse(response.body)).to eq({ 'error' => 'É necessário fornecer um parâmetro de busca' })
+    end
+
+    it 'retorna um erro interno do servidor' do
+      allow(Profile).to receive(:get_profile_job_categories_json).and_raise(ActiveRecord::ConnectionFailed)
+
+      get '/api/v1/profiles/search', params: { search: 'ruby' }
+
+      expect(response.status).to eq 500
+      json_response = JSON.parse(response.body)
+      expect(json_response.class).to eq Hash
+      expect(json_response['error']).to eq 'Houve um erro interno no servidor ao processar sua solicitação.'
+    end
   end
 end
