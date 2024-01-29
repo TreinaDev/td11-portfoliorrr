@@ -44,7 +44,7 @@ Retorno esperado:
 
 ```json
 { 
-  "error": ["Houve um erro interno no servidor ao processar sua solicitação."]
+  { "error": "Houve um erro interno no servidor ao processar sua solicitação." }
 }
 ```
 
@@ -58,7 +58,7 @@ query: Parâmetro que recebe string a ser buscada nos campos listados no título
 GET /api/v1/profiles/search?search=query
 ```
 
-Retorna uma lista com todos os usuários referetes a busca. (Status: 200)
+Retorna uma lista com todos os usuários referentes a busca. (Status: 200)
 
 ```json
 [
