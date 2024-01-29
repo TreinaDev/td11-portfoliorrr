@@ -70,7 +70,8 @@ describe 'Usuário visualiza informações pessoais' do
 
   context 'quando não está logado' do
     it 'e é redirecionado para a página de login' do
-      visit profile_path(1)
+      user = create(:user)
+      visit profile_path(user.profile)
       expect(current_path).to eq new_user_session_path
       expect(page).to have_content 'Para continuar, faça login ou registre-se'
     end

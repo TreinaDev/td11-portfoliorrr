@@ -14,9 +14,34 @@ post_gabriel_1 = gabriel.posts.create(title: 'Como fazer uma app Vue', content: 
 post_gabriel_2 = gabriel.posts.create(title: 'Boas práticas em Zoom', content: 'Hoje vamos falar sobre breakout rooms!')
 post_gabriel_3 = gabriel.posts.create(title: 'Robô Saltitante: como resolver?', content: 'Vamos falar sobre a tarefa mais complexa do Code Saga!')
 
+joao.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço')
+andre.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço')
+gabriel.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço')
+
 joao.profile.personal_info.update(city: 'São Paulo', state: 'SP')
 andre.profile.personal_info.update(city: 'Cuiabá', state: 'MT')
 gabriel.profile.personal_info.update(city: 'Salvador', state: 'BA')
+
+joao.profile.professional_infos.create(company: 'Campus Code', position: 'Dev', current_job: false, visibility: true,
+                                       description: 'Muito código', start_date: '2022-12-12', end_date: '2023-12-12')
+andre.profile.professional_infos.create(company: 'Rebase', position: 'Dev', current_job: false, visibility: true,
+                                        description: 'Muito muito código', start_date: '2022-12-12', end_date: '2023-12-12')
+gabriel.profile.professional_infos.create(company: 'Vindi', position: 'Dev', current_job: true, visibility: true,
+                                          description: 'A lot of code', start_date: '2022-12-12')
+
+joao.profile.education_infos.create(institution: 'Senai', course: 'Web dev full stack', visibility: true,
+                                    start_date: '2022-12-12', end_date: '2023-12-12')
+andre.profile.education_infos.create(institution: 'Fiap', course: 'Sistemas de Informação', visibility: true,
+                                     start_date: '2022-12-12', end_date: '2023-12-12')
+gabriel.profile.education_infos.create(institution: 'Fatec', course: 'Análise e Desenvolvimento de Sistemas',
+                                       visibility: true, start_date: '2022-12-12', end_date: '2023-12-12')
+
+joao.profile.education_infos.create(institution: 'Senai', course: 'Web dev full stack', visibility: true,
+                                    start_date: '2022-12-12', end_date: '2023-12-12')
+andre.profile.education_infos.create(institution: 'Fiap', course: 'Sistemas de Informação', visibility: true,
+                                    start_date: '2022-12-12', end_date: '2023-12-12')
+gabriel.profile.education_infos.create(institution: 'Fatec', course: 'Análise e Desenvolvimento de Sistemas',
+                                      visibility: true, start_date: '2022-12-12', end_date: '2023-12-12')
 
 JobCategory.create(name: 'Web Design')
 JobCategory.create(name: 'Programador Full Stack')

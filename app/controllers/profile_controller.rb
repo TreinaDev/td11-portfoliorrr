@@ -1,6 +1,6 @@
 class ProfileController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_profile, only: %i[edit update show]
+  before_action :set_profile, only: %i[edit update]
 
   def edit
     @profile.professional_infos.build if @profile.professional_infos.empty?
@@ -8,15 +8,10 @@ class ProfileController < ApplicationController
   end
 
   def update
-    if @profile.update(profile_params)
-      redirect_to profile_path(@profile), notice: t('.success')
-    else
-      flash.now[:alert] = t('.error')
-      render :edit, status: :unprocessable_entity
-    end
-  end
+    return unless @profile.update(profile_params)
 
-  def show; end
+    redirect_to profile_path(@profile), notice: t('.success')
+  end
 
   private
 

@@ -44,7 +44,7 @@ describe 'Usuário vê perfil de outro usuário' do
     end
   end
 
-  it 'e não consegue editar perfil de outro usuário' do
+  it 'e não consegue ver os links para editar perfil e adicionar informações de outro usuário' do
     user1 = create(:user)
     user2 = create(:user)
     professional_info = create(:professional_info, profile: user2.profile)

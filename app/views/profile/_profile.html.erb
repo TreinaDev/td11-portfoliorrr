@@ -7,13 +7,7 @@
 
   <h3><%= PersonalInfo.model_name.human %></h3>
 
-  <% if current_user == profile.user%>
-    <% personal_info_attributes =  profile.personal_info.non_date_attributes %>
-  <% else%>
-    <% personal_info_attributes = profile.personal_info.non_empty_attributes %>
-  <% end%>
-
-  <%= render 'profile/personal_info', personal_info: personal_info_attributes %>
+  <%= render 'profile/personal_info', personal_info: personal_info %>
 
   <%= link_to 'Editar Informações Pessoais', edit_user_profile_path, class:'btn btn-secondary' if user_is_owner %>
   

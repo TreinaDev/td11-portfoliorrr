@@ -7,6 +7,12 @@ class ProfilesController < ApplicationController
     @followers_count = @profile.followers_count
     @followed_count = @profile.followed_count
     @professional_infos = @profile.professional_infos.order(start_date: :desc)
+
+    @personal_info = if current_user == @user
+                       @profile.personal_info.non_date_attributes
+                     else
+                       @profile.personal_info.non_empty_attributes
+                     end
   end
 
   def search
