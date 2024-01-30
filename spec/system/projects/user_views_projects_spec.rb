@@ -34,7 +34,7 @@ describe 'Usuário visita página de projetos' do
     end
 
     it 'e não existem projetos cadastrados na API' do
-      json_data = { message: "Nenhum projeto encontrado." }
+      json_data = { message: 'Nenhum projeto encontrado.' }
 
       fake_response = double('faraday_response', status: 200, body: json_data.to_json)
 
