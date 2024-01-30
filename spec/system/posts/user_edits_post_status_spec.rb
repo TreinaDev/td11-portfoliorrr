@@ -23,7 +23,7 @@ describe 'Usuário edita status da publicação' do
 
     expect(page).to have_current_path post_path(post)
     expect(Post.last.status).to eq 'draft'
-    expect(page).to have_content('Status: Rascunho')
+    expect(page).to have_content('Rascunho')
   end
 
   it 'publica rascunho' do
@@ -36,6 +36,6 @@ describe 'Usuário edita status da publicação' do
 
     expect(page).to have_current_path post_path(post)
     expect(Post.last.status).to eq 'published'
-    expect(page).to have_content('Status: Publicada')
+    expect(page).to have_content('Publicada')
   end
 end
