@@ -11,6 +11,7 @@ gem 'cssbundling-rails'
 gem 'devise'
 
 gem 'faker'
+gem 'image_processing', '>= 1.2'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'puma', '~> 6.0'
