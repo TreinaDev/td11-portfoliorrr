@@ -36,6 +36,15 @@
             <% end %>
           </div>
         </div>
+        <div>
+          <% if @profile.open_to_work? %>
+            <p>Disponível para trabalho</p>
+            <%= button_to 'Não estou disponível para trabalho', work_unavailable_path, method: :patch if current_user.profile == @profile %>
+          <% else %>
+            <p>Indisponível para trabalho</p>
+            <%= button_to 'Estou disponível para trabalho', open_to_work_path, method: :patch if current_user.profile == @profile %>
+          <% end %>
+        </div>
         <div class="w-75">
           <% if current_user.profile != @profile %>
             <% if @profile.following?(current_user.profile) %>
