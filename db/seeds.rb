@@ -14,7 +14,7 @@ post_gabriel_1 = gabriel.posts.create(title: 'Como fazer uma app Vue', content: 
 post_gabriel_2 = gabriel.posts.create(title: 'Boas práticas em Zoom', content: 'Hoje vamos falar sobre breakout rooms!')
 post_gabriel_3 = gabriel.posts.create(title: 'Robô Saltitante: como resolver?', content: 'Vamos falar sobre a tarefa mais complexa do Code Saga!')
 
-joao.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço')
+joao.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço', work_status: 0)
 andre.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço')
 gabriel.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço')
 

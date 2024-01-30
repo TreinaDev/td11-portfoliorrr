@@ -20,6 +20,7 @@ class Profile < ApplicationRecord
   accepts_nested_attributes_for :education_infos
 
   after_create :create_personal_info!
+  enum work_status: { unavailable: 0, open_to_work: 1 }
 
   delegate :full_name, to: :user
 
