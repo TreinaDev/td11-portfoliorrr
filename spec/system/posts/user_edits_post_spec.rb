@@ -11,13 +11,14 @@ describe 'Usuário edita uma publicação' do
 
   it 'com sucesso' do
     user = create(:user)
-    post = create(:post, user:, title: 'Nova publicação', content: 'Novidade')
+    post = create(:post, user:, title: 'Nova publicação', content: 'Novidade', tag_list: 'tagA, tagC')
 
     login_as user
     visit post_path(post)
     click_on 'Editar'
     fill_in 'Título da Publicação', with: 'O título mudou'
     fill_in 'Conteúdo', with: 'A publicação também'
+    fill_in 'Tags', with: 'tagA, tagB, tagC'
     travel_to Time.zone.local(2025, 9, 7, 0, 0, 0) do
       click_on 'Salvar'
     end
@@ -27,6 +28,7 @@ describe 'Usuário edita uma publicação' do
     expect(page).to have_content 'O título mudou'
     expect(page).to have_content 'A publicação também'
     expect(page).to have_content 'Última atualização em: 07/09/2025'
+    expect(page).to have_content 'tagA tagB tagC'
   end
 
   it 'e é redirecionado ao tentar atualizar publicação que não é sua' do

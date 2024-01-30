@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    post_params = params.require(:post).permit(:title, :content)
+    post_params = params.require(:post).permit(:title, :content, :tag_list)
     post_params['edited_at'] = Time.zone.now
     post_params
   end
