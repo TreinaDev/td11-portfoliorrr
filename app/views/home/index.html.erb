@@ -41,7 +41,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title"><%= profile.full_name %></h5>
-                <p class="card-text"><%= profile.followers_count %> seguidores</p>
+                <p class="card-text"><%= profile.followers_count %> <%= t('followers', count: profile.followers_count) %></p>
                 <a href="<%= profile_path(profile) %>" class="btn btn-primary">Ver perfil</a>
               </div>
             </div>
