@@ -26,12 +26,12 @@ class ProfilesController < ApplicationController
   def work_unavailable
     @profile = current_user.profile
     @profile.unavailable!
-    redirect_to profile_path(@profile), notice: 'Alteração salva com sucesso'
+    redirect_to profile_path(@profile), notice: t('.success')
   end
 
   def open_to_work
     @profile = current_user.profile
     @profile.open_to_work!
-    redirect_to profile_path(@profile), notice: 'Alteração salva com sucesso'
+    redirect_to profile_path(@profile), notice: t('.success')
   end
 end
