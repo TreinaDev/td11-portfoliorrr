@@ -4,7 +4,11 @@
       <div class="my-5 p-3 feed-post text-dark fs-4">
         <h4 class="text-break"><%= post.title %></h4>
         <p>Publicado por: <%= post.user.full_name %></p>
-        <%= I18n.l(post.created_at, format: :long) %>
+        <p><%= I18n.l(post.created_at, format: :long) %> -
+        <%= distance_of_time_in_words(Time.now, post.created_at) %></p>
+        <div>
+          <%= post.content.split(' ').first(50).join(' ') %>
+        </div>
       </div>
     <% end %>
   <% if current_user == post.user %>

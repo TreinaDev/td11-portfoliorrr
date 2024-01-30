@@ -26,7 +26,8 @@ describe 'Usuário edita uma publicação' do
     expect(page).to have_content 'Publicação editada com sucesso!'
     expect(page).to have_content 'O título mudou'
     expect(page).to have_content 'A publicação também'
-    expect(page).to have_content 'Última atualização em: 07/09/2025'
+    expect(page).to have_content I18n.t('posts.views.show.last_update',
+                                        update_date: I18n.l(post.created_at.to_datetime, format: :long))
   end
 
   it 'e é redirecionado ao tentar atualizar publicação que não é sua' do
