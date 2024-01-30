@@ -19,7 +19,7 @@ describe 'Usuário cria uma postagem' do
       end
 
       fill_in 'Título da Publicação', with: 'Olá Mundo!'
-      fill_in 'Conteúdo', with: 'Primeira publicação'
+      page.find('#conteudo').set('Primeira publicação')
 
       click_on 'Salvar'
     end
@@ -40,7 +40,7 @@ describe 'Usuário cria uma postagem' do
     visit new_post_path(user)
 
     fill_in 'Título da Publicação', with: ''
-    fill_in 'Conteúdo', with: ''
+    page.find('#conteudo').set(' ')
 
     click_on 'Salvar'
 
