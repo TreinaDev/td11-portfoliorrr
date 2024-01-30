@@ -15,6 +15,8 @@ class Profile < ApplicationRecord
 
   has_many :job_categories, through: :profile_job_categories
 
+  has_many :posts, through: :user
+
   accepts_nested_attributes_for :personal_info
   accepts_nested_attributes_for :professional_infos
   accepts_nested_attributes_for :education_infos

@@ -4,6 +4,7 @@ describe 'Usuário vê a lista de publicações' do
   it 'a partir da home' do
     user = create(:user)
     post = create(:post, user:)
+    rascunho = create(:post, title: 'Post Rascunho', content: 'Conteúdo do rascunho', user:, status: :draft)
     visitor = create(:user, full_name: 'Andreia', citizen_id_number: '430.910.060-00', email: 'visitor@email.com')
 
     login_as visitor
@@ -18,6 +19,7 @@ describe 'Usuário vê a lista de publicações' do
     end
     expect(page).to have_content(user.full_name)
     expect(page).to have_link(post.title, href: post_path(post))
+    expect(page).not_to have_content(rascunho.title)
   end
 
   it 'e vê a data de cada publicação' do

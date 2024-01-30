@@ -1,10 +1,12 @@
 <div class="card">
   <div class="card-body">
-    <h2 class="card-title"><%= @post.title %> 
+    <h2 class="card-title"><%= @post.title %></h2>
+    <div class="my-4">
     <% if current_user == @post.user %>
       <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
-    <% end %></h2>
-
+      <%= Post.human_attribute_name @post.status %>
+    <% end %>
+    </div>
     <h6 class="card-subtitle mb-2 text-body-secondary">
       <%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %>
     </h6>
@@ -12,7 +14,7 @@
     <p class="card-text"><%= @post.content %></p>
 
     <p class="card-subtitle mb-2 text-body-secondary">
-      <time datetime="<%= @post.created_at.to_date %>">  
+      <time datetime="<%= @post.created_at.to_date %>">
         <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %> -
         <%= distance_of_time_in_words(Time.now, @post.created_at) %>
       </time>
