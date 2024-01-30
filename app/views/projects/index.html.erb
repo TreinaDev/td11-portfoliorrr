@@ -3,22 +3,25 @@
   <div v-if="emptyData">
     <p>{{ emptyData }}</p>
   </div>
-  <div v-else>
-
-      <label for="titleSearch">Pesquisar por Título</label>
-      <input v-model="titleSearch" type="text" name="titleSearch" id="titleSearch">
-
-      <label for="categorySearch">Pesquisar por Categoria</label>
-      <input v-model="categorySearch" type="text" name="categorySearch" id="categorySearch">
-
-      <label for="descriptionSearch">Pesquisar por Descrição</label>
-      <input v-model="descriptionSearch" type="text" name="descriptionSearch" id="descriptionSearch">
-    <div v-if="filteredProjects.length === 0">
-      <p>Não foi possível encontrar nenhum projeto.</p>
+  <div class="row" v-else>
+    <div class="col-md-4">
+      <label class="form-label visually-hidden" for="titleSearch">Pesquisar por Título</label>
+      <input class="form-control" v-model="titleSearch" type="text" name="titleSearch" id="titleSearch" placeholder="Pesquisar por Título">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label visually-hidden" for="categorySearch">Pesquisar por Categoria</label>
+      <input class="form-control" v-model="categorySearch" type="text" name="categorySearch" id="categorySearch" placeholder="Pesquisar por Categoria">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label visually-hidden" for="descriptionSearch">Pesquisar por Descrição</label>
+      <input class="form-control" v-model="descriptionSearch" type="text" name="descriptionSearch" id="descriptionSearch" placeholder=" Pesquisar por Descrição">
+    </div>
+    <div class="mt-5 alert alert-warning text-center" v-if="filteredProjects.length === 0">
+      <h3>Não foi possível encontrar nenhum projeto.</h3>
     </div>
     <div v-else>
-      <div v-for="project in filteredProjects" :key="project.id">
-        <h3>Título: {{ project.title }}</h3>
+      <div class="mt-5 border-top w-50" v-for="project in filteredProjects" :key="project.id">
+        <h3 class="mt-3">{{ project.title }}</h3>
         <p>Descrição: {{ project.description }}</p>
         <p>Categoria: {{ project.category }}</p>
       </div>

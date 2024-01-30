@@ -20,7 +20,7 @@ describe 'Usuário visita página de projetos' do
       expect(page).to have_current_path projects_path
       expect(page).to have_content('Lista de Projetos', wait: 0.5)
 
-      expect(page).to have_content 'Título: Padrão 1'
+      expect(page).to have_content 'Padrão 1'
       expect(page).to have_content 'Descrição: Descrição de um projeto padrão para testes 1.'
       expect(page).to have_content 'Categoria: Categoria de projeto'
 
@@ -45,7 +45,7 @@ describe 'Usuário visita página de projetos' do
       visit projects_path
 
       expect(page).to have_content('Nenhum projeto encontrado')
-      expect(page).to_not have_field('Pesquisar por Título')
+      expect(page).to_not have_field('Pesquisar por ')
       expect(page).to_not have_field('Pesquisar por Categoria')
       expect(page).to_not have_field('Pesquisar por Descrição')
     end
@@ -64,11 +64,11 @@ describe 'Usuário visita página de projetos' do
 
       fill_in 'Pesquisar por Título', with: 'Poke'
 
-      expect(page).to have_content 'Título: Pokedex'
+      expect(page).to have_content 'Pokedex'
       expect(page).to have_content 'Descrição: Fazer uma listagem de todos os pokemons'
       expect(page).to have_content 'Categoria: Tecnologia'
 
-      expect(page).to_not have_content 'Título: Padrão 1'
+      expect(page).to_not have_content 'Padrão 1'
       expect(page).to_not have_content 'Descrição: Descrição de um projeto padrão para testes 1.'
       expect(page).to_not have_content 'Categoria: Categoria de projeto'
 
@@ -90,11 +90,11 @@ describe 'Usuário visita página de projetos' do
 
       fill_in 'Pesquisar por Categoria', with: 'Tecno'
 
-      expect(page).to have_content 'Título: Pokedex'
+      expect(page).to have_content 'Pokedex'
       expect(page).to have_content 'Descrição: Fazer uma listagem de todos os pokemons'
       expect(page).to have_content 'Categoria: Tecnologia'
 
-      expect(page).to_not have_content 'Título: Padrão 1'
+      expect(page).to_not have_content 'Padrão 1'
       expect(page).to_not have_content 'Descrição: Descrição de um projeto padrão para testes 1.'
       expect(page).to_not have_content 'Categoria: Categoria de projeto'
 
@@ -116,11 +116,11 @@ describe 'Usuário visita página de projetos' do
 
       fill_in 'Pesquisar por Descrição', with: 'pokem'
 
-      expect(page).to have_content 'Título: Pokedex'
+      expect(page).to have_content 'Pokedex'
       expect(page).to have_content 'Descrição: Fazer uma listagem de todos os pokemons'
       expect(page).to have_content 'Categoria: Tecnologia'
 
-      expect(page).to_not have_content 'Título: Padrão 1'
+      expect(page).to_not have_content 'Padrão 1'
       expect(page).to_not have_content 'Descrição: Descrição de um projeto padrão para testes 1.'
       expect(page).to_not have_content 'Categoria: Categoria de projeto'
 
@@ -143,11 +143,11 @@ describe 'Usuário visita página de projetos' do
       fill_in 'Pesquisar por Categoria', with: 'te'
       fill_in 'Pesquisar por Descrição', with: 'poke'
 
-      expect(page).to have_content 'Título: Pokedex'
+      expect(page).to have_content 'Pokedex'
       expect(page).to have_content 'Descrição: Fazer uma listagem de todos os pokemons'
       expect(page).to have_content 'Categoria: Tecnologia'
 
-      expect(page).to_not have_content 'Título: Padrão 1'
+      expect(page).to_not have_content 'Padrão 1'
       expect(page).to_not have_content 'Descrição: Descrição de um projeto padrão para testes 1.'
       expect(page).to_not have_content 'Categoria: Categoria de projeto'
 
@@ -171,11 +171,11 @@ describe 'Usuário visita página de projetos' do
       fill_in 'Pesquisar por Categoria', with: 'te'
       fill_in 'Pesquisar por Descrição', with: 'poke'
 
-      expect(page).to have_content 'Título: Pokedex'
+      expect(page).to have_content 'Pokedex'
       expect(page).to have_content 'Descrição: Fazer uma listagem de todos os pokemons'
       expect(page).to have_content 'Categoria: Tecnologia'
 
-      expect(page).to_not have_content 'Título: Padrão 1'
+      expect(page).to_not have_content 'Padrão 1'
       expect(page).to_not have_content 'Descrição: Descrição de um projeto padrão para testes 1.'
       expect(page).to_not have_content 'Categoria: Categoria de projeto'
 
@@ -199,11 +199,11 @@ describe 'Usuário visita página de projetos' do
 
       expect(page).to have_content 'Não foi possível encontrar nenhum projeto.'
 
-      expect(page).to_not have_content 'Título: Pokedex'
+      expect(page).to_not have_content 'Pokedex'
       expect(page).to_not have_content 'Descrição: Fazer uma listagem de todos os pokemons'
       expect(page).to_not have_content 'Categoria: Tecnologia'
 
-      expect(page).to_not have_content 'Título: Padrão 1'
+      expect(page).to_not have_content 'Padrão 1'
       expect(page).to_not have_content 'Descrição: Descrição de um projeto padrão para testes 1.'
       expect(page).to_not have_content 'Categoria: Categoria de projeto'
 
