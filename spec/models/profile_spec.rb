@@ -190,9 +190,9 @@ RSpec.describe Profile, type: :model do
       expect(result.third).to eq third_user.profile
     end
 
-    it 'retorna perfil com menor id se tiverem mesma quantidade de seguidor' do
-      first_user = create(:user, id: 2)
-      second_user = create(:user, id: 1)
+    it 'retorna perfil com menor id (mais antigo) se tiverem mesma quantidade de seguidor' do
+      first_user = create(:user)
+      second_user = create(:user)
 
       Connection.create!(follower: second_user.profile, followed_profile: first_user.profile)
       Connection.create!(follower: first_user.profile, followed_profile: second_user.profile)
@@ -200,7 +200,7 @@ RSpec.describe Profile, type: :model do
       result = Profile.most_followed(1)
 
       expect(result.length).to eq 1
-      expect(result.first).to eq second_user.profile
+      expect(result.first).to eq first_user.profile
     end
   end
 end
