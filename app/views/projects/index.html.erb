@@ -1,10 +1,9 @@
 <div class="container" id="vue-projects-app">
   <h2>Lista de Projetos</h2>
 
-  <div v-for="project in projects" key="project.id">
-    <h3>Título: {{ project.title}}</h3>
+  <div v-for="project in projects" :key="project.id">
+    <h3>Título: {{ project.title }}</h3>
     <p>Descrição: {{ project.description }}</p>
     <p>Categoria: {{ project.category }}</p>
   </div>
-
 </div>

@@ -5,9 +5,15 @@ export default {
     }
   },
 
-  created() {
-    fetch('http://localhost:4000/api/v1/projects')
-      .then(response => response.json())
-      .then(data => projects = data);
+  methods: {
+    async getProjects() {
+      let response = await fetch('http://localhost:4000/api/v1/projects');
+      let projects = await response.json();
+      return projects;
+    }
+  },
+
+  async mounted() {
+    this.projects = await this.getProjects();
   }
 }
