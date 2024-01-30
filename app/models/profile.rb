@@ -55,6 +55,10 @@ class Profile < ApplicationRecord
   def inactive_follower?(profile)
     followers.inactive.where(follower: profile).any?
   end
+
+  def self.most_followed(limit)
+    left_outer_joins(:followers).group(:id).order('COUNT(connections.id) DESC').limit(limit)
+  end
 end
 
 private
