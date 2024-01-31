@@ -1,5 +1,23 @@
 <figure class="attachment attachment--<%= blob.representable? ? "preview" : "file" %> attachment--<%= blob.filename.extension %>">
-  <% if blob.representable? %>
+  <% if blob.video? %>
+    <video
+      width="100%"
+      controls="true"
+      preload="metadata"
+    >
+      <source src=<%= rails_blob_url(blob) %> type=<%= blob.content_type %> >
+    </video>
+  <% elsif blob.audio? %>
+    <audio controls="true" width="100%" preload="metadata">
+      <source src= <%= rails_blob_url(blob) %>, type=<%= blob.content_type %> >
+    </audio>
+  <% elsif blob.content_type == 'application/pdf' %>
+    <embed src=<%= rails_blob_url(blob) %> width="800" height="500"
+           type="application/pdf">
+  <% elsif blob.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %>
+    <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<%= rails_blob_url(blob) %>' width='100%' height='500px' frameborder='0'>
+    </iframe>
+<% elsif blob.representable? %>
     <%= image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [ 800, 600 ] : [ 1024, 768 ]) %>
   <% end %>
 
@@ -10,5 +28,7 @@
       <span class="attachment__name"><%= blob.filename %></span>
       <span class="attachment__size"><%= number_to_human_size blob.byte_size %></span>
     <% end %>
+    <span> · </span>
+    <%= link_to "Download", rails_blob_path(blob, disposition: "attachment") %>
   </figcaption>
 </figure>
