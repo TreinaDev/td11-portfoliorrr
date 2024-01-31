@@ -1,12 +1,18 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_profile_by_id, only: %i[show edit update]
+  before_action :set_profile_by_id, only: %i[show edit remove_photo update]
 
   def edit; end
 
   def update 
     @profile.update(profile_params)
     redirect_to profile_path(@profile), notice: 'Sua foto foi alterada com sucesso'
+  end
+
+  def remove_photo
+    @profile.photo.destroy!
+    @profile.set_default_photo
+    redirect_to profile_path(@profile), notice: 'Sua foto foi removida com sucesso'
   end
 
   def show

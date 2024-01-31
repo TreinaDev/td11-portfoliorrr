@@ -58,17 +58,17 @@ class Profile < ApplicationRecord
   def inactive_follower?(profile)
     followers.inactive.where(follower: profile).any?
   end
-end
 
-private
+  def set_default_photo
+    photo.attach(Rails.root + 'app/assets/images/default_portfoliorrr_photo.png')
+  end
 
-def search_by_job_categories(query)
-  left_outer_joins(:job_categories, :profile_job_categories).where(
-    "job_categories.name LIKE :term OR
-               profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
-  ).uniq
-end
+  private
 
-def set_default_photo
-  photo.attach(Rails.root + 'app/assets/images/default_portfoliorrr_photo.png')
+  def self.search_by_job_categories(query)
+    left_outer_joins(:job_categories, :profile_job_categories).where(
+      "job_categories.name LIKE :term OR
+      profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
+      ).uniq
+  end
 end

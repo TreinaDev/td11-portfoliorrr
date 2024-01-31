@@ -22,7 +22,7 @@
   <div class="container w-50 d-flex flex-column px-5 align-items-end">
     <aside class="px-5">
       <section class="text-center d-flex flex-column align-items-center">
-        <%= image_tag url_for(@profile.photo), class: 'img-thumbnail w-50' %>
+        <%= image_tag url_for(@profile.photo), class: 'img-thumbnail w-50' if @profile.photo.present? %>
         <%= link_to 'Alterar foto', edit_profile_path(@profile), class: 'badge bg-secondary' %>
         <h4><%= @user.full_name %></h4>
         <div class="d-flex gap-4">

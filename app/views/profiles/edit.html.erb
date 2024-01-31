@@ -5,3 +5,5 @@
   <%= f.file_field :photo %>
   <%= f.submit 'Salvar' %>
 <% end %>
+
+<%= button_to 'Remover foto de perfil', remove_photo_profile_path(@profile), method: :patch %>
