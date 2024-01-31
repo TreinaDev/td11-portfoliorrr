@@ -14,10 +14,9 @@ post_gabriel_1 = gabriel.posts.create(title: 'Como fazer uma app Vue', content: 
 post_gabriel_2 = gabriel.posts.create(title: 'Boas práticas em Zoom', content: 'Hoje vamos falar sobre breakout rooms!')
 post_gabriel_3 = gabriel.posts.create(title: 'Robô Saltitante: como resolver?', content: 'Vamos falar sobre a tarefa mais complexa do Code Saga!')
 
-# Adiciona resumos profissionais aos perfis
-joao.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço')
-andre.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço')
-gabriel.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço')
+joao.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço', work_status: 'unavailable')
+andre.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço', work_status: 'open_to_work')
+gabriel.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço', work_status: 'open_to_work')
 
 # Adiciona informações pessoais aos perfis
 joao.profile.personal_info.update(city: 'São Paulo', state: 'SP')

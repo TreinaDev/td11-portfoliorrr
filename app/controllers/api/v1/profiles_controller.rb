@@ -5,7 +5,7 @@ module Api
         if params[:search].blank?
           render status: :bad_request, json: { error: 'É necessário fornecer um parâmetro de busca' }
         else
-          profiles = Profile.get_profile_job_categories_json(params[:search])
+          profiles = Profile.open_to_work.get_profile_job_categories_json(params[:search])
           render status: :ok, json: profiles.as_json
         end
       end
