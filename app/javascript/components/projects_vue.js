@@ -16,7 +16,7 @@ export default {
             project.description.toLowerCase().includes(this.searchText.toLowerCase()) ||
             project.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
             project.category.toLowerCase().includes(this.searchText.toLowerCase())
-          );
+          )
         } else {
           return project[filter].toLowerCase().includes(this.searchText.toLowerCase());
         }
@@ -26,11 +26,6 @@ export default {
   methods: {
     setFilter(filter) {
       this.selectedFilter = filter;
-    },
-    changeButton(event){
-      let button = event.target
-      button.classList.add('btn-success')
-      button.classList.remove('btn-primary')
     }
   },
   async created() {
