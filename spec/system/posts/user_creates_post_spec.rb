@@ -19,7 +19,7 @@ describe 'Usuário cria uma postagem' do
       end
 
       fill_in 'Título da Publicação', with: 'Olá Mundo!'
-      fill_in_rich_text_area 'conteudo', with: 'Primeira publicação'
+      fill_in_rich_text_area 'conteudo', with: 'Primeira <em>publicação</em>'
 
       click_on 'Salvar'
     end
@@ -28,11 +28,28 @@ describe 'Usuário cria uma postagem' do
     expect(posts.count).to eq 1
     expect(page).to have_current_path post_path(posts.first)
     expect(page).to have_content 'Olá Mundo!'
-    expect(page).to have_content 'Primeira publicação'
+    expect(page).to have_content 'Primeira'
+    expect(page).to have_selector('em', text: 'publicação')
     expect(page).to have_content 'Criado por Seiya de Pégaso'
     expect(page).to have_content "Publicado em: #{1.day.ago.strftime('%d/%m/%Y')}"
   end
 
+  it 'com sucesso anexando imagem' do
+    user = create(:user, full_name: 'Seiya de Pégaso')
+
+    login_as user
+    visit new_post_path(user)
+    fill_in 'Título da Publicação', with: 'Novo post'
+    file_path = Rails.root.join('spec/support/images/test_image.png')
+    click_button('Attach Files')
+    attach_file(file_path, make_visible: true)
+
+    click_on 'Salvar'
+
+    expect(Post.count).to eq 1
+    expect(page).to have_current_path post_path(Post.first)
+    expect(page).to have_selector('img[src*="test_image.png"]')
+  end
   it 'apenas se fornecer um título e conteúdo ao post' do
     user = create(:user)
 
@@ -41,7 +58,6 @@ describe 'Usuário cria uma postagem' do
 
     fill_in 'Título da Publicação', with: ''
     fill_in_rich_text_area 'conteudo', with: ''
-
     click_on 'Salvar'
 
     expect(Post.count).to eq 0

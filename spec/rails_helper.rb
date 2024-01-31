@@ -14,7 +14,7 @@ require 'capybara/cuprite'
 require "action_text/system_test_helper"
 
 RSpec.configure do |config|
-  config.include ActionText::SystemTestHelper, type: :system
+  config.include ActionText::SystemTestHelper, type: :system 
 end
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
