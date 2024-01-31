@@ -1,27 +1,32 @@
 require 'rails_helper'
 
 describe 'Usuário acessa página de cadastro de usuário' do
-  it 'a partir da home' do
-    visit root_path
+  context 'e realiza o cadastro' do
+    it 'a partir da home' do
+      visit root_path
 
-    click_on 'Entrar'
-    click_on 'Cadastrar'
+      click_on 'Entrar'
+      click_on 'Cadastrar'
 
-    expect(current_path).to eq new_user_registration_path
-  end
+      expect(current_path).to eq new_user_registration_path
+    end
 
-  it 'e realiza o cadastro com sucesso' do
-    visit new_user_registration_path
+    it 'com sucesso' do
+      visit new_user_registration_path
 
-    fill_in 'Nome Completo', with: 'João Almeida'
-    fill_in 'E-mail', with: 'joaoalmeida@email.com'
-    fill_in 'CPF', with: '88257290068'
-    fill_in 'Senha', with: '123456'
-    fill_in 'Confirme sua Senha', with: '123456'
-    click_on 'Cadastrar'
+      fill_in 'Nome Completo', with: 'João Almeida'
+      fill_in 'E-mail', with: 'joaoalmeida@email.com'
+      fill_in 'CPF', with: '88257290068'
+      fill_in 'Senha', with: '123456'
+      fill_in 'Confirme sua Senha', with: '123456'
+      click_on 'Cadastrar'
 
-    expect(User.last.profile).to be_present
-    expect(page).to have_content 'Boas vindas 👋 Você realizou seu cadastro com sucesso.'
+      profile = User.last.profile
+      expect(profile).to be_present
+      expect(page).to have_link 'Preencher Depois', href: root_path
+      expect(page).not_to have_link 'Voltar', href: profile_path(profile)
+      expect(page).to have_content 'Boas vindas 👋 Você realizou seu cadastro com sucesso.'
+    end
   end
 
   context 'e realiza o cadastro com falhas' do

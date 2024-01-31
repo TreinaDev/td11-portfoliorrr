@@ -26,7 +26,7 @@ describe 'Usuário edita informações profissionais' do
 
       click_on 'Salvar'
 
-      expect(current_path).to eq profile_path(user.profile)
+      expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'Rebase'
       expect(page).to have_content 'Vínculo Atual: Não'
       expect(page).to have_content 'Desenvolvedor Python'

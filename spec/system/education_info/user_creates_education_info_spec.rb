@@ -2,22 +2,26 @@ require 'rails_helper'
 
 describe 'Usuário adiciona informações acadêmicas' do
   context 'quando logado' do
+    it "e vê campo 'visível' selecionado" do
+      user = create(:user)
+
+      login_as user
+      visit new_user_profile_education_info_path
+
+      expect(page).to have_checked_field 'Visível'
+    end
+
     it 'com sucesso' do
       user = create(:user)
 
       login_as user
-
       visit profile_path(user.profile)
-
       click_on 'Adicionar Formação Acadêmica'
-
       fill_in 'Instituição', with: 'Campus Code'
       fill_in 'Curso', with: 'Web Dev'
       fill_in 'Início', with: '2017-12-25'
       fill_in 'Término', with: '2022-12-31'
-
       check 'Visível'
-
       click_on 'Salvar'
 
       expect(page).to have_current_path profile_path(user.profile)
@@ -32,15 +36,12 @@ describe 'Usuário adiciona informações acadêmicas' do
       user = create(:user)
 
       login_as user
-
       visit new_user_profile_education_info_path
-
       fill_in 'Instituição', with: ''
       fill_in 'Curso', with: ''
       fill_in 'Início', with: ''
       fill_in 'Término', with: ''
       check 'Visível'
-
       click_on 'Salvar'
 
       expect(current_path).to eq new_user_profile_education_info_path

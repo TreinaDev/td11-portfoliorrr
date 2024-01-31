@@ -20,7 +20,7 @@ describe 'Usuário edita informações sobre sua formação' do
 
       click_on 'Salvar'
 
-      expect(current_path).to eq profile_path(user.profile)
+      expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'UFJF'
       expect(page).to have_content 'Bacharelado em Ciência da Computação'
       expect(page).to have_content '25/12/2012'
