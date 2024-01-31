@@ -1,0 +1,7 @@
+<h2>Alterar foto de perfil</h2>
+
+<%= form_with model: @profile do |f| %>
+  <%= f.label :photo, 'Foto' %>
+  <%= f.file_field :photo %>
+  <%= f.submit 'Salvar' %>
+<% end %>
