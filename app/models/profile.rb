@@ -57,7 +57,11 @@ class Profile < ApplicationRecord
   end
 
   def self.most_followed(limit)
-    left_outer_joins(:followers).group(:id).order('COUNT(connections.id) DESC').limit(limit)
+    joins(:followers)
+      .where(connections: { status: 'active' })
+      .group(:id)
+      .order('count(follower_id) DESC, id ASC')
+      .limit(limit)
   end
 end
 
