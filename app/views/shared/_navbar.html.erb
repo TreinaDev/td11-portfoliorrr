@@ -37,7 +37,10 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to 'Entrar', new_user_session_path, class: 'btn btn-primary btn-lg mx-3', 'data-turbo': 'false' %>
+            <%= link_to 'Criar Nova Conta', new_user_registration_path, class: 'btn btn-primary btn-lg mx-3' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Entrar', new_user_session_path, class: 'btn btn-primary btn-lg mx-3' %>
           </li>
         <% end %>
       </ul>

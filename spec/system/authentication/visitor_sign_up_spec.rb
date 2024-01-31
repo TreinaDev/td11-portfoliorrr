@@ -1,17 +1,9 @@
 require 'rails_helper'
 
-describe 'Usuário acessa página de cadastro de usuário' do
-  it 'a partir da home' do
+describe 'Visitante realiza seu cadastro' do
+  it 'a partir da home com sucesso' do
     visit root_path
-
-    click_on 'Entrar'
-    click_on 'Cadastrar'
-
-    expect(current_path).to eq new_user_registration_path
-  end
-
-  it 'e realiza o cadastro com sucesso' do
-    visit new_user_registration_path
+    click_on 'Criar Nova Conta'
 
     fill_in 'Nome Completo', with: 'João Almeida'
     fill_in 'E-mail', with: 'joaoalmeida@email.com'
