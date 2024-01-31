@@ -4,4 +4,6 @@ import * as bootstrap from "bootstrap"
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import ProjectsComponent from './components/projects_vue.js'
 
-createApp(ProjectsComponent).mount('#vue-projects-app')
+document.addEventListener('turbo:load', () => {
+  createApp(ProjectsComponent).mount('#vue-projects-app')
+})

@@ -5,16 +5,22 @@
   </div>
   <div class="row" v-else>
     <div class="col-md-4">
-      <label class="form-label visually-hidden" for="titleSearch">Pesquisar por Título</label>
-      <input class="form-control" v-model="titleSearch" type="text" name="titleSearch" id="titleSearch" placeholder="Pesquisar por Título">
-    </div>
-    <div class="col-md-4">
-      <label class="form-label visually-hidden" for="categorySearch">Pesquisar por Categoria</label>
-      <input class="form-control" v-model="categorySearch" type="text" name="categorySearch" id="categorySearch" placeholder="Pesquisar por Categoria">
-    </div>
-    <div class="col-md-4">
-      <label class="form-label visually-hidden" for="descriptionSearch">Pesquisar por Descrição</label>
-      <input class="form-control" v-model="descriptionSearch" type="text" name="descriptionSearch" id="descriptionSearch" placeholder=" Pesquisar por Descrição">
+      <label class="form-label visually-hidden" for="searchText">Pesquisar</label>
+      <input class="form-control" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Digite sua pesquisa">
+      <div class="d-flex gap-3 mt-3">
+        <button class="btn btn-primary" v-on:click="setFilter('todos')" v-bind:class="{ 'btn-secondary': 'todos' === selectedFilter }">
+          Todos
+        </button>
+        <button class="btn btn-primary" v-on:click="setFilter('title')" v-bind:class="{ 'btn-secondary': 'title' === selectedFilter }">
+          Título
+        </button>
+        <button class="btn btn-primary" v-on:click="setFilter('description')" v-bind:class="{ 'btn-secondary': 'description' === selectedFilter }">
+          Descrição
+        </button>
+        <button class="btn btn-primary" v-on:click="setFilter('category')" v-bind:class="{ 'btn-secondary': 'category' === selectedFilter }">
+          Categoria
+        </button>
+      </div>
     </div>
     <div class="mt-5 alert alert-warning text-center" v-if="filteredProjects.length === 0">
       <h3>Não foi possível encontrar nenhum projeto.</h3>

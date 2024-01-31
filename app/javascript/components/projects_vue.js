@@ -2,36 +2,37 @@ export default {
   data() {
     return {
       projects: [],
-      categorySearch: '',
-      descriptionSearch: '',
-      titleSearch: '',
+      searchText: '',
+      selectedFilter: '',
       emptyData: ''
     }
   },
   computed:{
     filteredProjects() {
+      const filter = this.selectedFilter
       return this.projects.filter(project => {
-        let matchesTitle = true;
-        let matchesCategory = true;
-        let matchesDescription = true;
-  
-        if (this.titleSearch) {
-          matchesTitle = project.title.toLowerCase().includes(this.titleSearch.toLowerCase());
+        if (filter === 'todos' || filter === '') {
+          return (
+            project.description.toLowerCase().includes(this.searchText.toLowerCase()) ||
+            project.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+            project.category.toLowerCase().includes(this.searchText.toLowerCase())
+          );
+        } else {
+          return project[filter].toLowerCase().includes(this.searchText.toLowerCase());
         }
-
-        if (this.categorySearch) {
-          matchesCategory = project.category.toLowerCase().includes(this.categorySearch.toLowerCase());
-        }
-  
-        if (this.descriptionSearch) {
-          matchesDescription = project.description.toLowerCase().includes(this.descriptionSearch.toLowerCase());
-        }
-  
-        return matchesTitle && matchesCategory && matchesDescription;
-      });
+      })
     }
   },
-
+  methods: {
+    setFilter(filter) {
+      this.selectedFilter = filter;
+    },
+    changeButton(event){
+      let button = event.target
+      button.classList.add('btn-success')
+      button.classList.remove('btn-primary')
+    }
+  },
   async created() {
     let response = await fetch('/api/v1/projects');
     if (response.ok) {
