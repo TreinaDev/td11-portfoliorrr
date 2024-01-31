@@ -15,11 +15,14 @@ class Profile < ApplicationRecord
 
   has_many :job_categories, through: :profile_job_categories
 
+  has_one_attached :photo
+
   accepts_nested_attributes_for :personal_info
   accepts_nested_attributes_for :professional_infos
   accepts_nested_attributes_for :education_infos
 
   after_create :create_personal_info!
+  after_create :set_default_photo
 
   delegate :full_name, to: :user
 
@@ -64,4 +67,8 @@ def search_by_job_categories(query)
     "job_categories.name LIKE :term OR
                profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
   ).uniq
+end
+
+def set_default_photo
+  photo.attach(Rails.root + 'app/assets/images/default_portfoliorrr_photo.png')
 end
