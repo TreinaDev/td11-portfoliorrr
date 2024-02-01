@@ -30,6 +30,9 @@
             <%= link_to "#{current_user.description}", current_user.profile, class: 'nav-link' %>
           </li>
           <li class="nav-item">
+            <%= link_to 'Projetos', projects_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
             <%= link_to 'Criar Nova Publicação', new_post_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
