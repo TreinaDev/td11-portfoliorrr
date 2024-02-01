@@ -1,9 +1,23 @@
-<h2>Alterar foto de perfil</h2>
+<div class="d-flex gap-4 flex-column align-items-center justify-content-center w-75 align-self-center mx-auto">
+  <h2>Alterar foto de perfil</h2>
+  <div class="d-flex gap-4 align-items-center w-75 justify-content-center">
+    <div id="photo-preview" class="ratio ratio-1x1 rounded-circle overflow-hidden w-25">
+      <%= image_tag url_for(@profile.photo), class: 'img-cover' if @profile.photo.present? %>
+    </div>
+    <div id="photo-form">
+      <%= form_with model: @profile do |f| %>
+        <div class="mb-3">
+          <%= f.label :photo, 'Foto', class: 'form-label' %>
+          <%= f.file_field :photo, class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+          <%= f.submit 'Salvar', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
 
-<%= form_with model: @profile do |f| %>
-  <%= f.label :photo, 'Foto' %>
-  <%= f.file_field :photo %>
-  <%= f.submit 'Salvar' %>
-<% end %>
-
-<%= button_to 'Remover foto de perfil', remove_photo_profile_path(@profile), method: :patch %>
+      <div class="mb-3">
+        <%= button_to 'Remover foto de perfil', remove_photo_profile_path(@profile), method: :patch, class: 'btn btn-danger' %>
+      </div>
+    </div>
+  </div>
+</div>

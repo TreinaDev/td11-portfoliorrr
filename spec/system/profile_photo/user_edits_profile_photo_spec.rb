@@ -28,7 +28,6 @@ describe 'Usuário altera foto de perfil' do
     new_photo_path = Rails.root + 'spec/resources/photos/another-male-photo.jpg'
     attach_file('Foto', new_photo_path)
     click_on 'Salvar'
-
     expect(ActiveStorage::Attachment.count).to eq 1
     expect(ActiveStorage::Blob.count).to eq 1
     expect(page).to have_css('img[src*="another-male-photo.jpg"]')
