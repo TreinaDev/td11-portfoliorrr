@@ -3,6 +3,11 @@ class PostsController < ApplicationController
   before_action :set_post, only: %w[show edit update pin]
   before_action :authorize!, only: %w[edit update pin]
 
+  def search
+    @tag = params[:tag]
+    @posts = Post.tagged_with(@tag)
+  end
+
   def new
     @user = current_user
     @post = current_user.posts.build

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]
     post 'pin', on: :member
+    get 'search', on: :collection
   end
 
   resources :users, only: [] do

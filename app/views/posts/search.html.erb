@@ -1,0 +1,11 @@
+<div class="row">
+  <section class="col-md-9 y-5">
+    <h2>Resultados da Pesquisa</h2>
+    <h3><%= @posts.count %> <%= t('profiles.search.results', count: @posts.count) %> para: #<%= @tag %></h3>
+      <% if @posts.any? %>
+        <div>
+          <%= render partial: 'posts/listing', locals: { posts: @posts.each } %>
+        </div>
+    <% end %>
+  </section>
+</div>

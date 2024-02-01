@@ -28,7 +28,7 @@ describe 'Usuário edita uma publicação' do
     expect(page).to have_content 'O título mudou'
     expect(page).to have_content 'A publicação também'
     expect(page).to have_content 'Última atualização em: 07/09/2025'
-    expect(page).to have_content 'tagA tagB tagC'
+    expect(page).to have_content '#tagA #tagB #tagC'
   end
 
   it 'e é redirecionado ao tentar atualizar publicação que não é sua' do
