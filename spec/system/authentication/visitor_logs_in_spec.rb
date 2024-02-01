@@ -20,6 +20,7 @@ describe 'Usuário faz login' do
       expect(page).to have_content 'Login efetuado com sucesso'
 
       within 'nav' do
+        click_button class: 'dropdown-toggle'
         expect(page).not_to have_link 'Entrar'
         expect(page).not_to have_link 'Cadastrar Usuário'
         expect(page).to have_content 'João'
@@ -31,6 +32,7 @@ describe 'Usuário faz login' do
 
       login_as admin
       visit root_path
+      click_button class: 'dropdown-toggle'
 
       expect(page).to have_content 'João (Admin)'
     end
@@ -42,6 +44,7 @@ describe 'Usuário faz login' do
     login_as user
 
     visit root_path
+    click_button class: 'dropdown-toggle'
     click_on 'Sair'
 
     expect(current_path).to eq root_path

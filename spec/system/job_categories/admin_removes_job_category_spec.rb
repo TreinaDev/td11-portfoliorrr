@@ -7,6 +7,7 @@ describe 'Usuário remove categoria de trabalho' do
 
     login_as admin
     visit root_path
+    click_button class: 'dropdown-toggle'
     click_on 'Categorias de trabalho'
     click_on 'Remover'
 
