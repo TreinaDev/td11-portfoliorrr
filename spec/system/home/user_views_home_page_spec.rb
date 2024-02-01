@@ -75,6 +75,40 @@ describe 'Usuário visita a home page' do
       expect(page).to have_content 'Como fazer uma app React'
       expect(page).to have_content 'Aprenda Ruby on Rails em 1 dia'
     end
+
+    it 'e vê usuários mais seguidos' do
+      first_user = create(:user)
+      second_user = create(:user)
+      third_user = create(:user)
+      fourth_user = create(:user)
+      fifth_user = create(:user)
+      visitor = create(:user)
+
+      Connection.create!(follower: fourth_user.profile, followed_profile: third_user.profile)
+      Connection.create!(follower: fifth_user.profile, followed_profile: third_user.profile)
+
+      Connection.create!(follower: second_user.profile, followed_profile: first_user.profile)
+      Connection.create!(follower: third_user.profile, followed_profile: first_user.profile)
+      Connection.create!(follower: fourth_user.profile, followed_profile: first_user.profile)
+      Connection.create!(follower: fifth_user.profile, followed_profile: first_user.profile)
+
+      Connection.create!(follower: third_user.profile, followed_profile: second_user.profile)
+      Connection.create!(follower: fourth_user.profile, followed_profile: second_user.profile)
+      Connection.create!(follower: fifth_user.profile, followed_profile: second_user.profile)
+
+      login_as visitor
+      visit root_path
+
+      expect(page).to have_content 'Usuários mais seguidos'
+      expect(page).to have_content first_user.full_name
+      expect(page).to have_content second_user.full_name
+      expect(page).to have_content third_user.full_name
+      expect(page).not_to have_content fourth_user.full_name
+      expect(page).not_to have_content fifth_user.full_name
+
+      expect(page.body.index(first_user.full_name)).to be < page.body.index(second_user.full_name)
+      expect(page.body.index(second_user.full_name)).to be < page.body.index(third_user.full_name)
+    end
   end
 
   context 'quando não está logado' do
@@ -90,6 +124,33 @@ describe 'Usuário visita a home page' do
       expect(page).to have_content 'Faça login ou crie uma conta para descobrir conteúdos relevantes para você.'
       expect(page).not_to have_content 'Como fazer uma app Vue'
       expect(page).not_to have_content 'Como fazer uma app React'
+    end
+
+    it 'e não vê usuários mais seguidos' do
+      first_user = create(:user)
+      second_user = create(:user)
+      third_user = create(:user)
+      fourth_user = create(:user)
+      fifth_user = create(:user)
+
+      Connection.create!(follower: fourth_user.profile, followed_profile: third_user.profile)
+      Connection.create!(follower: fifth_user.profile, followed_profile: third_user.profile)
+
+      Connection.create!(follower: second_user.profile, followed_profile: first_user.profile)
+      Connection.create!(follower: third_user.profile, followed_profile: first_user.profile)
+      Connection.create!(follower: fourth_user.profile, followed_profile: first_user.profile)
+      Connection.create!(follower: fifth_user.profile, followed_profile: first_user.profile)
+
+      Connection.create!(follower: third_user.profile, followed_profile: second_user.profile)
+      Connection.create!(follower: fourth_user.profile, followed_profile: second_user.profile)
+      Connection.create!(follower: fifth_user.profile, followed_profile: second_user.profile)
+
+      visit root_path
+
+      expect(page).not_to have_content 'Usuários mais seguidos'
+      expect(page).not_to have_content first_user.full_name
+      expect(page).not_to have_content second_user.full_name
+      expect(page).not_to have_content third_user.full_name
     end
   end
 end
