@@ -9,23 +9,23 @@ export default {
   },
   computed:{
     filteredProjects() {
-      const filter = this.selectedFilter
+      const searchType = this.selectedFilter
       return this.projects.filter(project => {
-        if (filter === 'todos' || filter === '') {
+        if (searchType === 'todos' || searchType === '') {
           return (
             project.description.toLowerCase().includes(this.searchText.toLowerCase()) ||
             project.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
             project.category.toLowerCase().includes(this.searchText.toLowerCase())
           )
         } else {
-          return project[filter].toLowerCase().includes(this.searchText.toLowerCase());
+          return project[searchType].toLowerCase().includes(this.searchText.toLowerCase());
         }
       })
     }
   },
   methods: {
-    setFilter(filter) {
-      this.selectedFilter = filter;
+    setFilter(selectedSearchType) {
+      this.selectedFilter = selectedSearchType;
     }
   },
   async created() {

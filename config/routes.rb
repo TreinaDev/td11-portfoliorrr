@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  get '/projects', to: 'projects#index', as: 'projects'
+  resources :projects, only: %i[index]
 
   resources :job_categories, only: %i[index create destroy]
   resources :profiles, only: [] do
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get '/projects', to: 'projects#index', as: 'projects'
+      resources :projects, only: %i[index]
       resources :job_categories, only: %i[index]
       resources :profiles, only: [] do
         get 'search', on: :collection
