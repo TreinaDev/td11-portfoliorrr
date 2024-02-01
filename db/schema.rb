@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_30_123557) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_30_190411) do
   create_table "comments", force: :cascade do |t|
     t.text "message"
     t.integer "post_id", null: false
@@ -85,7 +85,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_123557) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-01-29 13:19:00"
+    t.datetime "edited_at", default: "2024-02-01 16:39:56"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -119,6 +119,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_123557) do
     t.text "cover_letter"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "work_status", default: 10
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

@@ -5,3 +5,16 @@
   transform: scale(1.01, 1.01);
   transition-duration: 300ms;
 }
+
+.field_with_errors input{
+  border: 1px solid red !important;
+}
+
+.home_logo{
+  width: 12rem;
+  margin: 0 7rem 0 7rem;
+}
+
+.drop-menu{
+  margin-right: 2.5rem !important;
+}
