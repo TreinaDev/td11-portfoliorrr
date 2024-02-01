@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     end
   end
 
+  patch 'work_unavailable', controller: :profiles
+  patch 'open_to_work', controller: :profiles
+
   resources :likes, only: %i[create destroy]
   resources :job_categories, only: %i[index create]
   resource :profile, only: %i[edit update], controller: :profile, as: :user_profile do
