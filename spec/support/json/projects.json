@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Padrão 1",
+    "description": "Descrição de um projeto padrão para testes 1.",
+    "category": "Categoria de projeto"
+  },
+  {
+    "id": 2,
+    "title": "Líder de Ginásio",
+    "description": "Me tornar líder do estádio de pedra.",
+    "category": "Auto Ajuda"
+  },
+  {
+    "id": 3,
+    "title": "Pokedex",
+    "description": "Fazer uma listagem de todos os pokemons.",
+    "category": "Tecnologia"
+  }
+]
