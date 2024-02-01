@@ -39,7 +39,7 @@ Rails.application.routes.draw do
         get 'search', on: :collection
       end
 
-      resources :invitations, only: %i[create]
+      resources :invitations, only: %i[create update]
     end
   end
 end

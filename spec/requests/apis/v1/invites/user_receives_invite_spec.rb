@@ -6,15 +6,17 @@ describe 'API convites' do
       user_profile = create(:profile)
 
       post '/api/v1/invitations', params: {
-        invitation: {
-          profile_id: user_profile.id,
-          project_title: 'Projeto Cola?Bora!',
-          project_description: 'Projeto Legal',
-          project_category: 'Tecnologia',
-          colabora_invitation_id: 1,
-          message: 'Venha participar do meu projeto!',
-          expiration_date: 1.week.from_now.to_date,
-          status: 'pending'
+        data: {
+          invitation: {
+            profile_id: user_profile.id,
+            project_title: 'Projeto Cola?Bora!',
+            project_description: 'Projeto Legal',
+            project_category: 'Tecnologia',
+            colabora_invitation_id: 1,
+            message: 'Venha participar do meu projeto!',
+            expiration_date: 1.week.from_now.to_date,
+            status: 'pending'
+          }
         }
       }
 
@@ -39,15 +41,17 @@ describe 'API convites' do
 
       it 'com usuário inexistente' do
         post '/api/v1/invitations', params: {
-          invitation: {
-            profile_id: 3,
-            project_title: 'Projeto Cola?Bora!',
-            project_description: 'Projeto Legal',
-            project_category: 'Tecnologia',
-            colabora_invitation_id: 1,
-            message: 'Venha participar do meu projeto!',
-            expiration_date: 1.week.from_now.to_date,
-            status: 'pending'
+          data: {
+            invitation: {
+              profile_id: 3,
+              project_title: 'Projeto Cola?Bora!',
+              project_description: 'Projeto Legal',
+              project_category: 'Tecnologia',
+              colabora_invitation_id: 1,
+              message: 'Venha participar do meu projeto!',
+              expiration_date: 1.week.from_now.to_date,
+              status: 'pending'
+            }
           }
         }
 
@@ -59,6 +63,4 @@ describe 'API convites' do
       end
     end
   end
-
-  xit 'patch para mudar status do convite'
 end
