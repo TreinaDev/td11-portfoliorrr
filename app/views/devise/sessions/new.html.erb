@@ -5,12 +5,12 @@
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|%>
     <p class="field">
       <%= f.label :email, class: 'form-label' %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control py-2' %>
     </p>
 
     <p class="field">
       <%= f.label :password, class: 'form-label' %>
-      <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
+      <%= f.password_field :password, autocomplete: "current-password", class: 'form-control py-2' %>
     </p>
 
     <% if devise_mapping.rememberable? %>
@@ -22,9 +22,8 @@
 
     <p class="actions d-flex align-items-center mt-3 gap-3">
       <%= f.submit "Entrar", class: 'btn btn-primary fs-5' %>
-    
+
       <%= render "devise/shared/links" %>
     </p>
   <% end %>
 </div>
-

@@ -13,6 +13,7 @@ describe 'Usuário cria uma postagem' do
     travel_to 1.day.ago do
       login_as user
       visit root_path
+      click_button class: 'dropdown-toggle'
 
       within 'nav' do
         click_on 'Criar Nova Publicação'
