@@ -15,6 +15,7 @@ describe 'Usuário visita página de projetos' do
 
       visit root_path
 
+      click_button class: 'dropdown-toggle'
       click_on 'Projetos'
 
       expect(page).to have_current_path projects_path
