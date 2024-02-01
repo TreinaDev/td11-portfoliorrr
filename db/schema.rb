@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_31_151805) do
   create_table "comments", force: :cascade do |t|
     t.text "message"
     t.integer "post_id", null: false
@@ -42,6 +42,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_education_infos_on_profile_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer "profile_id", null: false
+    t.string "project_title", null: false
+    t.text "project_description", null: false
+    t.string "project_category", null: false
+    t.integer "colabora_invitation_id", null: false
+    t.text "message"
+    t.date "expiration_date"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_invitations_on_profile_id"
   end
 
   create_table "job_categories", force: :cascade do |t|
@@ -119,6 +133,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
     t.text "cover_letter"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "work_status", default: 10
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -143,6 +158,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_133553) do
   add_foreign_key "connections", "profiles", column: "followed_profile_id"
   add_foreign_key "connections", "profiles", column: "follower_id"
   add_foreign_key "education_infos", "profiles"
+  add_foreign_key "invitations", "profiles"
   add_foreign_key "likes", "users"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"

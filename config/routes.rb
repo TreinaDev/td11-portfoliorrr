@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       resources :profiles, only: [] do
         get 'search', on: :collection
       end
+
+      resources :invitations, only: %i[create]
     end
   end
 end
