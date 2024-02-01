@@ -8,11 +8,14 @@ describe 'Api busca usuários por categoria de trabalho' do
       front_end = create(:job_category, name: 'Front End')
       user_a = create(:user, full_name: 'Joao Almeida')
       user_a.profile.profile_job_categories.create!(job_category: ruby, description: 'Eu amo codar')
-      user_b = create(:user, full_name: 'André Porteira', citizen_id_number: '418.767.220-61', email: 'andre@email.com')
+      user_b = create(:user, full_name: 'André Porteira')
       user_b.profile.profile_job_categories.create!(job_category: web_design, description: 'EU trabalho com css.')
-      user_c = create(:user, full_name: 'Moisés Campus', citizen_id_number: '002.488.770-62', email: 'moises@email.com')
+      user_c = create(:user, full_name: 'Moisés Campus')
       user_c.profile.profile_job_categories.create!(job_category: web_design, description: 'Eu uso ruby')
       user_c.profile.profile_job_categories.create!(job_category: front_end, description: 'Eu uso Bootstrap.')
+      user_d = create(:user, full_name: 'Eliseu Ramos')
+      user_d.profile.unavailable!
+      user_d.profile.profile_job_categories.create!(job_category: ruby, description: 'Eu amo ruby.')
 
       get '/api/v1/profiles/search', params: { search: 'ruby' }
 

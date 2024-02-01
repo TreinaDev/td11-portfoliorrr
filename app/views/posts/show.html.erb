@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <h2 class="card-title"><%= @post.title %> 
+    <h2 class="card-title"><%= @post.title %>
     <% if current_user == @post.user %>
       <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
     <% end %></h2>
@@ -21,6 +21,12 @@
       <time datetime="<%= @post.edited_at.to_date %>">
         <%= t('posts.views.show.last_update', update_date: I18n.l(@post.edited_at.to_date)) %>
       </time>
+    </p>
+
+    <p class="card-subtitle mb-2 text-body-secondary">
+      <% @post.tags.each do |tag| %>
+        <span class="badge bg-primary"><%= tag.name %></span>
+      <% end %>
     </p>
 
     <div class="btn-group">
@@ -51,7 +57,7 @@
       <blockquote class="blockquote mb-0">
         <p><%= comment.message %></p>
         <footer class="blockquote-footer">
-          <%= comment.user.full_name %>
+          <%= comment.user.full_name %> <%= '(autor)' if comment.user == @post.user %>
         </footer>
       </blockquote>
 

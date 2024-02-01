@@ -9,8 +9,10 @@ describe 'Usuário edita informações pessoais' do
 
       login_as user
       visit root_path
+      click_button class: 'dropdown-toggle'
       click_on user_name
       click_on 'Editar Informações Pessoais'
+
       expect(page).to have_current_path edit_user_profile_path
     end
 

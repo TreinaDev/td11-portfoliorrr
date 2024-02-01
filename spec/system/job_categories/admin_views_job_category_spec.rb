@@ -8,6 +8,7 @@ describe 'Usuário vê categorias de trabalho' do
 
     login_as admin
     visit root_path
+    click_button class: 'dropdown-toggle'
     click_on 'Categorias de trabalho'
 
     expect(page).to have_content 'Web Design'

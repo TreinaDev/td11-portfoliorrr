@@ -13,6 +13,7 @@ describe 'Usuário cria uma postagem' do
     travel_to 1.day.ago do
       login_as user
       visit root_path
+      click_button class: 'dropdown-toggle'
 
       within 'nav' do
         click_on 'Criar Nova Publicação'
@@ -20,6 +21,7 @@ describe 'Usuário cria uma postagem' do
 
       fill_in 'Título da Publicação', with: 'Olá Mundo!'
       fill_in 'Conteúdo', with: 'Primeira publicação'
+      fill_in 'Tags', with: 'tag1, tag2, tag3'
 
       click_on 'Salvar'
     end
@@ -31,6 +33,7 @@ describe 'Usuário cria uma postagem' do
     expect(page).to have_content 'Primeira publicação'
     expect(page).to have_content 'Criado por Seiya de Pégaso'
     expect(page).to have_content "Publicado em: #{1.day.ago.strftime('%d/%m/%Y')}"
+    expect(page).to have_content 'tag1 tag2 tag3'
   end
 
   it 'apenas se fornecer um título e conteúdo ao post' do
