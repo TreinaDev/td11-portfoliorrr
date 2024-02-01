@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <div class="w-25">
+    <div class="w-25 mx-3">
       <%= link_to root_path do %>
         <%= image_tag 'logo.png', class:'w-50' %>
       <% end %>
@@ -10,34 +10,41 @@
     </button>
     <% if user_signed_in? %>
       <div class="nav-item w-50 d-flex justify-content-center">
-        <%= form_with url: search_profiles_path, method: :get, class: 'w-50' do |form| %>
+        <%= form_with url: search_profiles_path, method: :get, class: 'w-75' do |form| %>
           <div class="input-group">
-            <%= form.search_field :query, placeholder: 'Buscar Perfil', class: 'form-control' %>
-            <%= form.submit "Pesquisar", class: 'btn btn-outline-secondary' %>
+            <%= form.search_field :query, placeholder: 'Buscar Perfil', class: 'form-control py-2' %>
+            <%= form.submit "Pesquisar", class: 'btn btn-outline-secondary py-2' %>
           </div>
         <% end %>
       </div>
     <% end %>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown drop-menu">
         <% if user_signed_in? %>
-          <% if current_user.admin? %>
-            <li class="nav-item">
-              <%= link_to 'Categorias de trabalho', job_categories_path, class: 'nav-link' %>
+          <button class="btn dropdown-toggle mx-5" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= image_tag 'user-solid.svg', width: '35rem' %>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-white">
+            <li class="dropdown-item" href="#">
+              <%= link_to "#{current_user.description}", current_user.profile, class: 'nav-link' %>
             </li>
-          <% end %>
-          <li class="nav-item">
-            <%= link_to "#{current_user.description}", current_user.profile, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Projetos', projects_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Criar Nova Publicação', new_post_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
-          </li>
+            <li class="dropdown-item">
+              <%= link_to 'Projetos', projects_path, class: 'nav-link' %>
+            </li>
+            <% if current_user.admin? %>
+              <li class="dropdown-item" href="#">
+                <%= link_to 'Categorias de trabalho', job_categories_path, class: 'nav-link' %>
+              </li>
+            <% end %>
+            <li class="dropdown-item" href="#">
+              <%= link_to 'Criar Nova Publicação', new_post_path, class: 'nav-link' %>
+            </li>
+            <li class="dropdown-item" href="#">
+              <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-danger w-100' %>
+            </li>
+          </ul>
+        </li>
         <% else %>
           <li class="nav-item">
             <%= link_to 'Criar Nova Conta', new_user_registration_path, class: 'btn btn-primary btn-lg mx-3' %>
