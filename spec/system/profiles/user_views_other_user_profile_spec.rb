@@ -61,4 +61,45 @@ describe 'Usuário vê perfil de outro usuário' do
     expect(page).not_to have_link 'Editar Formação Acadêmica', href: edit_education_info_path(education_info)
     expect(page).not_to have_link 'Adicionar Nova Categoria de Trabalho', href: new_profile_job_category_path
   end
+
+  context 'quando visibilidade de informações não é permitida' do
+    it 'e não vê informações pessoais' do
+      user = create(:user, full_name: 'João Almeida', email: 'joaoalmeida@email.com')
+      user.profile.personal_info.update(street: 'Avenida Campus Code', area: 'TreinaDev',
+                                        city: 'São Paulo', state: 'SP', zip_code: '',
+                                        phone: '', birth_date: '', visibility: false)
+      user2 = create(:user, full_name: 'Andre')
+
+      login_as user2
+      visit profile_path(user.profile)
+
+      expect(page).not_to have_content 'Avenida Campus Code'
+      expect(page).not_to have_content 'São Paulo'
+      expect(page).not_to have_content 'SP'
+    end
+
+    it 'e não vê experiência profissional' do
+      user = create(:user)
+      visitor = create(:user)
+      professional_info = create(:professional_info, profile: user.profile, visibility: false)
+
+      login_as visitor
+      visit profile_path(user.profile)
+
+      expect(page).not_to have_content professional_info.position
+      expect(page).not_to have_content professional_info.company
+    end
+
+    it 'e não vê formação acadêmica' do
+      user = create(:user)
+      visitor = create(:user)
+      education_info = create(:education_info, profile: user.profile, visibility: false)
+
+      login_as visitor
+      visit profile_path(user.profile)
+
+      expect(page).not_to have_content education_info.institution
+      expect(page).not_to have_content education_info.course
+    end
+  end
 end

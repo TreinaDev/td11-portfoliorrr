@@ -43,7 +43,6 @@ describe 'Usuário visualiza informações pessoais' do
       expect(page).to have_content 'Estado:'
       expect(page).to have_content 'Telefone:'
       expect(page).to have_content 'Data de Nascimento:'
-      expect(page).to have_content 'Resumo Profissional:'
     end
   end
 
@@ -52,7 +51,7 @@ describe 'Usuário visualiza informações pessoais' do
       user = create(:user, full_name: 'João Almeida', email: 'joaoalmeida@email.com')
       user.profile.personal_info.update(street: 'Avenida Campus Code', area: 'TreinaDev',
                                         city: 'São Paulo', state: 'SP', zip_code: '',
-                                        phone: '', birth_date: '')
+                                        phone: '', birth_date: '', visibility: true)
       user2 = create(:user, full_name: 'Andre')
 
       login_as user2

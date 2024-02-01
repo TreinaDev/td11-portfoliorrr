@@ -2,23 +2,27 @@ require 'rails_helper'
 
 describe 'Usuário adiciona informações profissionais' do
   context 'quando logado' do
+    it "e vê campo 'Exibir no Perfil' selecionado" do
+      user = create(:user)
+
+      login_as user
+      visit new_user_profile_professional_info_path
+
+      expect(page).to have_checked_field 'Exibir no Perfil'
+    end
+
     it 'com sucesso' do
       user = create(:user)
 
       login_as user
-
       visit profile_path(user.profile)
-
       click_on 'Adicionar Experiência Profissional'
-
       fill_in 'Empresa', with: 'Rebase'
       fill_in 'Cargo', with: 'Desenvolvedor Python'
       fill_in 'Data de Entrada', with: '2017-12-25'
       fill_in 'Data de Saída', with: '2022-12-31'
       fill_in 'Descrição', with: 'Trabalhava muito'
-
-      check 'Visível'
-
+      check 'Exibir no Perfil'
       click_on 'Salvar'
 
       expect(page).to have_current_path profile_path(user.profile)
@@ -28,7 +32,6 @@ describe 'Usuário adiciona informações profissionais' do
       expect(page).to have_content 'Trabalhava muito'
       expect(page).to have_content '25/12/2017'
       expect(page).to have_content '31/12/2022'
-      expect(page).to have_content 'Visível: Sim'
     end
 
     context 'como emprego atual' do
@@ -44,7 +47,7 @@ describe 'Usuário adiciona informações profissionais' do
         fill_in 'Cargo', with: ''
         fill_in 'Data de Entrada', with: ''
         fill_in 'Data de Saída', with: ''
-        check 'Visível'
+        check 'Exibir no Perfil'
 
         click_on 'Salvar'
 
@@ -69,7 +72,7 @@ describe 'Usuário adiciona informações profissionais' do
         fill_in 'Cargo', with: ''
         fill_in 'Data de Entrada', with: ''
         fill_in 'Data de Saída', with: ''
-        check 'Visível'
+        check 'Exibir no Perfil'
 
         click_on 'Salvar'
 
