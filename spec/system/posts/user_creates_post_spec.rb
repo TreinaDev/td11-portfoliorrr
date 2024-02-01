@@ -34,22 +34,54 @@ describe 'Usuário cria uma postagem' do
     expect(page).to have_content "Publicado em: #{1.day.ago.strftime('%d/%m/%Y')}"
   end
 
-  it 'com sucesso anexando imagem' do
+  it 'com sucesso anexando imagem, vídeo e audio' do
     user = create(:user, full_name: 'Seiya de Pégaso')
 
     login_as user
     visit new_post_path(user)
     fill_in 'Título da Publicação', with: 'Novo post'
-    file_path = Rails.root.join('spec/support/images/test_image.png')
+    image_path = Rails.root.join('spec/support/assets/images/test_image.png')
+    video_path = Rails.root.join('spec/support/assets/videos/test_video.mp4')
+    audio_path = Rails.root.join('spec/support/assets/audios/test_audio.mp3')
+    pdf_path = Rails.root.join('spec/support/assets/pdfs/test_pdf.pdf')
     click_button('Attach Files')
-    attach_file(file_path, make_visible: true)
+    attach_file(image_path, make_visible: true)
+    click_button('Attach Files')
+    attach_file(video_path, make_visible: true)
+    click_button('Attach Files')
+    attach_file(audio_path, make_visible: true)
+    click_button('Attach Files')
+    attach_file(pdf_path, make_visible: true)
 
     click_on 'Salvar'
 
     expect(Post.count).to eq 1
     expect(page).to have_current_path post_path(Post.first)
     expect(page).to have_selector('img[src*="test_image.png"]')
+    expect(page).to have_selector('video[src*="test_video.mp4"]')
+    expect(page).to have_selector('audio[src*="test_audio.mp3"]')
+    expect(page).to have_selector('embed[src*="test_pdf.pdf"]')
   end
+
+  it 'e anexa arquivo inválido' do
+    user = create(:user, full_name: 'Seiya de Pégaso')
+
+    login_as user
+    visit new_post_path(user)
+    fill_in 'Título da Publicação', with: 'Novo post'
+    doc_path = Rails.root.join('spec/support/assets/invalid/test_doc.doc')
+    video_path = Rails.root.join('spec/support/assets/invalid/test_video.mov')
+    click_button('Attach Files')
+    attach_file(doc_path, make_visible: true)
+    click_button('Attach Files')
+    attach_file(video_path, make_visible: true)
+
+    click_on 'Salvar'
+
+    expect(Post.count).to eq 0
+    expect(page).to have_content 'Tipo de arquivo inválido.'
+  end
+
   it 'apenas se fornecer um título e conteúdo ao post' do
     user = create(:user)
 

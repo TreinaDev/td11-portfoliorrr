@@ -6,7 +6,7 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :content, 'Conteúdo' %>
+      <%= f.label :content, 'Conteúdo' %> <span class='text-warning-emphasis'><small>(*)Arquivos suportados: .mp3, .mp4, .pdf, .jpg, .png</small></span>
       <%= f.rich_text_area :content, id: 'conteudo', class: 'form-control' %>
     </div>
 
