@@ -19,3 +19,13 @@
 .drop-menu{
   margin-right: 2.5rem !important;
 }
+
+.follower-card:hover{
+  transform: scale(1.01, 1.01);
+  transition-duration: 300ms;
+}
+
+.profile-image{
+  min-width: 80px;
+}
+
