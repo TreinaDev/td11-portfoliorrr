@@ -100,6 +100,12 @@ post_gabriel_3.comments.create(user: andre, message: 'Que legal!')
 
 
 # Adiciona convites
-invitation_1 = joao.profile.invitations.create(project_title: 'Projeto 1', project_description: 'Projeto de teste', expiration_date: 5.days.from_now)
-invitation_2 = andre.profile.invitations.create(project_title: 'Projeto 2', project_description: 'Projeto de teste', expiration_date: 5.days.from_now)
-invitation_3 = gabriel.profile.invitations.create(project_title: 'Projeto 3', project_description: 'Projeto de teste', expiration_date: 5.days.from_now)
+FactoryBot.create(:invitation, profile: joao.profile, status: 'accepted', project_title: 'Projeto Gotta cath`em all', project_description: 'Capturar todos os Pokémons', project_category: 'Collection', expiration_date: 1.day.from_now)
+
+FactoryBot.create(:invitation, profile: joao.profile, status: 'pending', project_title: 'Projeto King of Games', project_description: 'Se tornar o melhor duelista de todos os tempos', project_category: 'Achievments', expiration_date: 1.week.from_now)
+
+FactoryBot.create(:invitation, profile: joao.profile, status: 'expired', project_title: 'Projeto Campus Code', project_description: 'Aprender a programar', project_category: 'Education', expiration_date: 1.day.ago)
+
+FactoryBot.create(:invitation, profile: joao.profile, status: 'declined', project_title: 'Projeto Code Saga', project_description: 'Aprender a programar', project_category: 'Education', expiration_date: 1.week.ago)
+
+
