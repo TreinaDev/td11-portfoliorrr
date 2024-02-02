@@ -27,7 +27,7 @@ describe 'Usuário vê a lista de publicações' do
     login_as user
     visit root_path
 
-    expect(page).to have_selector '#post-list', text: post.content.split(' ').first(50).join(' ')
+    expect(page).to have_selector '#post-list', text: post.content.truncate(300, separator: ' ')
   end
 
   it 'e vê a data de cada publicação' do
