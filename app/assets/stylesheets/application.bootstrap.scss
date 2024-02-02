@@ -1,5 +1,6 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+@import 'actiontext.css';
 
 .feed-post:hover{
   transform: scale(1.01, 1.01);
@@ -27,3 +28,4 @@
 .profile-image{
   min-width: 80px;
 }
+
