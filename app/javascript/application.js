@@ -2,6 +2,11 @@
 import "@hotwired/turbo-rails"
 import * as bootstrap from "bootstrap"
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
-import HelloComponent from './components/hello_vue.js'
+import ProjectsComponent from './components/projects_vue.js'
+import "trix"
+import "@rails/actiontext"
 
-createApp(HelloComponent).mount('#vue-app')
+document.addEventListener('turbo:load', () => {
+  createApp(ProjectsComponent).mount('#vue-projects-app')
+})
+

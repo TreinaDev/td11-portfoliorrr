@@ -1,9 +1,9 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name) %><br />
+  <p>Já tem uma conta? faça <%= link_to "Log in", new_session_path(resource_name) %></p>
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Cadastrar", new_registration_path(resource_name) %><br />
+  <%= link_to "Cadastrar", new_registration_path(resource_name), class: 'btn btn-secondary text-white fs-5' %>
 <% end %>
 
 <!--

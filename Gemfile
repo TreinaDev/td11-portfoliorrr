@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.2'
+gem 'acts-as-taggable-on'
 gem 'rails', '~> 7.1.2'
 
 gem 'bootsnap', require: false
@@ -11,6 +12,8 @@ gem 'cssbundling-rails'
 gem 'devise'
 
 gem 'faker'
+gem 'faraday'
+gem 'image_processing', '>= 1.2'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'puma', '~> 6.0'

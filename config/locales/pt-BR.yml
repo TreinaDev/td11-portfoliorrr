@@ -5,6 +5,9 @@ pt-BR:
   login_required: 'Você não está logado'
   true: 'Sim'
   false: 'Não'
+  followers:
+    one: Seguidor
+    other: Seguidores
   buttons:
     save: Salvar
     return: Voltar

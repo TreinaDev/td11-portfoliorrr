@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  resources :projects, only: %i[index]
+
   resources :job_categories, only: %i[index create destroy]
   resources :profiles, only: [] do
     get 'search', on: :collection
@@ -24,6 +26,9 @@ Rails.application.routes.draw do
     end
   end
 
+  patch 'work_unavailable', controller: :profiles
+  patch 'open_to_work', controller: :profiles
+
   resources :likes, only: %i[create destroy]
   resources :job_categories, only: %i[index create]
   resource :profile, only: %i[edit update], controller: :profile, as: :user_profile do
@@ -35,10 +40,13 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :projects, only: %i[index]
       resources :job_categories, only: %i[index]
       resources :profiles, only: [] do
         get 'search', on: :collection
       end
+
+      resources :invitations, only: %i[create update]
     end
   end
 end

@@ -16,6 +16,8 @@ class Profile < ApplicationRecord
   has_many :job_categories, through: :profile_job_categories
 
   has_one_attached :photo
+  has_many :invitations, dependent: :destroy
+  has_many :posts, through: :user
 
   accepts_nested_attributes_for :personal_info
   accepts_nested_attributes_for :professional_infos
@@ -23,8 +25,10 @@ class Profile < ApplicationRecord
 
   after_create :create_personal_info!
   after_create :set_default_photo
+
   validate :valid_photo_content_type
   validate :photo_size_lower_than_3mb
+  enum work_status: { unavailable: 0, open_to_work: 10 }
 
   delegate :full_name, to: :user
 
@@ -66,6 +70,14 @@ class Profile < ApplicationRecord
 
   def inactive_follower?(profile)
     followers.inactive.where(follower: profile).any?
+  end
+
+  def self.most_followed(limit)
+    joins(:followers)
+      .where(connections: { status: 'active' })
+      .group(:id)
+      .order('count(follower_id) DESC, id ASC')
+      .limit(limit)
   end
 
   def set_default_photo

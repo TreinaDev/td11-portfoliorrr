@@ -8,6 +8,9 @@ pt-BR:
       profile:
         cover_letter: Resumo Profissional
         photo: Foto
+      profile/work_status:
+          open_to_work: 'Disponível para trabalho'
+          unavailable: 'Indisponível para trabalho'
   profiles:
     update:
       error: 'Sua alteração não pôde ser salva'
@@ -21,6 +24,10 @@ pt-BR:
       results:
         one: 'resultado'
         other: 'resultados'
+    work_unavailable:
+      success: Alteração salva com sucesso
+    open_to_work:
+      success: Alteração salva com sucesso
   profile:
     update:
       success: 'Informações pessoais atualizadas com sucesso'

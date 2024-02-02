@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_profile_by_id, only: %i[show edit remove_photo update]
+  before_action :set_profile_and_posts, only: %i[show edit remove_photo update]
   before_action :redirect_unauthorized_access, only: %i[edit update remove_photo]
 
   def edit; end
@@ -25,12 +25,7 @@ class ProfilesController < ApplicationController
     @followers_count = @profile.followers_count
     @followed_count = @profile.followed_count
     @professional_infos = @profile.professional_infos.order(start_date: :desc)
-
-    @personal_info = if current_user == @user
-                       @profile.personal_info.non_date_attributes
-                     else
-                       @profile.personal_info.non_empty_attributes
-                     end
+    @personal_info = personal_info
   end
 
   def search
@@ -41,11 +36,19 @@ class ProfilesController < ApplicationController
     @profiles = Profile.advanced_search(@query)
   end
 
-  private
-
-  def set_profile_by_id
-    @profile = Profile.find(params[:id])
+  def work_unavailable
+    @profile = current_user.profile
+    @profile.unavailable!
+    redirect_to profile_path(@profile), notice: t('.success')
   end
+
+  def open_to_work
+    @profile = current_user.profile
+    @profile.open_to_work!
+    redirect_to profile_path(@profile), notice: t('.success')
+  end
+
+  private
 
   def profile_params
     params.require(:profile).permit(:photo)
@@ -55,5 +58,18 @@ class ProfilesController < ApplicationController
     return if current_user == @profile.user
 
     redirect_to root_path, alert: t('.redirect_alert.unauthorized_user')
+  end
+
+  def set_profile_and_posts
+    @profile = Profile.find(params[:id])
+    @posts = current_user == @profile.user ? @profile.posts : @profile.posts.published
+  end
+
+  def personal_info
+    if current_user == @profile.user
+      @profile.personal_info.non_date_attributes
+    else
+      @profile.personal_info.non_empty_attributes
+    end
   end
 end

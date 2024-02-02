@@ -3,6 +3,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: %w[show edit update pin]
   before_action :authorize!, only: %w[edit update pin]
 
+  require 'image_processing/mini_magick'
+
   def new
     @user = current_user
     @post = current_user.posts.build
@@ -20,6 +22,8 @@ class PostsController < ApplicationController
   end
 
   def show
+    authorize! unless @post.published?
+
     @comment = Comment.new
     @likes_count = @post.likes.count
     @liked = Like.find_by(user: current_user, likeable: @post)
@@ -49,7 +53,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    post_params = params.require(:post).permit(:title, :content)
+    post_params = params.require(:post).permit(:title, :content, :tag_list, :status)
     post_params['edited_at'] = Time.zone.now
     post_params
   end
