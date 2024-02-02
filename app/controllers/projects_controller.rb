@@ -11,11 +11,10 @@ class ProjectsController < ApplicationController
 
     if invitation_request.save
       flash[:notice] = t('.success')
-      redirect_to projects_path
     else
       flash[:alert] = t('.error')
-      render :index, status: :bad_request
     end
+    redirect_to projects_path
   end
 
   private
