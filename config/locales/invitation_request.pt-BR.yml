@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      invitation_request:
+        one: Solicitação de Convite
+        other: Solicitações de Convite
+    attributes:
+      invitation_request:
+        message: 'Mensagem'
+  projects:
+    create_invitation_request:
+      success: 'Solicitação enviada com sucesso!'
+      error: 'Não foi possível enviar solicitação'

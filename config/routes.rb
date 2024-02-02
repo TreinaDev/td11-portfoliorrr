@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :projects, only: %i[index]
+  post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
   resources :job_categories, only: %i[index create destroy]
   resources :profiles, only: [] do

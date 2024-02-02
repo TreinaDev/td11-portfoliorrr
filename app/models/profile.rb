@@ -14,6 +14,7 @@ class Profile < ApplicationRecord
   has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
 
   has_many :job_categories, through: :profile_job_categories
+  has_many :invitation_requests, dependent: :destroy
 
   accepts_nested_attributes_for :personal_info
   accepts_nested_attributes_for :professional_infos
