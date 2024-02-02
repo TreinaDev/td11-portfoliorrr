@@ -44,6 +44,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
     t.index ["profile_id"], name: "index_education_infos_on_profile_id"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.integer "profile_id", null: false
+    t.string "project_title", null: false
+    t.text "project_description", null: false
+    t.string "project_category", null: false
+    t.integer "colabora_invitation_id", null: false
+    t.text "message"
+    t.date "expiration_date"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_invitations_on_profile_id"
+  end
+
   create_table "job_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -85,7 +99,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-02 13:14:47"
+    t.datetime "edited_at", default: "2024-02-02 18:26:00"
     t.integer "status", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -176,6 +190,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
   add_foreign_key "connections", "profiles", column: "followed_profile_id"
   add_foreign_key "connections", "profiles", column: "follower_id"
   add_foreign_key "education_infos", "profiles"
+  add_foreign_key "invitations", "profiles"
   add_foreign_key "likes", "users"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
