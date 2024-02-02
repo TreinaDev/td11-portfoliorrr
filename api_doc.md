@@ -5,6 +5,11 @@ Abaixo, uma descrição dos endpoints disponíveis.
 
 ## 1. Listar todas as categorias de trabalho
 
+<details>
+<summary>GET /api/v1/job_categories</summary>
+
+<br>
+
 ### Endpoint
 
 ```shell
@@ -47,8 +52,14 @@ Retorno esperado:
   { "error": "Houve um erro interno no servidor ao processar sua solicitação." }
 }
 ```
+</details>
 
 ## 2. Buscar por usuários na plataforma Portifoliorrr através dos campos `job_category.name` e `profile_job_category.description`
+
+<details>
+<summary>GET /api/v1/profiles/search?search=query</summary>
+
+<br>
 
 ### Endpoint
 
@@ -136,10 +147,17 @@ Retorno esperado:
 "error": "É necessário fornecer um parâmetro de busca"
 }
 ```
+</details>
 
 ## 3. Criar convite para um usuário participar do projeto
 
+<details>
+<summary>POST /api/v1/invitations/</summary>
+
+<br>
+
 ### Endpoint
+
 
 ```shell
 POST /api/v1/invitations
@@ -176,6 +194,13 @@ Retorno esperado caso a requisição seja bem sucedida. (Status: 201)
 
 Erro para corpo da requisição vazio (Status: 400)
 
+Resposta:
+```json
+{
+  "error": "Houve um erro ao processar sua solicitação."
+}
+```
+
 Este erro acontece quando a requisição é feita sem informar o corpo da requisição. Exemplo de requisição que retornará este erro:
 
 campos vazios
@@ -194,7 +219,14 @@ id de usuário inválido
 }
 ```
 
+</details>
+
 ## 4. Editar status de convite
+
+<details>
+<summary>PATCH /api/v1/invitations/:id</summary>
+
+<br>
 
 ### Endpoint
 
@@ -218,6 +250,13 @@ Retorno esperado caso a requisição seja bem sucedida. (Status: 204)
 ### Erros tratados
 
 Erro para corpo da requisição vazio (Status: 400)
+
+Resposta:
+```json
+{
+  "error": "Houve um erro ao processar sua solicitação."
+}
+```
 
 Este erro acontece quando a requisição é feita sem informar o corpo da requisição. Um exemplo de requisição que retornará este erro:
 
@@ -250,3 +289,5 @@ Retorno esperado:
   "error": "Não encontrado"
 }
 ```
+
+</details>
