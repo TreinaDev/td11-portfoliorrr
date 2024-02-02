@@ -1,0 +1,17 @@
+<%= link_to connection_profile, class: 'card text-decoration-none py-2 shadow rounded follower-card' do %>
+  <div class="card-body row justify-content-center align-items-center">
+    <div class="col-md-3 col-sm-3 profile-image">
+      <%= image_tag 'randomuser.jpg', width: '85rem', class: 'rounded rounded-circle px-2' %>
+    </div>
+    <div class="col-md-6">
+      <h5 class="card-title text-primary text-decoration-underline"><%= connection_profile.full_name %></h5>
+      <% if active_jobs(connection_profile).any? %>
+        <% active_jobs(connection_profile).each do |job| %>
+          <p class="card-text fw-bold"><%= job.position %> | <%= job.company %></p>
+        <% end %>
+      <% else %>
+        <p class="card-text fw-bold"><%= t Profile.human_attribute_name("work_status.#{connection_profile.work_status}") %></p>
+      <% end %>
+    </div>
+  </div>
+<% end %>
