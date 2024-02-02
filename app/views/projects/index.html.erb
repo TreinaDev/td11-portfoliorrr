@@ -3,8 +3,8 @@
   <div v-if="emptyData">
     <p>{{ emptyData }}</p>
   </div>
-  <div class="row" v-else>
-    <div class="col-md-4">
+  <div v-else>
+    <div>
       <label class="form-label visually-hidden" for="searchText">Pesquisar</label>
       <input class="form-control" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Digite sua pesquisa">
       <div class="d-flex gap-3 mt-3">
