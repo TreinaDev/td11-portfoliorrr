@@ -1,10 +1,9 @@
 require 'rails_helper'
 
-describe 'Visitante realiza seu cadastro' do
+describe 'Usuário acessa página de cadastro de usuário' do
   it 'a partir da home com sucesso' do
     visit root_path
     click_on 'Criar Nova Conta'
-
     fill_in 'Nome Completo', with: 'João Almeida'
     fill_in 'E-mail', with: 'joaoalmeida@email.com'
     fill_in 'CPF', with: '88257290068'
@@ -12,14 +11,14 @@ describe 'Visitante realiza seu cadastro' do
     fill_in 'Confirme sua Senha', with: '123456'
     click_on 'Cadastrar'
 
-    expect(User.last.profile).to be_present
+    profile = User.last.profile
+    expect(profile).to be_present
     expect(page).to have_content 'Boas vindas 👋 Você realizou seu cadastro com sucesso.'
   end
 
   context 'e realiza o cadastro com falhas' do
     it 'campos não podem ficar em brancos' do
       visit new_user_registration_path
-
       fill_in 'Nome Completo', with: ''
       fill_in 'E-mail', with: ''
       fill_in 'CPF', with: ''
@@ -36,7 +35,6 @@ describe 'Visitante realiza seu cadastro' do
 
     it 'senha não pode ter menos de 6 caracteres' do
       visit new_user_registration_path
-
       fill_in 'Nome Completo', with: 'João Almeida'
       fill_in 'E-mail', with: 'joaoalmeida@email.com'
       fill_in 'CPF', with: '88257290068'
@@ -67,7 +65,6 @@ describe 'Visitante realiza seu cadastro' do
       create(:user, email: 'joaoalmeida@email.com', citizen_id_number: '88257290068')
 
       visit new_user_registration_path
-
       fill_in 'Nome Completo', with: 'João Almeida'
       fill_in 'E-mail', with: 'joaoalmeida@email.com'
       fill_in 'CPF', with: '88257290068'
@@ -82,18 +79,15 @@ describe 'Visitante realiza seu cadastro' do
 
     it 'e pula a etapa de registro de dados pessoais' do
       visit new_user_registration_path
-
       fill_in 'Nome Completo', with: 'João Almeida'
       fill_in 'E-mail', with: 'joaoalmeida@email.com'
       fill_in 'CPF', with: '88257290068'
       fill_in 'Senha', with: '123456'
       fill_in 'Confirme sua Senha', with: '123456'
-
       click_on 'Cadastrar'
-
       click_link 'Preencher Depois'
 
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path root_path
     end
   end
 end

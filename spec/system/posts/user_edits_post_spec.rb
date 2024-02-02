@@ -6,7 +6,7 @@ describe 'Usuário edita uma publicação' do
 
     visit edit_post_path(post)
 
-    expect(current_path).to eq new_user_session_path
+    expect(page).to have_current_path new_user_session_path
   end
 
   it 'com sucesso' do
@@ -23,11 +23,12 @@ describe 'Usuário edita uma publicação' do
       click_on 'Salvar'
     end
 
-    expect(current_path).to eq post_path(post)
+    expect(page).to have_current_path post_path(post)
     expect(page).to have_content 'Publicação editada com sucesso!'
     expect(page).to have_content 'O título mudou'
     expect(page).to have_content 'A publicação também'
-    expect(page).to have_content 'Última atualização em: 07/09/2025'
+    expect(page).to have_content I18n.t('posts.views.show.last_update',
+                                        update_date: I18n.l(post.created_at.to_datetime, format: :long))
     expect(page).to have_content 'tagA tagB tagC'
   end
 

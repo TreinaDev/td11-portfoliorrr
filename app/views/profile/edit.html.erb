@@ -1,7 +1,10 @@
 <h2>Informações Pessoais</h2>
 <p>
-  <%= link_to 'Preencher Depois', root_path, class: 'btn btn-secondary' %> 
-  <%= link_to 'Voltar', profile_path(current_user.profile), class: 'btn btn-secondary' %>
+  <% if URI.parse(request.referer || '').path == new_user_registration_path %>
+    <%= link_to 'Preencher Depois', root_path, class: 'btn btn-secondary' %>
+  <% else %>
+    <%= link_to 'Voltar', profile_path(current_user.profile), class: 'btn btn-secondary' %>
+  <% end %>
 </p>
 <%= form_with model: @profile, url: user_profile_path, method: :patch do |form| %>
   <%= form.fields_for :personal_info do |personal_info| %>
@@ -22,8 +25,9 @@
       <%= personal_info.text_field :city, class:'form-control' %>
     </p>
     <p>
-      <%= personal_info.label :state, class:'form-label' %>
-      <%= personal_info.text_field :state, class:'form-control' %>
+      <%= personal_info.label :state, class: 'form-label' %>
+      <%= personal_info.select :state, options_for_select(options_for_states, selected: personal_info.object.state), 
+                                      {prompt: 'Selecione uma estado'}, class: 'form-select' %>
     </p>
     <p>
       <%= personal_info.label :zip_code, class:'form-label' %>
