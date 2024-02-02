@@ -2,18 +2,16 @@ module Api
   module V1
     class InvitationsController < ApiController
       def create
-        invitation = Invitation.create!(invite_params[:invitation])
-        render status: :created, json: { invitation_id: invitation.id }
+        invitation = Invitation.create!(invite_params)
+        render status: :created, json: { data: { invitation_id: invitation.id } }
       end
 
       def update
-        invitation_params = params.require(:data).permit(:status)
-        unless Invitation.statuses.key? invitation_params[:status]
-          return render status: :bad_request, json: { error: 'Status inválido' }
-        end
+        status = params.permit(:status)[:status]
+        return render status: :bad_request, json: { error: 'Status inválido' } unless Invitation.statuses.key? status
 
         invitation = Invitation.find(params[:id])
-        invitation.update!(invitation_params)
+        invitation.update!(status:)
       end
 
       private
@@ -23,7 +21,7 @@ module Api
                             :project_description, :project_category,
                             :colabora_invitation_id, :message,
                             :expiration_date, :status
-        params.require(:data).permit(invitation: invitation_params)
+        params.require(:invitation).permit(invitation_params)
       end
     end
   end

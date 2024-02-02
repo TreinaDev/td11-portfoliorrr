@@ -149,17 +149,15 @@ Corpo da requisição:
 
 ```json
 {
-  "data": {
-    "invitation": {
-      "profile_id": 3,
-      "project_title": "Projeto Cola?Bora!",
-      "project_description": "Projeto Legal",
-      "project_category": "Tecnologia",
-      "colabora_invitation_id": 1,
-      "message": "Venha participar do meu projeto!",
-      "expiration_date": "2021-12-31",
-      "status": "pending"
-    }
+  "invitation": {
+    "profile_id": 3,
+    "project_title": "Projeto Cola?Bora!",
+    "project_description": "Projeto Legal",
+    "project_category": "Tecnologia",
+    "colabora_invitation_id": 1,
+    "message": "Venha participar do meu projeto!",
+    "expiration_date": "2021-12-31",
+    "status": "pending"
   }
 }
 ```
@@ -168,7 +166,9 @@ Retorno esperado caso a requisição seja bem sucedida. (Status: 201)
 
 ```json
 {
-  "invitation_id": 1,
+  "data": {
+    "invitation_id": 1
+  }
 }
 ```
 
@@ -181,19 +181,15 @@ Este erro acontece quando a requisição é feita sem informar o corpo da requis
 campos vazios
 
 ```json
-{
-  "data": {}
-}
+{}
 ```
 id de usuário inválido
 
 ```json
 {
-  "data" {
-    "invitation": {
-      "profile_id": 999999999999999,
-        etc...
-    }
+  "invitation": {
+    "profile_id": 999999999999999,
+      etc...
   }
 }
 ```
@@ -210,10 +206,8 @@ Corpo da requisição:
 
 ```json
 {
-  "data": {
-    "invitation": {
-      "status": "accepted"
-    }
+  "invitation": {
+    "status": "accepted"
   }
 }
 ```
@@ -228,19 +222,15 @@ Erro para corpo da requisição vazio (Status: 400)
 Este erro acontece quando a requisição é feita sem informar o corpo da requisição. Um exemplo de requisição que retornará este erro:
 
 ```json
-{
-  "data": {}
-}
+{}
 ```
 
 Outro exemplo de requisição que retornará este erro:
 
 ```json
 {
-  "data": {
-    "invitation": {
-      "status": "XXXinvalid_statusXXX"
-    }
+  "invitation": {
+    "status": "XXXinvalid_statusXXX"
   }
 }
 ```

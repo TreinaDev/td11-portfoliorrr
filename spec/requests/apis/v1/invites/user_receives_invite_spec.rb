@@ -6,24 +6,22 @@ describe 'API convites' do
       user_profile = create(:profile)
 
       post '/api/v1/invitations', params: {
-        data: {
-          invitation: {
-            profile_id: user_profile.id,
-            project_title: 'Projeto Cola?Bora!',
-            project_description: 'Projeto Legal',
-            project_category: 'Tecnologia',
-            colabora_invitation_id: 1,
-            message: 'Venha participar do meu projeto!',
-            expiration_date: 1.week.from_now.to_date,
-            status: 'pending'
-          }
+        invitation: {
+          profile_id: user_profile.id,
+          project_title: 'Projeto Cola?Bora!',
+          project_description: 'Projeto Legal',
+          project_category: 'Tecnologia',
+          colabora_invitation_id: 1,
+          message: 'Venha participar do meu projeto!',
+          expiration_date: 1.week.from_now.to_date,
+          status: 'pending'
         }
       }
 
       expect(response).to have_http_status(201)
       expect(response.content_type).to include 'application/json'
       json_response = JSON.parse(response.body)
-      expect(json_response['invitation_id']).to eq 1
+      expect(json_response['data']['invitation_id']).to eq 1
       expect(Invitation.count).to eq 1
       expect(user_profile.invitations.first.colabora_invitation_id).to eq 1
     end
@@ -41,17 +39,15 @@ describe 'API convites' do
 
       it 'com usuário inexistente' do
         post '/api/v1/invitations', params: {
-          data: {
-            invitation: {
-              profile_id: 3,
-              project_title: 'Projeto Cola?Bora!',
-              project_description: 'Projeto Legal',
-              project_category: 'Tecnologia',
-              colabora_invitation_id: 1,
-              message: 'Venha participar do meu projeto!',
-              expiration_date: 1.week.from_now.to_date,
-              status: 'pending'
-            }
+          invitation: {
+            profile_id: 3,
+            project_title: 'Projeto Cola?Bora!',
+            project_description: 'Projeto Legal',
+            project_category: 'Tecnologia',
+            colabora_invitation_id: 1,
+            message: 'Venha participar do meu projeto!',
+            expiration_date: 1.week.from_now.to_date,
+            status: 'pending'
           }
         }
 
