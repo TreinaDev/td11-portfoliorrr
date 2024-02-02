@@ -97,3 +97,9 @@ post_gabriel_2.comments.create(user: andre, message: 'Que legal!')
 post_gabriel_3.comments.create(user: gabriel, message: 'Meu texto é muito bom.')
 post_gabriel_3.comments.create(user: joao, message: 'Interessante.')
 post_gabriel_3.comments.create(user: andre, message: 'Que legal!')
+
+
+# Adiciona convites
+invitation_1 = joao.profile.invitations.create(project_title: 'Projeto 1', project_description: 'Projeto de teste', expiration_date: 5.days.from_now)
+invitation_2 = andre.profile.invitations.create(project_title: 'Projeto 2', project_description: 'Projeto de teste', expiration_date: 5.days.from_now)
+invitation_3 = gabriel.profile.invitations.create(project_title: 'Projeto 3', project_description: 'Projeto de teste', expiration_date: 5.days.from_now)
