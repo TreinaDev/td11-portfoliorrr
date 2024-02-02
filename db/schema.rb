@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_02_194430) do
   create_table "comments", force: :cascade do |t|
     t.text "message"
     t.integer "post_id", null: false
@@ -48,7 +48,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
     t.integer "profile_id", null: false
     t.text "message"
     t.integer "project_id"
-    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id", "project_id"], name: "index_invitation_requests_on_profile_id_and_project_id", unique: true
@@ -97,7 +96,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-01 12:25:12"
+    t.datetime "edited_at", default: "2024-02-02 11:18:15"
     t.integer "status", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
