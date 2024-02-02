@@ -23,6 +23,8 @@ class Profile < ApplicationRecord
 
   after_create :create_personal_info!
   after_create :set_default_photo
+  validate :valid_photo_content_type
+  validate :photo_size_lower_than_3mb
 
   delegate :full_name, to: :user
 
@@ -43,6 +45,13 @@ class Profile < ApplicationRecord
     profiles_json.as_json
   end
 
+  def self.search_by_job_categories(query)
+    left_outer_joins(:job_categories, :profile_job_categories).where(
+      "job_categories.name LIKE :term OR
+      profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
+    ).uniq
+  end
+
   def followers_count
     followers.active.count
   end
@@ -60,15 +69,22 @@ class Profile < ApplicationRecord
   end
 
   def set_default_photo
-    photo.attach(Rails.root + 'app/assets/images/default_portfoliorrr_photo.png')
+    photo.attach(Rails.root.join('app/assets/images/default_portfoliorrr_photo.png'))
   end
 
   private
 
-  def self.search_by_job_categories(query)
-    left_outer_joins(:job_categories, :profile_job_categories).where(
-      "job_categories.name LIKE :term OR
-      profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
-      ).uniq
+  def valid_photo_content_type
+    return if photo.blank?
+    return if photo.content_type.in?(%w[image/jpg image/jpeg image/png])
+
+    errors.add(:photo, message: 'deve ser do formato .jpg, .jpeg ou .png')
+  end
+
+  def photo_size_lower_than_3mb
+    return if photo.blank?
+    return if photo.byte_size <= 3 * 1024 * 1024
+
+    errors.add(:photo, message: 'deve ter no máximo 3MB')
   end
 end

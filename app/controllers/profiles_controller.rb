@@ -1,18 +1,23 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile_by_id, only: %i[show edit remove_photo update]
+  before_action :redirect_unauthorized_access, only: %i[edit update remove_photo]
 
   def edit; end
 
-  def update 
-    @profile.update(profile_params)
-    redirect_to profile_path(@profile), notice: 'Sua foto foi alterada com sucesso'
+  def update
+    if @profile.update(profile_params)
+      redirect_to profile_path(@profile), notice: t('.success')
+    else
+      flash.now[:alert] = t('.error')
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def remove_photo
     @profile.photo.destroy!
     @profile.set_default_photo
-    redirect_to profile_path(@profile), notice: 'Sua foto foi removida com sucesso'
+    redirect_to profile_path(@profile), notice: t('.success')
   end
 
   def show
@@ -37,12 +42,18 @@ class ProfilesController < ApplicationController
   end
 
   private
-  
+
   def set_profile_by_id
     @profile = Profile.find(params[:id])
   end
 
   def profile_params
     params.require(:profile).permit(:photo)
+  end
+
+  def redirect_unauthorized_access
+    return if current_user == @profile.user
+
+    redirect_to root_path, alert: t('.redirect_alert.unauthorized_user')
   end
 end
