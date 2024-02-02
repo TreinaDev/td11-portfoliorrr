@@ -56,7 +56,6 @@ describe 'Usuário cria uma postagem' do
     attach_file(audio_path, make_visible: true)
     click_button('Attach Files')
     attach_file(pdf_path, make_visible: true)
-
     click_on 'Salvar'
 
     expect(Post.count).to eq 1
@@ -79,11 +78,74 @@ describe 'Usuário cria uma postagem' do
     attach_file(doc_path, make_visible: true)
     click_button('Attach Files')
     attach_file(video_path, make_visible: true)
-
     click_on 'Salvar'
 
     expect(Post.count).to eq 0
     expect(page).to have_content 'Tipo de arquivo inválido.'
+  end
+
+  it 'e anexa um arquivo de imagem maior que 2mb' do
+    user = create(:user, full_name: 'Seiya de Pégaso')
+
+    login_as user
+    visit new_post_path(user)
+    fill_in 'Título da Publicação', with: 'Novo post'
+    image_path = Rails.root.join('spec/support/assets/invalid/test_image_3mb.png')
+
+    click_button('Attach Files')
+    attach_file(image_path, make_visible: true)
+    click_on 'Salvar'
+
+    expect(Post.count).to eq 0
+    expect(page).to have_content 'Tamanho de imagem permitido é 2mb'
+  end
+
+  it 'e anexa um arquivo de video maior que 15mb' do
+    user = create(:user, full_name: 'Seiya de Pégaso')
+
+    login_as user
+    visit new_post_path(user)
+    fill_in 'Título da Publicação', with: 'Novo post'
+    video_path = Rails.root.join('spec/support/assets/invalid/test_video_18mb.mp4')
+
+    click_button('Attach Files')
+    attach_file(video_path, make_visible: true)
+    click_on 'Salvar'
+
+    expect(Post.count).to eq 0
+    expect(page).to have_content 'Tamanho do vídeo permitido é 15mb'
+  end
+
+  it 'e anexa um arquivo de audio maior que 3mb' do
+    user = create(:user, full_name: 'Seiya de Pégaso')
+
+    login_as user
+    visit new_post_path(user)
+    fill_in 'Título da Publicação', with: 'Novo post'
+    audio_path = Rails.root.join('spec/support/assets/invalid/test_audio_5mb.mp3')
+
+    click_button('Attach Files')
+    attach_file(audio_path, make_visible: true)
+    click_on 'Salvar'
+
+    expect(Post.count).to eq 0
+    expect(page).to have_content 'Tamanho do áudio permitido é 3mb'
+  end
+
+  it 'e anexa um arquivo pdf maior que 900kb' do
+    user = create(:user, full_name: 'Seiya de Pégaso')
+
+    login_as user
+    visit new_post_path(user)
+    fill_in 'Título da Publicação', with: 'Novo post'
+    pdf_path = Rails.root.join('spec/support/assets/invalid/test_pdf_1mb.pdf')
+
+    click_button('Attach Files')
+    attach_file(pdf_path, make_visible: true)
+    click_on 'Salvar'
+
+    expect(Post.count).to eq 0
+    expect(page).to have_content 'Tamanho do PDF permitido é 900kb'
   end
 
   it 'apenas se fornecer um título e conteúdo ao post' do
