@@ -1,11 +1,11 @@
 <div class="d-flex">
   <div class="container d-flex flex-column vh-100 w-50">
 
-    <% if @profile.user.posts.pinned.any? %>
+    <% if @posts.pinned.any? %>
       <div id="fixed">
         <h2 id="post-list-title">Destaque</h2>
         <section>
-          <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.pinned } %>
+          <%= render partial: 'posts/listing', locals: { posts: @posts.pinned } %>
         </section>
       </div>
     <% end %>
@@ -17,7 +17,7 @@
       <% end %>
       
       <section>
-        <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.unpinned.order(created_at: :desc) } %>
+        <%= render partial: 'posts/listing', locals: { posts: @posts.unpinned.order(created_at: :desc) } %>
       </section>
     </div>
 
@@ -26,17 +26,17 @@
   <div class="container w-50 d-flex flex-column px-5 align-items-end">
     <aside class="px-5">
       <section class="text-center d-flex flex-column align-items-center">
-        
-        <h4><%= @user.full_name %></h4>
+
+        <h4><%= @profile.full_name %></h4>
         <div class="d-flex gap-4">
           <div class="d-flex flex-column" id="followers-count">
             <%= link_to profile_connections_path(@profile), class: "text-decoration-none fs-5" do %>
-              <p><%= @followers_count %> <%= t(Connection.human_attribute_name(:follower_id, count: @followers_count))%></p>
+              <p><%= @profile.followers_count %> <%= t(Connection.human_attribute_name(:follower_id, count: @profile.followers_count ))%></p>
             <% end %>
           </div>
           <div class="text-center d-flex flex-column" id="following-count">
             <%= link_to profile_following_path(@profile), class: "text-decoration-none fs-5" do %>
-              <p><%= @followed_count %> <%= t(Connection.human_attribute_name(:followed_profile_id))%> </p>
+              <p><%= @profile.followed_count %> <%= t(Connection.human_attribute_name(:followed_profile_id))%> </p>
             <% end %>
           </div>
         </div>
@@ -61,7 +61,7 @@
             <% end %>
           <% end %>
         </div>
-        
+
       </section>
       <section>
         <%= render 'profile/profile', profile: @profile, professional_infos: @professional_infos, personal_info: @personal_info %>

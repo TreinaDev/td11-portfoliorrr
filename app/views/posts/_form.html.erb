@@ -9,6 +9,17 @@
     <%= f.text_area :content, class: 'form-control' %>
   </div>
 
+  <div class="form-group my-3">
+    <%= f.label :status_archived %>
+    <%= f.radio_button :status, 'archived', class:'me-2' %>
+
+    <%= f.label :status_draft %>
+    <%= f.radio_button :status, 'draft', class:'me-2' %>
+
+    <%= f.label :status_published %>
+    <%= f.radio_button :status, 'published' %>
+  </div>
+
   <div class="form-group">
     <%= f.label :tag_list %>
     <%= f.text_field :tag_list, class: 'form-control', value: @post.tag_list.join(',') %>

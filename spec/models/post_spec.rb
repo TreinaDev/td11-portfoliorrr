@@ -1,7 +1,38 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
+  describe '#valid?' do
+    context 'presença' do
+      it 'deve ter um título' do
+        post = build(:post, title: '')
+
+        expect(post.valid?).to eq false
+      end
+
+      it 'deve ter um conteúdo' do
+        post = build(:post, content: '')
+
+        expect(post.valid?).to eq false
+      end
+
+      it 'deve ter status válido' do
+        post = build(:post, status: '')
+
+        expect(post.valid?).to eq false
+      end
+    end
+  end
+
   describe 'self.get_sample' do
+    it 'e não retorna publicações com status diferente de published' do
+      user = create(:user)
+      create(:post, user:)
+      create(:post, user:, title: 'Pull Request', content: 'Façam o Pull Request na main antes...')
+      create(:post, user:, title: 'Turma 11', content: 'A melhor turma de todas', status: 'draft')
+
+      expect(Post.get_sample(3).count).to eq 2
+    end
+
     it 'e retorna a quantidade esperada de publicações' do
       user = create(:user)
 
@@ -22,5 +53,11 @@ RSpec.describe Post, type: :model do
 
       expect(post.edited_at.to_date).to eq post.created_at.to_date
     end
+  end
+
+  it 'valor padrão para status deve ser published' do
+    post = Post.new
+
+    expect(post.status).to eq 'published'
   end
 end
