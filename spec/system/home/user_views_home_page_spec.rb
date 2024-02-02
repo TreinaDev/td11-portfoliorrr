@@ -2,6 +2,15 @@ require 'rails_helper'
 
 describe 'Usuário visita a home page' do
   context 'quando logado' do
+    it 'não vê quadro de apresentação' do
+      user = create(:user)
+
+      login_as user
+      visit root_path
+
+      expect(page).not_to have_selector 'div#presentation', text: 'Porfoliorrr é uma rede social'
+    end
+
     it 'e vê somente os posts dos usuários seguidos' do
       follower = create(:user, email: 'usuario@email.com', full_name: 'Usuário', citizen_id_number: '56275577029')
       joao = create(:user, email: 'joao@almeida.com', full_name: 'João Almeida', citizen_id_number: '72647559082')
@@ -11,6 +20,8 @@ describe 'Usuário visita a home page' do
       first_joao_post = joao.posts.create(title: 'Turma 11', content: 'A melhor turma de todas')
       post_andre = andre.posts.create(title: 'Pull Request', content: 'Façam o Pull Request na main antes...')
       second_joao_post = joao.posts.create(title: 'Warehouses', content: 'Vamos aprender a fazer um app...')
+      draft_post_andre = andre.posts.create(title: 'Post Rascunho', content: 'Conteúdo do rascunho', status: 'draft')
+
       gabriel.posts.create(title: 'Como fazer uma app Vue', content: 'Não esqueça de usar o app.mount')
 
       Connection.create!(follower: follower.profile, followed_profile: joao.profile, status: 'active')
@@ -21,6 +32,7 @@ describe 'Usuário visita a home page' do
       visit root_path
 
       expect(page).not_to have_link('Como fazer uma app Vue')
+      expect(page).not_to have_link(draft_post_andre.title)
       expect(page).to have_link('Warehouses', href: post_path(second_joao_post))
       expect(page).to have_link('Pull Request', href: post_path(post_andre))
       expect(page).to have_link('Turma 11', href: post_path(first_joao_post))

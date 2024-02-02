@@ -1,7 +1,7 @@
 pt-BR:
   activerecord:
     models:
-      post: 
+      post:
         one: Postagem
         other: Postagens
     attributes:
@@ -9,6 +9,13 @@ pt-BR:
         title: Título da Publicação
         content: Conteúdo
         tag_list: Tags
+        status: Situação
+        draft: Rascunho
+        published: Publicada
+        archived: Arquivada
+        status_archived: Arquivada
+        status_draft: Rascunho
+        status_published: Publicada
   posts:
     redirect_alert:
       invalid_user: Você não pode realizar essa ação
