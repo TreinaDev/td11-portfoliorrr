@@ -43,5 +43,3 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
 end
 
-include ActionDispatch::TestProcess
-include Rack::Test::Methods

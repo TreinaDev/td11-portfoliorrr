@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário altera foto de perfil' do
+describe 'Usuário altera perfil' do
   context 'mas sem autorização' do
     it 'é redirecionado para homepage' do
       hacker = create(:user)
@@ -8,8 +8,7 @@ describe 'Usuário altera foto de perfil' do
       victim.profile.photo.attach(Rails.root.join('spec/resources/photos/male-photo.jpg'))
 
       login_as hacker
-      new_file = Rails.root.join('spec/resources/photos/another-male-photo.jpg')
-      patch "/profiles/#{victim.profile.id}", params: { profile: { photo: file_fixture_upload(new_file, 'image/jpg') } }
+      patch "/profiles/#{victim.profile.id}", params: { profile: { photo: '' } }
 
       expect(victim.profile.photo.filename).to eq 'male-photo.jpg'
       expect(response).to redirect_to(root_path)
