@@ -2,13 +2,13 @@ require 'rails_helper'
 
 describe 'Usuário adiciona informações acadêmicas' do
   context 'quando logado' do
-    it "e vê campo 'visível' selecionado" do
+    it "e vê campo 'Exibir no Perfil' selecionado" do
       user = create(:user)
 
       login_as user
       visit new_user_profile_education_info_path
 
-      expect(page).to have_checked_field 'Visível'
+      expect(page).to have_checked_field 'Exibir no Perfil'
     end
 
     it 'com sucesso' do
@@ -21,7 +21,7 @@ describe 'Usuário adiciona informações acadêmicas' do
       fill_in 'Curso', with: 'Web Dev'
       fill_in 'Início', with: '2017-12-25'
       fill_in 'Término', with: '2022-12-31'
-      check 'Visível'
+      check 'Exibir no Perfil'
       click_on 'Salvar'
 
       expect(page).to have_current_path profile_path(user.profile)
@@ -29,7 +29,6 @@ describe 'Usuário adiciona informações acadêmicas' do
       expect(page).to have_content 'Web Dev'
       expect(page).to have_content '25/12/2017'
       expect(page).to have_content '31/12/2022'
-      expect(page).to have_content 'Visível: Sim'
     end
 
     it 'e os campos "Instituição", "Curso" e "Início" e "Término" são obrigatórios' do
@@ -41,11 +40,10 @@ describe 'Usuário adiciona informações acadêmicas' do
       fill_in 'Curso', with: ''
       fill_in 'Início', with: ''
       fill_in 'Término', with: ''
-      check 'Visível'
+      check 'Exibir no Perfil'
       click_on 'Salvar'
 
       expect(current_path).to eq new_user_profile_education_info_path
-
       expect(page).to have_content 'Não foi possível cadastrar formação acadêmica'
       expect(page).to have_content 'Instituição não pode ficar em branco'
       expect(page).to have_content 'Curso não pode ficar em branco'
@@ -57,7 +55,6 @@ describe 'Usuário adiciona informações acadêmicas' do
       user = create(:user)
 
       login_as user
-
       visit new_user_profile_education_info_path
 
       expect(page).to have_link 'Voltar', href: profile_path(user.profile)

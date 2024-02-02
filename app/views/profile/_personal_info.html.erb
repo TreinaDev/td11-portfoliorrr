@@ -4,8 +4,6 @@
       <%= PersonalInfo.human_attribute_name(attribute) %>:
       <% if value && attribute == 'birth_date' %>
         <%= l(value.to_date) %>
-      <% elsif attribute == 'visibility' %>
-        <%= t(value) %>
       <% else %>
         <%= value %>
       <% end %>

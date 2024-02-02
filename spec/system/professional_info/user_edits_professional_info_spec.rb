@@ -7,9 +7,7 @@ describe 'Usuário edita informações profissionais' do
       create(:professional_info, profile: user.profile)
 
       login_as user
-
       visit profile_path(user.profile)
-
       click_on 'Editar Experiência Profissional'
 
       expect(page).to have_content 'Experiência Profissional'
@@ -22,7 +20,7 @@ describe 'Usuário edita informações profissionais' do
 
       expect(page).to have_unchecked_field 'Vínculo Atual'
 
-      check 'Visível'
+      check 'Exibir no Perfil'
 
       click_on 'Salvar'
 
@@ -33,7 +31,6 @@ describe 'Usuário edita informações profissionais' do
       expect(page).to have_content 'Trabalhava muito'
       expect(page).to have_content '25/12/2017'
       expect(page).to have_content '31/12/2022'
-      expect(page).to have_content 'Visível: Sim'
     end
 
     it 'e os campos "Empresa", "Cargo" e "Data de Entrada" são obrigatórios' do
@@ -41,14 +38,12 @@ describe 'Usuário edita informações profissionais' do
       professional_info = create(:professional_info, profile: user.profile)
 
       login_as user
-
       visit edit_professional_info_path(professional_info)
-
       fill_in 'Empresa', with: ''
       fill_in 'Cargo', with: ''
       fill_in 'Data de Entrada', with: ''
       fill_in 'Data de Saída', with: ''
-      check 'Visível'
+      check 'Exibir no Perfil'
 
       click_on 'Salvar'
 
@@ -65,18 +60,14 @@ describe 'Usuário edita informações profissionais' do
       professional_info = create(:professional_info, profile: user.profile)
 
       login_as user
-
       visit edit_professional_info_path(professional_info)
-
       fill_in 'Empresa', with: 'Vindi'
-
       click_on 'Salvar'
 
       expect(page).to have_content 'Vindi'
       expect(page).to have_content user.profile.professional_infos.first.position
       expect(page).to have_content '23/01/2022'
       expect(page).to have_content '23/01/2024'
-      expect(page).to have_content 'Visível: Sim'
     end
 
     it 'e tem a opção de voltar para a página anterior' do

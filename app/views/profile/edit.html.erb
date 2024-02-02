@@ -26,9 +26,8 @@
     </p>
     <p>
       <%= personal_info.label :state, class: 'form-label' %>
-      <%= personal_info.select :state, 
-            options_for_select(options_for_states, selected: personal_info.object.state),
-            class: 'form-control' %>   
+      <%= personal_info.select :state, options_for_select(options_for_states, selected: personal_info.object.state), 
+                                      {prompt: 'Selecione uma estado'}, class: 'form-select' %>
     </p>
     <p>
       <%= personal_info.label :zip_code, class:'form-label' %>
