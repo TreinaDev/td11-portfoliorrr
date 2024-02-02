@@ -8,7 +8,6 @@ class ProjectsController < ApplicationController
 
   def create_invitation_request
     invitation_request = current_user.profile.invitation_requests.build(invitation_request_params)
-    invitation_request.profile = current_user.profile
     if invitation_request.save
       flash[:notice] = t('.success')
     else
