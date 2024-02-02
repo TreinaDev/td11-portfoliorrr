@@ -1,26 +1,28 @@
 <% posts.each do |post| %>
-<div class="feed-post shadow mb-4 p-3 rounded" id="post-list">  
-  <%= link_to post, class: "text-decoration-none link-dark" do %>
-    <div class="card-body">
-      <h4 class="text-break text-primary"><%= post.title %></h4>
-      <p>
-        <%= post.content.to_plain_text.truncate(300, separator: ' ') %>
-      </p>
-      <p class="card-subtitle mb-2 text-muted">Publicado por: <%= post.user.full_name %></p>
-      <small>
-        <%= I18n.l(post.created_at, format: :long) %> -
-        <%= distance_of_time_in_words(Time.now, post.created_at) %>
-      </small>
-    </div>
-  <% end %>
-  <% if current_user == post.user %>
-    <div class="text-center mt-2" id="post-<%= post.id %>">
-      <% if request.path == profile_path(post.user.profile) %>
-        <% btn_value = post.pinned? ? 'Desfixar' : 'Fixar' %>
-        <%= button_to btn_value, pin_post_path(post), method: :post, class: "btn btn-outline-primary btn-sm" %>
-      <% end %>
-    </div>
-  <% end %>
-  
-</div>  
+  <div class="feed-post shadow mb-4 p-3 rounded" id="post-list">
+    <%= link_to post, class: "text-decoration-none link-dark" do %>
+      <div class="card-body">
+        <h4 class="text-break text-primary"><%= post.title %></h4>
+        <% if post.first_image_attached %>
+          <%= image_tag post.first_image_attached.representation(resize_to_limit: [ 1024, 300 ]), class:"img-fluid"  %>
+        <% end %>
+        <p>
+          <%= post.content.to_plain_text.truncate(300, separator: ' ') %>
+        </p>
+        <p class="card-subtitle mb-2 text-muted">Publicado por: <%= post.user.full_name %></p>
+        <small>
+          <%= I18n.l(post.created_at, format: :long) %> -
+          <%= distance_of_time_in_words(Time.now, post.created_at) %>
+        </small>
+      </div>
+    <% end %>
+    <% if current_user == post.user %>
+      <div class="text-center mt-2" id="post-<%= post.id %>">
+        <% if request.path == profile_path(post.user.profile) %>
+          <% btn_value = post.pinned? ? 'Desfixar' : 'Fixar' %>
+          <%= button_to btn_value, pin_post_path(post), method: :post, class: "btn btn-outline-primary btn-sm" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>

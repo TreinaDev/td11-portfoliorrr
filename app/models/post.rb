@@ -18,6 +18,15 @@ class Post < ApplicationRecord
     published.sample amount
   end
 
+  def first_image_attached
+    return unless content.body.attachments.any?
+
+    imagem = nil
+    content.body.attachments.each do |attachment|
+      imagem = attachment.attachable if attachment.attachable.image?
+    end
+  end
+
   private
 
   def correct_file_type

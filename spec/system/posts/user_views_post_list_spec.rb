@@ -62,4 +62,24 @@ describe 'Usuário vê a lista de publicações' do
     expect(page.body.index('Conteúdo C')).to be < page.body.index('Texto B')
     expect(page.body.index('Texto B')).to be < page.body.index('Post A')
   end
+
+  it 'e vê um preview da imagem' do
+    post_owner = create(:user)
+    visitor = create(:user, full_name: 'Ash Ketchum')
+
+    login_as post_owner
+    visit new_post_path(post_owner)
+    fill_in 'Título da Publicação', with: 'Como capturar Pókemons?'
+    image_path = Rails.root.join('spec/support/assets/images/test_image.png')
+    click_button('Attach Files')
+    attach_file(image_path, make_visible: true)
+    click_on 'Salvar'
+    logout
+
+    login_as visitor
+    visit root_path
+
+    expect(page).to have_content 'Como capturar Pókemons?'
+    expect(page).to have_selector 'img[src*="test_image.png"]'
+  end
 end
