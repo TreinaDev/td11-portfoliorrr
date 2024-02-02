@@ -174,8 +174,7 @@ Corpo da requisição:
     "project_category": "Tecnologia",
     "colabora_invitation_id": 1,
     "message": "Venha participar do meu projeto!",
-    "expiration_date": "2021-12-31",
-    "status": "pending"
+    "expiration_date": "2021-12-31"
   }
 }
 ```

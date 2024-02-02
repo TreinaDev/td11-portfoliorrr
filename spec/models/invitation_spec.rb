@@ -27,13 +27,14 @@ RSpec.describe Invitation, type: :model do
     context 'valor padrão' do
       it 'pending é o padrão para status' do
         profile = create(:profile)
-        invitation = Invitation.new profile_id: profile.id,
-                                    project_title: 'Projeto Cola?Bora!',
-                                    project_description: 'Projeto Legal',
-                                    project_category: 'Tecnologia',
-                                    colabora_invitation_id: 1,
-                                    message: 'Venha participar do meu projeto!',
-                                    expiration_date: 1.week.from_now.to_date
+        invitation = Invitation.create profile_id: profile.id,
+                                       project_title: 'Projeto Cola?Bora!',
+                                       project_description: 'Projeto Legal',
+                                       project_category: 'Tecnologia',
+                                       colabora_invitation_id: 1,
+                                       message: 'Venha participar do meu projeto!',
+                                       expiration_date: 1.week.from_now.to_date,
+                                       status: 'accepted'
 
         expect(invitation.status).to eq 'pending'
         expect(invitation).to be_valid

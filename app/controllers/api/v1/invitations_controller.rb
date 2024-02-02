@@ -20,7 +20,7 @@ module Api
         invitation_params = :profile_id, :project_title,
                             :project_description, :project_category,
                             :colabora_invitation_id, :message,
-                            :expiration_date, :status
+                            :expiration_date
         params.require(:invitation).permit(invitation_params)
       end
     end
