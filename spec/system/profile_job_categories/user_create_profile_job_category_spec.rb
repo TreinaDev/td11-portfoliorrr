@@ -9,6 +9,7 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
 
     login_as user
     visit root_path
+    click_button class: 'dropdown-toggle'
     click_on 'Zelda'
     click_on 'Adicionar nova categoria de trabalho'
 

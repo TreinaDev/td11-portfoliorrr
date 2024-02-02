@@ -10,6 +10,7 @@ describe 'Usuário visualiza informações pessoais' do
 
       login_as user
       visit root_path
+      click_button class: 'dropdown-toggle'
       click_on 'João'
 
       expect(page).to have_content 'Avenida Campus Code'
@@ -31,6 +32,7 @@ describe 'Usuário visualiza informações pessoais' do
 
       login_as user
       visit root_path
+      click_button class: 'dropdown-toggle'
       click_on 'João'
 
       expect(page).to have_content 'Rua:'
