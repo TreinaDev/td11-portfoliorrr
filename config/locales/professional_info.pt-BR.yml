@@ -11,7 +11,7 @@ pt-BR:
         state: 'Estado'
         start_date: 'Data de Entrada'
         end_date: 'Data de Saída'
-        visibility: 'Visível'
+        visibility: 'Exibir no Perfil'
         description: 'Descrição'
         current_job: 'Vínculo Atual'
   professional_infos:

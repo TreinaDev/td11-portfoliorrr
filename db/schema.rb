@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_30_182022) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -122,7 +122,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_182022) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-01-31 02:30:14"
+    t.datetime "edited_at", default: "2024-02-02 12:49:39"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -134,7 +134,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_182022) do
     t.integer "profile_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "visibility"
+    t.boolean "visibility", default: true
     t.text "description"
     t.boolean "current_job"
     t.index ["profile_id"], name: "index_professional_infos_on_profile_id"
@@ -156,7 +156,39 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_182022) do
     t.text "cover_letter"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "work_status", default: 10
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer "tag_id"
+    t.string "taggable_type"
+    t.integer "taggable_id"
+    t.string "tagger_type"
+    t.integer "tagger_id"
+    t.string "context", limit: 128
+    t.datetime "created_at", precision: nil
+    t.string "tenant", limit: 128
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type", "context"], name: "taggings_taggable_context_idx"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+    t.index ["tagger_type", "tagger_id"], name: "index_taggings_on_tagger_type_and_tagger_id"
+    t.index ["tenant"], name: "index_taggings_on_tenant"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -189,4 +221,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_182022) do
   add_foreign_key "profile_job_categories", "job_categories"
   add_foreign_key "profile_job_categories", "profiles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "taggings", "tags"
 end

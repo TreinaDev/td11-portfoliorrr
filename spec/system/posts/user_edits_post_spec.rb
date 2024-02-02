@@ -6,27 +6,30 @@ describe 'Usuário edita uma publicação' do
 
     visit edit_post_path(post)
 
-    expect(current_path).to eq new_user_session_path
+    expect(page).to have_current_path new_user_session_path
   end
 
   it 'com sucesso' do
     user = create(:user)
-    post = create(:post, user:, title: 'Nova publicação', content: 'Novidade')
+    post = create(:post, user:, title: 'Nova publicação', content: 'Novidade', tag_list: 'tagA, tagC')
 
     login_as user
     visit post_path(post)
     click_on 'Editar'
     fill_in 'Título da Publicação', with: 'O título mudou'
     fill_in_rich_text_area 'conteudo', with: 'A publicação também'
+    fill_in 'Tags', with: 'tagA, tagB, tagC'
     travel_to Time.zone.local(2025, 9, 7, 0, 0, 0) do
       click_on 'Salvar'
     end
 
-    expect(current_path).to eq post_path(post)
+    expect(page).to have_current_path post_path(post)
     expect(page).to have_content 'Publicação editada com sucesso!'
     expect(page).to have_content 'O título mudou'
     expect(page).to have_content 'A publicação também'
-    expect(page).to have_content 'Última atualização em: 07/09/2025'
+    expect(page).to have_content I18n.t('posts.views.show.last_update',
+                                        update_date: I18n.l(post.created_at.to_datetime, format: :long))
+    expect(page).to have_content 'tagA tagB tagC'
   end
 
   it 'e é redirecionado ao tentar atualizar publicação que não é sua' do

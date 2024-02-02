@@ -1,9 +1,9 @@
 <div class="d-flex">
-  <div class="container d-flex flex-column border-end vh-100 w-50">
+  <div class="container d-flex flex-column vh-100 w-50">
 
     <% if @profile.user.posts.pinned.any? %>
       <div id="fixed">
-        <h2 class="text-primary" id="post-list-title">Destaque</h2>
+        <h2 id="post-list-title">Destaque</h2>
         <section>
           <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.pinned } %>
         </section>
@@ -12,6 +12,10 @@
 
     <div id="publications">
       <h2 id="post-list-title">Publicações</h2>
+      <% if @profile.user.posts.count - @profile.user.posts.pinned.count < 1 %>
+        <p>Ainda não tem nada aqui... <br> Mas novas publicações vão ocupar este espaço. :)</p>
+      <% end %>
+      
       <section>
         <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.unpinned.order(created_at: :desc) } %>
       </section>
@@ -36,6 +40,16 @@
             <% end %>
           </div>
         </div>
+        <div>
+          <% if @profile.open_to_work? %>
+            <h5 class="text-success"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h5>
+            <%= button_to 'Não estou disponível para trabalho', work_unavailable_path, method: :patch, class: 'btn btn-danger' if current_user.profile == @profile %>
+          <% else %>
+            <h5 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h5>
+            <%= button_to 'Estou disponível para trabalho', open_to_work_path, method: :patch, class: 'btn btn-success' if current_user.profile == @profile %>
+          <% end %>
+        </div>
+        <br>
         <div class="w-75">
           <% if current_user.profile != @profile %>
             <% if @profile.following?(current_user.profile) %>

@@ -6,6 +6,8 @@ class Post < ApplicationRecord
 
   validate :correct_file_type
 
+  acts_as_ordered_taggable_on :tags
+
   enum pin: { unpinned: 0, pinned: 10 }
 
   has_rich_text :content

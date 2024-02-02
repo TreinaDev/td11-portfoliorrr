@@ -20,14 +20,27 @@ describe 'Usuário vê a lista de publicações' do
     expect(page).to have_link(post.title, href: post_path(post))
   end
 
+  it 'e vê os 300 primeiros caracteres do conteúdo' do
+    user = create(:user)
+    post = create(:post, content: Faker::Lorem.words(number: 400))
+
+    login_as user
+    visit root_path
+
+    expect(page).to have_selector '#post-list', text: post.content.to_plain_text.truncate(300, separator: ' ')
+  end
+
   it 'e vê a data de cada publicação' do
     user = create(:user, full_name: 'Gabriel Castro')
-    post = create(:post, user:, title: 'Post A', content: 'Primeira postagem')
+    travel_to(2.days.ago) do
+      @post = create(:post, user:, title: 'Post A', content: 'Primeira postagem')
+    end
 
     login_as user
     visit profile_path(user)
 
-    expect(page).to have_content I18n.l(post.created_at, format: :long)
+    expect(page).to have_content I18n.l(@post.created_at, format: :long)
+    expect(page).to have_content ' - 2 dias'
   end
 
   it 'e vê as postagens ordenadas da mais recente à mais antiga' do
