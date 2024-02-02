@@ -40,6 +40,16 @@
             <% end %>
           </div>
         </div>
+        <div>
+          <% if @profile.open_to_work? %>
+            <h5 class="text-success"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h5>
+            <%= button_to 'Não estou disponível para trabalho', work_unavailable_path, method: :patch, class: 'btn btn-danger' if current_user.profile == @profile %>
+          <% else %>
+            <h5 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h5>
+            <%= button_to 'Estou disponível para trabalho', open_to_work_path, method: :patch, class: 'btn btn-success' if current_user.profile == @profile %>
+          <% end %>
+        </div>
+        <br>
         <div class="w-75">
           <% if current_user.profile != @profile %>
             <% if @profile.following?(current_user.profile) %>

@@ -20,7 +20,7 @@ describe 'Usuário vê a lista de publicações' do
     expect(page).to have_link(post.title, href: post_path(post))
   end
 
-  it 'e vê os 100 primeiros caracteres do conteúdo' do
+  it 'e vê os 300 primeiros caracteres do conteúdo' do
     user = create(:user)
     post = create(:post, content: Faker::Lorem.words(number: 400))
 

@@ -36,6 +36,7 @@ describe 'Usuário cria categoria de trabalho' do
 
     login_as user
     visit root_path
+    click_button class: 'dropdown-toggle'
     click_on 'Categorias de trabalho'
 
     expect(page).to have_current_path(job_categories_path)
