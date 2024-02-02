@@ -3,7 +3,7 @@
     <%= link_to post, class: "text-decoration-none link-dark" do %>
       <div class="card-body">
         <h4 class="text-break text-primary"><%= post.title %></h4>
-        <% if post.first_image_attached %>
+        <% if post.exists_image_attached? %>
           <%= image_tag post.first_image_attached.representation(resize_to_limit: [ 1024, 300 ]), class:"img-fluid"  %>
         <% end %>
         <p>
