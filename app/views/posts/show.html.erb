@@ -1,9 +1,12 @@
 <div class="card">
   <div class="card-body">
-    <h2 class="card-title"><%= @post.title %> 
-    <% if current_user == @post.user %>
-      <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
-    <% end %></h2>
+    <h2 class="card-title"><%= @post.title %></h2>
+    <div class="my-4">
+      <% if current_user == @post.user %>
+        <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
+        <%= Post.human_attribute_name @post.status %>
+      <% end %>
+    </div>
 
     <h6 class="card-subtitle mb-2 text-body-secondary">
       <%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %>
@@ -13,14 +16,19 @@
 
     <p class="card-subtitle mb-2 text-body-secondary">
       <time datetime="<%= @post.created_at.to_date %>">  
-        <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_date)) %> -
-        <%= distance_of_time_in_words(Time.now, @post.created_at) %>
+        <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_datetime, format: :long)) %>
       </time>
     </p>
     <p class="text-muted">
       <time datetime="<%= @post.edited_at.to_date %>">
-        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.edited_at.to_date)) %>
+        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.created_at.to_datetime, format: :long)) %>
       </time>
+    </p>
+
+    <p class="card-subtitle mb-2 text-body-secondary">
+      <% @post.tags.each do |tag| %>
+        <span class="badge bg-primary"><%= tag.name %></span>
+      <% end %>
     </p>
 
     <div class="btn-group">
@@ -51,7 +59,7 @@
       <blockquote class="blockquote mb-0">
         <p><%= comment.message %></p>
         <footer class="blockquote-footer">
-          <%= comment.user.full_name %>
+          <%= comment.user.full_name %> <%= '(autor)' if comment.user == @post.user %>
         </footer>
       </blockquote>
 

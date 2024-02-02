@@ -10,7 +10,7 @@ pt-BR:
         course: 'Curso'
         start_date: 'Início'
         end_date: 'Término'
-        visibility: 'Visível'
+        visibility: 'Exibir no Perfil'
   education_infos:
     create:
       success: 'Formação acadêmica cadastrada com sucesso'

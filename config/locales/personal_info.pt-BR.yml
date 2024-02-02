@@ -14,4 +14,4 @@ pt-BR:
         zip_code: 'CEP'
         street_number: 'Número'
         birth_date: 'Data de Nascimento'
-        visibility: 'Visível'
+        visibility: 'Exibir no Perfil'

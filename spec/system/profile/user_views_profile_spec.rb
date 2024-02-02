@@ -6,10 +6,11 @@ describe 'Usuário visualiza informações pessoais' do
       user = create(:user, full_name: 'João Almeida', email: 'joaoalmeida@email.com')
       user.profile.personal_info.update(street: 'Avenida Campus Code', area: 'TreinaDev',
                                         city: 'São Paulo', state: 'SP', zip_code: '34123069',
-                                        phone: '11 4002 8922', birth_date: '1980-12-25')
+                                        phone: '11 4002 8922', birth_date: '1980-12-25', visibility: true)
 
       login_as user
       visit root_path
+      click_button class: 'dropdown-toggle'
       click_on 'João'
 
       expect(page).to have_content 'Avenida Campus Code'
@@ -21,6 +22,23 @@ describe 'Usuário visualiza informações pessoais' do
       expect(page).to have_content '34123069'
       expect(page).to have_content '11 4002 8922'
       expect(page).to have_content '25/12/1980'
+      expect(page).to have_content 'Exibir no Perfil: Sim'
+    end
+
+    it 'e escolhe não exibir informações' do
+      user = create(:user, full_name: 'João Almeida', email: 'joaoalmeida@email.com')
+      user.profile.personal_info.update(street: 'Avenida Campus Code', area: 'TreinaDev',
+                                        city: 'São Paulo', state: 'SP', zip_code: '34123069',
+                                        phone: '11 4002 8922', birth_date: '1980-12-25', visibility: false)
+
+      login_as user
+      visit root_path
+      click_button class: 'dropdown-toggle'
+      click_on 'João'
+
+      expect(page).to have_content 'Exibir no Perfil: Não'
+      expect(page).to have_content 'Avenida Campus Code'
+      expect(page).to have_content 'João Almeida'
     end
 
     it 'e vê os campos em branco' do
@@ -31,6 +49,7 @@ describe 'Usuário visualiza informações pessoais' do
 
       login_as user
       visit root_path
+      click_button class: 'dropdown-toggle'
       click_on 'João'
 
       expect(page).to have_content 'Rua:'
@@ -41,7 +60,6 @@ describe 'Usuário visualiza informações pessoais' do
       expect(page).to have_content 'Estado:'
       expect(page).to have_content 'Telefone:'
       expect(page).to have_content 'Data de Nascimento:'
-      expect(page).to have_content 'Resumo Profissional:'
     end
   end
 
@@ -50,7 +68,7 @@ describe 'Usuário visualiza informações pessoais' do
       user = create(:user, full_name: 'João Almeida', email: 'joaoalmeida@email.com')
       user.profile.personal_info.update(street: 'Avenida Campus Code', area: 'TreinaDev',
                                         city: 'São Paulo', state: 'SP', zip_code: '',
-                                        phone: '', birth_date: '')
+                                        phone: '', birth_date: '', visibility: true)
       user2 = create(:user, full_name: 'Andre')
 
       login_as user2
@@ -65,6 +83,7 @@ describe 'Usuário visualiza informações pessoais' do
       expect(page).not_to have_content 'CEP:'
       expect(page).not_to have_content 'Telefone:'
       expect(page).not_to have_content 'Data de Nascimento:'
+      expect(page).not_to have_content 'Exibir no Perfil:'
     end
   end
 
