@@ -10,9 +10,9 @@
     </button>
     <% if user_signed_in? %>
       <div class="nav-item w-50 d-flex justify-content-center">
-        <%= form_with url: search_profiles_path, method: :get, class: 'w-75' do |form| %>
+        <%= form_with url: searches_path, method: :get, class: 'w-75' do |form| %>
           <div class="input-group">
-            <%= form.search_field :query, placeholder: 'Buscar Perfil', class: 'form-control py-2' %>
+            <%= form.search_field :query, placeholder: 'Buscar', class: 'form-control py-2' %>
             <%= form.submit "Pesquisar", class: 'btn btn-outline-secondary py-2' %>
           </div>
         <% end %>

@@ -3,17 +3,15 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  resources :searches, only: %i[index]
+
   resources :projects, only: %i[index]
 
   resources :job_categories, only: %i[index create destroy]
-  resources :profiles, only: [] do
-    get 'search', on: :collection
-  end
 
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]
     post 'pin', on: :member
-    get 'search', on: :collection
   end
 
   resources :users, only: [] do

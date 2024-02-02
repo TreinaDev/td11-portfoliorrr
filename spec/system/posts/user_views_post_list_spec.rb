@@ -8,7 +8,7 @@ describe 'Usuário vê a lista de publicações' do
 
     login_as visitor
     visit root_path
-    fill_in 'Buscar Perfil', with: user.full_name
+    fill_in 'Buscar', with: user.full_name
     click_on 'Pesquisar'
     click_on user.full_name
 
