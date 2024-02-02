@@ -1,0 +1,14 @@
+<figure class="attachment attachment--<%= blob.representable? ? "preview" : "file" %> attachment--<%= blob.filename.extension %>">
+  <% if blob.video? %>
+    <%= video_tag(rails_blob_url(blob), controls: true, preload: 'metadata', width: '100%' )%>
+  <% elsif blob.audio? %>
+   <%= audio_tag(rails_blob_url(blob), autoplay: true, controls: true) %> 
+  <% elsif blob.content_type == 'application/pdf' %>
+    <embed src=<%= rails_blob_url(blob) %> width="80%" height="500" type="application/pdf">
+  <% elsif blob.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %>
+    <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=<%= rails_blob_url(blob) %>' width='100%' height='500px' frameborder='0'>
+    </iframe>
+  <% elsif blob.representable? %>
+    <%= image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [ 800, 600 ] : [ 1024, 768 ]) %>
+  <% end %>
+</figure>
