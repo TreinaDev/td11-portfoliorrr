@@ -32,6 +32,9 @@
             <li class="dropdown-item">
               <%= link_to 'Projetos', projects_path, class: 'nav-link' %>
             </li>
+            <li class="dropdown-item">
+              <%= link_to 'Convites', invitations_path, class: 'nav-link' %>
+            </li>
             <% if current_user.admin? %>
               <li class="dropdown-item" href="#">
                 <%= link_to 'Categorias de trabalho', job_categories_path, class: 'nav-link' %>
