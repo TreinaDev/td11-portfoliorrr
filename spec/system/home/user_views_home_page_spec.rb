@@ -2,6 +2,15 @@ require 'rails_helper'
 
 describe 'Usuário visita a home page' do
   context 'quando logado' do
+    it 'não vê quadro de apresentação' do
+      user = create(:user)
+
+      login_as user
+      visit root_path
+
+      expect(page).not_to have_selector 'div#presentation', text: 'Porfoliorrr é uma rede social'
+    end
+
     it 'e vê somente os posts dos usuários seguidos' do
       follower = create(:user, email: 'usuario@email.com', full_name: 'Usuário', citizen_id_number: '56275577029')
       joao = create(:user, email: 'joao@almeida.com', full_name: 'João Almeida', citizen_id_number: '72647559082')

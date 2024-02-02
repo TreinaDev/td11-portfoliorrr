@@ -1,9 +1,9 @@
 <div class="d-flex">
-  <div class="container d-flex flex-column border-end vh-100 w-50">
+  <div class="container d-flex flex-column vh-100 w-50">
 
     <% if @profile.user.posts.pinned.any? %>
       <div id="fixed">
-        <h2 class="text-primary" id="post-list-title">Destaque</h2>
+        <h2 id="post-list-title">Destaque</h2>
         <section>
           <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.pinned } %>
         </section>
@@ -12,6 +12,10 @@
 
     <div id="publications">
       <h2 id="post-list-title">Publicações</h2>
+      <% if @profile.user.posts.count - @profile.user.posts.pinned.count < 1 %>
+        <p>Ainda não tem nada aqui... <br> Mas novas publicações vão ocupar este espaço. :)</p>
+      <% end %>
+      
       <section>
         <%= render partial: 'posts/listing', locals: { posts: @profile.user.posts.unpinned.order(created_at: :desc) } %>
       </section>

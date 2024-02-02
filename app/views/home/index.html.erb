@@ -1,19 +1,4 @@
 <div class="container">
-
-  <% if !user_signed_in? %>
-    <div>
-      <div class="row g-0 d-flex align-items-center border-bottom justify-content-center">
-        <%= image_tag 'logop.png', class: 'home_logo col-sm-8 col-md-2'%>
-        <h3 class="col-6 col-md-4">
-          Descubra, Conecte, Brilhe <br>
-          <span>Seu Portfolio, Seu Espaço</span><br>
-          <span class="text-primary fw-bold py-3">Faça parte da nossa comunidade!</span> <br>
-          <%= link_to 'Crie já a sua conta', new_user_registration_path, class: 'btn btn-primary col-10 py-2 my-4 fs-4' %>
-        </h3>
-      </div>
-    </div>
-  <% end %>
-
   <% if user_signed_in? %>
     <div class="row">
       <section class="col-md-9 y-5">
@@ -53,8 +38,20 @@
         </div>
       </aside>
     </div>
-  <% elsif current_user.nil? %>
+  <% else %>
     <section>
+      <div>
+        <div class="row g-0 d-flex align-items-center border-bottom justify-content-center">
+          <%= image_tag 'logop.png', class: 'home_logo col-sm-8 col-md-2'%>
+          <h3 class="col-6 col-md-4">
+            Descubra, Conecte, Brilhe <br>
+            <span>Seu Portfolio, Seu Espaço</span><br>
+            <span class="text-primary fw-bold py-3">Faça parte da nossa comunidade!</span> <br>
+            <%= link_to 'Crie já a sua conta', new_user_registration_path, class: 'btn btn-primary col-10 py-2 my-4 fs-4' %>
+          </h3>
+        </div>
+      </div>
+
       <h2>Feed</h2>
       <div>
         <h4>Faça <%= link_to 'login', new_user_session_path %> ou <%= link_to 'crie uma conta', new_user_registration_path %> para descobrir conteúdos relevantes para você.</h4>

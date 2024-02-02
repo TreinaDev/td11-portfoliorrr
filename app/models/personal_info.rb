@@ -11,6 +11,6 @@ class PersonalInfo < ApplicationRecord
   end
 
   def filter_keys?(key)
-    %w[created_at updated_at id profile_id visibility].include?(key)
+    %w[created_at updated_at id profile_id].include?(key)
   end
 end

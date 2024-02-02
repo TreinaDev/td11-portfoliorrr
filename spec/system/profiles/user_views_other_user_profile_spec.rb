@@ -102,4 +102,32 @@ describe 'Usuário vê perfil de outro usuário' do
       expect(page).not_to have_content education_info.course
     end
   end
+
+  context 'quando visibilidade de informações é permitida' do
+    it 'e vê experiência profissional' do
+      user = create(:user)
+      visitor = create(:user)
+      professional_info = create(:professional_info, profile: user.profile, visibility: true)
+
+      login_as visitor
+      visit profile_path(user.profile)
+
+      expect(page).to have_content professional_info.position
+      expect(page).to have_content professional_info.company
+      expect(page).not_to have_content 'Exibir no Perfil:'
+    end
+
+    it 'e vê formação acadêmica' do
+      user = create(:user)
+      visitor = create(:user)
+      education_info = create(:education_info, profile: user.profile, visibility: true)
+
+      login_as visitor
+      visit profile_path(user.profile)
+
+      expect(page).to have_content education_info.institution
+      expect(page).to have_content education_info.course
+      expect(page).not_to have_content 'Exibir no Perfil:'
+    end
+  end
 end
