@@ -1,43 +1,61 @@
 <div class="container">
-
-  <% if !user_signed_in? %>
-    <div>
-      <div class="row g-0 d-flex align-items-center border-bottom justify-content-center">
-        <%= image_tag 'logop.png', class: 'home_logo col-sm-8 col-md-2'%>
-        <h3 class="col-6 col-md-4">
-          Descubra, Conecte, Brilhe <br>
-          <span>Seu Portfolio, Seu Espaço</span><br>
-          <span class="text-primary fw-bold py-3">Faça parte da nossa comunidade!</span> <br>
-          <%= link_to 'Crie já a sua conta', new_user_registration_path, class: 'btn btn-primary col-10 py-2 my-4 fs-4' %>
-        </h3>
-      </div>
-    </div>
-  <% end %>
-
-  <section class="my-5">
-    <h2>Feed</h2>
-    <% if user_signed_in? %>
-      <% if current_user.profile.followed_count > 0 %>
-        <% if @followed_posts.any? %>
-        <div>
-          <%= render partial: 'posts/listing', locals: { posts: @followed_posts.each } %>
-        </div>
+  <% if user_signed_in? %>
+    <div class="row">
+      <section class="col-md-9 y-5">
+        <h2>Feed</h2>
+        <% if current_user.profile.followed_count > 0 %>
+          <% if @followed_posts.any? %>
+            <div>
+              <%= render partial: 'posts/listing', locals: { posts: @followed_posts.each } %>
+            </div>
+          <% else %>
+            <div>
+              <h4>Não existem posts de perfis que você segue. Veja o que outras pessoas estão publicando:</h4>
+              <%= render partial: 'posts/listing', locals: { posts: @posts } %>
+            </div>
+          <% end %>
         <% else %>
           <div>
-            <h4>Não existem posts de perfis que você segue. Veja o que outras pessoas estão publicando:</h4>
+            <h4>Você ainda não segue ninguém. Siga alguém para personalizar seu feed</h4>
             <%= render partial: 'posts/listing', locals: { posts: @posts } %>
           </div>
         <% end %>
-      <% else %>
-        <div>
-          <h4>Você ainda não segue ninguém. Siga alguém para personalizar seu feed</h4>
-          <%= render partial: 'posts/listing', locals: { posts: @posts } %>
+      </section>
+
+      <aside class="col-md-3 my-5">
+        <h2>Usuários mais seguidos</h2>
+
+        <div style="width: 18rem;">
+          <% @most_followed.each do |profile| %>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><%= profile.full_name %></h5>
+                <p class="card-text"><%= profile.followers_count %> <%= t('followers', count: profile.followers_count) %></p>
+                <a href="<%= profile_path(profile) %>" class="btn btn-primary">Ver perfil</a>
+              </div>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-    <% elsif current_user.nil? %>
+      </aside>
+    </div>
+  <% else %>
+    <section>
+      <div>
+        <div class="row g-0 d-flex align-items-center border-bottom justify-content-center">
+          <%= image_tag 'logop.png', class: 'home_logo col-sm-8 col-md-2'%>
+          <h3 class="col-6 col-md-4">
+            Descubra, Conecte, Brilhe <br>
+            <span>Seu Portfolio, Seu Espaço</span><br>
+            <span class="text-primary fw-bold py-3">Faça parte da nossa comunidade!</span> <br>
+            <%= link_to 'Crie já a sua conta', new_user_registration_path, class: 'btn btn-primary col-10 py-2 my-4 fs-4' %>
+          </h3>
+        </div>
+      </div>
+
+      <h2>Feed</h2>
       <div>
         <h4>Faça <%= link_to 'login', new_user_session_path %> ou <%= link_to 'crie uma conta', new_user_registration_path %> para descobrir conteúdos relevantes para você.</h4>
       </div>
-    <% end %>
-  </section>
+    </section>
+  <% end %>
 </div>

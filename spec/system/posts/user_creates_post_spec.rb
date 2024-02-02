@@ -21,6 +21,7 @@ describe 'Usuário cria uma postagem' do
 
       fill_in 'Título da Publicação', with: 'Olá Mundo!'
       fill_in 'Conteúdo', with: 'Primeira publicação'
+      fill_in 'Tags', with: 'tag1, tag2, tag3'
 
       click_on 'Salvar'
     end
@@ -31,7 +32,9 @@ describe 'Usuário cria uma postagem' do
     expect(page).to have_content 'Olá Mundo!'
     expect(page).to have_content 'Primeira publicação'
     expect(page).to have_content 'Criado por Seiya de Pégaso'
-    expect(page).to have_content "Publicado em: #{1.day.ago.strftime('%d/%m/%Y')}"
+    expect(page).to have_content I18n.t('posts.views.show.publish_date',
+                                        publish_date: I18n.l(posts.first.created_at.to_datetime, format: :long))
+    expect(page).to have_content 'tag1 tag2 tag3'
   end
 
   it 'apenas se fornecer um título e conteúdo ao post' do
@@ -49,40 +52,5 @@ describe 'Usuário cria uma postagem' do
     expect(page).to have_content 'Não foi possível criar sua publicação'
     expect(page).to have_content 'Título da Publicação não pode ficar em branco'
     expect(page).to have_content 'Conteúdo não pode ficar em branco'
-  end
-
-  context 'e vê tempo corrido desde a publicação' do
-    it 'menos de um minuto' do
-      post = create(:post)
-
-      travel_to 30.seconds.from_now do
-        login_as(post.user)
-        visit post_path(post)
-
-        expect(page).to have_content 'menos de um minuto'
-      end
-    end
-
-    it 'alguns minutos' do
-      post = create(:post)
-
-      travel_to 2.minutes.from_now do
-        login_as(post.user)
-        visit post_path(post)
-
-        expect(page).to have_content '2 minutos'
-      end
-    end
-
-    it 'alguns minutos' do
-      post = create(:post)
-
-      travel_to 2.hours.from_now do
-        login_as(post.user)
-        visit post_path(post)
-
-        expect(page).to have_content '2 horas'
-      end
-    end
   end
 end

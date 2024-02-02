@@ -6,7 +6,7 @@ describe 'Api busca usuários por categoria de trabalho' do
       ruby = create(:job_category, name: 'Ruby on Rails')
       web_design = create(:job_category, name: 'Web Design')
       front_end = create(:job_category, name: 'Front End')
-      user_a = create(:user)
+      user_a = create(:user, full_name: 'Joao Almeida')
       user_a.profile.profile_job_categories.create!(job_category: ruby, description: 'Eu amo codar')
       user_b = create(:user, full_name: 'André Porteira')
       user_b.profile.profile_job_categories.create!(job_category: web_design, description: 'EU trabalho com css.')

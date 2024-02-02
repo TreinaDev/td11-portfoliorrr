@@ -1,19 +1,26 @@
 <% posts.each do |post| %>
-  <div class="d-flex align-items-center border-bottom border-1 ">
-    <%= link_to post, class:"text-decoration-none w-50" do %>
-      <div class="my-5 p-3 feed-post text-dark fs-4">
-        <h4 class="text-break"><%= post.title %></h4>
-        <p>Publicado por: <%= post.user.full_name %></p>
-        <%= I18n.l(post.created_at, format: :long) %>
-      </div>
-    <% end %>
+<div class="feed-post shadow mb-4 p-3 rounded" id="post-list">  
+  <%= link_to post, class: "text-decoration-none link-dark" do %>
+    <div class="card-body">
+      <h4 class="text-break text-primary"><%= post.title %></h4>
+      <p>
+        <%= post.content.truncate(300, separator: ' ') %>
+      </p>
+      <p class="card-subtitle mb-2 text-muted">Publicado por: <%= post.user.full_name %></p>
+      <small>
+        <%= I18n.l(post.created_at, format: :long) %> -
+        <%= distance_of_time_in_words(Time.now, post.created_at) %>
+      </small>
+    </div>
+  <% end %>
   <% if current_user == post.user %>
-    <div class="w-50 text-center" id="post-<%= post.id %>">
+    <div class="text-center mt-2" id="post-<%= post.id %>">
       <% if request.path == profile_path(post.user.profile) %>
-        <% btn_value =  post.pinned? ? 'Desfixar' : 'Fixar' %>
-        <%= button_to btn_value, pin_post_path(post), method: :post, class: "btn btn-primary" %>
+        <% btn_value = post.pinned? ? 'Desfixar' : 'Fixar' %>
+        <%= button_to btn_value, pin_post_path(post), method: :post, class: "btn btn-outline-primary btn-sm" %>
       <% end %>
     </div>
   <% end %>
-  </div>
+  
+</div>  
 <% end %>

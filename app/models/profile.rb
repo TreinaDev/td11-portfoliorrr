@@ -16,6 +16,8 @@ class Profile < ApplicationRecord
   has_many :job_categories, through: :profile_job_categories
   has_many :invitation_requests, dependent: :destroy
 
+  has_many :posts, through: :user
+
   accepts_nested_attributes_for :personal_info
   accepts_nested_attributes_for :professional_infos
   accepts_nested_attributes_for :education_infos
@@ -56,6 +58,14 @@ class Profile < ApplicationRecord
 
   def inactive_follower?(profile)
     followers.inactive.where(follower: profile).any?
+  end
+
+  def self.most_followed(limit)
+    joins(:followers)
+      .where(connections: { status: 'active' })
+      .group(:id)
+      .order('count(follower_id) DESC, id ASC')
+      .limit(limit)
   end
 end
 
