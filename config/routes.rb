@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :projects, only: %i[index]
       resources :job_categories, only: %i[index]
-      resources :profiles, only: [] do
+      resources :profiles, only: %i[show] do
         get 'search', on: :collection
       end
     end

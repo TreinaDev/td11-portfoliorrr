@@ -9,6 +9,28 @@ module Api
           render status: :ok, json: profiles.as_json
         end
       end
+
+      def show
+        profile = Profile.find(params[:id])
+        render status: :ok, json: result(profile)
+      rescue ActiveRecord::RecordNotFound
+        render status: :not_found, json: { error: 'Perfil não existe.' }
+      end
+
+      private
+
+      def result(profile)
+        {
+          full_name: profile.full_name,
+          cover_letter: profile.cover_letter,
+          professional_infos: profile.professional_infos.as_json(only: %i[company position start_date end_date
+                                                                          current_job description]),
+          education_infos: profile.education_infos.as_json(only: %i[institution course start_date end_date]),
+          job_categories: profile.profile_job_categories.map do |category|
+            { name: category.job_category.name, description: category.description }
+          end
+        }
+      end
     end
   end
 end
