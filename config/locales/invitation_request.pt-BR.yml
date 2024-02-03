@@ -9,5 +9,5 @@ pt-BR:
         message: 'Mensagem'
   projects:
     create_invitation_request:
-      success: 'Solicitação enviada com sucesso!'
+      success: 'Solicitação criada com sucesso! Integração com o Cola?Bora! ainda pendente. Somente foi gravada no banco de dados.'
       error: 'Não foi possível enviar solicitação'

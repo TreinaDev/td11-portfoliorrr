@@ -19,7 +19,8 @@ describe 'Usuário solicita convite para projetos' do
       fill_in 'Mensagem', with: 'Sou muito bom de mais da conta'
       click_button 'Enviar'
 
-      expect(page).to have_content 'Solicitação enviada com sucesso!'
+      expect(page).to have_content "Solicitação criada com sucesso! Integração com o Cola?Bora! \
+ainda pendente. Somente foi gravada no banco de dados."
       expect(user.profile.invitation_requests.count).to eq 1
       expect(page).to have_button 'Convite Solicitado', disabled: true
       expect(page).to have_button 'Solicitar Convite', count: 2
@@ -41,7 +42,8 @@ describe 'Usuário solicita convite para projetos' do
       click_on 'Solicitar Convite', match: :first
       click_button 'Enviar'
 
-      expect(page).to have_content 'Solicitação enviada com sucesso!'
+      expect(page).to have_content "Solicitação criada com sucesso! Integração com o Cola?Bora! \
+ainda pendente. Somente foi gravada no banco de dados."
       expect(user.profile.invitation_requests.count).to eq 1
       expect(page).to have_button 'Convite Solicitado', disabled: true
       expect(page).to have_button 'Solicitar Convite', count: 2
