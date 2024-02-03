@@ -311,47 +311,50 @@ Retorno esperado caso a requisição seja bem sucedida. (Status: 200)
 ```json
 
 {
-  "profile_id":2,
-  "email":"akaninja@email.com",
-  "full_name":"André Kanamura",
-  "cover_letter":"Sou profissional organizado, esforçado e apaixonado pelo que faço",
-  "professional_infos":
-    [
+  "data": {
+    "profile_id": 1,
+    "email": "joao@almeida.com",
+    "full_name": "João CampusCode Almeida",
+    "cover_letter": "Sou profissional organizado, esforçado e apaixonado pelo que faço",
+    "professional_infos": [
       {
-        "company":"Rebase",
-        "position":"Dev",
-        "start_date":"2022-12-12",
-        "end_date":"2023-12-12",
-        "description":"Muito muito código",
-        "current_job":false
-        }
-      ],
-  "education_infos":
-    [
-      {
-        "institution":"Fiap",
-        "course":"Sistemas de Informação",
-        "start_date":"2022-12-12",
-        "end_date":"2023-12-12"
-      },
-      {
-        "institution":"Fiap",
-        "course":"Sistemas de Informação",
-        "start_date":"2022-12-12",
-        "end_date":"2023-12-12"
+        "company": "Campus Code",
+        "position": "Dev",
+        "start_date": "2022-12-12",
+        "end_date": "2023-12-12",
+        "description": "Muito código",
+        "current_job": false
       }
     ],
-  "job_categories":
-    [
+    "education_infos": [
       {
-        "name":"Web Design",
-        "description":"Eu uso Figma."
+        "institution": "Senai",
+        "course": "Web dev full stack",
+        "start_date": "2022-12-12",
+        "end_date": "2023-12-12"
       },
       {
-        "name":"Programador Full Stack",
-        "description":"Uso Bootstrap."
+        "institution": "Senai",
+        "course": "Web dev full stack",
+        "start_date": "2022-12-12",
+        "end_date": "2023-12-12"
+      }
+    ],
+    "job_categories": [
+      {
+        "name": "Web Design",
+        "description": "Eu uso o Paint."
+      },
+      {
+        "name": "Programador Full Stack",
+        "description": "Prefiro Tailwind."
+      },
+      {
+        "name": "Ruby on Rails",
+        "description": "Eu amo Rails."
       }
     ]
+  }
 }
 ```
 

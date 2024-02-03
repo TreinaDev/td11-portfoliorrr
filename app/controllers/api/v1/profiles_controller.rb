@@ -20,7 +20,7 @@ module Api
       private
 
       def result(profile)
-        {
+        { data: {
           profile_id: profile.id, email: profile.user.email,
           full_name: profile.full_name, cover_letter: profile.cover_letter,
           professional_infos: profile.professional_infos.as_json(only: %i[company position start_date end_date
@@ -29,7 +29,7 @@ module Api
           job_categories: profile.profile_job_categories.map do |category|
             { name: category.job_category.name, description: category.description }
           end
-        }
+        } }
       end
     end
   end
