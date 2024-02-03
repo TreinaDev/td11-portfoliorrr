@@ -77,8 +77,6 @@ describe 'Usuário busca outros usuários' do
     fill_in 'Buscar Perfil', with: 'jo'
     click_on 'Pesquisar'
 
-    within '.search-result' do
-      expect(page).to have_link('João').once
-    end
+    expect(page).to have_link('João').once
   end
 end
