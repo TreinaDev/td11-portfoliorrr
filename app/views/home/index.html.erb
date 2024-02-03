@@ -27,7 +27,7 @@
 
         <div style="width: 18rem;">
           <% @most_followed.each do |profile| %>
-            <div class="card mb-3 bg-light-subtle">
+            <div class="card mb-3 bg-light-subtle text-center">
               <div class="card-body">
                 <h5 class="card-title"><%= profile.full_name %></h5>
                 <p class="card-text"><%= profile.followers_count %> <%= t('followers', count: profile.followers_count) %></p>

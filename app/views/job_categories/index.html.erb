@@ -1,35 +1,29 @@
-<h2>Cadastro de categorias de trabalho</h2>
-
+<div>
+  <h2 class="text-center">Cadastro de categorias de trabalho</h2>
   <% if @job_category.errors.any? %>
     <ul>
       <% @job_category.errors.each do |error| %>
-        <li class="text-danger"><%= error.full_message %></li>
+        <li class="text-danger text-center"><%= error.full_message %></li>
       <% end %>
     </ul>
   <% end %>
-
-  <%= form_with model: @job_category do |f| %>
-    <%= f.label :name, 'Nome da categoria', class: "form-label" %>
-    <div class="row">
-      <div class="col-md-4">
+  <%= form_with model: @job_category, class: 'w-100 row' do |f| %>
+      <div class="col-md-4 mx-auto">
+        <%= f.label :name, 'Nome da categoria', class: "form-label" %>
         <%= f.text_field :name, class: "form-control", placeholder: "Ex: Web Design, Modelagem 3D" %>
-      </div>
-      <div class="col">
-        <%= f.submit 'Criar', class: "btn btn-primary" %>
+        <%= f.submit 'Criar', class: "px-3 py-1 mt-3 btn btn-primary" %>
       </div>
     </div>
   <% end %>
-
-<div class="mt-5">
-  <h2>Categorias de trabalho cadastradas</h2>
-  <ul>
-    <% @job_categories.each do |category| %>
-      <li class="d-flex mt-2">
-        <div class="col-md-3">
-          <%= category.name %>
+  <div class="d-flex flex-column mt-5 align-items-center">
+    <h2>Categorias de trabalho cadastradas</h2>
+    <div class="d-flex flex-column mt-3 gap-3 categories">
+      <% @job_categories.each do |category| %>
+        <div class="d-flex justify-content-between">
+          <p><%= category.name %></p>
+          <%= button_to 'Remover', job_category_path(category), method: :delete, class:"btn btn-danger" %>
         </div>
-          <%= button_to 'Remover', job_category_path(category), method: :delete, class:"col btn btn-danger" %>
-      </li>
-    <% end %>
-  </ul>
+      <% end %>
+    </div>
+  </div>
 </div>

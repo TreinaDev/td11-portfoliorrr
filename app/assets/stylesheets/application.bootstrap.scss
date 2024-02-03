@@ -5,7 +5,7 @@ $theme-colors: (
   "info":       #68a1f7,
   "warning":    #ffc107,
   "danger":     #dc3545,
-  "light":      #b9b8b8,
+  "light":      rgba(185, 184, 184, 0.603),
   "dark":       #1b1b1b
 );
 @import 'bootstrap/scss/bootstrap';
@@ -40,9 +40,21 @@ $theme-colors: (
 }
 
 .btn{
-  color: white !important;
+  color: rgba(255, 255, 255, 0.829) !important;
 }
 
 .trix-button--icon::before{
-  background-color: #aa49fa !important;
+  background-color: #d7b6f1 !important;
+}
+
+.trix-content{
+  color: rgba(255, 255, 255, 0.603);
+}
+
+.dropdown-item:active {
+  background-color: #9030df !important; 
+}
+
+.categories{
+  width: 35% !important;
 }
