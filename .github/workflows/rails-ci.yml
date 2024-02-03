@@ -27,6 +27,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.11
+      - name: Install libvips
+        run: sudo apt-get install libvips
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load

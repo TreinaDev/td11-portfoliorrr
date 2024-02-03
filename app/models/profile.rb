@@ -16,6 +16,7 @@ class Profile < ApplicationRecord
   has_many :job_categories, through: :profile_job_categories
   has_many :invitation_requests, dependent: :destroy
 
+  has_many :invitations, dependent: :destroy
   has_many :posts, through: :user
 
   accepts_nested_attributes_for :personal_info
