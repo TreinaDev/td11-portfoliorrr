@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   def index
     @invitation_request = current_user.profile.invitation_requests.build
     @invitation_requests = current_user.profile.invitation_requests.pluck(:project_id).to_json
+    @invitation_requests_projects_ids = current_user.profile.invitation_requests.pluck(:project_id)
   end
 
   def create_invitation_request

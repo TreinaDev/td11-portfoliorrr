@@ -7,7 +7,7 @@ export default {
       emptyData: '',
       showingForm: false,
       currentProjectId: null,
-      invitationRequests: JSON.parse(document.getElementById('vue-projects-app').dataset.invitationRequests),
+      invitationRequestsProjectsIds: window.invitationRequestsProjectsIds,
     }
   },
   computed:{
