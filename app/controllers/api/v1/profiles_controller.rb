@@ -21,7 +21,7 @@ module Api
 
       def result(profile)
         {
-          user_id: profile.user.id, email: profile.user.email,
+          profile_id: profile.id, email: profile.user.email,
           full_name: profile.full_name, cover_letter: profile.cover_letter,
           professional_infos: profile.professional_infos.as_json(only: %i[company position start_date end_date
                                                                           current_job description]),

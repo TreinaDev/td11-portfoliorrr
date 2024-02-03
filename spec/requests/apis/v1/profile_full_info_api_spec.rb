@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'API perfis de usuário' do
-  context 'GET /api/v1/profile/' do
+  context 'GET /api/v1/profiles/:id' do
     it 'com sucesso' do
       profile = create(:profile)
       2.times do
@@ -20,7 +20,7 @@ describe 'API perfis de usuário' do
       expect(response.status).to eq 200
       json_response = JSON.parse(response.body)
       expect(json_response.count).to eq 7
-      expect(json_response['user_id']).to eq profile.user.id
+      expect(json_response['profile_id']).to eq profile.id
       expect(json_response['email']).to eq profile.user.email
       expect(json_response['full_name']).to eq profile.user.full_name
       expect(json_response['cover_letter']).to eq profile.cover_letter

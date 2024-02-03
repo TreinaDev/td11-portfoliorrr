@@ -311,7 +311,7 @@ Retorno esperado caso a requisição seja bem sucedida. (Status: 200)
 ```json
 
 {
-  "user_id":2,
+  "profile_id":2,
   "email":"akaninja@email.com",
   "full_name":"André Kanamura",
   "cover_letter":"Sou profissional organizado, esforçado e apaixonado pelo que faço",
