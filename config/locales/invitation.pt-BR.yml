@@ -1,0 +1,5 @@
+pt-BR:
+  invitations:
+    decline:
+      error: 'Convite já recusado'
+      success: 'Convite recusado com sucesso'

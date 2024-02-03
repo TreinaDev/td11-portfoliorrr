@@ -33,8 +33,8 @@ describe 'Usuário acessa página de convites' do
       expired_invitation = build(:invitation, profile: user.profile, status: 'expired', expiration_date: 7.days.ago)
       expired_invitation.save(validate: false)
       pending_invitation = create(:invitation, profile: user.profile, project_title: 'Projeto Gotta cath`em all',
-                                              project_description: 'Capturar todos os Pokémons',
-                                              project_category: 'Collection', colabora_invitation_id: 2)
+                                               project_description: 'Capturar todos os Pokémons',
+                                               project_category: 'Collection', colabora_invitation_id: 2)
 
       login_as user
       visit invitations_path
