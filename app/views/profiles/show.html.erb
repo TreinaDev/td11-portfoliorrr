@@ -40,14 +40,22 @@
             <% end %>
           </div>
         </div>
-        <div>
+        <div class="mt-2">
           <% if @profile.open_to_work? %>
             <h6 class="text-success"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
-            <%= button_to 'alterar disponibilidade', work_unavailable_path, method: :patch, class: 'btn btn-primary btn-sm' if current_user.profile == @profile %>
+            <%= button_to 'alterar disponibilidade', work_unavailable_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
           <% else %>
             <h6 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
-            <%= button_to 'alterar disponibilidade', open_to_work_path, method: :patch, class: 'btn btn-primary btn-sm' if current_user.profile == @profile %>
+            <%= button_to 'alterar disponibilidade', open_to_work_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
           <% end %>
+        </div>
+        <div class="mt-3">
+          <% if @profile.public_profile? %>
+            <h6 class="text-success"><%= t Profile.human_attribute_name("visibility.#{@profile.visibility}") %></h6>
+          <% else %>
+            <h6 class="text-secondary"><%= t Profile.human_attribute_name("visibility.#{@profile.visibility}") %></h6>
+          <% end %>
+          <%= button_to 'alterar privacidade', change_visibility_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
         </div>
         <br>
         <div class="w-75">
@@ -61,6 +69,7 @@
             <% end %>
           <% end %>
         </div>
+        
 
       </section>
       <section>

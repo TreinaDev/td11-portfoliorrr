@@ -24,15 +24,17 @@ class Profile < ApplicationRecord
 
   after_create :create_personal_info!
   enum work_status: { unavailable: 0, open_to_work: 10 }
+  enum visibility: { private_profile: 0, public_profile: 10 }
 
   delegate :full_name, to: :user
 
   def self.advanced_search(search_query)
     left_outer_joins(:job_categories, :personal_info, :user).where(
-      "job_categories.name LIKE :term OR
-                 personal_infos.city LIKE :term OR
-                 users.full_name LIKE :term", { term: "%#{sanitize_sql_like(search_query)}%" }
-    ).uniq
+      'job_categories.name LIKE :term OR
+       personal_infos.city LIKE :term OR
+       users.full_name LIKE :term',
+      { term: "%#{sanitize_sql_like(search_query)}%" }
+    ).public_profile.uniq
   end
 
   def self.get_profile_job_categories_json(query)
@@ -75,10 +77,10 @@ def search_by_job_categories(query)
   left_outer_joins(:job_categories, :profile_job_categories).where(
     "job_categories.name LIKE :term OR
                profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
-  ).uniq
+  ).public_profile.uniq
 end
 
-def api_output(profile)
+def json_output(profile)
   { data: {
     profile_id: profile.id, email: profile.user.email,
     full_name: profile.full_name, cover_letter: profile.cover_letter,

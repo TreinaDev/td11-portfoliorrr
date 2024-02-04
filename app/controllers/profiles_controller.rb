@@ -27,6 +27,16 @@ class ProfilesController < ApplicationController
     redirect_to profile_path(@profile), notice: t('.success')
   end
 
+  def change_visibility
+    @profile = current_user.profile
+    if @profile.public_profile?
+      @profile.private_profile!
+    else
+      @profile.public_profile!
+    end
+    redirect_to profile_path(@profile), notice: t('.success')
+  end
+
   private
 
   def set_profile_and_posts

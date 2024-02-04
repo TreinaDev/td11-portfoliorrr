@@ -10,6 +10,9 @@ pt-BR:
       profile/work_status:
           open_to_work: 'Disponível para trabalho'
           unavailable: 'Indisponível para trabalho'
+      profile/visibility:
+          public_profile: 'Perfil público'
+          private_profile: 'Perfil privado'
   profiles:
     search:
       error: 'Você precisa informar um nome para fazer a pesquisa'
@@ -20,6 +23,8 @@ pt-BR:
       success: Alteração salva com sucesso
     open_to_work:
       success: Alteração salva com sucesso
+    change_visibility:
+      success: Privacidade alterada com sucesso
   profile:
     update:
       success: 'Informações pessoais atualizadas com sucesso'
