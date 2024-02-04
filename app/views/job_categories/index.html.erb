@@ -1,11 +1,11 @@
 <div>
   <h2 class="text-center">Cadastro de categorias de trabalho</h2>
   <% if @job_category.errors.any? %>
-    <ul>
+    <div>
       <% @job_category.errors.each do |error| %>
-        <li class="text-danger text-center"><%= error.full_message %></li>
+        <p class="text-danger text-center fw-bold"><%= error.full_message %></p>
       <% end %>
-    </ul>
+    </div>
   <% end %>
   <%= form_with model: @job_category, class: 'w-100 row' do |f| %>
       <div class="col-md-4 mx-auto">
