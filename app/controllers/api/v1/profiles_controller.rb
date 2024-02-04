@@ -12,7 +12,7 @@ module Api
 
       def show
         profile = Profile.find(params[:id])
-        render status: :ok, json: result(profile)
+        render status: :ok, json: api_output(profile)
       rescue ActiveRecord::RecordNotFound
         render status: :not_found, json: { error: 'Perfil não existe.' }
       end
