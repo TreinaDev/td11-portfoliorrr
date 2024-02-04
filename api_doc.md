@@ -289,5 +289,83 @@ Retorno esperado:
   "error": "Não encontrado"
 }
 ```
+</details>
 
+## 5. Mostrar dados completos do perfil de um usuário
+
+<details>
+<summary>GET /api/v1/profiles/:id</summary>
+
+<br>
+
+### Endpoint
+
+Requisição deve incluir id do perfil
+
+```shell
+GET /api/v1/profiles/:id
+```
+
+Retorno esperado caso a requisição seja bem sucedida. (Status: 200)
+
+```json
+
+{
+  "data": {
+    "profile_id": 1,
+    "email": "joao@almeida.com",
+    "full_name": "João CampusCode Almeida",
+    "cover_letter": "Sou profissional organizado, esforçado e apaixonado pelo que faço",
+    "professional_infos": [
+      {
+        "company": "Campus Code",
+        "position": "Dev",
+        "start_date": "2022-12-12",
+        "end_date": "2023-12-12",
+        "description": "Muito código",
+        "current_job": false
+      }
+    ],
+    "education_infos": [
+      {
+        "institution": "Senai",
+        "course": "Web dev full stack",
+        "start_date": "2022-12-12",
+        "end_date": "2023-12-12"
+      },
+      {
+        "institution": "Senai",
+        "course": "Web dev full stack",
+        "start_date": "2022-12-12",
+        "end_date": "2023-12-12"
+      }
+    ],
+    "job_categories": [
+      {
+        "name": "Web Design",
+        "description": "Eu uso o Paint."
+      },
+      {
+        "name": "Programador Full Stack",
+        "description": "Prefiro Tailwind."
+      },
+      {
+        "name": "Ruby on Rails",
+        "description": "Eu amo Rails."
+      }
+    ]
+  }
+}
+```
+
+### Erros tratados
+
+Erro quando a id informada não é encontrada (Status: 404)
+
+Resposta:
+```json
+{
+  "error":"Perfil não existe."
+}
+```
 </details>

@@ -6,5 +6,10 @@ FactoryBot.define do
     end_date { '2015-12-31' }
     visibility { true }
     profile
+
+    trait :faked do
+      institution { "Universidade #{Faker::Space.planet}" }
+      course { "Tecnólogo em #{Faker::Sport.sport}" }
+    end
   end
 end

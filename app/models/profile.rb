@@ -77,3 +77,16 @@ def search_by_job_categories(query)
                profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
   ).uniq
 end
+
+def api_output(profile)
+  { data: {
+    profile_id: profile.id, email: profile.user.email,
+    full_name: profile.full_name, cover_letter: profile.cover_letter,
+    professional_infos: profile.professional_infos.as_json(only: %i[company position start_date end_date
+                                                                    current_job description]),
+    education_infos: profile.education_infos.as_json(only: %i[institution course start_date end_date]),
+    job_categories: profile.profile_job_categories.map do |category|
+      { name: category.job_category.name, description: category.description }
+    end
+  } }
+end
