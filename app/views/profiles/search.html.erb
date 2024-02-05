@@ -10,7 +10,7 @@
             <%= image_tag profile.photo_attachment, width: '100rem', alt: 'Foto de perfil', class: 'rounded rounded-circle px-2' if profile.photo.present? %>
           </div>
           <div class="col-md-8">
-            <h3 class="card-title text-primary text-decoration-underline text-center"><%= profile.full_name %></h3>
+            <h3 class="card-title text-success text-decoration-underline text-center"><%= profile.full_name %></h3>
             <% if profile.personal_info.city && profile.personal_info.state %>
               <p class="text-center"><%= profile.personal_info.city %> - <%= profile.personal_info.state %></p>
             <% end %>

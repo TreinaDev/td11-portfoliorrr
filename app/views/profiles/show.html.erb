@@ -50,18 +50,18 @@
             <%= button_to 'Não estou disponível para trabalho', work_unavailable_path, method: :patch, class: 'btn btn-danger' if current_user.profile == @profile %>
           <% else %>
             <h5 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h5>
-            <%= button_to 'Estou disponível para trabalho', open_to_work_path, method: :patch, class: 'btn btn-success' if current_user.profile == @profile %>
+            <%= button_to 'Estou disponível para trabalho', open_to_work_path, method: :patch, class: 'btn btn-success text-dark' if current_user.profile == @profile %>
           <% end %>
         </div>
         <br>
         <div class="w-75">
           <% if current_user.profile != @profile %>
             <% if @profile.following?(current_user.profile) %>
-              <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-100' %>
+              <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
             <% elsif @profile.inactive_follower?(current_user.profile) %>
-              <%= button_to 'Seguir', connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-100' %>
+              <%= button_to 'Seguir', connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
             <% else %>
-              <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-100' %>
+              <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
             <% end %>
           <% end %>
         </div>

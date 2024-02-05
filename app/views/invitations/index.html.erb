@@ -18,8 +18,8 @@
           <p class="text-center">Nenhum convite encontrado</p>
         <% else %>
           <% @invitations.each do |invitation| %>
-            <div class="col-md-5 p-4 m-4 shadow rounded">
-              <%= link_to invitation_path(invitation), class: "text-decoration-none link-dark" do %>
+            <div class="col-md-5 p-4 m-4 rounded border w-25">
+              <%= link_to invitation_path(invitation), class: "text-decoration-none link-light" do %>
                 <div class="card-body">
                   <h4 class="text-break text-primary"><%= invitation.project_title %></h4>
                   <p><%= invitation.truncate_description %></p>

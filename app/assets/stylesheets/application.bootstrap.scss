@@ -1,7 +1,7 @@
 $theme-colors: (
   "primary":    #a130fd,
   "secondary":  #515253,
-  "success":    #0d6efd,
+  "success":    #11e743,
   "info":       #68a1f7,
   "warning":    #ffc107,
   "danger":     #dc3545,
@@ -14,6 +14,10 @@ $theme-colors: (
 
 body{
   min-width: 400px;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #a130fd !important;
 }
 
 .feed-post:hover{
@@ -46,6 +50,7 @@ body{
 .dropdown-menu[data-bs-popper]{
   left: -20px !important;
 }
+
 .follower-card:hover{
   transform: scale(1.01, 1.01);
   transition-duration: 300ms;
@@ -56,7 +61,7 @@ body{
 }
 
 .btn{
-  color: rgba(255, 255, 255, 0.829) !important;
+  color: rgba(255, 255, 255, 0.829);
 }
 
 .trix-button--icon::before{

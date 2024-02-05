@@ -147,7 +147,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_194430) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-05 13:03:25"
+    t.datetime "edited_at", default: "2024-02-05 13:55:32"
     t.integer "status", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
