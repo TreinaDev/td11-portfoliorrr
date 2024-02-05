@@ -14,6 +14,7 @@ class Profile < ApplicationRecord
   has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
 
   has_many :job_categories, through: :profile_job_categories
+  has_many :invitation_requests, dependent: :destroy
 
   has_many :invitations, dependent: :destroy
   has_many :posts, through: :user

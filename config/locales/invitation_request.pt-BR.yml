@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      invitation_request:
+        one: Solicitação de Convite
+        other: Solicitações de Convite
+    attributes:
+      invitation_request:
+        message: 'Mensagem'
+  projects:
+    create_invitation_request:
+      success: 'A comunicação com Cola?Bora! está indisponivel no momento, mas sua solicitação está registrada e será enviada assim que o sistema voltar ao normal.'
+      error: 'Não foi possível enviar solicitação'
