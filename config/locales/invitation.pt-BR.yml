@@ -1,5 +1,5 @@
 pt-BR:
   invitations:
     decline:
-      error: 'Convite já recusado'
+      error: 'Impossível recusar um convite que não esteja pendente'
       success: 'Convite recusado com sucesso'

@@ -13,12 +13,10 @@ class InvitationsController < ApplicationController
   end
 
   def decline
-    if @invitation.declined?
-      redirect_to invitation_path(@invitation), notice: t('.error')
-    else
-      @invitation.update status: 'declined'
-      redirect_to invitation_path(@invitation), notice: t('.success')
-    end
+    return redirect_to invitation_path(@invitation), notice: t('.error') unless @invitation.pending?
+
+    @invitation.update status: 'declined'
+    redirect_to invitation_path(@invitation), notice: t('.success')
   end
 
   def show; end

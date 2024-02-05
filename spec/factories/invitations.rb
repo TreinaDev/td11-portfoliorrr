@@ -6,7 +6,7 @@ FactoryBot.define do
     project_category { 'Ruby on Rails' }
     colabora_invitation_id { 1 }
     message { 'Venha participar do projeto!' }
-    expiration_date { 1.week.from_now.to_date }
+    expiration_date { 1.week.from_now.getlocal.to_date }
     status { 0 }
   end
 end

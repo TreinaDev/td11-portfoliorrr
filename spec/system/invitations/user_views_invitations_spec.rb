@@ -16,7 +16,7 @@ describe 'Usuário acessa página de convites' do
       expect(current_path).to eq invitations_path
       expect(page).to have_content invitation.project_title
       expect(page).to have_content invitation.truncate_description
-      expect(page).to have_content 'Expira em: 6 dias'
+      expect(page).to have_content 'Expira em: 7 dias'
     end
 
     it 'e nao tem convites' do
@@ -104,7 +104,7 @@ describe 'Usuário acessa página de convites' do
                                                 project_description: 'Capturar todos os Pokémons',
                                                 project_category: 'Collection', colabora_invitation_id: 2)
 
-    login_as invitation.profile.user
+    login_as user
 
     visit invitations_path
 

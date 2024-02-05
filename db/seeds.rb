@@ -104,6 +104,7 @@ FactoryBot.create(:invitation, profile: joao.profile, status: 'accepted', projec
 
 FactoryBot.create(:invitation, profile: joao.profile, status: 'pending', project_title: 'Projeto King of Games', project_description: 'Se tornar o melhor duelista de todos os tempos', project_category: 'Achievments', expiration_date: 1.week.from_now)
 
-FactoryBot.create(:invitation, profile: joao.profile, status: 'declined', project_title: 'Projeto Code Saga', project_description: 'Aprender a programar', project_category: 'Education', expiration_date: 1.week.ago)
+invitation = FactoryBot.build(:invitation, profile: joao.profile, status: 'declined', project_title: 'Projeto Code Saga', project_description: 'Aprender a programar', project_category: 'Education', expiration_date: 1.week.ago)
+invitation.save(validate: false)
 
 

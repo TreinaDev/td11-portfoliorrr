@@ -31,6 +31,6 @@ describe 'Usuário recusa convite' do
     patch decline_invitation_path(invitation)
 
     expect(response).to redirect_to(invitation_path(invitation))
-    expect(flash[:notice]).to eq 'Convite já recusado'
+    expect(flash[:notice]).to eq 'Impossível recusar um convite que não esteja pendente'
   end
 end
