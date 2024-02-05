@@ -16,6 +16,7 @@ class Profile < ApplicationRecord
   has_many :job_categories, through: :profile_job_categories
   has_many :invitation_requests, dependent: :destroy
 
+  has_one_attached :photo
   has_many :invitations, dependent: :destroy
   has_many :posts, through: :user
 
@@ -24,6 +25,10 @@ class Profile < ApplicationRecord
   accepts_nested_attributes_for :education_infos
 
   after_create :create_personal_info!
+  after_create :set_default_photo
+
+  validate :valid_photo_content_type
+  validate :photo_size_lower_than_3mb
   enum work_status: { unavailable: 0, open_to_work: 10 }
 
   delegate :full_name, to: :user
@@ -43,6 +48,13 @@ class Profile < ApplicationRecord
         job_categories: ProfileJobCategory.generate_profile_job_categories_json(profile.id) }
     end
     profiles_json.as_json
+  end
+
+  def self.search_by_job_categories(query)
+    left_outer_joins(:job_categories, :profile_job_categories).where(
+      "job_categories.name LIKE :term OR
+      profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
+    ).uniq
   end
 
   def followers_count
@@ -68,15 +80,26 @@ class Profile < ApplicationRecord
       .order('count(follower_id) DESC, id ASC')
       .limit(limit)
   end
-end
 
-private
+  def set_default_photo
+    photo.attach(Rails.root.join('app/assets/images/default_portfoliorrr_photo.png'))
+  end
 
-def search_by_job_categories(query)
-  left_outer_joins(:job_categories, :profile_job_categories).where(
-    "job_categories.name LIKE :term OR
-               profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
-  ).uniq
+  private
+
+  def valid_photo_content_type
+    return if photo.blank?
+    return if photo.content_type.in?(%w[image/jpg image/jpeg image/png])
+
+    errors.add(:photo, message: 'deve ser do formato .jpg, .jpeg ou .png')
+  end
+
+  def photo_size_lower_than_3mb
+    return if photo.blank?
+    return if photo.byte_size <= 3.megabytes
+
+    errors.add(:photo, message: 'deve ter no máximo 3MB')
+  end
 end
 
 def api_output(profile)

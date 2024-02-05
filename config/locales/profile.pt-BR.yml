@@ -7,10 +7,18 @@ pt-BR:
     attributes:
       profile:
         cover_letter: Resumo Profissional
+        photo: Foto
       profile/work_status:
           open_to_work: 'Disponível para trabalho'
           unavailable: 'Indisponível para trabalho'
   profiles:
+    update:
+      error: 'Sua alteração não pôde ser salva'
+      success: 'Sua foto foi alterada com sucesso'
+    remove_photo:
+      success: 'Sua foto foi removida com sucesso'
+    redirect_alert:
+      unauthorized_user: 'Você não possui autorização para essa ação'
     search:
       error: 'Você precisa informar um nome para fazer a pesquisa'
       results:
