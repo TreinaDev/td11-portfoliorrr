@@ -2,9 +2,18 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'actiontext.css';
 
+body{
+  min-width: 400px;
+}
+
 .feed-post:hover{
   transform: scale(1.01, 1.01);
   transition-duration: 300ms;
+}
+
+.img-cover{
+  object-fit: cover;
+  object-position: center;
 }
 
 .field_with_errors input{
@@ -19,3 +28,20 @@
 .drop-menu{
   margin-right: 2.5rem !important;
 }
+
+#searchText{
+  width: 380px !important;
+}
+
+.dropdown-menu[data-bs-popper]{
+  left: -20px !important;
+}
+.follower-card:hover{
+  transform: scale(1.01, 1.01);
+  transition-duration: 300ms;
+}
+
+.profile-image{
+  min-width: 80px;
+}
+

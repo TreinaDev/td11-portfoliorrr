@@ -24,20 +24,11 @@ RSpec.describe Invitation, type: :model do
       end
     end
 
-    context 'valor padrão' do
-      it 'pending é o padrão para status' do
-        profile = create(:profile)
-        invitation = Invitation.new profile_id: profile.id,
-                                    project_title: 'Projeto Cola?Bora!',
-                                    project_description: 'Projeto Legal',
-                                    project_category: 'Tecnologia',
-                                    colabora_invitation_id: 1,
-                                    message: 'Venha participar do meu projeto!',
-                                    expiration_date: 1.week.from_now.to_date
+    it 'data de expiração deve ser maior que a data atual' do
+      invitation = Invitation.new expiration_date: 1.day.ago.to_date
 
-        expect(invitation.status).to eq 'pending'
-        expect(invitation).to be_valid
-      end
+      expect(invitation).not_to be_valid
+      expect(invitation.errors[:expiration_date]).to eq ['deve ser maior que a data atual']
     end
   end
 end

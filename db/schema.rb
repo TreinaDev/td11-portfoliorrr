@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_02_194430) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -82,6 +82,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
     t.index ["profile_id"], name: "index_education_infos_on_profile_id"
   end
 
+  create_table "invitation_requests", force: :cascade do |t|
+    t.integer "profile_id", null: false
+    t.text "message"
+    t.integer "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id", "project_id"], name: "index_invitation_requests_on_profile_id_and_project_id", unique: true
+    t.index ["profile_id"], name: "index_invitation_requests_on_profile_id"
+    t.index ["project_id"], name: "index_invitation_requests_on_project_id"
+  end
+
   create_table "invitations", force: :cascade do |t|
     t.integer "profile_id", null: false
     t.string "project_title", null: false
@@ -136,7 +147,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-05 12:54:11"
+    t.datetime "edited_at", default: "2024-02-05 12:54:40"
     t.integer "status", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -229,6 +240,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_230952) do
   add_foreign_key "connections", "profiles", column: "followed_profile_id"
   add_foreign_key "connections", "profiles", column: "follower_id"
   add_foreign_key "education_infos", "profiles"
+  add_foreign_key "invitation_requests", "profiles"
   add_foreign_key "invitations", "profiles"
   add_foreign_key "likes", "users"
   add_foreign_key "personal_infos", "profiles"
