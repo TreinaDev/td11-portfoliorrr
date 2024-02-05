@@ -62,4 +62,51 @@ describe 'Usuário vê a lista de publicações' do
     expect(page.body.index('Conteúdo C')).to be < page.body.index('Texto B')
     expect(page.body.index('Texto B')).to be < page.body.index('Post A')
   end
+
+  it 'e vê um preview apenas da imagem' do
+    post_owner = create(:user)
+    video_path = Rails.root.join('spec/support/assets/videos/test_video.mp4')
+    image_path = Rails.root.join('spec/support/assets/images/test_image.png')
+
+    video = ActiveStorage::Blob.create_and_upload!(io: File.open(video_path),
+                                                   filename: 'test_video.mp4')
+    image = ActiveStorage::Blob.create_and_upload!(io: File.open(image_path),
+                                                   filename: 'test_image.png')
+
+    content = %(<action-text-attachment sgid="#{image.attachable_sgid}"></action-text-attachment>
+                <action-text-attachment sgid="#{video.attachable_sgid}"></action-text-attachment>)
+    post_owner.posts.create(title: 'Como capturar Pókemons?', content:)
+    visitor = create(:user, full_name: 'Ash Ketchum')
+
+    login_as visitor
+    visit root_path
+
+    expect(page).to have_content 'Como capturar Pókemons?'
+    expect(page).to have_selector 'img[src*="test_image.png"]'
+    expect(page).not_to have_selector 'video[src*="test_video.mp4"]'
+  end
+
+  it 'e vê um preview apenas da primeira imagem anexada' do
+    post_owner = create(:user)
+
+    image_path = Rails.root.join('spec/support/assets/images/test_image.png')
+    image_two_path = Rails.root.join('spec/support/assets/images/test_image_two.png')
+
+    image = ActiveStorage::Blob.create_and_upload!(io: File.open(image_path),
+                                                   filename: 'test_image.png')
+    image_two = ActiveStorage::Blob.create_and_upload!(io: File.open(image_two_path),
+                                                       filename: 'test_image_two.png')
+
+    content = %(<action-text-attachment sgid="#{image.attachable_sgid}"></action-text-attachment>
+                <action-text-attachment sgid="#{image_two.attachable_sgid}"></action-text-attachment>)
+    post_owner.posts.create(title: 'Como capturar Pókemons?', content:)
+    visitor = create(:user, full_name: 'Ash Ketchum')
+
+    login_as visitor
+    visit root_path
+
+    expect(page).to have_content 'Como capturar Pókemons?'
+    expect(page).to have_selector 'img[src*="test_image.png"]'
+    expect(page).not_to have_selector 'img[src*="test_image_two.png"]'
+  end
 end
