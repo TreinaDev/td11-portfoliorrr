@@ -31,6 +31,9 @@ export default {
       this.showingForm = true;
       this.currentProjectId = projectId;
     },
+    setFilter(selectedSearchType) {
+      this.selectedFilter = selectedSearchType;
+    },
   },
 
   async created() {
