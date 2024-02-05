@@ -11,6 +11,12 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'capybara/cuprite'
 
+require "action_text/system_test_helper"
+
+RSpec.configure do |config|
+  config.include ActionText::SystemTestHelper, type: :system 
+end
+
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 begin
@@ -42,3 +48,4 @@ RSpec.configure do |config|
 
   config.include ActiveSupport::Testing::TimeHelpers
 end
+

@@ -14,7 +14,10 @@ class Profile < ApplicationRecord
   has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
 
   has_many :job_categories, through: :profile_job_categories
+  has_many :invitation_requests, dependent: :destroy
 
+  has_one_attached :photo
+  has_many :invitations, dependent: :destroy
   has_many :posts, through: :user
 
   accepts_nested_attributes_for :personal_info
@@ -22,6 +25,10 @@ class Profile < ApplicationRecord
   accepts_nested_attributes_for :education_infos
 
   after_create :create_personal_info!
+  after_create :set_default_photo
+
+  validate :valid_photo_content_type
+  validate :photo_size_lower_than_3mb
   enum work_status: { unavailable: 0, open_to_work: 10 }
 
   delegate :full_name, to: :user
@@ -41,6 +48,13 @@ class Profile < ApplicationRecord
         job_categories: ProfileJobCategory.generate_profile_job_categories_json(profile.id) }
     end
     profiles_json.as_json
+  end
+
+  def self.search_by_job_categories(query)
+    left_outer_joins(:job_categories, :profile_job_categories).where(
+      "job_categories.name LIKE :term OR
+      profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
+    ).uniq
   end
 
   def followers_count
@@ -66,13 +80,37 @@ class Profile < ApplicationRecord
       .order('count(follower_id) DESC, id ASC')
       .limit(limit)
   end
+
+  def set_default_photo
+    photo.attach(Rails.root.join('app/assets/images/default_portfoliorrr_photo.png'))
+  end
+
+  private
+
+  def valid_photo_content_type
+    return if photo.blank?
+    return if photo.content_type.in?(%w[image/jpg image/jpeg image/png])
+
+    errors.add(:photo, message: 'deve ser do formato .jpg, .jpeg ou .png')
+  end
+
+  def photo_size_lower_than_3mb
+    return if photo.blank?
+    return if photo.byte_size <= 3.megabytes
+
+    errors.add(:photo, message: 'deve ter no máximo 3MB')
+  end
 end
 
-private
-
-def search_by_job_categories(query)
-  left_outer_joins(:job_categories, :profile_job_categories).where(
-    "job_categories.name LIKE :term OR
-               profile_job_categories.description LIKE :term", { term: "%#{sanitize_sql_like(query)}%" }
-  ).uniq
+def api_output(profile)
+  { data: {
+    profile_id: profile.id, email: profile.user.email,
+    full_name: profile.full_name, cover_letter: profile.cover_letter,
+    professional_infos: profile.professional_infos.as_json(only: %i[company position start_date end_date
+                                                                    current_job description]),
+    education_infos: profile.education_infos.as_json(only: %i[institution course start_date end_date]),
+    job_categories: profile.profile_job_categories.map do |category|
+      { name: category.job_category.name, description: category.description }
+    end
+  } }
 end

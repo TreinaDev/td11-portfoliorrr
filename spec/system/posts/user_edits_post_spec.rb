@@ -17,7 +17,7 @@ describe 'Usuário edita uma publicação' do
     visit post_path(post)
     click_on 'Editar'
     fill_in 'Título da Publicação', with: 'O título mudou'
-    fill_in 'Conteúdo', with: 'A publicação também'
+    fill_in_rich_text_area 'conteudo', with: 'A publicação também'
     fill_in 'Tags', with: 'tagA, tagB, tagC'
     travel_to Time.zone.local(2025, 9, 7, 0, 0, 0) do
       click_on 'Salvar'
@@ -58,7 +58,7 @@ describe 'Usuário edita uma publicação' do
     login_as post.user
     visit edit_post_path(post)
     fill_in 'Título da Publicação', with: ''
-    fill_in 'Conteúdo', with: ''
+    fill_in_rich_text_area 'conteudo', with: ''
     click_on 'Salvar'
 
     expect(page).to have_content 'A publicação não pôde ser editada'

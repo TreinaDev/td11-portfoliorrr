@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :job_category do
-    name { 'Web Design' }
+    sequence(:name) { |n| "Web Design#{n}" }
   end
 end

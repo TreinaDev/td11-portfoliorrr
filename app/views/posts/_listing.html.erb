@@ -4,7 +4,7 @@
     <div class="card-body">
       <h4 class="text-break text-primary"><%= post.title %></h4>
       <p>
-        <%= post.content.truncate(300, separator: ' ') %>
+        <%= post.content.to_plain_text.truncate(300, separator: ' ') %>
       </p>
       <p class="card-subtitle mb-2 text-muted">Publicado por: <%= post.user.full_name %></p>
       <small>

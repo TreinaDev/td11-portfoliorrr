@@ -4,8 +4,12 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :searches, only: %i[index]
+  resources :invitations, only: %i[index show] do
+    patch 'decline', on: :member
+  end
 
   resources :projects, only: %i[index]
+  post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
   resources :job_categories, only: %i[index create destroy]
 
@@ -16,7 +20,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [] do
     resources :posts, shallow: true, only: %i[show edit update]
-    resources :profiles, shallow: true, only: %i[show] do
+    resources :profiles, shallow: true, only: %i[edit show update] do
+      patch :remove_photo, on: :member
       resources :connections, only: %i[create index] do
         patch 'unfollow', 'follow_again'
       end
@@ -40,9 +45,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :projects, only: %i[index]
       resources :job_categories, only: %i[index]
-      resources :profiles, only: [] do
+      resources :profiles, only: %i[show] do
         get 'search', on: :collection
       end
+
+      resources :invitations, only: %i[create update]
     end
   end
 end
