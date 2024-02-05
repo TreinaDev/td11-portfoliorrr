@@ -33,9 +33,8 @@ describe 'Usuário cria uma postagem' do
     expect(page).to have_content 'Primeira'
     expect(page).to have_selector('em', text: 'publicação')
     expect(page).to have_content 'Criado por Seiya de Pégaso'
-    expect(page).to have_content I18n.t('posts.views.show.publish_date',
-                                        publish_date: I18n.l(posts.first.created_at.to_datetime, format: :long))
-    expect(page).to have_content 'tag1 tag2 tag3'
+    expect(page).to have_content "Publicado em: #{I18n.l(posts.first.created_at.to_datetime, format: :long)}"
+    expect(page).to have_content '#tag1 #tag2 #tag3'
   end
 
   it 'com sucesso anexando imagem, vídeo e audio' do

@@ -1,0 +1,4 @@
+pt-BR:
+  searches:
+    index:
+      error: 'Você precisa informar um termo para fazer a pesquisa'

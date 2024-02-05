@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="w-25 mx-3">
       <%= link_to root_path do %>
-        <%= image_tag 'logo.png', class:'w-50' %>
+        <%= image_tag 'logo.png', width: '175rem' %>
       <% end %>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
@@ -10,9 +10,9 @@
     </button>
     <% if user_signed_in? %>
       <div class="nav-item w-50 d-flex justify-content-center">
-        <%= form_with url: search_profiles_path, method: :get, class: 'w-75' do |form| %>
+        <%= form_with url: searches_path, method: :get, class: 'w-75' do |form| %>
           <div class="input-group">
-            <%= form.search_field :query, placeholder: 'Buscar Perfil', class: 'form-control py-2' %>
+            <%= form.search_field :query, placeholder: 'Buscar', class: 'form-control py-2' %>
             <%= form.submit "Pesquisar", class: 'btn btn-outline-secondary py-2' %>
           </div>
         <% end %>
@@ -31,6 +31,9 @@
             </li>
             <li class="dropdown-item">
               <%= link_to 'Projetos', projects_path, class: 'nav-link' %>
+            </li>
+            <li class="dropdown-item">
+              <%= link_to 'Convites', invitations_path, class: 'nav-link' %>
             </li>
             <% if current_user.admin? %>
               <li class="dropdown-item" href="#">

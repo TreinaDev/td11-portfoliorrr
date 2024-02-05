@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <section>
+      <h2 class="text-center">Convite</h2>
+
+      <div class="col-md-6 offset-md-3">
+        <div class="card shadow rounded">
+          <div class="card-body">
+            <h4 class="text-break text-primary"><%= @invitation.project_title %></h4>
+            
+            <p class="card-text"><%= @invitation.project_description %></p>
+            <p class="card-subtitle mb-2 text-muted">Categoria: <%= @invitation.project_category %></p>
+
+            <% if @invitation.pending? %>
+              <p class="card-subtitle mb-2 text-muted">Expira dia: <%= I18n.l(@invitation.expiration_date) %></p>
+
+              <div class="btn-group">
+                <div>
+                  <%= link_to 'Aceitar', root_path, method: :patch, class: 'btn btn-primary me-4' %>
+                </div>
+                <div>
+                  <%= button_to 'Recusar', decline_invitation_path(@invitation), method: :patch, class: 'btn btn-secondary' %>
+                </div>
+              </div>
+
+            <p class="card-subtitle mb-2 text-muted">Mensagem: <%= @invitation.message %></p>
+
+            <% elsif @invitation.accepted? %>
+              <p class="card-subtitle mb-2 text-success">Aceito</p>
+            <% elsif @invitation.expired? %>
+              <p class="card-subtitle mb-2 text-danger">Expirado</p>
+            <% elsif @invitation.declined? %>
+              <p class="card-subtitle mb-2 text-danger">Recusado</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
