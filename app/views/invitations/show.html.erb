@@ -12,7 +12,7 @@
             <p class="card-subtitle mb-2 text-muted">Categoria: <%= @invitation.project_category %></p>
 
             <% if @invitation.pending? %>
-              <p class="card-subtitle mb-2 text-muted">Expira em: <%= distance_of_time_in_words(Time.now, @invitation.expiration_date) %></p>
+              <p class="card-subtitle mb-2 text-muted">Expira em: <%= distance_of_time_in_words(Time.now.getlocal, @invitation.expiration_date) %></p>
 
               <div class="btn-group">
                 <div>
