@@ -45,8 +45,9 @@ describe 'Usuário altera a privacidade do perfil' do
     end
 
     it 'e dados aparecem aos seguidores' do
-      personal_info = create(:personal_info)
-      profile = personal_info.profile
+      user = create(:user)
+      profile = user.profile
+      user.personal_info.update!(street: 'Av Campus Code', visibility: true)
       profile.private_profile!
       professional_info = create(:professional_info, profile:)
       education_info = create(:education_info, profile:)
@@ -60,7 +61,7 @@ describe 'Usuário altera a privacidade do perfil' do
       visit profile_path(profile)
 
       expect(page).to have_content profile.full_name
-      expect(page).to have_content personal_info.street
+      expect(page).to have_content user.personal_info.street
       expect(page).to have_content professional_info.company
       expect(page).to have_content education_info.institution
       expect(page).to have_content job_category.name
@@ -70,11 +71,11 @@ describe 'Usuário altera a privacidade do perfil' do
       private_user = create(:user)
       profile = private_user.profile
       profile.private_profile!
-      personal_info = create(:personal_info)
-      professional_info = create(:professional_info)
-      education_info = create(:education_info)
+      personal_info = create(:personal_info, profile:)
+      professional_info = create(:professional_info, profile:)
+      education_info = create(:education_info, profile:)
       job_category = create(:job_category)
-      create(:profile_job_category)
+      create(:profile_job_category, profile:)
 
       another_user = create(:user)
 
