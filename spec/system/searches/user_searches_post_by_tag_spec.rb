@@ -52,6 +52,6 @@ describe 'Usuário pesquisa hashtag' do
     expect(page).not_to have_content post.title
     expect(page).not_to have_content another_post.title
     expect(page).not_to have_content other_post.title
-    expect(page).to have_content '0 Postagens com: #td'
+    expect(page).to have_content 'Nenhum resultado encontrado com: #td'
   end
 end

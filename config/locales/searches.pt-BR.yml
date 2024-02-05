@@ -1,4 +1,4 @@
 pt-BR:
   searches:
     index:
-      error: 'Você precisa informar um nome para fazer a pesquisa'
+      error: 'Você precisa informar um termo para fazer a pesquisa'

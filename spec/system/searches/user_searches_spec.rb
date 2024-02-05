@@ -10,6 +10,6 @@ describe 'Usuário pesquisa' do
     click_on 'Pesquisar'
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você precisa informar um nome para fazer a pesquisa'
+    expect(page).to have_content 'Você precisa informar um termo para fazer a pesquisa'
   end
 end

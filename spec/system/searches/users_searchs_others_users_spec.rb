@@ -36,7 +36,7 @@ describe 'Usuário busca outros usuários' do
     fill_in 'Buscar', with: 'Dorotéia'
     click_on 'Pesquisar'
 
-    expect(page).to have_content 'Nenhum perfil encontrado com: Dorotéia'
+    expect(page).to have_content 'Nenhum resultado encontrado com: Dorotéia'
   end
 
   it 'mas não vê o formulário por não estar logado' do
