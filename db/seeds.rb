@@ -4,15 +4,30 @@ andre = User.create(email: 'akaninja@email.com', password: 'usemogit', full_name
 gabriel = User.create(email: 'gabriel@campos.com', password: 'oigaleraaa', full_name: 'Gabriel Campos', citizen_id_number: '02010828020')
 
 # Adiciona publicações
-post_joao_1 = joao.posts.create(title: 'Turma 11', content: 'A melhor turma de todas', tag_list: ['treinadev', 'tdd'])
-post_joao_2 = joao.posts.create(title: 'Warehouses', content: 'Vamos aprender a fazer um app de gestão de galpões', tag_list: ['tdd'])
-post_joao_3 = joao.posts.create(title: 'Rubocop: devo usar?', content: 'No começo, tem que aprender na marra.', tag_list: ['rubocop'])
-post_andre_1 = andre.posts.create(title: 'Pull Request', content: 'Façam o Pull Request na main antes de usar o código nas branches dos outros', tag_list: ['git'])
-post_andre_2 = andre.posts.create(title: 'Desafios Exclusivos', content: 'Eu fiz o batalha naval mesmo para desafiar a galera', tag_list: ['desafios'])
-post_andre_3 = andre.posts.create(title: 'SOLID', content: 'Hoje, vamos falar sobre boas prática de desenvolvimento de código', tag_list: ['solid', 'boaspraticas'])
-post_gabriel_1 = gabriel.posts.create(title: 'Como fazer uma app Vue', content: 'Não esqueça de usar o app.mount', tag_list: ['vue'])
-post_gabriel_2 = gabriel.posts.create(title: 'Boas práticas em Zoom', content: 'Hoje vamos falar sobre breakout rooms!', tag_list: ['zoom'])
-post_gabriel_3 = gabriel.posts.create(title: 'Robô Saltitante: como resolver?', content: 'Vamos falar sobre a tarefa mais complexa do Code Saga!', tag_list: ['codesaga'])
+
+image_post_one = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'turma_11.jpeg')), filename: 'turma_11.jpeg')
+html_post_one = %(<action-text-attachment sgid="#{image_post_one.attachable_sgid}"></action-text-attachment>)
+post_joao_1 = joao.posts.create(title: 'Turma 11', content: "A melhor turma de todas<br> #{html_post_one}", tag_list: ['treinadev', 'tdd'])
+
+post_joao_2 = joao.posts.create(title: 'Warehouses', content: "Vamos aprender a fazer um app de gestão de galpões<br>", tag_list: ['tdd'])
+
+post_joao_3 = joao.posts.create(title: 'Rubocop: devo usar?', content: "No começo, tem que aprender na marra.<br>", tag_list: ['rubocop'])
+
+image_post_two = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'git_github.jpg')), filename: 'git_github.jpg')
+html_post_two = %(<action-text-attachment sgid="#{image_post_two.attachable_sgid}"></action-text-attachment>)
+post_andre_1 = andre.posts.create(title: 'Pull Request', content: "Façam o Pull Request na main antes de usar o código nas branches dos outros<br> #{html_post_two}", tag_list: ['git'])
+
+post_andre_2 = andre.posts.create(title: 'Desafios Exclusivos', content: "Eu fiz o batalha naval mesmo para desafiar a galera<br>", tag_list: ['desafios'])
+
+post_andre_3 = andre.posts.create(title: 'SOLID', content: "Hoje, vamos falar sobre boas prática de desenvolvimento de código<br>", tag_list: ['solid', 'boaspraticas'])
+
+image_post_three = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'vue_js.jpg')), filename: 'vue_js.jpg')
+html_post_three = %(<action-text-attachment sgid="#{image_post_three.attachable_sgid}"></action-text-attachment>)
+post_gabriel_1 = gabriel.posts.create(title: 'Como fazer uma app Vue', content: "Não esqueça de usar o app.mount<br> #{html_post_three}", tag_list: ['vue'])
+
+post_gabriel_2 = gabriel.posts.create(title: 'Boas práticas em Zoom', content: "Hoje vamos falar sobre breakout rooms!<br>", tag_list: ['zoom'])
+
+post_gabriel_3 = gabriel.posts.create(title: 'Robô Saltitante: como resolver?', content: "Vamos falar sobre a tarefa mais complexa do Code Saga!<br>", tag_list: ['codesaga'])
 
 joao.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço', work_status: 'unavailable')
 andre.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço', work_status: 'open_to_work')
