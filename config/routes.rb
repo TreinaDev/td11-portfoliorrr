@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :projects, only: %i[index]
+  post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
   resources :job_categories, only: %i[index create destroy]
   resources :profiles, only: [] do
@@ -41,7 +42,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :projects, only: %i[index]
       resources :job_categories, only: %i[index]
-      resources :profiles, only: [] do
+      resources :profiles, only: %i[show] do
         get 'search', on: :collection
       end
 

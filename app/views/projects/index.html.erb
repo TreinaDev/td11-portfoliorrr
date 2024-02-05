@@ -30,7 +30,25 @@
         <h3 class="mt-3">{{ project.title }}</h3>
         <p>Descrição: {{ project.description }}</p>
         <p>Categoria: {{ project.category }}</p>
+        <button class="btn btn-primary" @click="showForm(project.id)" v-if="!invitationRequestsProjectsIds.includes(project.id)" >Solicitar Convite</button>
+        <button v-else class="btn btn-warning" disabled >Convite Solicitado</button>
+        <div v-if="showingForm && currentProjectId === project.id">
+          <%= form_with(model: @invitation_request, url: invitation_request_path, method: :post, local: true) do |form| %>
+            <input type="hidden" name="project_id" :value="project.id" />
+            <p>
+              <%= form.label :message, class: 'form-label' %>
+              <%= form.text_area :message, class: 'form-control', placeholder: 'Escreva sua mensagem para o líder do projeto' %>
+            </p>
+            <p>
+              <%= form.submit 'Enviar', class: 'btn btn-primary' %>
+            </p>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  var invitationRequestsProjectsIds = <%= @invitation_requests_projects_ids %>
+</script>
