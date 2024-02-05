@@ -1,7 +1,7 @@
 <%= link_to connection_profile, class: 'card text-decoration-none py-2 shadow-lg rounded follower-card bg-light-subtle' do %>
   <div class="card-body row justify-content-center align-items-center">
     <div class="col-md-3 col-sm-3 profile-image">
-      <%= image_tag 'randomuser.jpg', width: '85rem', class: 'rounded rounded-circle px-2' %>
+      <%= image_tag connection_profile.photo_attachment, width: '85rem', alt: 'Foto de perfil', class: 'rounded rounded-circle px-2' if connection_profile.photo.present? %>
     </div>
     <div class="col-md-6">
       <h5 class="card-title text-primary text-decoration-underline"><%= connection_profile.full_name %></h5>
