@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  resources :searches, only: %i[index]
   resources :invitations, only: %i[index show] do
     patch 'decline', on: :member
   end
@@ -11,9 +12,6 @@ Rails.application.routes.draw do
   post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
   resources :job_categories, only: %i[index create destroy]
-  resources :profiles, only: [] do
-    get 'search', on: :collection
-  end
 
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]

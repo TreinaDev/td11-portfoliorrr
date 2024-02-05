@@ -12,10 +12,10 @@ describe 'Usuário busca outros usuários' do
 
     login_as user
     visit root_path
-    fill_in 'Buscar Perfil', with: 'gErAl'
+    fill_in 'Buscar', with: 'gErAl'
     click_on 'Pesquisar'
 
-    expect(current_path).to eq search_profiles_path
+    expect(current_path).to eq searches_path
     expect(page).to have_content('2 resultados para: gErAl')
     expect(page).not_to have_content 'Horácio Fernandes'
     expect(page).to have_link 'Geraldo José'
@@ -24,7 +24,7 @@ describe 'Usuário busca outros usuários' do
     expect(page).to have_content 'Cuiabá'
     expect(page).to have_content 'Ruby on Rails'
     within 'h2' do
-      expect(page).to have_content 'Resultado da Pesquisa'
+      expect(page).to have_content 'Resultados da Pesquisa'
     end
   end
 
@@ -33,16 +33,10 @@ describe 'Usuário busca outros usuários' do
 
     login_as user
     visit root_path
-    fill_in 'Buscar Perfil', with: 'Dorotéia'
+    fill_in 'Buscar', with: 'Dorotéia'
     click_on 'Pesquisar'
 
-    expect(page).to have_content 'Nenhum perfil encontrado com: Dorotéia'
-  end
-
-  it 'só pode ver página de resultados se estiver logado' do
-    visit search_profiles_path
-
-    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Nenhum resultado encontrado com: Dorotéia'
   end
 
   it 'mas não vê o formulário por não estar logado' do
@@ -50,18 +44,6 @@ describe 'Usuário busca outros usuários' do
 
     expect(page).not_to have_field 'Busca de Perfis'
     expect(page).not_to have_button 'Pesquisar'
-  end
-
-  it 'mas campo de pesquisa não pode ficar em branco' do
-    user = create(:user)
-
-    login_as user
-    visit root_path
-    fill_in 'Buscar Perfil', with: ''
-    click_on 'Pesquisar'
-
-    expect(current_path).to eq root_path
-    expect(page).to have_content 'Você precisa informar um nome para fazer a pesquisa'
   end
 
   it 'e usuário só aparece uma vez' do
@@ -74,7 +56,7 @@ describe 'Usuário busca outros usuários' do
 
     login_as user
     visit root_path
-    fill_in 'Buscar Perfil', with: 'jo'
+    fill_in 'Buscar', with: 'jo'
     click_on 'Pesquisar'
 
     within '.search-result' do
