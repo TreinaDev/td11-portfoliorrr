@@ -35,10 +35,10 @@ describe 'Usuário altera a privacidade do perfil' do
 
       login_as searching_user
       visit root_path
-      fill_in 'Buscar Perfil', with: 'C++'
+      fill_in 'Buscar', with: 'C++'
       click_on 'Pesquisar'
 
-      expect(current_path).to eq search_profiles_path
+      expect(current_path).to eq searches_path
       expect(page).to have_content('1 resultado para: C++')
       expect(page).not_to have_content private_user.full_name
       expect(page).to have_content public_user.full_name
