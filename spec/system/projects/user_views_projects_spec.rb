@@ -19,7 +19,7 @@ describe 'Usuário visita página de projetos' do
       click_on 'Projetos'
 
       expect(page).to have_current_path projects_path
-      expect(page).to have_content('Lista de Projetos', wait: 0.5)
+      expect(page).to have_content('Lista de Projetos')
 
       expect(page).to have_content 'Padrão 1'
       expect(page).to have_content 'Descrição: Descrição de um projeto padrão para testes 1.'

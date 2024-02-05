@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :profile_job_category do
     profile
     job_category
-    description { 'Experiência com Web Design' }
+    sequence(:description) { |n| "Formação completa com #{n} ano de experiencia" }
   end
 end

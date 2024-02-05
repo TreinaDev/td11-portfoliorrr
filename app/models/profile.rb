@@ -14,6 +14,7 @@ class Profile < ApplicationRecord
   has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
 
   has_many :job_categories, through: :profile_job_categories
+  has_many :invitation_requests, dependent: :destroy
 
   has_one_attached :photo
   has_many :invitations, dependent: :destroy
@@ -99,4 +100,17 @@ class Profile < ApplicationRecord
 
     errors.add(:photo, message: 'deve ter no máximo 3MB')
   end
+end
+
+def api_output(profile)
+  { data: {
+    profile_id: profile.id, email: profile.user.email,
+    full_name: profile.full_name, cover_letter: profile.cover_letter,
+    professional_infos: profile.professional_infos.as_json(only: %i[company position start_date end_date
+                                                                    current_job description]),
+    education_infos: profile.education_infos.as_json(only: %i[institution course start_date end_date]),
+    job_categories: profile.profile_job_categories.map do |category|
+      { name: category.job_category.name, description: category.description }
+    end
+  } }
 end

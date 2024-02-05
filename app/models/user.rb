@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_one :personal_info, through: :profile
   has_many :professional_infos, through: :profile
   has_many :education_infos, through: :profile
+  has_many :invitation_requests, through: :profile
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
 

@@ -4,7 +4,10 @@ export default {
       projects: [],
       searchText: '',
       selectedFilter: '',
-      emptyData: ''
+      emptyData: '',
+      showingForm: false,
+      currentProjectId: null,
+      invitationRequestsProjectsIds: window.invitationRequestsProjectsIds,
     }
   },
   computed:{
@@ -24,10 +27,12 @@ export default {
     }
   },
   methods: {
-    setFilter(selectedSearchType) {
-      this.selectedFilter = selectedSearchType;
-    }
+    showForm(projectId) {
+      this.showingForm = true;
+      this.currentProjectId = projectId;
+    },
   },
+
   async created() {
     let response = await fetch('/api/v1/projects');
     if (response.ok) {
