@@ -25,9 +25,9 @@
       </time>
     </p>
 
-    <p class="card-subtitle mb-2">
+    <p class="card-subtitle mb-2 text-body-secondary tags">
       <% @post.tags.each do |tag| %>
-        <span class="badge bg-primary"><%= tag.name %></span>
+        <%= link_to "##{tag.name}", searches_path(query: "##{tag.name}"), class: 'text-decoration-none' %>
       <% end %>
     </p>
 

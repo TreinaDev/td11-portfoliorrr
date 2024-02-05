@@ -4,7 +4,7 @@ describe 'Usuário acessa página de convites' do
   context 'e visualiza seus convites' do
     it 'com sucesso' do
       user = create(:user)
-      invitation = create(:invitation, profile: user.profile)
+      invitation = create(:invitation, profile: user.profile, expiration_date: Time.zone.now.to_date + 7)
       login_as invitation.profile.user
 
       visit root_path
@@ -16,7 +16,7 @@ describe 'Usuário acessa página de convites' do
       expect(current_path).to eq invitations_path
       expect(page).to have_content invitation.project_title
       expect(page).to have_content invitation.truncate_description
-      expect(page).to have_content 'Expira em: 7 dias'
+      expect(page).to have_content "Expira dia: #{I18n.l(invitation.expiration_date, format: :default)}"
     end
 
     it 'e nao tem convites' do

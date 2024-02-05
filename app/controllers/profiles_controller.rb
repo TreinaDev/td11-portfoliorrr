@@ -28,14 +28,6 @@ class ProfilesController < ApplicationController
     @personal_info = personal_info
   end
 
-  def search
-    @query = params[:query]
-
-    return redirect_back(fallback_location: root_path, alert: t('.error')) if @query.blank?
-
-    @profiles = Profile.advanced_search(@query)
-  end
-
   def work_unavailable
     @profile = current_user.profile
     @profile.unavailable!
