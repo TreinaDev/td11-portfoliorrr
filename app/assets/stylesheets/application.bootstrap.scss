@@ -21,6 +21,11 @@ body{
   transition-duration: 300ms;
 }
 
+.img-cover{
+  object-fit: cover;
+  object-position: center;
+}
+
 .field_with_errors input{
   border: 1px solid red !important;
 }
