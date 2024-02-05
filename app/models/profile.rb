@@ -24,7 +24,7 @@ class Profile < ApplicationRecord
 
   after_create :create_personal_info!
   enum work_status: { unavailable: 0, open_to_work: 10 }
-  enum visibility: { private_profile: 0, public_profile: 10 }
+  enum privacy: { private_profile: 0, public_profile: 10 }
 
   delegate :full_name, to: :user
 

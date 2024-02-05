@@ -46,28 +46,28 @@ describe 'Usuário altera o privacidade do perfil' do
 
     it 'e dados não aparecem a outros usuários' do
       private_user = create(:user)
-      private_user.profile.private_profile!
       profile = private_user.profile
+      profile.private_profile!
       personal_info = create(:personal_info)
       professional_info = create(:professional_info)
       education_info = create(:education_info)
       job_category = create(:job_category)
-      profile_job_category = create(:profile_job_category)
+      create(:profile_job_category)
 
       another_user = create(:user)
 
       login_as another_user
       visit profile_path(private_user.profile)
 
-      expect(page).to have_content 'Este perfil é privado.'
-      expect(page).not_to have_content user.full_name
+      expect(page).to have_content 'O perfil que você acessou é privado'
+      expect(page).not_to have_content private_user.full_name
       expect(page).not_to have_content personal_info.street
       expect(page).not_to have_content personal_info.state
       expect(page).not_to have_content professional_info.company
       expect(page).not_to have_content professional_info.position
       expect(page).not_to have_content education_info.institution
       expect(page).not_to have_content education_info.course
-      expect(page).not_to have_content profile_job_category.name
+      expect(page).not_to have_content job_category.name
     end
   end
 

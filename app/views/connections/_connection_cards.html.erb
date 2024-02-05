@@ -5,12 +5,16 @@
     </div>
     <div class="col-md-6">
       <h5 class="card-title text-primary text-decoration-underline"><%= connection_profile.full_name %></h5>
-      <% if active_jobs(connection_profile).any? %>
-        <% active_jobs(connection_profile).each do |job| %>
-          <p class="card-text fw-bold"><%= job.position %> | <%= job.company %></p>
-        <% end %>
+      <% if connection_profile.private_profile? %>
+        <p class="card-text fw-bold"><%= t Profile.human_attribute_name("privacy.#{@profile.privacy}") %></p>
       <% else %>
-        <p class="card-text fw-bold"><%= t Profile.human_attribute_name("work_status.#{connection_profile.work_status}") %></p>
+        <% if active_jobs(connection_profile).any? %>
+          <% active_jobs(connection_profile).each do |job| %>
+            <p class="card-text fw-bold"><%= job.position %> | <%= job.company %></p>
+          <% end %>
+        <% else %>
+          <p class="card-text fw-bold"><%= t Profile.human_attribute_name("work_status.#{connection_profile.work_status}") %></p>
+        <% end %>
       <% end %>
     </div>
   </div>

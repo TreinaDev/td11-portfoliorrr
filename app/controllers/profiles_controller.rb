@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile_and_posts, only: %i[show]
+  before_action :private_profile?, only: %i[show]
 
   def show
     @professional_infos = @profile.professional_infos.order(start_date: :desc)
@@ -27,7 +28,7 @@ class ProfilesController < ApplicationController
     redirect_to profile_path(@profile), notice: t('.success')
   end
 
-  def change_visibility
+  def change_privacy
     @profile = current_user.profile
     if @profile.public_profile?
       @profile.private_profile!
@@ -35,6 +36,13 @@ class ProfilesController < ApplicationController
       @profile.public_profile!
     end
     redirect_to profile_path(@profile), notice: t('.success')
+  end
+
+  def private_profile?
+    return if @profile.user == current_user
+    return if @profile.public_profile?
+
+    redirect_back(fallback_location: root_path, alert: t('.private'))
   end
 
   private

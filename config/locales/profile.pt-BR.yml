@@ -10,7 +10,7 @@ pt-BR:
       profile/work_status:
           open_to_work: 'Disponível para trabalho'
           unavailable: 'Indisponível para trabalho'
-      profile/visibility:
+      profile/privacy:
           public_profile: 'Perfil público'
           private_profile: 'Perfil privado'
   profiles:
@@ -23,8 +23,10 @@ pt-BR:
       success: Alteração salva com sucesso
     open_to_work:
       success: Alteração salva com sucesso
-    change_visibility:
+    change_privacy:
       success: Privacidade alterada com sucesso
+    show:
+      private: O perfil que você acessou é privado
   profile:
     update:
       success: 'Informações pessoais atualizadas com sucesso'
