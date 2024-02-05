@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_05_212125) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_05_231818) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -125,6 +125,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_212125) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "profile_id", null: false
+    t.string "notifiable_type"
+    t.integer "notifiable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["profile_id"], name: "index_notifications_on_profile_id"
+  end
+
   create_table "personal_infos", force: :cascade do |t|
     t.integer "profile_id", null: false
     t.string "street"
@@ -147,7 +157,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_212125) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-05 22:36:46"
+    t.datetime "edited_at", default: "2024-02-05 23:00:24"
     t.integer "status", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -338,6 +348,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_212125) do
   add_foreign_key "invitation_requests", "profiles"
   add_foreign_key "invitations", "profiles"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "profiles"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "professional_infos", "profiles"
