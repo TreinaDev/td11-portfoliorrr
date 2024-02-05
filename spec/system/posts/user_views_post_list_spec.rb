@@ -83,6 +83,7 @@ describe 'Usuário vê a lista de publicações' do
 
     expect(page).to have_content 'Como capturar Pókemons?'
     expect(page).to have_selector 'img[src*="test_image.png"]'
+    expect(page).not_to have_selector 'video[src*="test_video.mp4"]'
   end
 
   it 'e vê um preview apenas da primeira imagem anexada' do
