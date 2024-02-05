@@ -13,8 +13,7 @@ describe 'API convites' do
           project_category: 'Tecnologia',
           colabora_invitation_id: 1,
           message: 'Venha participar do meu projeto!',
-          expiration_date: 1.week.from_now.to_date,
-          status: 'pending'
+          expiration_date: 1.week.from_now.to_date
         }
       }
 
@@ -46,8 +45,7 @@ describe 'API convites' do
             project_category: 'Tecnologia',
             colabora_invitation_id: 1,
             message: 'Venha participar do meu projeto!',
-            expiration_date: 1.week.from_now.to_date,
-            status: 'pending'
+            expiration_date: 1.week.from_now.to_date
           }
         }
 

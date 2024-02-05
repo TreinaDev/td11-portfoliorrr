@@ -8,6 +8,12 @@ class Invitation < ApplicationRecord
 
   enum status: { pending: 0, accepted: 1, declined: 2, cancelled: 3, expired: 4, removed: 5 }
 
+  after_create :set_status
+
+  def set_status
+    self.status = 'pending'
+  end
+
   def expiration_date_cannot_be_in_the_past
     return unless expiration_date.present? && expiration_date < Time.zone.today
 
