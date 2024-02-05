@@ -4,7 +4,7 @@ describe 'Usuário acessa página de convites' do
   context 'e visualiza seus convites' do
     it 'com sucesso' do
       user = create(:user)
-      invitation = create(:invitation, profile: user.profile)
+      invitation = create(:invitation, profile: user.profile, expiration_date: Time.zone.now.to_date + 7)
       login_as invitation.profile.user
 
       visit root_path
