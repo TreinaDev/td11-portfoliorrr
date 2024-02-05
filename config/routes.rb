@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   patch 'work_unavailable', controller: :profiles
   patch 'open_to_work', controller: :profiles
+  patch 'change_privacy', controller: :profiles
 
   resources :likes, only: %i[create destroy]
   resources :job_categories, only: %i[index create]

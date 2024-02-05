@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :personal_info do
-    profile
     street { 'Avenida Campus Code' }
     street_number { '1200' }
     area { 'TreinaDev' }
@@ -10,5 +9,6 @@ FactoryBot.define do
     phone { '11999991234' }
     birth_date { '1980-12-25' }
     visibility { true }
+    profile
   end
 end
