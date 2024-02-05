@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  resources :invitations, only: %i[index show] do
+    patch 'decline', on: :member
+  end
+
   resources :projects, only: %i[index]
   post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
