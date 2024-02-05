@@ -40,9 +40,11 @@ class ProfilesController < ApplicationController
 
   def private_profile?
     return if @profile.user == current_user
+    return if Connection.active.where(followed_profile: @profile,
+                                      follower: current_user.profile).present?
     return if @profile.public_profile?
 
-    redirect_back(fallback_location: root_path, alert: t('.private'))
+    redirect_to root_path, alert: t('.private')
   end
 
   private

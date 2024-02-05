@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário altera o privacidade do perfil' do
+describe 'Usuário altera a privacidade do perfil' do
   context 'de público para privado' do
     it 'com sucesso' do
       user = create(:user)
@@ -42,6 +42,28 @@ describe 'Usuário altera o privacidade do perfil' do
       expect(page).to have_content('1 resultado para: C++')
       expect(page).not_to have_content private_user.full_name
       expect(page).to have_content public_user.full_name
+    end
+
+    it 'e dados aparecem aos seguidores' do
+      personal_info = create(:personal_info)
+      profile = personal_info.profile
+      profile.private_profile!
+      professional_info = create(:professional_info, profile:)
+      education_info = create(:education_info, profile:)
+      job_category = create(:job_category)
+      create(:profile_job_category, profile:, job_category:)
+
+      follower = create(:user)
+      Connection.create!(followed_profile: profile, follower: follower.profile)
+
+      login_as follower
+      visit profile_path(profile)
+
+      expect(page).to have_content profile.full_name
+      expect(page).to have_content personal_info.street
+      expect(page).to have_content professional_info.company
+      expect(page).to have_content education_info.institution
+      expect(page).to have_content job_category.name
     end
 
     it 'e dados não aparecem a outros usuários' do
