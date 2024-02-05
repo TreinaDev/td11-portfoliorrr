@@ -17,7 +17,7 @@ describe 'Usuário edita uma publicação' do
     visit post_path(post)
     click_on 'Editar'
     fill_in 'Título da Publicação', with: 'O título mudou'
-    fill_in 'Conteúdo', with: 'A publicação também'
+    fill_in_rich_text_area 'conteudo', with: 'A publicação também'
     fill_in 'Tags', with: 'tagA, tagB, tagC'
     travel_to Time.zone.local(2025, 9, 7, 0, 0, 0) do
       click_on 'Salvar'
@@ -27,9 +27,8 @@ describe 'Usuário edita uma publicação' do
     expect(page).to have_content 'Publicação editada com sucesso!'
     expect(page).to have_content 'O título mudou'
     expect(page).to have_content 'A publicação também'
-    expect(page).to have_content I18n.t('posts.views.show.last_update',
-                                        update_date: I18n.l(post.created_at.to_datetime, format: :long))
-    expect(page).to have_content 'tagA tagB tagC'
+    expect(page).to have_content "Última atualização em: #{I18n.l(post.created_at.to_datetime, format: :long)}"
+    expect(page).to have_content '#tagA #tagB #tagC'
   end
 
   it 'e é redirecionado ao tentar atualizar publicação que não é sua' do
@@ -59,7 +58,7 @@ describe 'Usuário edita uma publicação' do
     login_as post.user
     visit edit_post_path(post)
     fill_in 'Título da Publicação', with: ''
-    fill_in 'Conteúdo', with: ''
+    fill_in_rich_text_area 'conteudo', with: ''
     click_on 'Salvar'
 
     expect(page).to have_content 'A publicação não pôde ser editada'

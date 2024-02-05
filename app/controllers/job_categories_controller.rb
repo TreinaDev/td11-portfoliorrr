@@ -14,7 +14,7 @@ class JobCategoriesController < ApplicationController
     else
       @job_categories = JobCategory.all
       flash.now[:alert] = t('.error')
-      render 'index', status: :internal_server_error
+      render 'index', status: :bad_request
     end
   end
 

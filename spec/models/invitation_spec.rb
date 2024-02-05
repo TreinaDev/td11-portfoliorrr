@@ -36,9 +36,15 @@ RSpec.describe Invitation, type: :model do
                                        expiration_date: 1.week.from_now.to_date,
                                        status: 'accepted'
 
-        expect(invitation.status).to eq 'pending'
-        expect(invitation).to be_valid
+        expect(invitation).to be_pending
       end
+    end
+
+    it 'data de expiração deve ser maior que a data atual' do
+      invitation = Invitation.new expiration_date: 1.day.ago.to_date
+
+      expect(invitation).not_to be_valid
+      expect(invitation.errors[:expiration_date]).to eq ['deve ser maior que a data atual']
     end
   end
 end

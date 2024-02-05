@@ -1,5 +1,5 @@
 <div class="d-flex">
-  <div class="container d-flex flex-column vh-100 w-50">
+  <div class="container d-flex flex-column w-50">
 
     <% if @posts.pinned.any? %>
       <div id="fixed">
@@ -26,8 +26,12 @@
   <div class="container w-50 d-flex flex-column px-5 align-items-end">
     <aside class="px-5">
       <section class="text-center d-flex flex-column align-items-center">
+        <div class="ratio ratio-1x1 rounded-circle overflow-hidden w-25">
+          <%= image_tag @profile.photo_attachment, alt: 'Foto de perfil', class: 'img-cover' if @profile.photo.present? %>
+        </div>
 
-        <h4><%= @profile.full_name %></h4>
+        <%= link_to 'Alterar foto', edit_profile_path(@profile), class: 'badge bg-secondary' if current_user == @profile.user %>
+        <h4><%= @user.full_name %></h4>
         <div class="d-flex gap-4">
           <div class="d-flex flex-column" id="followers-count">
             <%= link_to profile_connections_path(@profile), class: "text-decoration-none fs-5" do %>
@@ -40,27 +44,38 @@
             <% end %>
           </div>
         </div>
-        <div>
+        <div class="mt-2">
           <% if @profile.open_to_work? %>
-            <h5 class="text-success"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h5>
-            <%= button_to 'Não estou disponível para trabalho', work_unavailable_path, method: :patch, class: 'btn btn-danger' if current_user.profile == @profile %>
+            <h6 class="text-success"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
+            <%= button_to 'alterar disponibilidade', work_unavailable_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
           <% else %>
-            <h5 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h5>
-            <%= button_to 'Estou disponível para trabalho', open_to_work_path, method: :patch, class: 'btn btn-success' if current_user.profile == @profile %>
+            <h6 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
+            <%= button_to 'alterar disponibilidade', open_to_work_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
+          <% end %>
+        </div>
+        <div class="mt-3">
+          <% if current_user.profile == @profile %>
+            <% if @profile.public_profile? %>
+              <h6 class="text-success"><%= t Profile.human_attribute_name("privacy.#{@profile.privacy}") %></h6>
+            <% else %>
+              <h6 class="text-secondary"><%= t Profile.human_attribute_name("privacy.#{@profile.privacy}") %></h6>
+            <% end %>
+            <%= button_to 'alterar privacidade', change_privacy_path, method: :patch, class: 'btn btn-outline-primary btn-sm' %>
           <% end %>
         </div>
         <br>
         <div class="w-75">
           <% if current_user.profile != @profile %>
             <% if @profile.following?(current_user.profile) %>
-              <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-100' %>
+              <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
             <% elsif @profile.inactive_follower?(current_user.profile) %>
-              <%= button_to 'Seguir', connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-100' %>
+              <%= button_to 'Seguir', connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
             <% else %>
-              <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-100' %>
+              <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
             <% end %>
           <% end %>
         </div>
+        
 
       </section>
       <section>

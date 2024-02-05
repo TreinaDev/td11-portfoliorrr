@@ -1,9 +1,33 @@
+$theme-colors: (
+  "primary":    #a130fd,
+  "secondary":  #515253,
+  "success":    #2abd4cde,
+  "info":       #68a1f7,
+  "warning":    #ffc107,
+  "danger":     #dc3545,
+  "light":      rgba(255, 251, 251, 0.603),
+  "dark":       #1b1b1b
+);
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+@import 'actiontext.css';
+
+body{
+  min-width: 400px;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #a130fd !important;
+}
 
 .feed-post:hover{
   transform: scale(1.01, 1.01);
   transition-duration: 300ms;
+}
+
+.img-cover{
+  object-fit: cover;
+  object-position: center;
 }
 
 .field_with_errors input{
@@ -17,4 +41,33 @@
 
 .drop-menu{
   margin-right: 2.5rem !important;
+}
+
+#searchText{
+  width: 380px !important;
+}
+
+.dropdown-menu[data-bs-popper]{
+  left: -20px !important;
+}
+
+.follower-card:hover{
+  transform: scale(1.01, 1.01);
+  transition-duration: 300ms;
+}
+  
+.profile-image{
+   min-width: 80px;
+}
+
+.trix-content{
+  color: rgb(10, 10, 10);
+}
+
+.dropdown-item:active {
+  background-color: #9030df !important; 
+}
+
+.categories{
+  width: 35% !important;
 }

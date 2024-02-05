@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :post do
     user
-    title { 'Tenho Opiniões' }
-    content { 'E não são poucas' }
+    title { Faker::Lorem.paragraph }
+    content { Faker::Lorem.paragraph sentence_count: 10 }
     edited_at { Time.zone.now }
   end
 end

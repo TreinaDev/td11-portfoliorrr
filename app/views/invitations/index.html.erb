@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <section>
+      <h2 class="text-center">Convites</h2>
+
+      <div class="nav-scroller border-bottom mb-4">
+        <nav class="d-flex nav nav-underline">
+          <%= link_to 'Todos', invitations_path, class: "nav-item col nav-link link-body-emphasis" %>
+          <%= link_to 'Pendentes', invitations_path(status: :pending), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'pending'}" %>
+          <%= link_to 'Aceitos', invitations_path(status: :accepted), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'accepted'}" %>
+          <%= link_to 'Recusados', invitations_path(status: :declined), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'declined'}" %>
+          <%= link_to 'Expirados', invitations_path(status: :expired), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'expired'}" %>
+        </nav>
+      </div>
+    
+      <div class="d-flex flex-wrap justify-content-around">
+        <% if @invitations.empty? %>
+          <p class="text-center">Nenhum convite encontrado</p>
+        <% else %>
+          <% @invitations.each do |invitation| %>
+            <div class="col-md-5 p-4 m-4 rounded border w-25">
+              <%= link_to invitation_path(invitation), class: "text-decoration-none" do %>
+                <div class="card-body">
+                  <h4 class="text-break text-dark"><%= invitation.project_title %></h4>
+                  <p><%= invitation.truncate_description %></p>
+
+                  <% if invitation.pending? %>
+                    <p class="card-subtitle mb-2 text-muted">Expira dia: <%= I18n.l(invitation.expiration_date) %></p>
+                  <% elsif invitation.accepted? %>
+                    <p class="card-subtitle mb-2 text-success">Aceito</p>
+                  <% elsif invitation.expired? %>
+                    <p class="card-subtitle mb-2 text-danger">Expirado</p>
+                  <% elsif invitation.declined? %>
+                    <p class="card-subtitle mb-2 text-danger">Recusado</p>
+                  <% end %>
+        
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>
