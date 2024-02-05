@@ -15,6 +15,6 @@ class Invitation < ApplicationRecord
   end
 
   def truncate_description
-    project_description.truncate(19)
+    project_description.truncate(30)
   end
 end

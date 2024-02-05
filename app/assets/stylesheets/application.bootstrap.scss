@@ -5,7 +5,7 @@ $theme-colors: (
   "info":       #68a1f7,
   "warning":    #ffc107,
   "danger":     #dc3545,
-  "light":      rgba(185, 184, 184, 0.603),
+  "light":      rgba(255, 251, 251, 0.603),
   "dark":       #1b1b1b
 );
 @import 'bootstrap/scss/bootstrap';
@@ -60,16 +60,8 @@ input[type="checkbox"]:checked {
    min-width: 80px;
 }
 
-.btn{
-  color: rgba(255, 255, 255, 0.829);
-}
-
-.trix-button--icon::before{
-  background-color: #cd03ff !important;
-}
-
 .trix-content{
-  color: rgba(255, 255, 255, 0.603);
+  color: rgb(10, 10, 10);
 }
 
 .dropdown-item:active {
