@@ -4,15 +4,41 @@ andre = User.create(email: 'akaninja@email.com', password: 'usemogit', full_name
 gabriel = User.create(email: 'gabriel@campos.com', password: 'oigaleraaa', full_name: 'Gabriel Campos', citizen_id_number: '02010828020')
 
 # Adiciona publicações
-post_joao_1 = joao.posts.create(title: 'Turma 11', content: 'A melhor turma de todas')
-post_joao_2 = joao.posts.create(title: 'Warehouses', content: 'Vamos aprender a fazer um app de gestão de galpões')
-post_joao_3 = joao.posts.create(title: 'Rubocop: devo usar?', content: 'No começo, tem que aprender na marra.')
-post_andre_1 = andre.posts.create(title: 'Pull Request', content: 'Façam o Pull Request na main antes de usar o código nas branches dos outros')
-post_andre_2 = andre.posts.create(title: 'Desafios Exclusivos', content: 'Eu fiz o batalha naval mesmo para desafiar a galera')
-post_andre_3 = andre.posts.create(title: 'SOLID', content: 'Hoje, vamos falar sobre boas prática de desenvolvimento de código')
-post_gabriel_1 = gabriel.posts.create(title: 'Como fazer uma app Vue', content: 'Não esqueça de usar o app.mount')
-post_gabriel_2 = gabriel.posts.create(title: 'Boas práticas em Zoom', content: 'Hoje vamos falar sobre breakout rooms!')
-post_gabriel_3 = gabriel.posts.create(title: 'Robô Saltitante: como resolver?', content: 'Vamos falar sobre a tarefa mais complexa do Code Saga!')
+image_post_joao_1 = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'turma_11.jpeg')), filename: 'turma_11.jpeg')
+html = %(<action-text-attachment sgid="#{image_post_joao_1.attachable_sgid}"></action-text-attachment>)
+post_joao_1 = joao.posts.create(title: 'Turma 11', content: "A melhor turma de todas<br> #{html}")
+
+image_post_joao_2 = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'warehouses.png')), filename: 'warehouses.png')
+html = %(<action-text-attachment sgid="#{image_post_joao_2.attachable_sgid}"></action-text-attachment>)
+post_joao_2 = joao.posts.create(title: 'Warehouses', content: "Vamos aprender a fazer um app de gestão de galpões<br> #{html}")
+
+image_post_joao_3 = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'rubocop.jpeg')), filename: 'rubocop.jpeg')
+html = %(<action-text-attachment sgid="#{image_post_joao_3.attachable_sgid}"></action-text-attachment>)
+post_joao_3 = joao.posts.create(title: 'Rubocop: devo usar?', content: "No começo, tem que aprender na marra.<br> #{html}")
+
+attachable = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'git_github.jpg')), filename: 'git_github.jpg')
+html = %(<action-text-attachment sgid="#{attachable.attachable_sgid}"></action-text-attachment>)
+post_andre_1 = andre.posts.create(title: 'Pull Request', content: "Façam o Pull Request na main antes de usar o código nas branches dos outros<br> #{html}")
+
+attachable = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'desafio_ruby.jpg')), filename: 'desafio_ruby.jpg')
+html = %(<action-text-attachment sgid="#{attachable.attachable_sgid}"></action-text-attachment>)
+post_andre_2 = andre.posts.create(title: 'Desafios Exclusivos', content: "Eu fiz o batalha naval mesmo para desafiar a galera<br> #{html}")
+
+attachable = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'desenvolvimento_codigo.jpg')), filename: 'desenvolvimento_codigo.jpg')
+html = %(<action-text-attachment sgid="#{attachable.attachable_sgid}"></action-text-attachment>)
+post_andre_3 = andre.posts.create(title: 'SOLID', content: "Hoje, vamos falar sobre boas prática de desenvolvimento de código<br> #{html}")
+
+attachable = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'vue_js.jpg')), filename: 'vue_js.jpg')
+html = %(<action-text-attachment sgid="#{attachable.attachable_sgid}"></action-text-attachment>)
+post_gabriel_1 = gabriel.posts.create(title: 'Como fazer uma app Vue', content: "Não esqueça de usar o app.mount<br> #{html}")
+
+attachable = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'zoom.png')), filename: 'zoom.png')
+html = %(<action-text-attachment sgid="#{attachable.attachable_sgid}"></action-text-attachment>)
+post_gabriel_2 = gabriel.posts.create(title: 'Boas práticas em Zoom', content: "Hoje vamos falar sobre breakout rooms!<br> #{html}")
+
+attachable = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app', 'assets', 'images', 'seeds', 'code_saga.png')), filename: 'code_saga.png')
+html = %(<action-text-attachment sgid="#{attachable.attachable_sgid}"></action-text-attachment>)
+post_gabriel_3 = gabriel.posts.create(title: 'Robô Saltitante: como resolver?', content: "Vamos falar sobre a tarefa mais complexa do Code Saga!<br> #{html}")
 
 joao.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço', work_status: 'unavailable')
 andre.profile.update(cover_letter: 'Sou profissional organizado, esforçado e apaixonado pelo que faço', work_status: 'open_to_work')

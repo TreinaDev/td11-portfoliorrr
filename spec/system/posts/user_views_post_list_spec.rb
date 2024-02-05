@@ -65,16 +65,12 @@ describe 'Usuário vê a lista de publicações' do
 
   it 'e vê um preview da imagem' do
     post_owner = create(:user)
-    visitor = create(:user, full_name: 'Ash Ketchum')
-
-    login_as post_owner
-    visit new_post_path(post_owner)
-    fill_in 'Título da Publicação', with: 'Como capturar Pókemons?'
     image_path = Rails.root.join('spec/support/assets/images/test_image.png')
-    click_button('Attach Files')
-    attach_file(image_path, make_visible: true)
-    click_on 'Salvar'
-    logout
+    image = ActiveStorage::Blob.create_and_upload!(io: File.open(image_path),
+                                                   filename: 'test_image.png')
+    content = %(<action-text-attachment sgid="#{image.attachable_sgid}"></action-text-attachment>)
+    post_owner.posts.create(title: 'Como capturar Pókemons?', content:)
+    visitor = create(:user, full_name: 'Ash Ketchum')
 
     login_as visitor
     visit root_path
