@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile_and_posts, only: %i[show edit remove_photo update]
+  before_action :private_profile?, only: %i[show]
   before_action :redirect_unauthorized_access, only: %i[edit update remove_photo]
 
   def edit; end
@@ -38,6 +39,25 @@ class ProfilesController < ApplicationController
     @profile = current_user.profile
     @profile.open_to_work!
     redirect_to profile_path(@profile), notice: t('.success')
+  end
+
+  def change_privacy
+    @profile = current_user.profile
+    if @profile.public_profile?
+      @profile.private_profile!
+    else
+      @profile.public_profile!
+    end
+    redirect_to profile_path(@profile), notice: t('.success')
+  end
+
+  def private_profile?
+    return if @profile.user == current_user
+    return if Connection.active.where(followed_profile: @profile,
+                                      follower: current_user.profile).present?
+    return if @profile.public_profile?
+
+    redirect_to root_path, alert: t('.private')
   end
 
   private
