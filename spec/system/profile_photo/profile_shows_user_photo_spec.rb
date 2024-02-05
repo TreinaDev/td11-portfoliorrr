@@ -22,7 +22,6 @@ describe 'Perfil mostra foto do usuário' do
 
       login_as viewer
       visit profile_path(user.profile)
-      save_screenshot
 
       expect(page).to have_css('img[src*="male-photo.jpg"]')
     end

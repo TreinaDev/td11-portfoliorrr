@@ -57,7 +57,7 @@ class ProfilesController < ApplicationController
   def redirect_unauthorized_access
     return if current_user == @profile.user
 
-    redirect_to root_path, alert: t('.redirect_alert.unauthorized_user')
+    redirect_to root_path, alert: t('alerts.unauthorized')
   end
 
   def set_profile_and_posts

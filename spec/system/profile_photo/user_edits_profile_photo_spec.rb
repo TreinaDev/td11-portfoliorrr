@@ -53,7 +53,7 @@ describe 'Usuário altera foto de perfil' do
       visit edit_profile_path(victim.profile)
 
       expect(page).to have_current_path root_path
-      expect(page).to have_content 'Você não possui autorização para essa ação'
+      expect(page).to have_content 'Você não têm permissão para realizar essa ação.'
     end
   end
 
@@ -77,7 +77,7 @@ describe 'Usuário altera foto de perfil' do
 
     login_as user
     visit edit_profile_path(user.profile)
-    file_path = Rails.root.join('spec/resources/photos/jennifer-lawrence.jpg')
+    file_path = Rails.root.join('spec/resources/photos/jennifer-lawrence-4MB.jpg')
     attach_file('Foto', file_path)
     click_on 'Salvar'
 

@@ -12,7 +12,7 @@ describe 'Usuário altera perfil' do
 
       expect(victim.profile.photo.filename).to eq 'male-photo.jpg'
       expect(response).to redirect_to(root_path)
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não têm permissão para realizar essa ação.'
     end
   end
 end

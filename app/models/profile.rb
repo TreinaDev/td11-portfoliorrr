@@ -95,7 +95,7 @@ class Profile < ApplicationRecord
 
   def photo_size_lower_than_3mb
     return if photo.blank?
-    return if photo.byte_size <= 3 * 1024 * 1024
+    return if photo.byte_size <= 3.megabytes
 
     errors.add(:photo, message: 'deve ter no máximo 3MB')
   end
