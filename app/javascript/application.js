@@ -9,4 +9,3 @@ import "@rails/actiontext"
 document.addEventListener('turbo:load', () => {
   createApp(ProjectsComponent).mount('#vue-projects-app')
 })
-

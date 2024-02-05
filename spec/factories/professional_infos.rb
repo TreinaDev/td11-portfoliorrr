@@ -6,5 +6,10 @@ FactoryBot.define do
     end_date { '2024-01-23' }
     visibility { true }
     profile
+
+    trait :faked do
+      company { Faker::TvShows::RuPaul.queen }
+      position { %w[programador estagiário gerente].sample }
+    end
   end
 end

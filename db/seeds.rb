@@ -111,3 +111,14 @@ post_gabriel_2.comments.create(user: andre, message: 'Que legal!')
 post_gabriel_3.comments.create(user: gabriel, message: 'Meu texto é muito bom.')
 post_gabriel_3.comments.create(user: joao, message: 'Interessante.')
 post_gabriel_3.comments.create(user: andre, message: 'Que legal!')
+
+
+# Adiciona convites
+FactoryBot.create(:invitation, profile: joao.profile, status: 'accepted', project_title: 'Projeto Gotta cath`em all', project_description: 'Capturar todos os Pokémons', project_category: 'Collection', expiration_date: 1.day.from_now)
+
+FactoryBot.create(:invitation, profile: joao.profile, status: 'pending', project_title: 'Projeto King of Games', project_description: 'Se tornar o melhor duelista de todos os tempos', project_category: 'Achievments', expiration_date: 1.week.from_now)
+
+invitation = FactoryBot.build(:invitation, profile: joao.profile, status: 'declined', project_title: 'Projeto Code Saga', project_description: 'Aprender a programar', project_category: 'Education', expiration_date: 1.week.ago)
+invitation.save(validate: false)
+
+
