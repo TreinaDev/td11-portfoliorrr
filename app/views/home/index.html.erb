@@ -22,12 +22,12 @@
         <% end %>
       </section>
 
-      <aside class="col-md-3 my-5">
+      <aside class="col-md-3">
         <h2>Usuários mais seguidos</h2>
 
-        <div style="width: 18rem;">
+        <div class="py-2"  style="width: 18rem;">
           <% @most_followed.each do |profile| %>
-            <div class="card">
+            <div class="card mb-3 bg-light-subtle text-center">
               <div class="card-body">
                 <h5 class="card-title"><%= profile.full_name %></h5>
                 <p class="card-text"><%= profile.followers_count %> <%= t('followers', count: profile.followers_count) %></p>
@@ -42,7 +42,7 @@
     <section>
       <div>
         <div class="row g-0 d-flex align-items-center border-bottom justify-content-center">
-          <%= image_tag 'logop.png', class: 'home_logo col-sm-8 col-md-2'%>
+          <%= image_tag 'logop.svg', class: 'home_logo col-sm-8 col-md-2'%>
           <h3 class="col-6 col-md-4">
             Descubra, Conecte, Brilhe <br>
             <span>Seu Portfólio, Seu Espaço</span><br>

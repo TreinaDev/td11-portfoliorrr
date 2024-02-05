@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="light">
   <head>
     <title>Portfoliorrr</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -15,14 +15,14 @@
       <%= render 'shared/navbar' %>
     </header>
     <main class="container p-5 mt-5">
-      <div id="flash-msgs">
+      <div id="flash-msgs mx-auto">
         <% if alert %>
-          <div class="alert alert-warning" role="alert">
+          <div class="alert alert-warning text-center fw-bold" role="alert">
             <%= alert %>
           </div>
         <% end %>
         <% if notice %>
-          <div class="alert alert-primary" role="alert">
+          <div class="alert bg-primary-subtle text-center fw-bold" role="alert">
             <%= notice %>
           </div>
         <% end %>
