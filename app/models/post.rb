@@ -11,7 +11,8 @@ class Post < ApplicationRecord
   acts_as_ordered_taggable_on :tags
 
   enum pin: { unpinned: 0, pinned: 10 }
-
+  after_create :schedule_post
+  after_update :schedule_post
   has_rich_text :content
 
   def self.get_sample(amount)
@@ -35,14 +36,18 @@ class Post < ApplicationRecord
   end
 
   def set_publish
-    if scheduled?
-      draft!
-    elsif published?
-      self.published_at = Time.zone.now
-    end
+    self.published_at = Time.zone.now if published?
   end
 
   private
+
+  def schedule_post
+    return unless status == 'scheduled'
+    return if published_at.nil?
+
+    wait = published_at - Time.zone.now
+    PostSchedulerJob.set(wait:).perform_later(self) if wait.positive?
+  end
 
   def correct_file_type
     options = %w[image/jpeg image/png application/pdf audio/mpeg video/mp4]

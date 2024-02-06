@@ -163,21 +163,27 @@ describe 'Usuário cria uma postagem' do
     expect(page).to have_content 'Conteúdo não pode ficar em branco'
   end
 
-  it 'e escolhe data de publicação' do
-    user = create(:user, full_name: 'Seiya de Pégaso')
+  context 'escolhendo data de publicação' do
+    it 'com sucessp' do
+      user = create(:user, full_name: 'Seiya de Pégaso')
+      post_schedule_spy = spy('PostSchedulerJob')
+      stub_const('PostSchedulerJob', post_schedule_spy)
 
-    login_as user
-    visit new_post_path
-    fill_in 'Título da Publicação', with: 'Olá Mundo!'
-    fill_in_rich_text_area 'conteudo', with: 'Primeira <em>publicação</em>'
-    choose 'Programar'
-    fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
-    click_on 'Salvar'
+      login_as user
+      visit new_post_path
+      fill_in 'Título da Publicação', with: 'Olá Mundo!'
+      fill_in_rich_text_area 'conteudo', with: 'Primeira <em>publicação</em>'
+      choose 'Programar'
+      fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
+      click_on 'Salvar'
 
-    posts = Post.all
+      posts = Post.all
 
-    expect(posts.count).to eq 1
-    expect(posts.first).to be_draft
-    expect(page).to have_content "Publicado em: #{I18n.l(posts.first.published_at.to_datetime, format: :long)}"
+      expect(posts.count).to eq 1
+      expect(posts.first).to be_scheduled
+      expect(page).to have_content 'Publicação agendada com sucesso'
+      expect(page).to have_content "Publicado em: #{I18n.l(posts.last.published_at.to_datetime, format: :long)}"
+      expect(post_schedule_spy).to have_received(:perform_later).with(posts.last)
+    end
   end
 end

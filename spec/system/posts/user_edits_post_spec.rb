@@ -145,6 +145,8 @@ describe 'Usuário edita uma publicação' do
   it 'e programa data de publicação' do
     user = create(:user)
     post = create(:post, user:, title: 'Post A', content: 'Primeira postagem', pin: 'pinned', status: 'draft')
+    post_schedule_spy = spy('PostSchedulerJob')
+    stub_const('PostSchedulerJob', post_schedule_spy)
 
     login_as user
     visit edit_post_path(post)
@@ -155,5 +157,6 @@ describe 'Usuário edita uma publicação' do
     post = Post.last
     expect(post).to be_scheduled
     expect(page).to have_content "Publicado em: #{I18n.l(post.published_at.to_datetime, format: :long)}"
+    expect(post_schedule_spy).to have_received(:perform_later).with(post)
   end
 end

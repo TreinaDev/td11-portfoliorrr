@@ -16,7 +16,8 @@ class PostsController < ApplicationController
     @post.set_publish
 
     if @post.save
-      redirect_to post_path(@post), notice: t('.success')
+      message = @post.scheduled? ? '.scheduled-success' : '.success'
+      redirect_to post_path(@post), notice: t(message)
     else
       flash.now[:notice] = t('.error')
       render 'new', status: :unprocessable_entity
