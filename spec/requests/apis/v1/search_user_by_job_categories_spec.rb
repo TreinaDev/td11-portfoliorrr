@@ -17,24 +17,25 @@ describe 'Api busca usuários por categoria de trabalho' do
       user_d.profile.unavailable!
       user_d.profile.profile_job_categories.create!(job_category: ruby, description: 'Eu amo ruby.')
 
-      get '/api/v1/profiles/search', params: { search: 'ruby' }
-
+      get '/api/v1/profiles', params: { search: 'ruby' }
+      debugger
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
       json_response = JSON.parse(response.body)
-      expect(json_response.length).to eq 2
-      expect(json_response.class).to eq Array
-      expect(json_response.first.keys).not_to include 'created_at'
-      expect(json_response.first.keys).not_to include 'updated_at'
-      expect(json_response.first['user_id']).to eq 1
-      expect(json_response.first['full_name']).to eq 'Joao Almeida'
-      expect(json_response.first['job_categories']).to eq [{ 'title' => 'Ruby on Rails',
-                                                             'description' => 'Eu amo codar' }]
-      expect(json_response.second['user_id']).to eq 3
-      expect(json_response.second['full_name']).to eq 'Moisés Campus'
-      expect(json_response.second['job_categories']).to eq [{ 'title' => 'Web Design', 'description' => 'Eu uso ruby' },
-                                                            { 'title' => 'Front End',
-                                                              'description' => 'Eu uso Bootstrap.' }]
+      expect(json_response['data'].count).to eq 2
+      expect(json_response['data'].class).to eq Array
+      expect(json_response['data'].first.keys).not_to include 'created_at'
+      expect(json_response['data'].first.keys).not_to include 'updated_at'
+      expect(json_response['data'].first['user_id']).to eq 1
+      expect(json_response['data'].first['full_name']).to eq 'Joao Almeida'
+      expect(json_response['data'].first['job_categories']).to eq [{ 'title' => 'Ruby on Rails',
+                                                                     'description' => 'Eu amo codar' }]
+      expect(json_response['data'].second['user_id']).to eq 3
+      expect(json_response['data'].second['full_name']).to eq 'Moisés Campus'
+      expect(json_response['data'].second['job_categories']).to eq [{ 'title' => 'Web Design',
+                                                                      'description' => 'Eu uso ruby' },
+                                                                    { 'title' => 'Front End',
+                                                                      'description' => 'Eu uso Bootstrap.' }]
     end
 
     it 'e retorna array vazio ao não encontrar nenhum usuário' do
@@ -42,25 +43,43 @@ describe 'Api busca usuários por categoria de trabalho' do
       python = create(:job_category, name: 'Python')
       user.profile.profile_job_categories.create(job_category: python, description: 'Uso Django.')
 
-      get '/api/v1/profiles/search', params: { search: 'ruby' }
+      get '/api/v1/profiles', params: { search: 'ruby' }
 
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(JSON.parse(response.body)).to eq []
+      json_response = JSON.parse(response.body)
+      expect(json_response['data']).to eq []
     end
 
-    it 'e não recebe um parâmetro de busca' do
-      get '/api/v1/profiles/search', params: { search: '' }
+    it 'e retorna a lista de todos os usuários quando não recebe um parâmetro de busca' do
+      ruby = create(:job_category, name: 'Ruby on Rails')
+      first_user = create(:user, full_name: 'Joao Almeida')
+      first_user.profile.profile_job_categories.create(job_category: ruby, description: 'Especialista em Ruby.')
+      create(:user, full_name: 'André Porteira')
+      create(:user, full_name: 'Eliseu Ramos').profile.unavailable!
 
-      expect(response.status).to eq 400
+      get '/api/v1/profiles', params: { search: '' }
+
+      expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(JSON.parse(response.body)).to eq({ 'error' => 'É necessário fornecer um parâmetro de busca' })
+      json_response = JSON.parse(response.body)
+      expect(json_response['data'].count).to eq 2
+      expect(json_response['data'].class).to eq Array
+      expect(json_response['data'].first.keys).not_to include 'created_at'
+      expect(json_response['data'].first.keys).not_to include 'updated_at'
+      expect(json_response['data'].first['profile_id']).to eq 1
+      expect(json_response['data'].first['full_name']).to eq 'Joao Almeida'
+      expect(json_response['data'].first['job_categories']).to eq [{ 'name' => 'Ruby on Rails',
+                                                                     'description' => 'Especialista em Ruby.' }]
+      expect(json_response['data'].second['profile_id']).to eq 2
+      expect(json_response['data'].second['full_name']).to eq 'André Porteira'
+      expect(json_response['data'].second['job_categories']).to eq []
     end
 
     it 'retorna um erro interno do servidor' do
       allow(Profile).to receive(:get_profile_job_categories_json).and_raise(ActiveRecord::ConnectionFailed)
 
-      get '/api/v1/profiles/search', params: { search: 'ruby' }
+      get '/api/v1/profiles', params: { search: 'ruby' }
 
       expect(response.status).to eq 500
       json_response = JSON.parse(response.body)
