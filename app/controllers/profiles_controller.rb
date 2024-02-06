@@ -17,7 +17,6 @@ class ProfilesController < ApplicationController
 
   def remove_photo
     @profile.photo.destroy!
-    @profile.set_default_photo
     redirect_to profile_path(@profile), notice: t('.success')
   end
 
