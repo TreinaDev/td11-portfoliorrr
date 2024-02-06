@@ -16,7 +16,7 @@
 
     <p class="card-subtitle mb-2">
       <time datetime="<%= @post.created_at.to_date %>">  
-        <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_datetime, format: :long)) %>
+        <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.published_at.to_datetime, format: :long)) %>
       </time>
     </p>
     <p>

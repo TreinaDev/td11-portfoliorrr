@@ -13,6 +13,8 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
 
+    @post.set_publish
+
     if @post.save
       redirect_to post_path(@post), notice: t('.success')
     else
@@ -32,6 +34,7 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
+    @post.set_publish
     if @post.update(post_params)
       redirect_to post_path(@post), notice: t('.success')
     else
@@ -53,7 +56,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    post_params = params.require(:post).permit(:title, :content, :tag_list, :status)
+    post_params = params.require(:post).permit(:title, :content, :tag_list, :status, :published_at)
     post_params['edited_at'] = Time.zone.now
     post_params
   end

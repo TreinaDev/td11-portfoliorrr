@@ -12,12 +12,17 @@
   <div class="form-group my-3">
     <%= f.label :status_archived %>
     <%= f.radio_button :status, 'archived', class:'me-2' %>
+    
+    <%= f.label :status_published %>
+    <%= f.radio_button :status, 'published' %>
 
     <%= f.label :status_draft %>
     <%= f.radio_button :status, 'draft', class:'me-2' %>
 
-    <%= f.label :status_published %>
-    <%= f.radio_button :status, 'published' %>
+    <% if request.path == new_post_path %>
+      <%= f.label :published_at %>
+      <%= f.datetime_field :published_at %>
+    <% end %>
   </div>
 
   <div class="form-group">

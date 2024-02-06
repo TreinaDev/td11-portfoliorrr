@@ -22,7 +22,7 @@ describe 'Usuário edita uma publicação' do
     travel_to Time.zone.local(2025, 9, 7, 0, 0, 0) do
       click_on 'Salvar'
     end
-
+    expect(page).not_to have_content 'Programar Publicação'
     expect(page).to have_current_path post_path(post)
     expect(page).to have_content 'Publicação editada com sucesso!'
     expect(page).to have_content 'O título mudou'

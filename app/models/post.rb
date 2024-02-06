@@ -34,6 +34,14 @@ class Post < ApplicationRecord
     end
   end
 
+  def set_publish
+    if published_at
+      draft!
+    elsif published?
+      update(published_at: Time.zone.now)
+    end
+  end
+
   private
 
   def correct_file_type
