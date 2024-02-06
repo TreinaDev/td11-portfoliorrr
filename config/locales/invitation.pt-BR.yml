@@ -3,3 +3,7 @@ pt-BR:
     decline:
       error: 'Impossível recusar um convite que não esteja pendente'
       success: 'Convite recusado com sucesso'
+
+  invitations_mailer:
+    received_invitation:
+      subject: 'Você recebeu um convite'
