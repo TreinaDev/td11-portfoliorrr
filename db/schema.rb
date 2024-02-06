@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_05_231818) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_06_025935) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -131,6 +131,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_231818) do
     t.integer "notifiable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "read", default: false
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["profile_id"], name: "index_notifications_on_profile_id"
   end
@@ -157,7 +158,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_231818) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-05 23:00:24"
+    t.datetime "edited_at", default: "2024-02-06 03:22:04"
     t.integer "status", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
