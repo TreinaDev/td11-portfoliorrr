@@ -22,12 +22,13 @@ describe 'Usuário edita uma publicação' do
     travel_to Time.zone.local(2025, 9, 7, 0, 0, 0) do
       click_on 'Salvar'
     end
+
     expect(page).not_to have_content 'Programar Publicação'
     expect(page).to have_current_path post_path(post)
     expect(page).to have_content 'Publicação editada com sucesso!'
     expect(page).to have_content 'O título mudou'
     expect(page).to have_content 'A publicação também'
-    expect(page).to have_content "Última atualização em: #{I18n.l(post.created_at.to_datetime, format: :long)}"
+    expect(page).to have_content "Última atualização em: #{I18n.l(Post.last.updated_at.to_datetime, format: :long)}"
     expect(page).to have_content '#tagA #tagB #tagC'
   end
 
@@ -139,5 +140,20 @@ describe 'Usuário edita uma publicação' do
 
     expect(page).not_to have_content 'Fixar'
     expect(page).not_to have_content 'Desfixar'
+  end
+
+  it 'e programa data de publicação' do
+    user = create(:user)
+    post = create(:post, user:, title: 'Post A', content: 'Primeira postagem', pin: 'pinned', status: 'draft')
+
+    login_as user
+    visit edit_post_path(post)
+    choose 'Programar'
+    fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
+    click_on 'Salvar'
+
+    post = Post.last
+    expect(post).to be_scheduled
+    expect(page).to have_content "Publicado em: #{I18n.l(post.published_at.to_datetime, format: :long)}"
   end
 end

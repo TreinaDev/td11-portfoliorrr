@@ -170,8 +170,8 @@ describe 'Usuário cria uma postagem' do
     visit new_post_path
     fill_in 'Título da Publicação', with: 'Olá Mundo!'
     fill_in_rich_text_area 'conteudo', with: 'Primeira <em>publicação</em>'
-    fill_in 'Programar Publicação', with: 2.days.from_now.strftime('%m/%d/%Y %H:%M')
-    choose 'Rascunho'
+    choose 'Programar'
+    fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
     click_on 'Salvar'
 
     posts = Post.all

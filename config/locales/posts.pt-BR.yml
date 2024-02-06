@@ -13,6 +13,8 @@ pt-BR:
         draft: Rascunho
         published: Publicada
         archived: Arquivada
+        scheduled: Programada
+        status_scheduled: Programar Publicação
         status_archived: Arquivada
         status_draft: Rascunho
         status_published: Publicada

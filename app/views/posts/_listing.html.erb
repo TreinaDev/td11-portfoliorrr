@@ -12,7 +12,7 @@
         <p class="card-subtitle mb-2 text-muted">Publicado por: <%= post.user.full_name %></p>
         <small>
           <%= I18n.l(post.created_at, format: :long) %> -
-          <%= distance_of_time_in_words(Time.now, post.created_at) %>
+          <%= distance_of_time_in_words(Time.now, post.published_at ? post.published_at : post.created_at) %>
         </small>
       </div>
     <% end %>

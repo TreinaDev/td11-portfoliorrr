@@ -16,15 +16,15 @@
 
     <p class="card-subtitle mb-2">
       <time datetime="<%= @post.created_at.to_date %>">  
-        <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.published_at.to_datetime, format: :long)) %>
+        <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime, format: :long)) %>
       </time>
     </p>
     <p>
       <time datetime="<%= @post.edited_at.to_date %>">
-        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.created_at.to_datetime, format: :long)) %>
+        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
       </time>
     </p>
-
+    
     <p class="card-subtitle mb-2 text-body-secondary tags">
       <% @post.tags.each do |tag| %>
         <%= link_to "##{tag.name}", searches_path(query: "##{tag.name}"), class: 'text-decoration-none' %>

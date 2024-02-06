@@ -7,7 +7,7 @@ class Post < ApplicationRecord
   validate :correct_file_type
   validate :file_size
 
-  enum status: { published: 0, archived: 5, draft: 10 }
+  enum status: { published: 0, archived: 5, draft: 10, scheduled: 15 }
   acts_as_ordered_taggable_on :tags
 
   enum pin: { unpinned: 0, pinned: 10 }
@@ -35,10 +35,10 @@ class Post < ApplicationRecord
   end
 
   def set_publish
-    if published_at
+    if scheduled?
       draft!
     elsif published?
-      update(published_at: Time.zone.now)
+      self.published_at = Time.zone.now
     end
   end
 

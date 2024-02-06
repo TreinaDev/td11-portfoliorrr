@@ -34,7 +34,6 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
-    @post.set_publish
     if @post.update(post_params)
       redirect_to post_path(@post), notice: t('.success')
     else

@@ -9,3 +9,23 @@ import "@rails/actiontext"
 document.addEventListener('turbo:load', () => {
   createApp(ProjectsComponent).mount('#vue-projects-app')
 })
+
+document.addEventListener("DOMContentLoaded", function() {
+  const statusRadioButtons = document.querySelectorAll("input[name='post[status]']");
+  const scheduledRadioButton = document.querySelector("#post_status_scheduled");
+  const publishedAtField = document.querySelector("#post_published_at");
+
+  const togglePublishedAtField = () => {
+    if (scheduledRadioButton.checked) {
+      publishedAtField.disabled = false;
+    } else {
+      publishedAtField.disabled = true;
+    }
+  };
+
+  statusRadioButtons.forEach(button => {
+    button.addEventListener('click', togglePublishedAtField);
+  });
+
+  togglePublishedAtField();
+});
