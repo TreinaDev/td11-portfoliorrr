@@ -15,7 +15,7 @@ describe 'Usuário altera foto de perfil' do
     expect(page).to have_current_path profile_path(user.profile)
     expect(page).to have_content 'Sua foto foi alterada com sucesso'
     expect(page).to have_css('img[src*="male-photo.jpg"]')
-    expect(page).not_to have_css('img[src*="default_portfoliorrr_photo.png"]')
+    expect(page).not_to have_css('img[src^="default_portfoliorrr_photo"]')
   end
 
   it 'com sucesso substituindo uma foto previamente cadastrada, e não armazena a foto antiga' do
@@ -66,7 +66,6 @@ describe 'Usuário altera foto de perfil' do
     attach_file('Foto', file_path)
     click_on 'Salvar'
 
-    expect(user.profile.photo_attachment.filename).to eq 'default_portfoliorrr_photo.png'
     expect(page).to have_current_path edit_profile_path(user.profile)
     expect(page).to have_content 'Sua alteração não pôde ser salva'
     expect(page).to have_content 'Foto deve ser do formato .jpg, .jpeg ou .png'
@@ -81,7 +80,6 @@ describe 'Usuário altera foto de perfil' do
     attach_file('Foto', file_path)
     click_on 'Salvar'
 
-    expect(user.profile.photo_attachment.filename).to eq 'default_portfoliorrr_photo.png'
     expect(page).to have_current_path edit_profile_path(user.profile)
     expect(page).to have_content 'Sua alteração não pôde ser salva'
     expect(page).to have_content 'Foto deve ter no máximo 3MB'

@@ -10,7 +10,11 @@
   <h2>Alterar foto de perfil</h2>
   <div class="d-flex gap-4 align-items-center w-75 justify-content-center">
     <div id="photo-preview" class="ratio ratio-1x1 rounded-circle overflow-hidden w-25">
-      <%= image_tag @profile.photo_attachment, alt: 'Foto de perfil', class: 'img-cover' if @profile.photo.present? %>
+      <% if @profile.photo.present? && @profile.valid? %>
+        <%= image_tag @profile.photo, alt: 'Foto de perfil', class: 'img-cover' %>
+      <% else %>
+        <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', class: 'img-cover' %>
+      <% end %>
     </div>
     <div id="photo-form">
       <%= form_with model: @profile do |f| %>

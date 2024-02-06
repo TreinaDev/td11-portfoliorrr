@@ -25,10 +25,10 @@ class Profile < ApplicationRecord
   accepts_nested_attributes_for :education_infos
 
   after_create :create_personal_info!
-  after_create :set_default_photo
 
-  validate :valid_photo_content_type
-  validate :photo_size_lower_than_3mb
+  validate :valid_photo_content_type, on: :update
+  validate :photo_size_lower_than_3mb, on: :update
+
   enum work_status: { unavailable: 0, open_to_work: 10 }
   enum privacy: { private_profile: 0, public_profile: 10 }
 
@@ -83,24 +83,18 @@ class Profile < ApplicationRecord
       .limit(limit)
   end
 
-  def set_default_photo
-    photo.attach(Rails.root.join('app/assets/images/default_portfoliorrr_photo.png'))
-  end
-
   private
 
   def valid_photo_content_type
-    return if photo.blank?
-    return if photo.content_type.in?(%w[image/jpg image/jpeg image/png])
+    return if photo.present? && photo.content_type.in?(%w[image/jpg image/jpeg image/png])
 
-    errors.add(:photo, message: 'deve ser do formato .jpg, .jpeg ou .png')
+    errors.add(:photo, message: 'deve ser do formato .jpg, .jpeg ou .png') if photo.present?
   end
 
   def photo_size_lower_than_3mb
-    return if photo.blank?
-    return if photo.byte_size <= 3.megabytes
+    return if photo.present? && photo.byte_size <= 3.megabytes
 
-    errors.add(:photo, message: 'deve ter no máximo 3MB')
+    errors.add(:photo, message: 'deve ter no máximo 3MB') if photo.present?
   end
 end
 
