@@ -7,7 +7,11 @@
       <%= link_to profile, class: "search-result card text-decoration-none py-2 px-5 rounded follower-card bg-light-subtle mt-3 w-50" do %>
         <div class="card-body row justify-content-center align-items-center">
           <div class="col-md-4 col-sm-3 profile-image">
-            <%= image_tag profile.photo_attachment, width: '100rem', alt: 'Foto de perfil', class: 'rounded rounded-circle px-2' if profile.photo.present? %>
+            <% if profile.photo.present? %>
+              <%= image_tag profile.photo_attachment, width: '100rem', alt: 'Foto de perfil', class: 'rounded rounded-circle px-2' %>
+            <% else %>
+              <%= image_tag 'default_portfoliorrr_photo.png', width: '100rem', alt: 'Foto de perfil', class: 'rounded rounded-circle px-2' %>
+            <% end %>
           </div>
           <div class="col-md-8">
             <h3 class="card-title text-primary text-decoration-underline text-center"><%= profile.full_name %></h3>

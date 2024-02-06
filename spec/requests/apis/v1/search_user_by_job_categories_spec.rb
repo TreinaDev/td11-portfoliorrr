@@ -18,7 +18,7 @@ describe 'Api busca usuários por categoria de trabalho' do
       user_d.profile.profile_job_categories.create!(job_category: ruby, description: 'Eu amo ruby.')
 
       get '/api/v1/profiles', params: { search: 'ruby' }
-      debugger
+
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
       json_response = JSON.parse(response.body)

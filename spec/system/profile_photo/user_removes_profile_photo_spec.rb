@@ -9,10 +9,12 @@ describe 'Usuário remove a foto de perfil' do
     visit profile_path(user.profile)
     click_on 'Alterar foto'
     click_on 'Remover foto de perfil'
+    user.reload
 
     expect(page).to have_current_path profile_path(user.profile)
+    expect(user.profile.photo_attachment).to be_blank
     expect(page).to have_content 'Sua foto foi removida com sucesso'
     expect(page).not_to have_css('img[src*="male-photo.jpg"]')
-    expect(page).to have_css('img[src*="default_portfoliorrr_photo.png"]')
+    expect(page).to have_css('img[src^="/assets/default_portfoliorrr_photo"]')
   end
 end
