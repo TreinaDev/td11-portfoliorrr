@@ -27,11 +27,7 @@
     <aside class="px-5">
       <section class="text-center d-flex flex-column align-items-center">
         <div class="ratio ratio-1x1 rounded-circle overflow-hidden w-25">
-          <% if @profile.photo.present? && @profile.valid? %>
-            <%= image_tag @profile.photo, alt: 'Foto de perfil', class: 'img-cover' %>
-          <% else %>
-            <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', class: 'img-cover' %>
-          <% end %>
+          <%= render 'profile_photo' %>
         </div>
 
         <%= link_to 'Alterar foto', edit_profile_path(@profile), class: 'badge bg-secondary' if current_user == @profile.user %>
