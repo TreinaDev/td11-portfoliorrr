@@ -10,7 +10,7 @@ describe 'Perfil mostra foto do usuário' do
       visit profile_path(user_a.profile)
 
       expect(page).to have_content user_a.full_name
-      expect(page).to have_css('img[src*="default_portfoliorrr_photo.png"]')
+      expect(page).to have_css('img[src^="/assets/default_portfoliorrr_photo"]')
     end
   end
 
