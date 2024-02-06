@@ -8,5 +8,5 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
-  config.example_status_persistence_file_path = './support/failures.txt'
+  config.example_status_persistence_file_path = './spec/support/failures.txt'
 end
