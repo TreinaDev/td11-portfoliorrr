@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_05_212125) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_06_025935) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -123,6 +123,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_212125) do
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id", "likeable_id", "likeable_type"], name: "index_likes_on_user_id_and_likeable_id_and_likeable_type", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "profile_id", null: false
+    t.string "notifiable_type"
+    t.integer "notifiable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "read", default: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["profile_id"], name: "index_notifications_on_profile_id"
   end
 
   create_table "personal_infos", force: :cascade do |t|
@@ -338,6 +349,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_212125) do
   add_foreign_key "invitation_requests", "profiles"
   add_foreign_key "invitations", "profiles"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "profiles"
   add_foreign_key "personal_infos", "profiles"
   add_foreign_key "posts", "users"
   add_foreign_key "professional_infos", "profiles"

@@ -2,14 +2,17 @@ require 'rails_helper'
 
 describe 'Usuário curte' do
   context 'Uma publicação' do
-    it 'com sucesso' do
+    it 'com sucesso e mailer é enviado' do
       post = create(:post)
       user = create(:user, email: 'user@email.com', citizen_id_number: '028.998.450-55')
+      notifications_mailer_spy = spy(NotificationsMailer)
+      stub_const('NotificationsMailer', notifications_mailer_spy)
 
       login_as user
       visit post_path(post)
       click_on 'Curtir'
 
+      expect(notifications_mailer_spy).to have_received(:notify_like)
       expect(page).to have_content('1 Curtida')
       expect(page).not_to have_content('Curtir')
       expect(page).to have_content('Descurtir')
