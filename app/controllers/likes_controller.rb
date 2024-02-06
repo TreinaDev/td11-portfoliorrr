@@ -7,6 +7,7 @@ class LikesController < ApplicationController
 
     like = current_user.likes.build(likeable:)
     if like.save
+      LikesMailer.with(like:).notify_like.deliver if like.likeable_type == 'Post'
       redirect_to post_path(post_id)
     else
       redirect_to post_path(post_id), alert: t('.error')

@@ -1,0 +1,6 @@
+<p> <%= "Olá, #{@like.likeable.user.full_name}!" %></p>
+
+<p> <%= link_to @like.user.full_name, profile_url(@like.user.profile) %> curtiu a <%= link_to "sua publicação", post_url(@like.likeable) %>!</p>
+
+Abraços,
+Portfoliorrr

@@ -3,8 +3,13 @@ require 'rails_helper'
 describe 'Usuário curte' do
   context 'Uma publicação' do
     it 'com sucesso' do
-      post = create(:post)
+      post = create(:post, title: 'Publicação do Teste')
       user = create(:user, email: 'user@email.com', citizen_id_number: '028.998.450-55')
+
+      mail = double('mail', deliver: true)
+      mailer_double = double('LikesMailer', notify_like: mail)
+      allow(LikesMailer).to receive(:with).and_return(mailer_double)
+      allow(mailer_double).to receive(:notify_like).and_return(mail)
 
       login_as user
       visit post_path(post)
@@ -13,6 +18,7 @@ describe 'Usuário curte' do
       expect(page).to have_content('1 Curtida')
       expect(page).not_to have_content('Curtir')
       expect(page).to have_content('Descurtir')
+      expect(mail).to have_received(:deliver)
     end
 
     it 'e deixa de curtir' do
