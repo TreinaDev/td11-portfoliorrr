@@ -12,9 +12,9 @@ describe 'Usuário recusa convite' do
     click_on invitation.project_title
     click_on 'Recusar'
 
-    expect(decline_invitation_job_spy).to have_received(:perform)
-    expect(page).to have_content 'Convite recusado'
-    expect(page).to have_content 'Recusado'
+    expect(decline_invitation_job_spy).to have_received(:perform_later)
+    expect(page).to have_content 'Convite sendo recusado'
+    expect(page).to have_content 'Processando'
     expect(page).not_to have_content 'Recusar'
   end
 

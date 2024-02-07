@@ -3,3 +3,4 @@ pt-BR:
     decline:
       error: 'Impossível recusar um convite que não esteja pendente'
       success: 'Convite recusado com sucesso'
+      processing: 'Convite sendo recusado'

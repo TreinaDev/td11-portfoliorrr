@@ -16,7 +16,7 @@ class InvitationsController < ApplicationController
     return redirect_to invitation_path(@invitation), notice: t('.error') unless @invitation.pending?
 
     @invitation.processing!
-    DeclineInvitationJob.perform
+    DeclineInvitationJob.perform_later @invitation
     redirect_to invitation_path(@invitation), notice: t('.processing')
   end
 
