@@ -1,1 +1,1 @@
-<p><%= @notification.notifiable.follower.full_name %> <%= I18n.t('notifications.new_follower_mail') %></p>
+<p><%= I18n.t('notifications.new_follower_mail', follower_name: @notification.notifiable.follower.full_name) %></p>
