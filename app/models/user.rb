@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :invitation_requests, through: :profile
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   enum role: { user: 0, admin: 10 }
 

@@ -2,19 +2,22 @@ class LikesMailer < ApplicationMailer
   default from: 'no-reply@portfoliorrr.com'
 
   def notify_like
-    @like = params[:like]
-
-    notify_post_like if @like.likeable.is_a?(Post)
-    notify_comment_like if @like.likeable.is_a?(Comment)
+    @user = params[:user]
+    fetch_likes_from_posts_and_comments
+    fetch_most_liked_post_and_comment
+    mail(subject: "Você recebeu #{@post_likes.count + @comment_likes.count} curtidas nas últimas 24 horas!",
+         to: @user.email)
   end
 
   private
 
-  def notify_post_like
-    mail(subject: "Curtiram sua publicação #{@like.likeable.title}", to: @like.likeable.user.email)
+  def fetch_likes_from_posts_and_comments
+    @post_likes = @user.posts.map(&:likes).flatten
+    @comment_likes = @user.comments.map(&:likes).flatten
   end
 
-  def notify_comment_like
-    mail(subject: "Curtiram seu comentário na publicação #{@like.likeable.post.title}", to: @like.likeable.user.email)
+  def fetch_most_liked_post_and_comment
+    @most_liked_post = @user.posts.sort_by { |post| post.likes.count }.reverse.first
+    @most_liked_comment = @user.comments.sort_by { |comment| comment.likes.count }.reverse.first
   end
 end
