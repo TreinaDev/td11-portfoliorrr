@@ -16,29 +16,33 @@ Abaixo, uma descrição dos endpoints disponíveis.
 GET /api/v1/job_categories
 ```
 
-Retorna a lista com todas as categorias de trabalho. (Status: 200)
+Retorna um JSON com atributo `data`, cujo valor é a lista com todas as categorias de trabalho. (Status: 200)
 
 ```json
-[
+{
+  "data": [
     {
-        "id": 1,
-        "name": "Web Design"
+      "id": 1,
+      "name": "Web Design"
     },
     {
-        "id": 2,
-        "name": "Programador Full Stack"
+      "id": 2,
+      "name": "Programador Full Stack"
     },
     {
-        "id": 3,
-        "name": "Ruby on Rails"
+      "id": 3,
+      "name": "Ruby on Rails"
     }
-]
+  ]
+}
 ```
 
 Retorno esperado caso não tenham categorias cadastradas. (Status: 200):
 
 ```json
-  []
+{
+  "data": []
+}
 ```
 
 ### Erros tratados
@@ -54,62 +58,49 @@ Retorno esperado:
 ```
 </details>
 
-## 2. Buscar por usuários na plataforma Portifoliorrr através dos campos `job_category.name` e `profile_job_category.description`
+## 2. Buscar por usuários na plataforma Portifoliorrr
 
 <details>
-<summary>GET /api/v1/profiles/search?search=query</summary>
+<summary>GET /api/v1/profiles</summary>
 
 <br>
 
 ### Endpoint
 
-query: Parâmetro que recebe string a ser buscada nos campos listados no título.
+query: Parâmetro que recebe string de nome da categoria ou descrição da categoria de trabalho.
 
 ```shell
-GET /api/v1/profiles/search?search=query
+GET /api/v1/profiles?search=query
 ```
 
 Retorna uma lista com todos os usuários referentes a busca. (Status: 200)
 
 ```json
-[
-  {
-      "user_id": 1,
-      "full_name": "João CampusCode Almeida",
-      "job_categories": [
-          {
-            "title": "Web Design",
-            "description": null
-          },
-          {
-            "title": "Programador Full Stack",
-            "description": null
-          },
-          {
-            "title": "Ruby on Rails",
-            "description": null
-          }
-      ]
-  },
-  {
-      "user_id": 3,
-      "full_name": "Gabriel Campos",
-      "job_categories": [
-          {
-            "title": "Web Design",
-            "description": null
-          },
-          {
-            "title": "Ruby on Rails",
-            "description": "faço umas app daora"
-          },
-          {
-            "title": "Programador Full Stack",
-            "description": "faço umas app loka"
-          }
-      ]
-  }
-]
+{
+  "data": [{ "profile_id": 1,
+              "full_name": "João CampusCode Almeida",
+              "job_categories": [
+                                  { "name": "Web Design",
+                                    "description": null },
+                                  { "name": "Programador Full Stack",
+                                    "description": null },
+                                  { "name": "Ruby on Rails",
+                                    "description": "Especialista em Rails" }
+                                ]
+            },
+            { "profile_i": 3,
+              "full_name": "Gabriel Campos",
+              "job_categories": [
+                                  { "name": "Web Design",
+                                    "description": null },
+                                  { "name": "Ruby on Rails",
+                                    "description": "faço umas app daora" },
+                                  { "name": "Programador Full Stack",
+                                    "description": "faço umas app loka"}
+                                ]
+            }
+          ]
+}
 ```
 
 Retorno esperado caso a busca não retorne resultados. (Status: 200):
@@ -130,21 +121,52 @@ Retorno esperado:
 }
 ```
 
-Erro para query de busca vazia (Status: 400)
+Resultados para query de busca vazia (Status: 200)
 
-Este erro acontece quando a busca é feita sem informar o parâmetro obrigatório query. Exemplos de buscas que retornarão este erro:
+Quando a busca é feita sem informar o parâmetro query. Retorna todos os usuários disponíveis para trabalhos. Exemplo de resposta para requisição sem query:
 
 ```shell
-GET /api/v1/profiles/search?search=
-
-GET /api/v1/profiles/search/
+GET /api/v1/profiles?search=
+GET /api/v1/profiles
 ```
 
 Retorno esperado:
 
 ```json
 {
-"error": "É necessário fornecer um parâmetro de busca"
+  "data": [{ "profile_id": 1,
+            "full_name": "João CampusCode Almeida",
+            "job_categories": [
+                                { "name": "Web Design",
+                                  "description": null },
+                                { "name": "Programador Full Stack",
+                                  "description": null },
+                                { "name": "Ruby on Rails",
+                                  "description": "Especialista em Rails" }
+                              ]
+            },
+            { "profile_id": 2,
+              "full_name": "Maria CampusCode Almeida",
+              "job_categories": [ { "name": "Web Design",
+                                    "description": null },
+                                  { "name": "Programador Full Stack",
+                                    "description": null },
+                                  { "name": "Ruby on Rails", 
+                                    "description": "Especialista em Rails" } 
+                                ] 
+            },
+            { "profile_id": 3,
+              "full_name": "Gabriel Campos",
+              "job_categories": [
+                                  { "name": "Web Design",
+                                    "description": null },
+                                  { "name": "Ruby on Rails",
+                                    "description": "faço umas app daora" },
+                                  { "name": "Programador Full Stack",
+                                    "description": "faço umas app loka" }
+                                ]
+            }
+          ]
 }
 ```
 </details>
@@ -168,14 +190,14 @@ Corpo da requisição:
 ```json
 {
   "invitation": {
-    "profile_id": 3,
-    "project_title": "Projeto Cola?Bora!",
-    "project_description": "Projeto Legal",
-    "project_category": "Tecnologia",
-    "colabora_invitation_id": 1,
-    "message": "Venha participar do meu projeto!",
-    "expiration_date": "2021-12-31"
-  }
+                  "profile_id": 3,
+                  "project_title": "Projeto Cola?Bora!",
+                  "project_description": "Projeto Legal",
+                  "project_category": "Tecnologia",
+                  "colabora_invitation_id": 1,
+                  "message": "Venha participar do meu projeto!",
+                  "expiration_date": "2021-12-31"
+                }
 }
 ```
 
@@ -184,8 +206,8 @@ Retorno esperado caso a requisição seja bem sucedida. (Status: 201)
 ```json
 {
   "data": {
-    "invitation_id": 1
-  }
+            "invitation_id": 1
+          }
 }
 ```
 
@@ -212,9 +234,9 @@ id de usuário inválido
 ```json
 {
   "invitation": {
-    "profile_id": 999999999999999,
-      etc...
-  }
+                  "profile_id": 999999999999999,
+                  etc...
+                }
 }
 ```
 
@@ -238,8 +260,8 @@ Corpo da requisição:
 ```json
 {
   "invitation": {
-    "status": "accepted"
-  }
+                  "status": "accepted"
+                }
 }
 ```
 
@@ -268,8 +290,8 @@ Outro exemplo de requisição que retornará este erro:
 ```json
 {
   "invitation": {
-    "status": "XXXinvalid_statusXXX"
-  }
+                  "status": "XXXinvalid_statusXXX"
+                }
 }
 ```
 
@@ -311,49 +333,37 @@ Retorno esperado caso a requisição seja bem sucedida. (Status: 200)
 
 {
   "data": {
-    "profile_id": 1,
-    "email": "joao@almeida.com",
-    "full_name": "João CampusCode Almeida",
-    "cover_letter": "Sou profissional organizado, esforçado e apaixonado pelo que faço",
-    "professional_infos": [
-      {
-        "company": "Campus Code",
-        "position": "Dev",
-        "start_date": "2022-12-12",
-        "end_date": "2023-12-12",
-        "description": "Muito código",
-        "current_job": false
-      }
-    ],
-    "education_infos": [
-      {
-        "institution": "Senai",
-        "course": "Web dev full stack",
-        "start_date": "2022-12-12",
-        "end_date": "2023-12-12"
-      },
-      {
-        "institution": "Senai",
-        "course": "Web dev full stack",
-        "start_date": "2022-12-12",
-        "end_date": "2023-12-12"
-      }
-    ],
-    "job_categories": [
-      {
-        "name": "Web Design",
-        "description": "Eu uso o Paint."
-      },
-      {
-        "name": "Programador Full Stack",
-        "description": "Prefiro Tailwind."
-      },
-      {
-        "name": "Ruby on Rails",
-        "description": "Eu amo Rails."
-      }
-    ]
-  }
+            "profile_id": 1,
+            "email": "joao@almeida.com",
+            "full_name": "João CampusCode Almeida",
+            "cover_letter": "Sou profissional organizado, esforçado e apaixonado pelo que faço",
+            "professional_infos": [
+                                    { "company": "Campus Code",
+                                      "position": "Dev",
+                                      "start_date": "2022-12-12",
+                                      "end_date": "2023-12-12",
+                                      "description": "Muito código",
+                                      "current_job": false }
+                                  ],
+            "education_infos": [
+                                  { "institution": "Senai",
+                                    "course": "Web dev full stack",
+                                    "start_date": "2022-12-12",
+                                    "end_date": "2023-12-12" },
+                                  { "institution": "Senai",
+                                    "course": "Web dev full stack",
+                                    "start_date": "2022-12-12",
+                                    "end_date": "2023-12-12" }
+                                ],
+            "job_categories": [
+                                  { "name": "Web Design",
+                                    "description": "Eu uso o Paint." },
+                                  { "name": "Programador Full Stack",
+                                    "description": "Prefiro Tailwind." },
+                                  { "name": "Ruby on Rails",
+                                    "description": "Eu amo Rails." }
+                              ]
+          }
 }
 ```
 

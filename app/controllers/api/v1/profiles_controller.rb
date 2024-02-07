@@ -1,13 +1,14 @@
 module Api
   module V1
     class ProfilesController < ApiController
-      def search
+      def index
         if params[:search].blank?
-          render status: :bad_request, json: { error: 'É necessário fornecer um parâmetro de busca' }
+          profiles = Profile.open_to_work
+          profiles = profiles.map { |profile| format_profile(profile) }
         else
           profiles = Profile.open_to_work.get_profile_job_categories_json(params[:search])
-          render status: :ok, json: profiles.as_json
         end
+        render status: :ok, json: { data: profiles }
       end
 
       def show
@@ -18,6 +19,14 @@ module Api
       end
 
       private
+
+      def format_profile(profile)
+        { profile_id: profile.id,
+          full_name: profile.full_name,
+          job_categories: profile.profile_job_categories.map do |category|
+            { name: category.job_category.name, description: category.description }
+          end }
+      end
 
       def result(profile)
         { data: {

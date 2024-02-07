@@ -1,0 +1,4 @@
+pt-BR:
+  connections_mailer:
+    notify_follow:
+      subject: 'Alguém seguiu seu perfil'
