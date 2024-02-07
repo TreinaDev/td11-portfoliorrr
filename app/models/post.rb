@@ -15,8 +15,6 @@ class Post < ApplicationRecord
 
   after_commit :schedule_post, on: %i[create update]
 
-  before_save :update_published_at, if: :status_changed_to_published?
-
   has_rich_text :content
 
   def self.get_sample(amount)
@@ -41,17 +39,8 @@ class Post < ApplicationRecord
 
   private
 
-  def status_changed_to_published?
-    status_changed? && status == 'published'
-  end
-
-  def update_published_at
-    self.published_at = Time.current if published? && published_at.nil?
-  end
-
   def schedule_post
-    return unless status == 'scheduled'
-    return if published_at.nil?
+    return unless status == 'scheduled' && !published_at.nil?
 
     wait = published_at - Time.zone.now
     PostSchedulerJob.set(wait:).perform_later(self) if wait.positive?
@@ -94,6 +83,6 @@ class Post < ApplicationRecord
   def validate_published_at
     return if published_at.nil?
 
-    errors.add(:published_at, 'não pode estar no passado') if published_at < Time.zone.now
+    errors.add(:published_at, 'não pode estar no passado') if published_at < (Time.zone.now - 10.seconds)
   end
 end

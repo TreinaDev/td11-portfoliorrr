@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: %w[new create edit pin]
   before_action :set_post, only: %w[show edit update pin]
   before_action :authorize!, only: %w[edit update pin]
+  before_action :blocks_update, only: %w[update]
 
   require 'image_processing/mini_magick'
 
@@ -56,6 +57,7 @@ class PostsController < ApplicationController
   def post_params
     post_params = params.require(:post).permit(:title, :content, :tag_list, :status, :published_at)
     post_params['edited_at'] = Time.zone.now
+    post_params['published_at'] = Time.zone.now if params['status'] == 'published'
     post_params
   end
 
@@ -65,5 +67,9 @@ class PostsController < ApplicationController
 
   def authorize!
     redirect_to root_path, alert: t('.redirect_alert.invalid_user') unless @post.user == current_user
+  end
+
+  def blocks_update
+    redirect_to root_path, alert: t('.error') if @post.published? && @post.published_at && post_params['published_at']
   end
 end

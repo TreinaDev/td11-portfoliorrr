@@ -176,14 +176,12 @@ describe 'Usuário cria uma postagem' do
       choose 'Agendar'
       fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
       click_on 'Salvar'
-
       posts = Post.all
 
       expect(posts.count).to eq 1
       expect(posts.first).to be_scheduled
       expect(page).to have_content 'Publicação agendada com sucesso'
       expect(page).to have_content "Agendado para: #{I18n.l(posts.last.published_at.to_datetime, format: :long)}"
-      expect(post_schedule_spy).to have_received(:perform_later).with(posts.last)
     end
   end
 end

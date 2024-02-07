@@ -3,5 +3,6 @@ class PostSchedulerJob < ApplicationJob
 
   def perform(post)
     post.published!
+    post.update(published_at: Time.zone.now)
   end
 end

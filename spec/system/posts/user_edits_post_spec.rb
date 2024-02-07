@@ -19,9 +19,7 @@ describe 'Usuário edita uma publicação' do
     fill_in 'Título da Publicação', with: 'O título mudou'
     fill_in_rich_text_area 'conteudo', with: 'A publicação também'
     fill_in 'Tags', with: 'tagA, tagB, tagC'
-    travel_to Time.zone.local(2025, 9, 7, 0, 0, 0) do
-      click_on 'Salvar'
-    end
+    click_on 'Salvar'
 
     expect(page).not_to have_content 'Programar Publicação'
     expect(page).to have_current_path post_path(post)
@@ -144,12 +142,13 @@ describe 'Usuário edita uma publicação' do
 
   it 'e programa data de publicação' do
     user = create(:user)
-    post = create(:post, user:, title: 'Post A', content: 'Primeira postagem', pin: 'pinned', status: 'draft')
+    post = create(:post, user:, status: 'draft')
     post_schedule_spy = spy('PostSchedulerJob')
     stub_const('PostSchedulerJob', post_schedule_spy)
 
     login_as user
     visit edit_post_path(post)
+    fill_in 'Título da Publicação', with: 'O título mudou'
     choose 'Agendar'
     fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
     click_on 'Salvar'
