@@ -8,13 +8,17 @@ RSpec.describe LikesMailer, type: :mailer do
       post_a = create(:post, user:)
       post_b = create(:post, user:)
       comment = create(:comment, user:)
-      3.times { create(:like, likeable: post_a) }
-      5.times { create(:like, likeable: post_b) }
-      2.times { create(:like, likeable: comment) }
+      create(:like, likeable: post_a)
+      create(:like, likeable: post_b)
+      create(:like, likeable: comment)
+
+      travel_to(2.days.ago) do
+        10.times { create(:like, likeable: post_a) }
+      end
       # act
       mail = LikesMailer.with(user:).notify_like
       # expect
-      expect(mail.subject).to eq 'Você recebeu 10 curtidas nas últimas 24 horas!'
+      expect(mail.subject).to eq 'Você recebeu 3 curtidas nas últimas 24 horas!'
       expect(mail.to).to eq [user.email]
       expect(mail.from).to eq ['no-reply@portfoliorrr.com']
     end
