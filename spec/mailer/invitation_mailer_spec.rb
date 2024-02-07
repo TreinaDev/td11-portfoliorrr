@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe InvitationsMailer, type: :mailer do
-  context 'invitation' do
+  context '#received_invitation' do
     it 'email caso receba um convite para projeto' do
       profile = create(:profile)
       invitation = create(:invitation, profile:)
