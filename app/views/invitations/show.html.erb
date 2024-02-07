@@ -29,6 +29,7 @@
             <p class="card-subtitle mb-2 text-success"><%= 'Aceito' if @invitation.accepted? %></p>
             <p class="card-subtitle mb-2 text-danger"><%= 'Expirado' if @invitation.expired? %></p>
             <p class="card-subtitle mb-2 text-danger"><%= 'Recusado' if @invitation.declined? %></p>
+            <p class="card-subtitle mb-2 text-dark"><%= 'Cancelado' if @invitation.cancelled? %></p>
             <p class="card-subtitle mb-2 text-info"> <%= 'Processando' if @invitation.processing? %></p>
           </div>
         </div>
