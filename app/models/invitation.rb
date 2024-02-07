@@ -1,5 +1,6 @@
 class Invitation < ApplicationRecord
   belongs_to :profile
+  has_one :notification, as: :notifiable, dependent: :destroy
 
   validates :profile_id, :project_title, :project_description,
             :project_category, :colabora_invitation_id, presence: true
@@ -9,6 +10,7 @@ class Invitation < ApplicationRecord
   enum status: { pending: 0, accepted: 1, declined: 2, cancelled: 3, expired: 4, removed: 5 }
 
   after_create :set_status
+  after_create :create_notification
 
   def set_status
     self.status = 'pending'
@@ -22,5 +24,11 @@ class Invitation < ApplicationRecord
 
   def truncate_description
     project_description.truncate(30)
+  end
+
+  private
+
+  def create_notification
+    Notification.create(profile:, notifiable: self)
   end
 end
