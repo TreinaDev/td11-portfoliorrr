@@ -7,7 +7,7 @@ describe 'Usuário solicita convite para projetos' do
 
       fake_projects_response = double('faraday_response', status: 200, body: json_projects_data)
 
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/projects').and_return(fake_projects_response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_projects_response)
 
       user = create(:user)
 
@@ -32,7 +32,7 @@ assim que o sistema voltar ao normal."
 
       fake_projects_response = double('faraday_response', status: 200, body: json_projects_data)
 
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/projects').and_return(fake_projects_response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_projects_response)
 
       user = create(:user)
 
