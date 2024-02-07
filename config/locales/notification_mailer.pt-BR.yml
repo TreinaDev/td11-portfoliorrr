@@ -1,4 +1,0 @@
-pt-BR:
-  notifications_mailer:
-    notify_like:
-      subject: 'Alguém curtiu seu post'
