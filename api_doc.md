@@ -16,7 +16,7 @@ Abaixo, uma descrição dos endpoints disponíveis.
 GET /api/v1/job_categories
 ```
 
-Retorna um JSON com atributo `data`, cujo valor é a lista com todas as categorias de trabalho. (Status: 200)
+Retorna um JSON com atributo `data`, cujo valor é a lista com todas as categorias de trabalho. **(Status: 200)**
 
 ```json
 {
@@ -37,7 +37,7 @@ Retorna um JSON com atributo `data`, cujo valor é a lista com todas as categori
 }
 ```
 
-Retorno esperado caso não tenham categorias cadastradas. (Status: 200):
+Retorno esperado caso não tenham categorias cadastradas. **(Status: 200)**:
 
 ```json
 {
@@ -47,7 +47,7 @@ Retorno esperado caso não tenham categorias cadastradas. (Status: 200):
 
 ### Erros tratados
 
-Erro interno de servidor (Status: 500)
+Erro interno de servidor **(Status: 500)**
 
 Retorno esperado:
 
@@ -58,7 +58,54 @@ Retorno esperado:
 ```
 </details>
 
-## 2. Buscar por usuários na plataforma Portifoliorrr
+## 2. Retornar uma categoria de trabalho
+
+<details>
+<summary>GET /api/v1/job_categories/:id</summary>
+
+<br>
+
+### Endpoint
+
+```shell
+GET /api/v1/job_categories/:id
+```
+
+Retorno esperado caso a requisição seja bem sucedida. **(Status: 200)**
+
+```json
+{
+  "data": {
+    "id": 1,
+    "name": "Web Design"
+  }
+}
+```
+
+Retorno esperado caso não encontre a categoria de trabalho. **(Status: 404)**:
+
+```json
+{
+  "error": "Não encontrado"
+}
+```
+
+### Erros tratados
+
+Erro interno de servidor **(Status: 500)**
+
+Retorno esperado:
+
+```json
+{
+  { "error": "Houve um erro interno no servidor ao processar sua solicitação." }
+}
+```
+</details>
+
+
+
+## 3. Buscar por usuários na plataforma Portifoliorrr
 
 <details>
 <summary>GET /api/v1/profiles</summary>
@@ -73,7 +120,7 @@ query: Parâmetro que recebe string de nome da categoria ou descrição da categ
 GET /api/v1/profiles/search=query
 ```
 
-Retorna uma lista com todos os usuários referentes a busca. (Status: 200)
+Retorna uma lista com todos os usuários referentes a busca. **(Status: 200)**
 
 ```json
 {
@@ -103,7 +150,7 @@ Retorna uma lista com todos os usuários referentes a busca. (Status: 200)
 }
 ```
 
-Retorno esperado caso a busca não retorne resultados. (Status: 200):
+Retorno esperado caso a busca não retorne resultados. **(Status: 200)**:
 
 ```json
   []
@@ -111,7 +158,7 @@ Retorno esperado caso a busca não retorne resultados. (Status: 200):
 
 ### Erros tratados
 
-Erro interno de servidor (Status: 500)
+Erro interno de servidor **(Status: 500)**
 
 Retorno esperado:
 
@@ -121,7 +168,7 @@ Retorno esperado:
 }
 ```
 
-Resultados para query de busca vazia (Status: 200)
+Resultados para query de busca vazia **(Status: 200)**
 
 Quando a busca é feita sem informar o parâmetro query. Retorna todos os usuários disponíveis para trabalhos. Exemplo de resposta para requisição sem query:
 
@@ -172,148 +219,7 @@ Retorno esperado:
 ```
 </details>
 
-## 3. Criar convite para um usuário participar do projeto
-
-<details>
-<summary>POST /api/v1/invitations/</summary>
-
-<br>
-
-### Endpoint
-
-
-```shell
-POST /api/v1/invitations
-```
-
-Corpo da requisição:
-
-```json
-{
-  "invitation": {
-                  "profile_id": 3,
-                  "project_title": "Projeto Cola?Bora!",
-                  "project_description": "Projeto Legal",
-                  "project_category": "Tecnologia",
-                  "colabora_invitation_id": 1,
-                  "message": "Venha participar do meu projeto!",
-                  "expiration_date": "2021-12-31"
-                }
-}
-```
-
-Retorno esperado caso a requisição seja bem sucedida. (Status: 201)
-
-```json
-{
-  "data": {
-            "invitation_id": 1
-          }
-}
-```
-
-### Erros tratados
-
-Erro para corpo da requisição vazio (Status: 400)
-
-Resposta:
-```json
-{
-  "error": "Houve um erro ao processar sua solicitação."
-}
-```
-
-Este erro acontece quando a requisição é feita sem informar o corpo da requisição. Exemplo de requisição que retornará este erro:
-
-campos vazios
-
-```json
-{}
-```
-id de usuário inválido
-
-```json
-{
-  "invitation": {
-                  "profile_id": 999999999999999,
-                  etc...
-                }
-}
-```
-
-</details>
-
-## 4. Editar status de convite
-
-<details>
-<summary>PATCH /api/v1/invitations/:id</summary>
-
-<br>
-
-### Endpoint
-
-```shell
-PATCH /api/v1/invitations/:id
-```
-
-Corpo da requisição:
-
-```json
-{
-  "invitation": {
-                  "status": "accepted"
-                }
-}
-```
-
-Retorno esperado caso a requisição seja bem sucedida. (Status: 204)
-
-
-### Erros tratados
-
-Erro para corpo da requisição vazio (Status: 400)
-
-Resposta:
-```json
-{
-  "error": "Houve um erro ao processar sua solicitação."
-}
-```
-
-Este erro acontece quando a requisição é feita sem informar o corpo da requisição. Um exemplo de requisição que retornará este erro:
-
-```json
-{}
-```
-
-Outro exemplo de requisição que retornará este erro:
-
-```json
-{
-  "invitation": {
-                  "status": "XXXinvalid_statusXXX"
-                }
-}
-```
-
-Erro para id de convite inválido (Status: 404)
-
-Este erro acontece quando a requisição é feita com um id de convite que não existe. Exemplo de requisição que retornará este erro:
-
-```shell
-PATCH /api/v1/invitations/999999999999999
-```
-
-Retorno esperado:
-
-```json
-{
-  "error": "Não encontrado"
-}
-```
-</details>
-
-## 5. Mostrar dados completos do perfil de um usuário
+## 4. Mostrar dados completos do perfil de um usuário
 
 <details>
 <summary>GET /api/v1/profiles/:id</summary>
@@ -328,7 +234,7 @@ Requisição deve incluir id do perfil
 GET /api/v1/profiles/:id
 ```
 
-Retorno esperado caso a requisição seja bem sucedida. (Status: 200)
+Retorno esperado caso a requisição seja bem sucedida. **(Status: 200)**
 
 ```json
 
@@ -370,12 +276,153 @@ Retorno esperado caso a requisição seja bem sucedida. (Status: 200)
 
 ### Erros tratados
 
-Erro quando a id informada não é encontrada (Status: 404)
+Erro quando a id informada não é encontrada **(Status: 404)**
 
 Resposta:
 ```json
 {
   "error":"Perfil não existe."
+}
+```
+</details>
+
+## 5. Criar convite para um usuário participar do projeto
+
+<details>
+<summary>POST /api/v1/invitations/</summary>
+
+<br>
+
+### Endpoint
+
+
+```shell
+POST /api/v1/invitations
+```
+
+Corpo da requisição:
+
+```json
+{
+  "invitation": {
+                  "profile_id": 3,
+                  "project_title": "Projeto Cola?Bora!",
+                  "project_description": "Projeto Legal",
+                  "project_category": "Tecnologia",
+                  "colabora_invitation_id": 1,
+                  "message": "Venha participar do meu projeto!",
+                  "expiration_date": "2021-12-31"
+                }
+}
+```
+
+Retorno esperado caso a requisição seja bem sucedida. **(Status: 201)**
+
+```json
+{
+  "data": {
+            "invitation_id": 1
+          }
+}
+```
+
+### Erros tratados
+
+Erro para corpo da requisição vazio **(Status: 400)**
+
+Resposta:
+```json
+{
+  "error": "Houve um erro ao processar sua solicitação."
+}
+```
+
+Este erro acontece quando a requisição é feita sem informar o corpo da requisição. Exemplo de requisição que retornará este erro:
+
+campos vazios
+
+```json
+{}
+```
+id de usuário inválido
+
+```json
+{
+  "invitation": {
+                  "profile_id": 999999999999999,
+                  etc...
+                }
+}
+```
+
+</details>
+
+## 6. Editar status de convite
+
+<details>
+<summary>PATCH /api/v1/invitations/:id</summary>
+
+<br>
+
+### Endpoint
+
+```shell
+PATCH /api/v1/invitations/:id
+```
+
+Corpo da requisição:
+
+```json
+{
+  "invitation": {
+                  "status": "accepted"
+                }
+}
+```
+
+Retorno esperado caso a requisição seja bem sucedida. **(Status: 204)**
+
+
+### Erros tratados
+
+Erro para corpo da requisição vazio **(Status: 400)**
+
+Resposta:
+```json
+{
+  "error": "Houve um erro ao processar sua solicitação."
+}
+```
+
+Este erro acontece quando a requisição é feita sem informar o corpo da requisição. Um exemplo de requisição que retornará este erro:
+
+```json
+{}
+```
+
+Outro exemplo de requisição que retornará este erro:
+
+```json
+{
+  "invitation": {
+                  "status": "XXXinvalid_statusXXX"
+                }
+}
+```
+
+Erro para id de convite inválido **(Status: 404)**
+
+Este erro acontece quando a requisição é feita com um id de convite que não existe. Exemplo de requisição que retornará este erro:
+
+```shell
+PATCH /api/v1/invitations/999999999999999
+```
+
+Retorno esperado:
+
+```json
+{
+  "error": "Não encontrado"
 }
 ```
 </details>
