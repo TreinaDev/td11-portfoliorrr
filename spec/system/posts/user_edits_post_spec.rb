@@ -150,13 +150,13 @@ describe 'Usuário edita uma publicação' do
 
     login_as user
     visit edit_post_path(post)
-    choose 'Programar'
+    choose 'Agendar'
     fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
     click_on 'Salvar'
 
     post = Post.last
     expect(post).to be_scheduled
-    expect(page).to have_content "Publicado em: #{I18n.l(post.published_at.to_datetime, format: :long)}"
+    expect(page).to have_content "Agendado para: #{I18n.l(post.published_at.to_datetime, format: :long)}"
     expect(post_schedule_spy).to have_received(:perform_later).with(post)
   end
 end

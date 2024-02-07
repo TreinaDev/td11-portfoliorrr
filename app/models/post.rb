@@ -1,18 +1,22 @@
 class Post < ApplicationRecord
   belongs_to :user
-  validates :title, :content, :status, presence: true
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
 
+  validates :title, :content, :status, presence: true
   validate :correct_file_type
   validate :file_size
+  validate :validate_published_at
 
   enum status: { published: 0, archived: 5, draft: 10, scheduled: 15 }
   acts_as_ordered_taggable_on :tags
 
   enum pin: { unpinned: 0, pinned: 10 }
-  after_create :schedule_post
-  after_update :schedule_post
+
+  after_commit :schedule_post, on: %i[create update]
+
+  before_save :update_published_at, if: :status_changed_to_published?
+
   has_rich_text :content
 
   def self.get_sample(amount)
@@ -35,11 +39,15 @@ class Post < ApplicationRecord
     end
   end
 
-  def set_publish
-    self.published_at = Time.zone.now if published?
+  private
+
+  def status_changed_to_published?
+    status_changed? && status == 'published'
   end
 
-  private
+  def update_published_at
+    self.published_at = Time.current if published? && published_at.nil?
+  end
 
   def schedule_post
     return unless status == 'scheduled'
@@ -81,5 +89,11 @@ class Post < ApplicationRecord
     return unless attachment.attachable.content_type == content_type && attachment.attachable.byte_size > size_limit
 
     errors.add(:content, error_message)
+  end
+
+  def validate_published_at
+    return if published_at.nil?
+
+    errors.add(:published_at, 'não pode estar no passado') if published_at < Time.zone.now
   end
 end

@@ -13,12 +13,11 @@ pt-BR:
         draft: Rascunho
         published: Publicada
         archived: Arquivada
-        scheduled: Programada
-        status_scheduled: Programar Publicação
+        scheduled: Agendada
+        status_scheduled: Agendar
         status_archived: Arquivada
         status_draft: Rascunho
         status_published: Publicada
-        published_at: Programar Publicação
   posts:
     redirect_alert:
       invalid_user: Você não pode realizar essa ação

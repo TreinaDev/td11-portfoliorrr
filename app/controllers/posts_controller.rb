@@ -13,8 +13,6 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
 
-    @post.set_publish
-
     if @post.save
       message = @post.scheduled? ? '.scheduled-success' : '.success'
       redirect_to post_path(@post), notice: t(message)

@@ -3,7 +3,7 @@
     <h2 class="card-title"><%= @post.title %></h2>
     <div class="my-4">
       <% if current_user == @post.user %>
-        <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
+        <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
         <%= Post.human_attribute_name @post.status %>
       <% end %>
     </div>
@@ -16,7 +16,7 @@
 
     <p class="card-subtitle mb-2">
       <time datetime="<%= @post.created_at.to_date %>">  
-        <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime, format: :long)) %>
+        <%= date_fixer(@post) %> <%= I18n.l(@post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime, format: :long) %>
       </time>
     </p>
     <p>

@@ -10,18 +10,20 @@
   </div>
 
   <div class="form-group my-3">
-    <%= f.label :status_archived, class: 'form-check-label' %>
-    <%= f.radio_button :status, 'archived', class:'me-2 form-check-input' %> <br>
-    
     <%= f.label :status_published, class: 'form-check-label' %>
     <%= f.radio_button :status, 'published', class: 'me-2 form-check-input' %> <br>
 
     <%= f.label :status_draft, class: 'form-check-label' %>
     <%= f.radio_button :status, 'draft', class:'me-2 form-check-input' %> <br>
 
-    <%= f.label :status_scheduled, class: 'form-check-label' %>
-    <%= f.radio_button :status, 'scheduled', class: 'me-2 form-check-input mb-3' %>
-    <%= f.datetime_field :published_at, class: 'form-control w-25' %>
+    <%= f.label :status_archived, class: 'form-check-label' %>
+    <%= f.radio_button :status, 'archived', class:'me-2 form-check-input' %> <br>
+    
+    <% if !@post.published? || request.path == new_post_path %>
+      <%= f.label :status_scheduled, class: 'form-check-label' %>
+      <%= f.radio_button :status, 'scheduled', class: 'me-2 form-check-input mb-3' %>
+      <%= f.datetime_field :published_at, class: 'form-control w-25' %>
+    <% end %>
   </div>
 
   <div class="form-group">
