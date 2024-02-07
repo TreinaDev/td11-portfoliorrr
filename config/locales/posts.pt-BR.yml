@@ -14,6 +14,7 @@ pt-BR:
         published: Publicada
         archived: Arquivada
         scheduled: Agendada
+        published_at: Data de publicação
         status_scheduled: Agendar
         status_archived: Arquivada
         status_draft: Rascunho
