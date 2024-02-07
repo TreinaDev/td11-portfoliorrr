@@ -70,7 +70,7 @@ Retorno esperado:
 query: Parâmetro que recebe string de nome da categoria ou descrição da categoria de trabalho.
 
 ```shell
-GET /api/v1/profiles/search=query
+GET /api/v1/profiles?search=query
 ```
 
 Retorna uma lista com todos os usuários referentes a busca. (Status: 200)
@@ -126,9 +126,8 @@ Resultados para query de busca vazia (Status: 200)
 Quando a busca é feita sem informar o parâmetro query. Retorna todos os usuários disponíveis para trabalhos. Exemplo de resposta para requisição sem query:
 
 ```shell
-GET /api/v1/profiles/search?search=
-
-GET /api/v1/profiles/search/
+GET /api/v1/profiles?search=
+GET /api/v1/profiles
 ```
 
 Retorno esperado:
