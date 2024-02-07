@@ -16,29 +16,33 @@ Abaixo, uma descrição dos endpoints disponíveis.
 GET /api/v1/job_categories
 ```
 
-Retorna a lista com todas as categorias de trabalho. (Status: 200)
+Retorna um JSON com atributo `data`, cujo valor é a lista com todas as categorias de trabalho. (Status: 200)
 
 ```json
-[
+{
+  "data": [
     {
-        "id": 1,
-        "name": "Web Design"
+      "id": 1,
+      "name": "Web Design"
     },
     {
-        "id": 2,
-        "name": "Programador Full Stack"
+      "id": 2,
+      "name": "Programador Full Stack"
     },
     {
-        "id": 3,
-        "name": "Ruby on Rails"
+      "id": 3,
+      "name": "Ruby on Rails"
     }
-]
+  ]
+}
 ```
 
 Retorno esperado caso não tenham categorias cadastradas. (Status: 200):
 
 ```json
-  []
+{
+  "data": []
+}
 ```
 
 ### Erros tratados
