@@ -5,6 +5,8 @@
       <% if current_user == @post.user %>
         <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
         <%= Post.human_attribute_name @post.status %>
+      <% else %>
+        <%= link_to "Reportar", new_post_report_path(@post), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
 
@@ -15,7 +17,7 @@
     <p class="card-text"><%= @post.content %></p>
 
     <p class="card-subtitle mb-2">
-      <time datetime="<%= @post.created_at.to_date %>">  
+      <time datetime="<%= @post.created_at.to_date %>">
         <%= t('posts.views.show.publish_date', publish_date: I18n.l(@post.created_at.to_datetime, format: :long)) %>
       </time>
     </p>

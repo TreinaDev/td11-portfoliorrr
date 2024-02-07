@@ -19,6 +19,7 @@ class Profile < ApplicationRecord
   has_one_attached :photo
   has_many :invitations, dependent: :destroy
   has_many :posts, through: :user
+  has_many :reports, dependent: :destroy
 
   accepts_nested_attributes_for :personal_info
   accepts_nested_attributes_for :professional_infos
