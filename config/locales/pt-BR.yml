@@ -3,6 +3,8 @@ pt-BR:
   log in: 'Entrar'
   log out: 'Sair'
   login_required: 'Você não está logado'
+  scheduled: 'agendada'
+  published: 'criada'
   true: 'Sim'
   false: 'Não'
   followers:

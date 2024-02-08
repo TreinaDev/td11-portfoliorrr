@@ -23,7 +23,7 @@ pt-BR:
     redirect_alert:
       invalid_user: Você não pode realizar essa ação
     create:
-      success: "Publicação criada com sucesso!"
+      success: "Publicação %{status} com sucesso!"
       error: Não foi possível criar sua publicação
       scheduled-success: "Publicação agendada com sucesso"
     update:
