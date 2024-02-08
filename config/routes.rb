@@ -15,9 +15,10 @@ Rails.application.routes.draw do
 
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]
-    resources :reports, only: %i[new]
     post 'pin', on: :member
   end
+
+  resources :reports, only: %i[index new create]
 
   resources :users, only: [] do
     resources :posts, shallow: true, only: %i[show edit update]

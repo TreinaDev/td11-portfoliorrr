@@ -6,7 +6,7 @@
         <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
         <%= Post.human_attribute_name @post.status %>
       <% else %>
-        <%= link_to "Reportar", new_post_report_path(@post), class: 'btn btn-secondary btn-sm' %>
+        <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: 'post'), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
 

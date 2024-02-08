@@ -1,0 +1,15 @@
+pt-BR:
+  activerecord:
+    models:
+      report: Denúncia
+
+  
+    attributes:
+      report:
+        message: Mensagem
+        offence_type: Tipo de ofensa
+
+  reports:
+    create:
+      success: Sua denúncia foi registrada
+    report_btn: Denunciar
