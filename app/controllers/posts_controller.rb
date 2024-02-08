@@ -15,7 +15,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
 
     if @post.save
-      redirect_to post_path(@post), notice: t('.success', status: t(@post.status))
+      redirect_to post_path(@post), notice: t('.success', status: t("post_creation.#{@post.status}"))
     else
       flash.now[:notice] = t('.error')
       render 'new', status: :unprocessable_entity

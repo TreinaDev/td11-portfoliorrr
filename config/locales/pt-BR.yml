@@ -3,8 +3,6 @@ pt-BR:
   log in: 'Entrar'
   log out: 'Sair'
   login_required: 'Você não está logado'
-  scheduled: 'agendada'
-  published: 'criada'
   true: 'Sim'
   false: 'Não'
   followers:
@@ -15,3 +13,8 @@ pt-BR:
     return: Voltar
   application_errors:
     not_found: 'Não foi possível completar sua ação'
+  post_creation:
+    scheduled: 'agendada'
+    published: 'criada'
+    draft: 'criada'
+    archived: 'criada'
