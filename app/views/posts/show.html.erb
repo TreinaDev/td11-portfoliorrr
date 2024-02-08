@@ -6,7 +6,7 @@
         <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary' %>
         <%= Post.human_attribute_name @post.status %>
       <% else %>
-        <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: 'post'), class: 'btn btn-secondary btn-sm' %>
+        <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
 
@@ -69,12 +69,19 @@
         <div class="me-2">
           <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
         </div>
-        <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
-          <% like = comment.likes.find_by(user_id: current_user.id) %>
-          <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
-        <% else %>
-          <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
-        <% end %>
+
+        <div class="me-2">
+          <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+            <% like = comment.likes.find_by(user_id: current_user.id) %>
+            <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
+          <% else %>
+            <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
+          <% end %>
+        </div>
+
+        <div>
+          <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-dark btn-sm' %>
+        </div>
       </div>
     </div>
   <% end %>

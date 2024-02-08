@@ -11,8 +11,8 @@
     <%= f.select :offence_type, @offences, class: 'form-control' %>
   </div>
 
-  <%= f.hidden_field :reportable_id, value: @report.reportable.id %>
-  <%= f.hidden_field :reportable_type, value: 'Post' %>
+  <%= f.hidden_field :reportable_id, value: @reportable.id %>
+  <%= f.hidden_field :reportable_type, value: @reportable.class %>
 
   <%= f.submit t('reports.report_btn'), class: 'btn btn-primary mt-3' %>
 <% end %>

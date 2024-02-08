@@ -66,17 +66,20 @@
         <br>
         <div class="w-75">
           <% if current_user.profile != @profile %>
-            <% if @profile.following?(current_user.profile) %>
-              <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
-            <% elsif @profile.inactive_follower?(current_user.profile) %>
-              <%= button_to 'Seguir', connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
-            <% else %>
-              <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
-            <% end %>
+            <div>
+              <% if @profile.following?(current_user.profile) %>
+                <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
+              <% elsif @profile.inactive_follower?(current_user.profile) %>
+                <%= button_to 'Seguir', connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
+              <% else %>
+                <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
+              <% end %>
+            </div>
+            <div class="mt-2">
+              <%= link_to t('reports.report_btn'), new_report_path(reportable: @profile.id, reportable_type: @profile.class), class: 'btn btn-dark btn-sm' %>
+            </div>
           <% end %>
         </div>
-        
-
       </section>
       <section>
         <%= render 'profile/profile', profile: @profile, professional_infos: @professional_infos, personal_info: @personal_info %>
