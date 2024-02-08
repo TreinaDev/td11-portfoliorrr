@@ -24,7 +24,7 @@ module Api
         render status: :not_found, json: { error: error_msg }
       end
 
-      def return_conectionn_failed
+      def return_service_unavailable_error
         error_msg = 'Recurso não disponível'
         render status: :service_unavailable, json: { error: error_msg }
       end
