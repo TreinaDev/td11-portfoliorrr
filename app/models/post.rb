@@ -14,6 +14,7 @@ class Post < ApplicationRecord
   enum pin: { unpinned: 0, pinned: 10 }
 
   after_commit :schedule_post, on: %i[create update]
+  after_create :create_notification
 
   has_rich_text :content
 
@@ -38,6 +39,12 @@ class Post < ApplicationRecord
   end
 
   private
+
+  def create_notification
+    self.user.profile.connections.each do |connection|
+      Notification.create(profile: connection.follower, notifiable: self)
+    end
+  end
 
   def schedule_post
     return unless status == 'scheduled' && !published_at.nil?
