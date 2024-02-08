@@ -5,6 +5,7 @@ module Api
       rescue_from ActiveRecord::RecordInvalid, with: :return_bad_request_error
       rescue_from ActionController::ParameterMissing, with: :return_bad_request_error
       rescue_from ActiveRecord::RecordNotFound, with: :return_not_found_error
+      rescue_from Faraday::ConnectionFailed, with: :return_service_unavailable_error
 
       private
 
@@ -21,6 +22,11 @@ module Api
       def return_not_found_error
         error_msg = 'Não encontrado'
         render status: :not_found, json: { error: error_msg }
+      end
+
+      def return_conectionn_failed
+        error_msg = 'Recurso não disponível'
+        render status: :service_unavailable, json: { error: error_msg }
       end
     end
   end

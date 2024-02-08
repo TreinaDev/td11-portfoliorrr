@@ -1,44 +1,63 @@
 <div class="container" id="vue-projects-app">
-  <h2 class="text-center">Lista de Projetos</h2>
+  <h2 class="text-center">Pesquisa de Projetos no Cola?Bora!</h2>
+
   <div v-if="emptyData" class="text-center">
     <p>{{ emptyData }}</p>
   </div>
+
   <div class="row" v-else>
     <div class="col-md-4 mx-auto mt-3">
       <label class="form-label visually-hidden" for="searchText">Pesquisar</label>
       <input class="form-control" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Digite sua pesquisa">
+
       <div class="d-flex gap-3 mt-3">
         <button class="btn btn-primary" v-on:click="setFilter('todos')" v-bind:class="{ 'btn-secondary': 'todos' === selectedFilter }">
           Todos
         </button>
+
         <button class="btn btn-primary" v-on:click="setFilter('title')" v-bind:class="{ 'btn-secondary': 'title' === selectedFilter }">
           Título
         </button>
+
         <button class="btn btn-primary" v-on:click="setFilter('description')" v-bind:class="{ 'btn-secondary': 'description' === selectedFilter }">
           Descrição
         </button>
+
         <button class="btn btn-primary" v-on:click="setFilter('category')" v-bind:class="{ 'btn-secondary': 'category' === selectedFilter }">
           Categoria
         </button>
       </div>
     </div>
-    <div class="mt-5 alert alert-warning text-center" v-if="filteredProjects.length === 0">
-      <h3>Não foi possível encontrar nenhum projeto.</h3>
-    </div>
+
+    <h3 v-if="errorMsg" class="mt-5 alert alert-danger text-center">
+      Não foi possível carregar os projetos. Tente mais tarde
+    </h3>
+
+    <h3 v-else-if="projects.length && filteredProjects.length === 0 && !errorMsg" class="mt-5 alert alert-warning text-center">
+      Não foi possível encontrar nenhum projeto.
+    </h3>
+
+    <h3 v-else-if="projects.length == 0 && !errorMsg" class="mt-5 alert alert-warning text-center">
+      Não há projetos cadastrados no momento.
+    </h3>
     <div v-else>
       <div class="mt-5 border-top w-50 mx-auto" v-for="project in filteredProjects" :key="project.id">
         <h3 class="mt-3">{{ project.title }}</h3>
         <p>Descrição: {{ project.description }}</p>
         <p>Categoria: {{ project.category }}</p>
+
         <button class="btn btn-primary" @click="showForm(project.id)" v-if="!invitationRequestsProjectsIds.includes(project.id)" >Solicitar Convite</button>
         <button v-else class="btn btn-warning" disabled >Convite Solicitado</button>
+
         <div v-if="showingForm && currentProjectId === project.id">
           <%= form_with(model: @invitation_request, url: invitation_request_path, method: :post, local: true) do |form| %>
             <input type="hidden" name="project_id" :value="project.id" />
+
             <p>
               <%= form.label :message, class: 'form-label' %>
               <%= form.text_area :message, class: 'form-control', placeholder: 'Escreva sua mensagem para o líder do projeto' %>
             </p>
+
             <p>
               <%= form.submit 'Enviar', class: 'btn btn-primary' %>
             </p>

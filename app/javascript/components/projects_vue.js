@@ -1,13 +1,16 @@
+let controller = new AbortController();
+let signal = controller.signal;
+
 export default {
   data() {
     return {
       projects: [],
       searchText: '',
       selectedFilter: '',
-      emptyData: '',
       showingForm: false,
       currentProjectId: null,
       invitationRequestsProjectsIds: window.invitationRequestsProjectsIds,
+      errorMsg: false,
     }
   },
   computed:{
@@ -36,14 +39,28 @@ export default {
     },
   },
 
+  beforeUnmount() {
+    controller.abort();
+  },
+
   async created() {
-    let response = await fetch('/api/v1/projects');
-    if (response.ok) {
-      let data = await response.json();
-      if (data.message) {
-        this.emptyData = data.message;
+    this.errorMsg = false;
+
+    try {
+      let response = await fetch('/api/v1/projects', { signal });
+      if (response.ok) {
+        let data = await response.json();
+        if (!data.message) {
+          this.projects = data;
+        }
       } else {
-        this.projects = data;
+        this.errorMsg = true;
+      }
+    } catch (error) {
+      if (error.name == 'AbortError') {
+        console.log('Requisição abortada');
+      } else {
+        this.errorMsg = true;
       }
     }
   }
