@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
   resources :job_categories, only: %i[index create destroy]
-
+  resources :notifications, only: %i[index]
+  
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]
     post 'pin', on: :member
@@ -45,7 +46,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :projects, only: %i[index]
-      resources :job_categories, only: %i[index]
+      resources :job_categories, only: %i[index show]
       resources :profiles, only: %i[show index]
       resources :invitations, only: %i[create update]
     end

@@ -121,5 +121,3 @@ FactoryBot.create(:invitation, profile: joao.profile, status: 'pending', project
 
 invitation = FactoryBot.build(:invitation, profile: joao.profile, status: 'declined', project_title: 'Projeto Code Saga', project_description: 'Aprender a programar', project_category: 'Education', expiration_date: 1.week.ago)
 invitation.save(validate: false)
-
-

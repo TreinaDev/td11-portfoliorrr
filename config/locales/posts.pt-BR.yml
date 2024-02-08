@@ -13,6 +13,9 @@ pt-BR:
         draft: Rascunho
         published: Publicada
         archived: Arquivada
+        scheduled: Agendada
+        published_at: Data de publicação
+        status_scheduled: Agendar
         status_archived: Arquivada
         status_draft: Rascunho
         status_published: Publicada
@@ -20,8 +23,9 @@ pt-BR:
     redirect_alert:
       invalid_user: Você não pode realizar essa ação
     create:
-      success: Publicação criada com sucesso!
+      success: "Publicação %{status} com sucesso!"
       error: Não foi possível criar sua publicação
+      scheduled-success: "Publicação agendada com sucesso"
     update:
       success: Publicação editada com sucesso!
       error: A publicação não pôde ser editada
@@ -39,3 +43,4 @@ pt-BR:
         authored_by: "Criado por %{author_name}"
         publish_date: "Publicado em: %{publish_date}"
         last_update: "Última atualização em: %{update_date}"
+
