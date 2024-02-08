@@ -3,10 +3,7 @@ require 'rails_helper'
 describe 'Usuário vê notificações de convite' do
   it 'com sucesso' do
     user = create(:user)
-    invitation = build(:invitation, profile: user.profile)
-    travel_to 1.day.ago do
-      invitation.save
-    end
+    invitation = create(:invitation, profile: user.profile, created_at: 1.day.ago)
 
     login_as user
     visit root_path

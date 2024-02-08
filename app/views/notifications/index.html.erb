@@ -5,7 +5,7 @@
       <% @notifications.each do |notification| %>
         <div class="list-group">
           <p>Você recebeu um convite para <%= link_to notification.notifiable.project_title, invitation_path(notification.notifiable) %>
-          há <%= distance_of_time_in_words_to_now(notification.created_at) %></p>
+          há <%= distance_of_time_in_words_to_now(notification.notifiable.created_at) %></p>
         </div>
       <% end %>
     </div>
