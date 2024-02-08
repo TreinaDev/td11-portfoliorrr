@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :settings, only: %i[index], as: :profile_settings
+  
+  patch 'deactivate_account', controller: :settings
+
   patch 'work_unavailable', controller: :profiles
   patch 'open_to_work', controller: :profiles
   patch 'change_privacy', controller: :profiles
