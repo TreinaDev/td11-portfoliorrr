@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
   before_action :set_reportable_for_new, only: :new
   before_action :set_reportable_for_create, only: :create
   before_action :redirect_unless_published_post
+  before_action :authorize!, only: %i[index show]
 
   def new
     set_offences
@@ -12,6 +13,17 @@ class ReportsController < ApplicationController
   def create
     @report.save!
     redirect_to root_path, notice: t('.success')
+  end
+
+  def index
+    return @reports = Report.granted.all if params[:filter] == 'granted'
+    return @reports = Report.not_granted.all if params[:filter] == 'not_granted'
+
+    @reports = Report.pending.all
+  end
+
+  def show
+    @report = Report.find(params[:id])
   end
 
   private
@@ -48,5 +60,11 @@ class ReportsController < ApplicationController
     return true unless @reportable.is_a? Post
 
     @reportable.published?
+  end
+
+  def authorize!
+    return if current_user.admin?
+
+    redirect_to root_path, alert: t('alerts.unauthorized')
   end
 end

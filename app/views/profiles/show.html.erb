@@ -27,7 +27,7 @@
     <aside class="px-5">
       <section class="text-center d-flex flex-column align-items-center">
         <div class="ratio ratio-1x1 rounded-circle overflow-hidden w-50">
-          <%= render 'profile_photo' %>
+          <%= render partial: 'profile_photo', locals: { profile: @profile } %>
         </div>
 
         <%= link_to 'Alterar foto', edit_profile_path(@profile), class: 'badge bg-secondary' if current_user == @profile.user %>
