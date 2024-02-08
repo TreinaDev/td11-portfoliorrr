@@ -46,8 +46,6 @@ RSpec.describe LikesMailer, type: :mailer do
       expect(mail.body).to include 'para acessar seu perfil e continuar interagindo.'
     end
 
-    pending 'não envia e-mail em caso de autocurtida de publicação'
-    pending 'não envia e-mail em caso de autocurtida de comentário'
     pending 'não envia e-mail caso o mesmo usuário curta publicação 2x ou mais em menos de 10 minutos'
     pending 'não envia e-mail caso o mesmo usuário curta comentário 2x ou mais em menos de 10 minutos'
   end

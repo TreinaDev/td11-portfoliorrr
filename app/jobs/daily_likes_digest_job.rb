@@ -8,7 +8,7 @@ class DailyLikesDigestJob < ApplicationJob
 
   def perform(user:)
     return if user.received_zero_likes?(ONE_DAY)
-    
+
     LikesMailer.with(user:).notify_like.deliver
   end
 end

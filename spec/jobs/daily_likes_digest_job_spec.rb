@@ -23,7 +23,7 @@ RSpec.describe DailyLikesDigestJob, type: :job do
     user = create(:user)
     travel_to(2.days.ago) do
       post = create(:post, user:)
-      10.times {create(:like, likeable: post)}
+      10.times { create(:like, likeable: post) }
     end
 
     mail = double('mail', deliver: true)
@@ -36,12 +36,28 @@ RSpec.describe DailyLikesDigestJob, type: :job do
     expect(mail).not_to have_received(:deliver)
   end
 
+  it 'não envia e-mail caso as curtidas que existam sejam apenas do próprio usuário' do
+    user = create(:user)
+    post = create(:post, user:)
+    comment = create(:comment, post:, user:)
+    create(:like, user:, likeable: post)
+    create(:like, user:, likeable: comment)
+
+    mail = double('mail', deliver: true)
+    mailer = double('LikesMailer', notify_new_like: true)
+    allow(LikesMailer).to receive(:with).with(user:).and_return(mailer)
+    allow(mailer).to receive(:notify_like).and_return(mail)
+
+    DailyLikesDigestJob.perform_now(user:)
+
+    expect(mail).not_to have_received(:deliver)
+  end
+
   it 'O serviço se reagenda para rodar um próxima vez' do
     user = create(:user)
     ActiveJob::Base.queue_adapter = :test
 
-    expect {
-      DailyLikesDigestJob.perform_now(user:)
-    }.to have_enqueued_job(DailyLikesDigestJob).with(user:).on_queue('default')
+    expect { DailyLikesDigestJob.perform_now(user:) }.to have_enqueued_job(DailyLikesDigestJob)
+                                                     .with(user:).on_queue('default')
   end
 end

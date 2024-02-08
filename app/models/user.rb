@@ -32,25 +32,29 @@ class User < ApplicationRecord
   end
 
   def received_post_likes_since(number_of_days)
-    posts.map(&:likes).flatten.select { |like| like.created_at >= number_of_days.days.ago.at_midnight.getlocal }
+    posts.map(&:likes).flatten.select do |like|
+      like.created_at >= number_of_days.days.ago.at_midnight.getlocal && like.user != self
+    end
   end
 
   def received_comment_likes_since(number_of_days)
-    comments.map(&:likes).flatten.select { |like| like.created_at >= number_of_days.days.ago.at_midnight.getlocal }
+    comments.map(&:likes).flatten.select do |like|
+      like.created_at >= number_of_days.days.ago.at_midnight.getlocal && like.user != self
+    end
   end
 
   def most_liked_post_since(number_of_days)
     received_post_likes_since(number_of_days)
       .group_by(&:likeable)
-      .transform_values { |likes| likes.count }
-      .max_by { |post, likes_count| likes_count }.first
+      .transform_values(&:count)
+      .max_by { |_post, likes_count| likes_count }.first
   end
 
   def most_liked_comment_since(number_of_days)
     received_comment_likes_since(number_of_days)
       .group_by(&:likeable)
-      .transform_values { |likes| likes.count }
-      .max_by { |comment, likes_count| likes_count }.first
+      .transform_values(&:count)
+      .max_by { |_comment, likes_count| likes_count }.first
   end
 
   def received_zero_likes?(number_of_days)
