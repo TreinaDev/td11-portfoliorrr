@@ -7,7 +7,7 @@ describe 'Usuário visita página de projetos' do
 
       fake_response = double('faraday_response', status: 200, body: json_data)
 
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/projects').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
       user = create(:user)
 
@@ -39,7 +39,7 @@ describe 'Usuário visita página de projetos' do
 
       fake_response = double('faraday_response', status: 200, body: json_data.to_json)
 
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/projects').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
       user = create(:user)
       login_as user
@@ -56,7 +56,7 @@ describe 'Usuário visita página de projetos' do
 
       fake_response = double('faraday_response', status: 200, body: json_data)
 
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/projects').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
       user = create(:user)
 
@@ -84,7 +84,7 @@ describe 'Usuário visita página de projetos' do
 
       fake_response = double('faraday_response', status: 200, body: json_data)
 
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/projects').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
       user = create(:user)
       login_as user
@@ -111,7 +111,7 @@ describe 'Usuário visita página de projetos' do
 
       fake_response = double('faraday_response', status: 200, body: json_data)
 
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/projects').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
       user = create(:user)
       login_as user
@@ -138,7 +138,7 @@ describe 'Usuário visita página de projetos' do
 
       fake_response = double('faraday_response', status: 200, body: json_data)
 
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/projects').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
       user = create(:user)
       login_as user
@@ -165,7 +165,7 @@ describe 'Usuário visita página de projetos' do
 
       fake_response = double('faraday_response', status: 200, body: json_data)
 
-      allow(Faraday).to receive(:get).with('http://localhost:4000/api/v1/projects').and_return(fake_response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
       user = create(:user)
       login_as user
@@ -196,5 +196,20 @@ describe 'Usuário visita página de projetos' do
       expect(page).to have_current_path(new_user_session_path)
       expect(page).to_not have_link('Projetos')
     end
+  end
+
+  it 'e a API retorna 500' do
+    json_data = File.read(Rails.root.join('./spec/support/json/errors.json'))
+    fake_response = double('faraday_response', status: 500, body: json_data)
+
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
+
+    user = create(:user)
+    login_as user
+    visit root_path
+    click_button class: 'dropdown-toggle'
+    click_on 'Projetos'
+
+    expect(page).to have_content 'Não foi possível encontrar nenhum projeto.'
   end
 end

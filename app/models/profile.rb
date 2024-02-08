@@ -19,6 +19,7 @@ class Profile < ApplicationRecord
   has_one_attached :photo
   has_many :invitations, dependent: :destroy
   has_many :posts, through: :user
+  has_many :notifications, dependent: :destroy
 
   has_many :reports_submitted, class_name: 'Report', dependent: :destroy
 

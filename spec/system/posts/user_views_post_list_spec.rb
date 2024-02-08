@@ -34,15 +34,13 @@ describe 'Usuário vê a lista de publicações' do
 
   it 'e vê a data de cada publicação' do
     user = create(:user, full_name: 'Gabriel Castro')
-    travel_to(2.days.ago) do
-      @post = create(:post, user:, title: 'Post A', content: 'Primeira postagem')
-    end
+    @post = create(:post, user:, title: 'Post A', content: 'Primeira postagem', status: :published,
+                          published_at: 2.days.from_now)
 
     login_as user
     visit profile_path(user)
 
-    expect(page).to have_content I18n.l(@post.created_at, format: :long)
-    expect(page).to have_content ' - 2 dias'
+    expect(page).to have_content 'Há 2 dias'
   end
 
   it 'e vê as postagens ordenadas da mais recente à mais antiga' do

@@ -13,3 +13,8 @@ pt-BR:
     return: Voltar
   application_errors:
     not_found: 'Não foi possível completar sua ação'
+  post_creation:
+    scheduled: 'agendada'
+    published: 'criada'
+    draft: 'criada'
+    archived: 'criada'
