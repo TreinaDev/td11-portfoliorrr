@@ -27,19 +27,6 @@ module Api
             { name: category.job_category.name, description: category.description }
           end }
       end
-
-      def result(profile)
-        { data: {
-          profile_id: profile.id, email: profile.user.email,
-          full_name: profile.full_name, cover_letter: profile.cover_letter,
-          professional_infos: profile.professional_infos.as_json(only: %i[company position start_date end_date
-                                                                          current_job description]),
-          education_infos: profile.education_infos.as_json(only: %i[institution course start_date end_date]),
-          job_categories: profile.profile_job_categories.map do |category|
-            { name: category.job_category.name, description: category.description }
-          end
-        } }
-      end
     end
   end
 end
