@@ -7,6 +7,7 @@ class ConnectionsController < ApplicationController
     new_follow = @profile.connections.build(follower: current_user.profile)
 
     if new_follow.save
+      ConnectionsMailer.with(notification: new_follow.notification).notify_follow.deliver_later
       redirect_to profile_path(@profile), notice: t('.success', full_name: @profile.full_name)
     else
       redirect_to profile_path(@profile), alert: t('.error')

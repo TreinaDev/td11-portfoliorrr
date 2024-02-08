@@ -3,6 +3,7 @@ module Api
     class InvitationsController < ApiController
       def create
         invitation = Invitation.create!(invite_params)
+        InvitationsMailer.with(invitation).received_invitation.deliver_later
         render status: :created, json: { data: { invitation_id: invitation.id } }
       end
 
