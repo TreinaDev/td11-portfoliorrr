@@ -1,9 +1,7 @@
 FactoryBot.define do
   factory :report do
-    message { "MyText" }
-    status { 1 }
-    reporting_profile { nil }
-    reportable { nil }
-    offence_type { "MyString" }
+    message { 'Isso é discurso de ódio' }
+    status { 0 }
+    offence_type { 'Discurso de ódio' }
   end
 end
