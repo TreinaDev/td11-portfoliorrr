@@ -83,6 +83,6 @@ class Post < ApplicationRecord
   def validate_published_at
     return if published_at.nil?
 
-    errors.add(:published_at, 'não pode estar no passado') if published_at < (Time.zone.now - 10.seconds)
+    errors.add(:published_at, 'não pode estar no passado') if published_at < (Time.zone.now - 1.second)
   end
 end

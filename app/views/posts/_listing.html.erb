@@ -10,9 +10,15 @@
           <%= post.content.to_plain_text.truncate(300, separator: ' ') %>
         </p>
         <p class="card-subtitle mb-2 text-muted">Publicado por: <%= post.user.full_name %></p>
-        <small>
-          Há <%= distance_of_time_in_words(Time.now, post.published_at ? post.published_at : post.created_at) %>
-        </small>
+        <% if post.scheduled?%>
+          <small>
+            <%= date_fixer(post) %> <%= I18n.l(post.published_at.to_datetime, format: :long) %>
+          </small>
+        <% else %>
+          <small>
+            Há <%= distance_of_time_in_words(Time.now, post.published_at ? post.published_at : post.created_at) %>
+          </small>
+        <% end %>
       </div>
     <% end %>
     <% if current_user == post.user %>

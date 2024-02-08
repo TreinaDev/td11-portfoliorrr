@@ -22,7 +22,7 @@
       </p>
     <% else %>
       <p class="card-subtitle mb-2">
-        <time datetime="<%= @post.created_at.to_date %>">  
+        <time datetime="<%= @post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime %>">  
           <%= date_fixer(@post) %> <%= I18n.l(@post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime, format: :long) %>
         </time>
       </p>
