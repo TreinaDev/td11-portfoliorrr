@@ -7,5 +7,7 @@ import "trix"
 import "@rails/actiontext"
 
 document.addEventListener('turbo:load', () => {
-  createApp(ProjectsComponent).mount('#vue-projects-app')
+  if (window.location.pathname === '/projects') {
+    createApp(ProjectsComponent).mount('#vue-projects-app')
+  }
 })

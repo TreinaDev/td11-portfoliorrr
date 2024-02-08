@@ -5,10 +5,17 @@ module Api
         job_categories = JobCategory.all
 
         if job_categories.empty?
-          render status: :ok, json: []
+          render status: :ok, json: { data: [] }
         else
-          render status: :ok, json: job_categories.as_json(except: %i[created_at updated_at])
+          job_categories = job_categories.as_json(except: %i[created_at updated_at])
+          render status: :ok, json: { data: job_categories }
         end
+      end
+
+      def show
+        job_category = JobCategory.find(params[:id])
+
+        render status: :ok, json: { data: job_category.as_json(except: %i[created_at updated_at]) }
       end
     end
   end

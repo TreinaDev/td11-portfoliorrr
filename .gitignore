@@ -41,3 +41,7 @@ coverage/
 
 /node_modules
 /spec/support/failures.txt
+
+### VisualStudioCode ###
+.vscode/*
+

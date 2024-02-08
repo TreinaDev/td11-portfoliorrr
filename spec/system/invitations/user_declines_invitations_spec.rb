@@ -4,14 +4,17 @@ describe 'Usuário recusa convite' do
   it 'com sucesso' do
     user = create(:user)
     invitation = create(:invitation, profile: user.profile)
-    login_as invitation.profile.user
+    decline_invitation_job_spy = spy(DeclineInvitationJob)
+    stub_const('DeclineInvitationJob', decline_invitation_job_spy)
 
+    login_as invitation.profile.user
     visit invitations_path
     click_on invitation.project_title
     click_on 'Recusar'
 
-    expect(page).to have_content 'Convite recusado'
-    expect(page).to have_content 'Recusado'
+    expect(decline_invitation_job_spy).to have_received(:perform_later)
+    expect(page).to have_content 'Convite sendo recusado'
+    expect(page).to have_content 'Processando'
     expect(page).not_to have_content 'Recusar'
   end
 

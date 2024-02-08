@@ -25,7 +25,7 @@ O Portfoliorrr é uma rede social com funcionalidades de portfólio para pessoas
 
 - Siga as instruções de configuração da aplicação
 - Rode o comando `bin/dev`;
-- Acesse a aplicação através do endereço `http://localhost:3000/`
+- Acesse a aplicação através do endereço `http://localhost:4000/`
 
 ## Como rodar os testes da aplicação
 

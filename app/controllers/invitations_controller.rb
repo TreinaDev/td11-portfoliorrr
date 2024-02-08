@@ -15,8 +15,9 @@ class InvitationsController < ApplicationController
   def decline
     return redirect_to invitation_path(@invitation), notice: t('.error') unless @invitation.pending?
 
-    @invitation.update status: 'declined'
-    redirect_to invitation_path(@invitation), notice: t('.success')
+    @invitation.processing!
+    DeclineInvitationJob.perform_later @invitation
+    redirect_to invitation_path(@invitation), notice: t('.processing')
   end
 
   def show; end

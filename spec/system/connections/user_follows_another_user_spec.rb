@@ -5,10 +5,16 @@ describe 'Usuário segue outro usuário' do
     followed = create(:user, full_name: 'Eliseu Ramos')
     follower = create(:user, full_name: 'Gabriel Manika', email: 'emailaleatorio@email.com',
                              citizen_id_number: '24432047070')
+    mail = double('mail', deliver_later: true)
+    mailer_double = double('NotificationsMailer', notify_follow: mail)
+    allow(ConnectionsMailer).to receive(:with).and_return(mailer_double)
+    allow(mailer_double).to receive(:notify_follow).and_return(mail)
 
     login_as follower
     visit profile_path(followed)
     click_on 'Seguir'
+
+    expect(mail).to have_received(:deliver_later)
 
     expect(Connection.count).to eq 1
     expect(current_path).to eq profile_path(followed)

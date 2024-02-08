@@ -5,6 +5,11 @@ describe 'API convites' do
     it 'com sucesso' do
       user_profile = create(:profile)
 
+      mail = double('mail', deliver_later: true)
+      mailer_double = double('InvitationsMailer', received_invitation: mail)
+      allow(InvitationsMailer).to receive(:with).and_return(mailer_double)
+      allow(mailer_double).to receive(:received_invitation).and_return(mail)
+
       post '/api/v1/invitations', params: {
         invitation: {
           profile_id: user_profile.id,
@@ -17,6 +22,7 @@ describe 'API convites' do
         }
       }
 
+      expect(mail).to have_received(:deliver_later)
       expect(response).to have_http_status(201)
       expect(response.content_type).to include 'application/json'
       json_response = JSON.parse(response.body)
