@@ -16,29 +16,33 @@ Abaixo, uma descrição dos endpoints disponíveis.
 GET /api/v1/job_categories
 ```
 
-Retorna a lista com todas as categorias de trabalho. (Status: 200)
+Retorna um JSON com atributo `data`, cujo valor é a lista com todas as categorias de trabalho. (Status: 200)
 
 ```json
-[
+{
+  "data": [
     {
-        "id": 1,
-        "name": "Web Design"
+      "id": 1,
+      "name": "Web Design"
     },
     {
-        "id": 2,
-        "name": "Programador Full Stack"
+      "id": 2,
+      "name": "Programador Full Stack"
     },
     {
-        "id": 3,
-        "name": "Ruby on Rails"
+      "id": 3,
+      "name": "Ruby on Rails"
     }
-]
+  ]
+}
 ```
 
 Retorno esperado caso não tenham categorias cadastradas. (Status: 200):
 
 ```json
-  []
+{
+  "data": []
+}
 ```
 
 ### Erros tratados
@@ -66,7 +70,7 @@ Retorno esperado:
 query: Parâmetro que recebe string de nome da categoria ou descrição da categoria de trabalho.
 
 ```shell
-GET /api/v1/profiles/search=query
+GET /api/v1/profiles?search=query
 ```
 
 Retorna uma lista com todos os usuários referentes a busca. (Status: 200)
@@ -122,9 +126,8 @@ Resultados para query de busca vazia (Status: 200)
 Quando a busca é feita sem informar o parâmetro query. Retorna todos os usuários disponíveis para trabalhos. Exemplo de resposta para requisição sem query:
 
 ```shell
-GET /api/v1/profiles/search?search=
-
-GET /api/v1/profiles/search/
+GET /api/v1/profiles?search=
+GET /api/v1/profiles
 ```
 
 Retorno esperado:

@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      notification:
+        one: 'Notificação'
+        other: 'Notificações'
+
+  notifications:
+    new_follower_mail: '%{follower_name} te seguiu'
+    new_notificaiton: 'Você recebeu uma nova notificação!'

@@ -7,7 +7,7 @@ class Invitation < ApplicationRecord
 
   validate :expiration_date_cannot_be_in_the_past
 
-  enum status: { pending: 0, accepted: 1, declined: 2, cancelled: 3, expired: 4, removed: 5 }
+  enum status: { pending: 0, accepted: 1, declined: 2, cancelled: 3, expired: 4, removed: 5, processing: 6 }
 
   after_create :set_status
   after_create :create_notification

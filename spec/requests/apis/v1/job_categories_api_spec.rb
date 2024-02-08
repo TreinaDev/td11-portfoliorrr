@@ -12,16 +12,18 @@ describe 'API categorias de trabalho' do
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
       json_response = JSON.parse(response.body)
-      expect(json_response.class).to eq Array
-      expect(json_response.count).to eq 3
-      expect(json_response.first.keys).not_to include 'created_at'
-      expect(json_response.first.keys).not_to include 'updated_at'
-      expect(json_response.first['id']).to eq 1
-      expect(json_response.first['name']).to eq 'Full Stack'
-      expect(json_response.second['id']).to eq 2
-      expect(json_response.second['name']).to eq 'Web Design'
-      expect(json_response.third['id']).to eq 3
-      expect(json_response.third['name']).to eq 'Ruby on Rails'
+      expect(json_response.class).to eq Hash
+      expect(json_response.keys).to include 'data'
+      expect(json_response['data'].class).to eq Array
+      expect(json_response['data'].count).to eq 3
+      expect(json_response['data'].first.keys).not_to include 'created_at'
+      expect(json_response['data'].first.keys).not_to include 'updated_at'
+      expect(json_response['data'].first['id']).to eq 1
+      expect(json_response['data'].first['name']).to eq 'Full Stack'
+      expect(json_response['data'].second['id']).to eq 2
+      expect(json_response['data'].second['name']).to eq 'Web Design'
+      expect(json_response['data'].third['id']).to eq 3
+      expect(json_response['data'].third['name']).to eq 'Ruby on Rails'
     end
 
     it 'retorna uma array vazia caso não existam categorias cadastradas' do
@@ -30,8 +32,8 @@ describe 'API categorias de trabalho' do
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
       json_response = JSON.parse(response.body)
-      expect(json_response.class).to eq Array
-      expect(json_response).to be_empty
+      expect(json_response.class).to eq Hash
+      expect(json_response['data']).to be_empty
     end
 
     it 'retorna um erro interno do servidor' do
