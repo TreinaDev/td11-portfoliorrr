@@ -1,4 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe RequestInvitationJob, type: :job do
+  it 'envia uma requisição ao Cola?Bora! para criar um proposal' do
+    invitation_request = create(:invitation_request)
+    invitation_request_params = { proposal: { project_id: invitation_request.project_id,
+                                              profile_id: invitation_request.profile.id, 
+                                              email: invitation_request.profile.email,
+                                              message: invitation_request.message } }
+    json_proposal_response = File.read(Rails.root.join('./spec/support/json/proposal_201.json'))
+    fake_proposal_response = double('faraday_response', status: 201, body: json_proposal_response)
+    connection_double = double('Faraday::Conection', post: fake_proposal_response)
+    allow(Faraday).to receive(:new)
+                  .with(url: 'http://localhost:4000', params: invitation_request_params)
+                  .and_return(connection_double)
+    allow(connection_double)
+                  .to receive(:post)
+                  .with('/api/v1/projects/request_invitation')
+                  .and_return(fake_proposal_response)
+
+    RequestInvitationJob.perform_now(invitation_request:)
+
+    expect(connection_double).to have_received(:post).with('/api/v1/projects/request_invitation')
+  end
+
+  # CONTEXTS: nossa api pode retornar: 200, 500
+    # 200 (API Portfoliorrr)
+      # 201 (API Cola?Bora) > sucesso completo
+      # 4XX (API Cola?Bora) > sucesso com erro
+      # 500 (API Cola?Bora) > sucesso com novo job
+    # 500 (API Portfoliorrr) > enfilera um novo job sem acrescer no contador
 end
