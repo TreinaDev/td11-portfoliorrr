@@ -13,7 +13,7 @@ module Api
       end
 
       def show
-        job_category = JobCategory.find(params[:id].to_i)
+        job_category = JobCategory.find(params[:id])
 
         render status: :ok, json: { data: job_category.as_json(except: %i[created_at updated_at]) }
       end

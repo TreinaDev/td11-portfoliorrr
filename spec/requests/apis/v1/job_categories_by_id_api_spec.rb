@@ -34,9 +34,9 @@ describe 'API categorias de trabalho por id' do
 
     it 'retorna um erro interno do servidor' do
       job_category = create(:job_category, name: 'Web Design')
-      allow(JobCategory).to receive(:find).with(job_category.id).and_raise(ActiveRecord::QueryCanceled)
+      allow(JobCategory).to receive(:find).and_raise(ActiveRecord::QueryCanceled)
 
-      get '/api/v1/job_categories/1'
+      get "/api/v1/job_categories/#{job_category.id}"
 
       expect(response).to have_http_status :internal_server_error
       json_response = JSON.parse(response.body)
