@@ -46,7 +46,43 @@ RSpec.describe LikesMailer, type: :mailer do
       expect(mail.body).to include 'para acessar seu perfil e continuar interagindo.'
     end
 
-    pending 'não envia e-mail caso o mesmo usuário curta publicação 2x ou mais em menos de 10 minutos'
-    pending 'não envia e-mail caso o mesmo usuário curta comentário 2x ou mais em menos de 10 minutos'
+    it 'oculta informações sobre comentários se não houverem curtidas em comentários' do
+      # arrange
+      user = create(:user)
+      post = create(:post, user:)
+      comment = create(:comment, user:)
+      3.times { create(:like, likeable: post) }
+      # act
+      mail = LikesMailer.with(user:).notify_like
+      # expect
+      expect(mail.body).to include "Olá, #{user.full_name}"
+      expect(mail.body).to include 'Seu perfil andou movimentado:'
+      expect(mail.body).to include 'Você recebeu 3 curtidas em seus posts'
+      expect(mail.body).not_to include 'Você recebeu 0 curtidas em seus comentários'
+      expect(mail.body).to include "A publicação mais curtida foi <a href=\"#{post_url(post)}\">#{post.title}</a>"
+      expect(mail.body).not_to include "O seu comentário mais curtido foi #{comment.message} na publicação "
+      expect(mail.body).not_to include "<a href=\"#{post_url(comment.post)}\">#{comment.post.title}</a>"
+      expect(mail.body).to have_link 'Clique aqui', href: profile_url(user.profile)
+      expect(mail.body).to include 'para acessar seu perfil e continuar interagindo.'
+    end
+
+    it 'oculta informações sobre publicações se não houverem curtidas em publicações' do
+      user = create(:user)
+      post = create(:post, user:)
+      comment = create(:comment, user:)
+      3.times { create(:like, likeable: comment) }
+
+      mail = LikesMailer.with(user:).notify_like
+
+      expect(mail.body).to include "Olá, #{user.full_name}"
+      expect(mail.body).to include 'Seu perfil andou movimentado:'
+      expect(mail.body).not_to include 'Você recebeu 0 curtidas em seus posts'
+      expect(mail.body).to include 'Você recebeu 3 curtidas em seus comentários'
+      expect(mail.body).not_to include "A publicação mais curtida foi <a href=\"#{post_url(post)}\">#{post.title}</a>"
+      expect(mail.body).to include "O seu comentário mais curtido foi #{comment.message} na publicação "
+      expect(mail.body).to include "<a href=\"#{post_url(comment.post)}\">#{comment.post.title}</a>"
+      expect(mail.body).to have_link 'Clique aqui', href: profile_url(user.profile)
+      expect(mail.body).to include 'para acessar seu perfil e continuar interagindo.'
+    end
   end
 end

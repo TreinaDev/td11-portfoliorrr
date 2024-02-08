@@ -32,18 +32,24 @@ class User < ApplicationRecord
   end
 
   def received_post_likes_since(number_of_days)
+    return [] if posts.map(&:likes).blank?
+
     posts.map(&:likes).flatten.select do |like|
       like.created_at >= number_of_days.days.ago.at_midnight.getlocal && like.user != self
     end
   end
 
   def received_comment_likes_since(number_of_days)
+    return [] if comments.map(&:likes).blank?
+
     comments.map(&:likes).flatten.select do |like|
       like.created_at >= number_of_days.days.ago.at_midnight.getlocal && like.user != self
     end
   end
 
   def most_liked_post_since(number_of_days)
+    return if received_post_likes_since(number_of_days).empty?
+
     received_post_likes_since(number_of_days)
       .group_by(&:likeable)
       .transform_values(&:count)
@@ -51,6 +57,8 @@ class User < ApplicationRecord
   end
 
   def most_liked_comment_since(number_of_days)
+    return if received_comment_likes_since(number_of_days).empty?
+
     received_comment_likes_since(number_of_days)
       .group_by(&:likeable)
       .transform_values(&:count)

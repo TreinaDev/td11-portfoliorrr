@@ -2,12 +2,15 @@
 
 <p>Seu perfil andou movimentado:</p>
 <dl>
-  <dd><%= "Você recebeu #{@post_likes.count} curtidas em seus posts" %></dd>
-  <dd><%= "Você recebeu #{@comment_likes.count} curtidas em seus comentários" %></dd>
+  <dd><%= "Você recebeu #{@post_likes.count} curtidas em seus posts" if @post_likes.any? %></dd>
+  <dd><%= "Você recebeu #{@comment_likes.count} curtidas em seus comentários" if @comment_likes.any? %></dd>
 </dl>
-
-<br><p><%= "A publicação mais curtida foi" %> <%= link_to @most_liked_post.title, post_url(@most_liked_post) %></p>
-<p><%= "O seu comentário mais curtido foi #{@most_liked_comment.message} na publicação"%> <%= link_to @most_liked_comment.post.title, post_url(@most_liked_comment.post) %></p>
+<% if @post_likes.any? %>
+  <br><p><%= "A publicação mais curtida foi" %> <%= link_to @most_liked_post.title, post_url(@most_liked_post) %></p>
+<% end %>
+<% if @comment_likes.any? %>
+  <p><%= "O seu comentário mais curtido foi #{@most_liked_comment.message} na publicação"%> <%= link_to @most_liked_comment.post.title, post_url(@most_liked_comment.post) %></p>
+<% end %>
 
 <br><p><%= link_to 'Clique aqui', profile_url(@user.profile) %> <%= "para acessar seu perfil e continuar interagindo." %></p>
 Abraços,
