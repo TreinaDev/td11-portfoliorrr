@@ -32,6 +32,7 @@ class Profile < ApplicationRecord
 
   enum work_status: { unavailable: 0, open_to_work: 10 }
   enum privacy: { private_profile: 0, public_profile: 10 }
+  enum status: { inactive: 0, active: 5 }
 
   delegate :full_name, to: :user
 
@@ -82,6 +83,12 @@ class Profile < ApplicationRecord
       .group(:id)
       .order('count(follower_id) DESC, id ASC')
       .limit(limit)
+  end
+
+  def inactive!
+    super
+    user.posts.each(&:archived!)
+    Connection.where(follower: self).or(Connection.where(followed_profile: self)).each(&:inactive!)
   end
 
   private

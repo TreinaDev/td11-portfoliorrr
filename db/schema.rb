@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_06_144427) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_08_192517) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -158,7 +158,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_144427) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-08 16:35:19"
+    t.datetime "edited_at", default: "2024-02-08 19:35:43"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -196,6 +196,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_144427) do
     t.datetime "updated_at", null: false
     t.integer "work_status", default: 10
     t.integer "privacy", default: 10
+    t.integer "status", default: 5
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

@@ -1,9 +1,0 @@
-<h1>Configurações do Perfil</h1>
-
-	<%= form_with(url: deactivate_account_path, method: :patch) do |form| %>
-		<%= form.submit 'Desativar Conta',
-			class: "btn btn-danger",
-			data: { turbo_confirm: 'Are you sure?' }
-		%>
-	<% end %>
-	
