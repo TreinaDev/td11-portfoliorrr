@@ -8,12 +8,14 @@ Rails.application.routes.draw do
     patch 'decline', on: :member
   end
 
+  resources :invitation_requests, only: %i[index]
+
   resources :projects, only: %i[index]
   post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
   resources :job_categories, only: %i[index create destroy]
   resources :notifications, only: %i[index]
-  
+
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]
     post 'pin', on: :member

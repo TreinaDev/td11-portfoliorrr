@@ -1,0 +1,21 @@
+<h2 class="text-center"><%= InvitationRequest.model_name.human(count: @invitation_requests.length) %></h2>
+<div class="container">
+  <div class="row justify-content-center">
+    <% @invitation_requests.each do |invitation_request| %>
+      <div class="col-4 p-4 m-4 rounded border w-25">
+        <div class="card-body">
+          <h4 class="text-break text-dark"><%= invitation_request[:project_title] %></h4>
+          <p><%= invitation_request[:project_description] %></p>
+          <p><%= invitation_request[:project_category] %></p>
+          <p>
+            <%= InvitationRequest.human_attribute_name(:status) %>:
+
+            <span class="<%= css_color_class(invitation_request[:status].to_sym) %> fw-bold">
+              <%= InvitationRequest.human_attribute_name("status.#{invitation_request[:status]}") %>
+            </span>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
