@@ -12,4 +12,7 @@ pt-BR:
   reports:
     create:
       success: Sua denúncia foi registrada
+      not_published_post: Essa publicação não está disponível.
+    new:
+      not_published_post: Essa publicação não está disponível.
     report_btn: Denunciar

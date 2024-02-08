@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário reporta' do
+describe 'Usuário denuncia' do
   context 'um post' do
     it 'com sucesso' do
       post = create(:post)
@@ -20,6 +20,17 @@ describe 'Usuário reporta' do
       expect(Report.last.reportable).to eq post
       expect(Report.last.status).to eq 'pending'
       expect(Report.last.profile).to eq user.profile
+    end
+
+    it 'mas post não está publicado' do
+      user = create(:user)
+      post = create(:post, status: :draft)
+
+      login_as user
+      visit new_report_path params: { reportable: post, reportable_type: post.class.name }
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content 'Essa publicação não está disponível.'
     end
   end
 
@@ -69,5 +80,14 @@ describe 'Usuário reporta' do
       expect(Report.last.status).to eq 'pending'
       expect(Report.last.profile).to eq user.profile
     end
+  end
+
+  it 'precisa estar logado' do
+    post = create(:post)
+
+    visit new_report_path params: { reportable: post, reportable_type: post.class.name }
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
 end
