@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe DeclineInvitationJob, type: :job do
+  include ActiveJob::TestHelper
+
   it 'Usuário recusa convite com sucesso' do
     fake_response = double('faraday_response', status: 200, success?: true)
     invitation = create(:invitation)
@@ -36,5 +38,18 @@ RSpec.describe DeclineInvitationJob, type: :job do
     DeclineInvitationJob.perform_now(invitation)
 
     expect(invitation.reload.status).to eq 'pending'
+  end
+
+  it 'Tentativa de cancelamento do convite é realizada 5 vezes' do
+    allow(Faraday).to receive_message_chain(:new, :patch).and_raise(Faraday::ConnectionFailed)
+    invitation = create(:invitation, status: :processing)
+
+    perform_enqueued_jobs do
+      DeclineInvitationJob.perform_later(invitation)
+    end
+
+    assert_performed_jobs 5
+    expect(Invitation.count).to eq 1
+    expect(Invitation.last).to be_pending
   end
 end
