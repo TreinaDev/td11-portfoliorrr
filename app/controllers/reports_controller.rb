@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
   before_action :set_reportable_for_new, only: :new
   before_action :set_reportable_for_create, only: :create
   before_action :redirect_unless_published_post
+  before_action :redirect_if_self_report, only: :create
 
   def new
     set_offences
@@ -48,5 +49,13 @@ class ReportsController < ApplicationController
     return true unless @reportable.is_a? Post
 
     @reportable.published?
+  end
+
+  def redirect_if_self_report
+    return if @reportable.is_a?(Profile) && @reportable != current_user.profile
+    return if @reportable.is_a?(Comment) && @reportable.user != current_user
+    return if @reportable.is_a?(Post) && @reportable.user != current_user
+
+    redirect_to root_path, alert: t('.self_report')
   end
 end

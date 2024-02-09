@@ -3,7 +3,7 @@ pt-BR:
     models:
       report: Denúncia
 
-  
+
     attributes:
       report:
         message: Mensagem
@@ -16,3 +16,4 @@ pt-BR:
     new:
       not_published_post: Essa publicação não está disponível.
     report_btn: Denunciar
+    self_report: Você não pode denúnciar sí mesmo ou o próprio conteúdo.
