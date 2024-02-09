@@ -112,6 +112,8 @@ pt-BR:
       updated: A sua conta foi atualizada com sucesso.
       updated_but_not_signed_in: Sua conta foi atualizada com sucesso, uma vez que sua senha foi alterada será necessário realizar o login novamente.
     sessions:
+      create:
+        reactivate: Sua conta foi reativada com sucesso
       already_signed_out: Logout efetuado com sucesso.
       new:
         sign_in: Login
