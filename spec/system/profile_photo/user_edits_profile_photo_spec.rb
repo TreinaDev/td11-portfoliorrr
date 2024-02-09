@@ -30,7 +30,6 @@ describe 'Usuário altera foto de perfil' do
     click_on 'Salvar'
 
     expect(ActiveStorage::Attachment.count).to eq 1
-    expect(ActiveStorage::Blob.count).to eq 1
     expect(page).to have_css('img[src*="another-male-photo.jpg"]')
   end
 

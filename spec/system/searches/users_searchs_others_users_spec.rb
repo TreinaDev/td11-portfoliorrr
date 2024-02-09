@@ -72,7 +72,7 @@ describe 'Usuário busca outros usuários' do
     fill_in 'Buscar', with: 'Carla'
     click_on 'Pesquisar'
 
-    expect(page).not_to have_link('Carla'), href: profile_path(other_user.profile)
+    expect(page).not_to have_link('Carla')
     expect(page).to have_content 'Nenhum resultado encontrado com: Carla'
   end
 end
