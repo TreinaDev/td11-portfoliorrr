@@ -37,8 +37,12 @@
           </div>
         </div>
       <% end %>
-    <% else %>
+    <% elsif @error %>
+      <h3 class="mt-5 alert alert-warning text-center" >Não foi possível carregar informações dos projetos. Tente mais tarde</h3>
+    <% elsif params[:filter].nil? || params[:filter].blank? %>
       <h3 class="mt-5 alert alert-warning text-center" >Você ainda não fez nenhuma solicitação de convite.</h3>
+    <% else %>
+      <h3 class="mt-5 alert alert-warning text-center" >Não existem solicitações com o status selecionado.</h3>
     <% end %>
   </div>
 </div>

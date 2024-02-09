@@ -4,7 +4,9 @@ module InvitationRequestService
   class ColaboraProjects
     def self.send
       @response = Faraday.get(COLABORA_PROJECTS_URL)
-      build_projects
+      return build_projects if @response.success?
+
+      raise StandardError
     end
 
     class << self
@@ -24,6 +26,8 @@ module InvitationRequestService
 
   class InvitationRequest
     def self.send(requests)
+      return [] if requests.empty?
+
       projects = ColaboraProjects.send
 
       requests.map do |request|
