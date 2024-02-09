@@ -1,0 +1,18 @@
+<h1><%= Report.model_name.human %> </h1>
+
+<%= form_with model: @report, class: 'mt-3' do |f| %>
+  <div class="form-group">
+    <%= f.label :message %>
+    <%= f.text_area :message, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :offence_type %>
+    <%= f.select :offence_type, @offences, class: 'form-control' %>
+  </div>
+
+  <%= f.hidden_field :reportable_id, value: @reportable.id %>
+  <%= f.hidden_field :reportable_type, value: @reportable.class %>
+
+  <%= f.submit t('reports.report_btn'), class: 'btn btn-primary mt-3' %>
+<% end %>

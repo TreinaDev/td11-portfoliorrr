@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      report: Denúncia
+
+
+    attributes:
+      report:
+        message: Mensagem
+        offence_type: Tipo de ofensa
+
+  reports:
+    create:
+      success: Sua denúncia foi registrada
+      not_published_post: Essa publicação não está disponível.
+    new:
+      not_published_post: Essa publicação não está disponível.
+    report_btn: Denunciar
+    self_report: Você não pode denúnciar sí mesmo ou o próprio conteúdo.

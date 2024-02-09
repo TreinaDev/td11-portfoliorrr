@@ -5,6 +5,8 @@
       <% if current_user == @post.user %>
         <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
         <%= Post.human_attribute_name @post.status %>
+      <% else %>
+        <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
 
@@ -16,13 +18,13 @@
 
     <% if @post.draft? %>
       <p class="card-subtitle mb-2">
-        <time datetime="<%= @post.created_at.to_date %>">  
+        <time datetime="<%= @post.created_at.to_date %>">
           <%= date_fixer(@post) %> <%= I18n.l(@post.created_at.to_datetime, format: :long) %>
         </time>
       </p>
     <% else %>
       <p class="card-subtitle mb-2">
-        <time datetime="<%= @post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime %>">  
+        <time datetime="<%= @post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime %>">
           <%= date_fixer(@post) %> <%= I18n.l(@post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime, format: :long) %>
         </time>
       </p>
@@ -32,7 +34,7 @@
         <%= t('posts.views.show.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
       </time>
     </p>
-    
+
     <p class="card-subtitle mb-2 text-body-secondary tags">
       <% @post.tags.each do |tag| %>
         <%= link_to "##{tag.name}", searches_path(query: "##{tag.name}"), class: 'text-decoration-none' %>
@@ -75,12 +77,20 @@
         <div class="me-2">
           <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
         </div>
-        <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
-          <% like = comment.likes.find_by(user_id: current_user.id) %>
-          <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
-        <% else %>
-          <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
-        <% end %>
+
+        <div class="me-2">
+          <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+            <% like = comment.likes.find_by(user_id: current_user.id) %>
+            <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
+          <% else %>
+            <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
+          <% end %>
+        </div>
+
+        <div>
+          <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class),
+                      class: 'btn btn-dark btn-sm' unless comment.user == current_user %>
+        </div>
       </div>
     </div>
   <% end %>
