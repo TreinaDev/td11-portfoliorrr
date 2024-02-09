@@ -38,7 +38,7 @@ describe 'Usuário edita uma publicação' do
     visit edit_post_path(post)
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não pode realizar essa ação'
+    expect(page).to have_content 'Você não pode acessar este conteúdo ou realizar esta ação'
   end
 
   it 'mas não vê o link de editar caso não seja seu post' do

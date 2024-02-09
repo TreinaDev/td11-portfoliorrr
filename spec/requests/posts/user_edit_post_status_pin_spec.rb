@@ -10,7 +10,7 @@ describe 'Usuário edita status de postagem para fixado' do
     post pin_post_path(post)
 
     expect(response).to redirect_to(root_path)
-    expect(flash[:alert]).to eq('Você não pode realizar essa ação')
+    expect(flash[:alert]).to eq('Você não pode acessar este conteúdo ou realizar esta ação')
     expect(post.reload.pinned?).to eq(false)
   end
 end

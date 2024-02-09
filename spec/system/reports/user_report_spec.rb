@@ -97,7 +97,7 @@ describe 'Usuário denuncia' do
       visit post_path(post)
 
       within '#comments' do
-        expect(page.all('.report-link-wrapper').size).to eq 2
+        expect(page.all('.reporting-button').size).to eq 2
       end
       expect(page.all('.comment').to_a.second).not_to have_link 'Denunciar'
     end

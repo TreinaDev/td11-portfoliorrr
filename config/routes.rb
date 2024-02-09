@@ -13,13 +13,16 @@ Rails.application.routes.draw do
 
   resources :job_categories, only: %i[index create destroy]
   resources :notifications, only: %i[index]
-  
+
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]
     post 'pin', on: :member
   end
 
-  resources :reports, only: %i[index new create show]
+  resources :reports, only: %i[index new create show] do
+    post 'reject', on: :member
+    post 'remove_content', on: :member
+  end
 
   resources :users, only: [] do
     resources :posts, shallow: true, only: %i[show edit update]

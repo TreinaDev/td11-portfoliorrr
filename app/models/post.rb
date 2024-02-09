@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   validate :file_size
   validate :validate_published_at
 
-  enum status: { published: 0, archived: 5, draft: 10, scheduled: 15 }
+  enum status: { published: 0, archived: 5, draft: 10, scheduled: 15, removed: 20 }
   acts_as_ordered_taggable_on :tags
 
   enum pin: { unpinned: 0, pinned: 10 }
@@ -83,7 +83,8 @@ class Post < ApplicationRecord
 
   def validate_published_at
     return if published_at.nil?
+    return unless scheduled?
 
-    errors.add(:published_at, 'não pode estar no passado') if published_at < (Time.zone.now - 1.second)
+    errors.add(:published_at, 'não pode estar no passado') if published_at < Time.zone.now
   end
 end

@@ -6,7 +6,7 @@
   <nav class="d-flex nav nav-underline">
     <%= link_to t('reports.pending'), reports_path, class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter].blank? }" %>
     <%= link_to t('reports.granted'), reports_path(params: { filter: 'granted' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'granted'}" %>
-    <%= link_to t('reports.not_granted'), reports_path(params: { filter: 'not_granted' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'not_granted'}" %>
+    <%= link_to t('reports.rejected_tab'), reports_path(params: { filter: 'rejected' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'rejected'}" %>
   </nav>
 </div>
 
@@ -15,13 +15,13 @@
     <% if @reports.empty? %>
       <p><%= t('reports.empty_state') %></p>
     <% else %>
-      <table class="table table-hover">
-        <thead>
+      <table class="table table-hover text-left">
+        <thead class="thead-light">
           <tr>
-            <th><%= Report.human_attribute_name :offence_type %></th>
-            <th><%= Report.human_attribute_name :message %></th>
-            <th><%= Report.human_attribute_name :reportable_type %></th>
-            <th><%= t('reports.action') %></th>
+            <th scope="col col-lg-2"><%= Report.human_attribute_name :offence_type %></th>
+            <th scope="col col-lg-2"><%= Report.human_attribute_name :message %></th>
+            <th scope="col col-lg-2"><%= Report.human_attribute_name :reportable_type %></th>
+            <th scope="col col-lg-2"><%= t('reports.action') %></th>
           </tr>
         </thead>
 

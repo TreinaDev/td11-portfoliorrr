@@ -37,6 +37,23 @@
           <p class="card-subtitle mb-2 text-muted">
             <%= I18n.t('reports.reporting_profile') %>: <%= link_to @report.profile.full_name, profile_path(@report.profile) %>
           </p>
+          <% if @report.pending? %>
+            <div class="d-flex flex-row justify-content-center mt-5 gap-5">
+              <% unless @report.reportable.is_a? Profile %>
+                <%= button_to t('reports.remove_content_btn'), remove_content_report_path(@report), class:'card-btn flex-column btn btn-danger btn-lg' %>
+              <% end %>
+              <%= button_to t('reports.reject_btn'), reject_report_path(@report), class:'card-btn flex-column btn btn-secondary btn-lg ml-2' %>
+            </div>
+          <% else %>
+            <div class="d-flex flex-row justify-content-center mt-5">
+              <h4 class= "card-subtitle mb-2 text-dark">
+                <%= I18n.t('reports.rejected') if @report.rejected? %>
+              </h4>
+              <h4 class= "card-subtitle mb-2 text-danger">
+                <%= I18n.t('reports.granted') if @report.granted? %>
+              </h4>
+            </div>
+          <% end %>
         </div>
       </div>
     </aside>
