@@ -26,7 +26,7 @@ describe 'Usuário visita página de configurações' do
     expect(page).to have_content 'Perfil desativado com sucesso'
   end
 
-  it 'e não pode visitar página de outros usuários' do
+  it 'e não pode visitar configurações de outros usuários' do
     user = create(:user)
     other_user = create(:user)
 
