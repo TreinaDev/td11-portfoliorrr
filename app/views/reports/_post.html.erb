@@ -1,4 +1,4 @@
-<div class="card text-muted">
+<div class="card text-dark d-flex flex-column px-5 shadow mb-4 p-3 rounded justify-content-center">
   <div class="card-body">
     <h2 class="card-title"><%= post.title %></h2>
     <h6 class="card-subtitle mb-2">
@@ -8,8 +8,8 @@
     <p class="card-text"><%= post.content %></p>
 
     <p class="card-subtitle mb-2">
-      <time datetime="<%= post.created_at.to_datetime %>">
-        <%= Post.human_attribute_name :created_at %> <%= I18n.l(post.created_at.to_datetime, format: :long) %>
+      <time datetime="<%= post.published_at.to_datetime %>">
+        <%= Post.human_attribute_name :published_at %> <%= I18n.l(post.published_at.to_datetime, format: :long) %>
       </time>
     </p>
     <p>

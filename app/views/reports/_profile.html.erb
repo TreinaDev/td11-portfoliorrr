@@ -3,7 +3,7 @@
     <%= render partial: 'profiles/profile_photo', locals: { profile: profile } %>
   </div>
 
-  <h4><%= profile.full_name %></h4>
+  <h4><%= link_to profile.full_name, profile_path(profile) %></h4>
   <div class="d-flex gap-4 justify-content-center">
     <div class="d-flex flex-column" id="followers-count">
       <%= link_to profile_connections_path(profile), class: "text-decoration-none fs-5" do %>
@@ -40,7 +40,7 @@
     <% end %>
 
     <section>
-      <%= render partial: 'posts/listing', locals: { posts: profile.posts.last(3) } %>
+      <%= render partial: 'posts/listing', locals: { posts: profile.posts.not_draft.last(3) } %>
     </section>
   </div>
 </div>

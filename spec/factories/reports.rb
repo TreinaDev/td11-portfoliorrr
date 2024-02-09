@@ -16,7 +16,7 @@ FactoryBot.define do
 
     message { Faker::Lorem.paragraph }
     status { 0 }
-    offence_type {
+    offence_type do
       [
         'Discurso de ódio',
         'Pornografia',
@@ -25,6 +25,6 @@ FactoryBot.define do
         'Conteúdo pertubador',
         'Abuso/Perseguição'
       ].sample
-     }
+    end
   end
 end

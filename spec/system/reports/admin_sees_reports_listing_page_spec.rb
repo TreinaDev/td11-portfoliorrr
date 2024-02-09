@@ -98,4 +98,3 @@ describe 'Admin visita página de index de denúnicas' do
     expect(page).to have_content 'Você não têm permissão para realizar essa ação.'
   end
 end
-
