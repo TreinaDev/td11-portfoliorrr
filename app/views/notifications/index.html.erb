@@ -10,6 +10,12 @@
             <p>Você recebeu um convite para <%= link_to notification.notifiable.project_title, invitation_path(notification.notifiable) %>
           <% elsif notification.notifiable.is_a?Connection %>
             <p><%= link_to notification.notifiable.follower.user.full_name, profile_path(notification.notifiable.follower) %> começou a te seguir
+          <% elsif notification.notifiable.is_a?Like %>
+            <% if notification.notifiable.likeable.is_a?Post %>
+              <p><%= link_to notification.notifiable.user.full_name, profile_path(notification.notifiable.user.profile) %> curtiu sua publicação
+            <% elsif notification.notifiable.likeable.is_a?Comment %>
+              <p><%= link_to notification.notifiable.user.full_name, profile_path(notification.notifiable.user.profile) %> curtiu seu comentário
+            <% end %>
           <% end %>
           há <%= distance_of_time_in_words_to_now(notification.notifiable.created_at) %></p>
         </div>
