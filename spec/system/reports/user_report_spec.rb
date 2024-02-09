@@ -43,6 +43,20 @@ describe 'Usuário denuncia' do
 
       expect(page).not_to have_content 'Denunciar'
     end
+
+    it 'e não pode denúnciar o próprio comentário' do
+      user = create(:user)
+      post = create(:comment, user:)
+
+      login_as user
+      visit new_report_path params: { reportable: post, reportable_type: 'Comment' }
+
+      fill_in 'Mensagem', with: 'Apenas uma tentativa'
+      click_on 'Denunciar'
+
+      expect(page).to have_current_path root_path
+      expect(page).to have_content 'Você não pode denúnciar sí mesmo ou o próprio conteúdo.'
+    end
   end
 
   context 'um comentário' do
@@ -87,6 +101,20 @@ describe 'Usuário denuncia' do
       end
       expect(page.all('.comment').to_a.second).not_to have_link 'Denunciar'
     end
+
+    it 'e não pode denúnciar o próprio comentário' do
+      user = create(:user)
+      comment = create(:comment, user:)
+
+      login_as user
+      visit new_report_path params: { reportable: comment, reportable_type: 'Comment' }
+
+      fill_in 'Mensagem', with: 'Apenas uma tentativa'
+      click_on 'Denunciar'
+
+      expect(page).to have_current_path root_path
+      expect(page).to have_content 'Você não pode denúnciar sí mesmo ou o próprio conteúdo.'
+    end
   end
 
   context 'um perfil' do
@@ -117,6 +145,19 @@ describe 'Usuário denuncia' do
       visit profile_path(user.profile)
 
       expect(page).not_to have_link 'Denunciar'
+    end
+
+    it 'e não pode denúnciar ele mesmo' do
+      user = create(:user)
+
+      login_as user
+
+      visit new_report_path params: { reportable: user.profile, reportable_type: 'Profile' }
+      fill_in 'Mensagem', with: 'Apenas uma tentativa'
+      click_on 'Denunciar'
+
+      expect(page).to have_current_path root_path
+      expect(page).to have_content 'Você não pode denúnciar sí mesmo ou o próprio conteúdo.'
     end
   end
 

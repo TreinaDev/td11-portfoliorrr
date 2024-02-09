@@ -1,0 +1,5 @@
+pt-BR:
+  server_error: Houve um erro interno no servidor ao processar sua solicitação.
+  bad_request_error: Houve um erro ao processar sua solicitação.
+  not_found_error: Não encontrado
+  service_unavailable_error: Recurso não disponível
