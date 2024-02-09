@@ -1,7 +1,7 @@
 module InvitationRequestService
   COLABORA_PROJECTS_URL = 'http://localhost:3000/api/v1/projects'.freeze
 
-  class ColaboraProjects
+  class ColaboraProject
     def self.send
       @response = Faraday.get(COLABORA_PROJECTS_URL)
       return build_projects if @response.success?
@@ -28,7 +28,7 @@ module InvitationRequestService
     def self.send(requests)
       return [] if requests.empty?
 
-      projects = ColaboraProjects.send
+      projects = ColaboraProject.send
 
       requests.map do |request|
         project = projects.find { |proj| proj.id == request.project_id }

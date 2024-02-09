@@ -6,7 +6,7 @@ module InvitationRequestsHelper
                    refused: 'text-danger',
                    error: 'text-warning',
                    aborted: 'text-danger-emphasis' }
-    class_hash[status]
+    class_hash[status] || ''
   end
 
   def invitation_request_filter_options
