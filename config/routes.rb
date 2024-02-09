@@ -21,9 +21,12 @@ Rails.application.routes.draw do
     post 'pin', on: :member
   end
 
+  resources :reports, only: %i[index new create]
+
   resources :users, only: [] do
     resources :posts, shallow: true, only: %i[show edit update]
     resources :profiles, shallow: true, only: %i[edit show update] do
+      get 'settings'
       patch :remove_photo, on: :member
       resources :connections, only: %i[create index] do
         patch 'unfollow', 'follow_again'
@@ -32,6 +35,7 @@ Rails.application.routes.draw do
     end
   end
 
+  patch 'deactivate_profile', controller: :profiles
   patch 'work_unavailable', controller: :profiles
   patch 'open_to_work', controller: :profiles
   patch 'change_privacy', controller: :profiles

@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :invitation_requests, through: :profile
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   enum role: { user: 0, admin: 10 }
 
@@ -20,6 +21,7 @@ class User < ApplicationRecord
   validate :validate_citizen_id_number
 
   after_create :'create_profile!'
+  after_create :subscribe_likes_mailer_job
 
   def description
     if admin?
@@ -29,7 +31,49 @@ class User < ApplicationRecord
     end
   end
 
+  def received_post_likes_since(number_of_days)
+    return [] if posts.map(&:likes).blank?
+
+    posts.map(&:likes).flatten.select do |like|
+      like.created_at >= number_of_days.days.ago.at_midnight.getlocal && like.user != self
+    end
+  end
+
+  def received_comment_likes_since(number_of_days)
+    return [] if comments.map(&:likes).blank?
+
+    comments.map(&:likes).flatten.select do |like|
+      like.created_at >= number_of_days.days.ago.at_midnight.getlocal && like.user != self
+    end
+  end
+
+  def most_liked_post_since(number_of_days)
+    return if received_post_likes_since(number_of_days).empty?
+
+    received_post_likes_since(number_of_days)
+      .group_by(&:likeable)
+      .transform_values(&:count)
+      .max_by { |_post, likes_count| likes_count }.first
+  end
+
+  def most_liked_comment_since(number_of_days)
+    return if received_comment_likes_since(number_of_days).empty?
+
+    received_comment_likes_since(number_of_days)
+      .group_by(&:likeable)
+      .transform_values(&:count)
+      .max_by { |_comment, likes_count| likes_count }.first
+  end
+
+  def received_zero_likes?(number_of_days)
+    received_post_likes_since(number_of_days).empty? && received_comment_likes_since(number_of_days).empty?
+  end
+
   private
+
+  def subscribe_likes_mailer_job
+    DailyLikesDigestJob.set(wait_until: Date.tomorrow.noon).perform_later(user: self)
+  end
 
   def validate_citizen_id_number
     errors.add(:citizen_id_number, 'inválido') unless CPF.valid?(citizen_id_number)
