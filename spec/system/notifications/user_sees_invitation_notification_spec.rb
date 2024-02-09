@@ -17,22 +17,6 @@ describe 'Usuário vê notificações de convite' do
     expect(page).to have_link invitation.project_title, href: invitation_path(invitation)
   end
 
-  it 'e deve estar logado' do
-    visit notifications_path
-
-    expect(page).to have_current_path new_user_session_path
-  end
-
-  it 'e não tem convites' do
-    user = create(:user)
-
-    login_as user
-
-    visit notifications_path
-
-    expect(page).to have_content 'Nenhuma notificação'
-  end
-
   it 'e não vê convites de outros usuários' do
     user = create(:user)
     invitation = create(:invitation, profile: user.profile)

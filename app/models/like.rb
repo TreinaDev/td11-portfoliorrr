@@ -13,6 +13,5 @@ class Like < ApplicationRecord
     return if user == post_author.user
 
     Notification.create(profile: post_author, notifiable: self)
-    
   end
 end

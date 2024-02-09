@@ -13,8 +13,8 @@ RSpec.describe Comment, type: :model do
     it 'cria notificação para o dono da publicação' do
       user = create(:user)
       other_user = create(:user)
-      post = create(:post, user: user)
-      comment = create(:comment, user: other_user, post: post)
+      post = create(:post, user:)
+      comment = create(:comment, user: other_user, post:)
 
       expect(Notification.count).to eq 1
       expect(Notification.last.notifiable).to eq comment
@@ -22,8 +22,8 @@ RSpec.describe Comment, type: :model do
 
     it 'não cria notificação para o dono do comentário' do
       user = create(:user)
-      post = create(:post, user: user)
-      comment = create(:comment, user: user, post: post)
+      post = create(:post, user:)
+      create(:comment, user:, post:)
 
       expect(Notification.count).to eq 0
     end

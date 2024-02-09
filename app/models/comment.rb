@@ -13,7 +13,7 @@ class Comment < ApplicationRecord
   def create_notification
     comment_author = user.profile
     return if comment_author == post.user.profile
-      
+
     Notification.create(profile: post.user.profile, notifiable: self)
   end
 end

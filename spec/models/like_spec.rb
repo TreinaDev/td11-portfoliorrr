@@ -53,7 +53,7 @@ RSpec.describe Like, type: :model do
     it 'não cria notificação para o dono do like' do
       user = create(:user)
       post = create(:post, user:)
-      like = create(:like, likeable: post, user: user)
+      create(:like, likeable: post, user:)
 
       expect(Notification.count).to eq 0
     end
