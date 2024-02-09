@@ -4,7 +4,9 @@ class InvitationRequestsController < ApplicationController
     return unless response.success?
 
     @projects = JSON.parse(response.body)
-    build_invitation_requests
+    return build_invitation_requests if params[:filter].blank?
+
+    build_invitation_requests.filter! { |request| request[:status] == params[:filter] }
   end
 
   private

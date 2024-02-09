@@ -24,7 +24,7 @@ indisponivel no momento, mas sua solicitação está registrada e será enviada 
 assim que o sistema voltar ao normal."
       expect(user.profile.invitation_requests.count).to eq 1
       expect(page).to have_button 'Convite Solicitado', disabled: true
-      expect(page).to have_button 'Solicitar Convite', count: 2
+      expect(page).to have_button 'Solicitar Convite', count: 3
     end
 
     it 'e não é necessário passar uma mensagem' do
@@ -48,7 +48,7 @@ indisponivel no momento, mas sua solicitação está registrada e será enviada 
 assim que o sistema voltar ao normal."
       expect(user.profile.invitation_requests.count).to eq 1
       expect(page).to have_button 'Convite Solicitado', disabled: true
-      expect(page).to have_button 'Solicitar Convite', count: 2
+      expect(page).to have_button 'Solicitar Convite', count: 3
     end
   end
 end

@@ -16,5 +16,11 @@
     "title": "Pokedex",
     "description": "Fazer uma listagem de todos os pokemons.",
     "category": "Tecnologia"
+  },
+  {
+    "id": 4,
+    "title": "Novo Projeto",
+    "description": "Mais uma desafio a frente",
+    "category": "Industrial"
   }
 ]

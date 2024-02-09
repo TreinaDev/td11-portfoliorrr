@@ -18,4 +18,4 @@ pt-BR:
     create_invitation_request:
       success: 'A comunicação com Cola?Bora! está indisponivel no momento, mas sua solicitação está registrada e será enviada assim que o sistema voltar ao normal.'
       error: 'Não foi possível enviar solicitação'
-      
+  filter_btn: 'Filtrar'
