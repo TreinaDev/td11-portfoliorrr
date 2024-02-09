@@ -4,11 +4,13 @@ describe 'Admin visualiza denúncia' do
   it 'de um post com sucesso' do
     admin = create(:user, :admin)
     post = create(:post, :published)
+    create(:report, :for_post)
     report = create(:report, reportable: post)
+    create(:report, :for_comment)
 
     login_as admin
     visit reports_path
-    click_on 'Ver mais'
+    page.all('.see_more').to_a.second.click
 
     expect(page).to have_current_path report_path(report)
     expect(page).to have_content report.reportable.title

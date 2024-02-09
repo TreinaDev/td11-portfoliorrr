@@ -18,13 +18,13 @@
 
     <% if @post.draft? %>
       <p class="card-subtitle mb-2">
-        <time datetime="<%= @post.created_at.to_date %>">  
+        <time datetime="<%= @post.created_at.to_date %>">
           <%= date_fixer(@post) %> <%= I18n.l(@post.created_at.to_datetime, format: :long) %>
         </time>
       </p>
     <% else %>
       <p class="card-subtitle mb-2">
-        <time datetime="<%= @post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime %>">  
+        <time datetime="<%= @post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime %>">
           <%= date_fixer(@post) %> <%= I18n.l(@post.published_at ? @post.published_at.to_datetime : @post.created_at.to_datetime, format: :long) %>
         </time>
       </p>
@@ -34,7 +34,7 @@
         <%= t('posts.views.show.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
       </time>
     </p>
-    
+
     <p class="card-subtitle mb-2 text-body-secondary tags">
       <% @post.tags.each do |tag| %>
         <%= link_to "##{tag.name}", searches_path(query: "##{tag.name}"), class: 'text-decoration-none' %>
@@ -65,7 +65,7 @@
     <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
   </div>
   <% @post.comments.each do |comment| %>
-    <div class="card-body">
+    <div class="card-body comment">
       <blockquote class="blockquote mb-0">
         <p><%= comment.message %></p>
         <footer class="blockquote-footer">
@@ -87,9 +87,11 @@
           <% end %>
         </div>
 
-        <div>
-          <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-dark btn-sm' %>
-        </div>
+        <% if current_user != comment.user %>
+          <div class="report-link-wrapper">
+            <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>

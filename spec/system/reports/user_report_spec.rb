@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Usuário denuncia' do
   context 'um post' do
     it 'com sucesso' do
+      create(:post)
       post = create(:post)
       user = create(:user)
 
@@ -32,6 +33,16 @@ describe 'Usuário denuncia' do
       expect(current_path).to eq root_path
       expect(page).to have_content 'Essa publicação não está disponível.'
     end
+
+    it 'e não vê botão de report do próprio post' do
+      user = create(:user)
+      post = create(:post, user:)
+
+      login_as user
+      visit post_path(post)
+
+      expect(page).not_to have_content 'Denunciar'
+    end
   end
 
   context 'um comentário' do
@@ -58,6 +69,24 @@ describe 'Usuário denuncia' do
       expect(Report.last.status).to eq 'pending'
       expect(Report.last.profile).to eq user.profile
     end
+
+    it 'e não vê botão de report no próprio comentário' do
+      user = create(:user)
+      another_user = create(:user)
+      post = create(:post, user:)
+
+      create(:comment, user: another_user, post:)
+      create(:comment, user:, post:)
+      create(:comment, user: another_user, post:)
+
+      login_as user
+      visit post_path(post)
+
+      within '#comments' do
+        expect(page.all('.report-link-wrapper').size).to eq 2
+      end
+      expect(page.all('.comment').to_a.second).not_to have_link 'Denunciar'
+    end
   end
 
   context 'um perfil' do
@@ -79,6 +108,15 @@ describe 'Usuário denuncia' do
       expect(Report.last.reportable).to eq reported_user.profile
       expect(Report.last.status).to eq 'pending'
       expect(Report.last.profile).to eq user.profile
+    end
+
+    it 'e não vê botão de comentar no próprio perfil' do
+      user = create(:user)
+
+      login_as user
+      visit profile_path(user.profile)
+
+      expect(page).not_to have_link 'Denunciar'
     end
   end
 
