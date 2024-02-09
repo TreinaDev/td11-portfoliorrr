@@ -7,6 +7,7 @@ class RequestInvitationJob < ApplicationJob
                                  profile_id: invitation_request.profile.id,
                                  email: invitation_request.profile.email,
                                  message: invitation_request.message } } }.as_json
-    Faraday.new(url: 'http://localhost:4000', params: data).get('/api/v1/projects/request_invitation')
+    response = Faraday.new(url: 'http://localhost:4000', params: data).get('/api/v1/projects/request_invitation')
+    invitation_request.process_colabora_api_response(response)
   end
 end
