@@ -8,6 +8,8 @@ describe 'Usuário deleta conta' do
     user.personal_info.update(city: 'São Paulo')
     user.education_infos.update(institution: 'Campus Code')
     user.professional_infos.update(company: 'Rebase')
+    create(:invitation, profile: user.profile)
+    create(:invitation_request, profile: user.profile)
     Connection.create(follower: user.profile, followed_profile: other_user.profile)
     Connection.create(follower: other_user.profile, followed_profile: user.profile)
 
@@ -21,6 +23,8 @@ describe 'Usuário deleta conta' do
     expect(PersonalInfo.all.count).to eq 1
     expect(EducationInfo.all.count).to eq 0
     expect(ProfessionalInfo.all.count).to eq 0
+    expect(Invitation.all.count).to eq 0
+    expect(InvitationRequest.all.count).to eq 0
     expect(flash[:notice]).to eq 'Conta excluída com sucesso'
   end
 end
