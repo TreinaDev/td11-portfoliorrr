@@ -17,6 +17,7 @@ class InvitationRequest < ApplicationRecord
   end
 
   private
+
   def json_treated_response(response)
     return response.body if response.body.is_a?(Hash)
 
@@ -27,4 +28,3 @@ class InvitationRequest < ApplicationRecord
     RequestInvitationJob.perform_later(invitation_request: self)
   end
 end
-

@@ -15,7 +15,7 @@ describe 'API projects_request_invitation', type: :request do
 
       allow(Faraday).to receive(:new)
                     .with(url: 'http://localhost:3000', params: invitation_request_params['data'])
-                    .and_return(colabora_api_connection)
+        .and_return(colabora_api_connection)
       allow(colabora_api_connection)
         .to receive(:post)
         .with('/api/v1/proposals')
@@ -43,7 +43,7 @@ describe 'API projects_request_invitation', type: :request do
       colabora_api_connection = double('Faraday::Connection', post: fake_colabora_response)
       allow(Faraday).to receive(:new)
                     .with(url: 'http://localhost:3000', params: invitation_request_params['data'])
-                    .and_return(colabora_api_connection)
+        .and_return(colabora_api_connection)
       allow(colabora_api_connection)
         .to receive(:post)
         .with('/api/v1/proposals')
@@ -71,7 +71,7 @@ describe 'API projects_request_invitation', type: :request do
       colabora_api_connection = double('Faraday::Connection', post: fake_colabora_response)
       allow(Faraday).to receive(:new)
                     .with(url: 'http://localhost:3000', params: invitation_request_params['data'])
-                    .and_return(colabora_api_connection)
+        .and_return(colabora_api_connection)
       allow(colabora_api_connection)
         .to receive(:post)
         .with('/api/v1/proposals')
@@ -99,7 +99,7 @@ describe 'API projects_request_invitation', type: :request do
       colabora_api_connection = double('Faraday::Connection', post: fake_colabora_response)
       allow(Faraday).to receive(:new)
                     .with(url: 'http://localhost:3000', params: invitation_request_params['data'])
-                    .and_return(colabora_api_connection)
+        .and_return(colabora_api_connection)
       allow(colabora_api_connection)
         .to receive(:post)
         .with('/api/v1/proposals')
@@ -124,7 +124,7 @@ describe 'API projects_request_invitation', type: :request do
 
       allow(Faraday).to receive(:new)
                     .with(url: 'http://localhost:3000', params: invitation_request_params['data'])
-                    .and_raise(ActiveRecord::ConnectionNotEstablished)
+        .and_raise(ActiveRecord::ConnectionNotEstablished)
 
       get '/api/v1/projects/request_invitation', params: invitation_request_params
 
