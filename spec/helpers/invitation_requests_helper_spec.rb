@@ -1,3 +1,5 @@
 require 'rails_helper'
 
-pending '#css_color_class'
+describe 'InvitationRequests helper' do
+  pending '#css_color_class'
+end

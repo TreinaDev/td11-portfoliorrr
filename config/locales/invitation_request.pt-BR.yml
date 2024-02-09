@@ -8,10 +8,10 @@ pt-BR:
       invitation_request/status:
         processing: Processando
         pending: Pendente
-        accepted: Aceito
-        refused: Recusado
+        accepted: Aceita
+        refused: Recusada
         error: Erro
-        aborted: Abortado
+        aborted: Cancelada
       invitation_request:
         message: 'Mensagem'
   projects:
