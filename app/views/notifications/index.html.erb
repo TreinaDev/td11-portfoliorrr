@@ -4,11 +4,11 @@
     <div class="list-group">
       <% @notifications.each do |notification| %>
         <div class="list-group">
-          <% if notification.notifiable_type == "Post" %>
+          <% if notification.notifiable.is_a?Post %>
             <p><%= notification.notifiable.user.full_name %> fez uma <%= link_to 'publicação', post_path(notification.notifiable) %>
-          <% elsif notification.notifiable_type == "Invitation" %>
+          <% elsif notification.notifiable.is_a?Invitation %>
             <p>Você recebeu um convite para <%= link_to notification.notifiable.project_title, invitation_path(notification.notifiable) %>
-          <% elsif notification.notifiable_type == "Connection" %>
+          <% elsif notification.notifiable.is_a?Connection %>
             <p><%= link_to notification.notifiable.follower.user.full_name, profile_path(notification.notifiable.follower) %> começou a te seguir
           <% end %>
           há <%= distance_of_time_in_words_to_now(notification.notifiable.created_at) %></p>
