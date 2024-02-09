@@ -34,6 +34,7 @@ class Profile < ApplicationRecord
   enum privacy: { private_profile: 0, public_profile: 10 }
 
   delegate :full_name, to: :user
+  delegate :email, to: :user
 
   def self.advanced_search(search_query)
     left_outer_joins(:job_categories, :personal_info, :user).where(
