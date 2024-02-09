@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário visualiza pedidos de convite' do
+describe 'Usuário acessa página de pedidos de convite' do
   it 'a partir da home' do
     user = create(:user)
     create(:invitation_request, profile: user.profile, message: 'Me aceita',
@@ -30,5 +30,18 @@ describe 'Usuário visualiza pedidos de convite' do
     expect(page).to have_content 'Auto Ajuda'
     expect(page).to have_content 'Enviada há 2 dias'
     expect(page).to have_content 'Recusada'
+  end
+
+  it 'e não existem pedidos' do
+    user = create(:user)
+
+    login_as user
+    visit root_path
+    within 'nav' do
+      click_button class: 'dropdown-toggle'
+      click_on 'Solicitações de Convite'
+    end
+
+    expect(page).to have_content 'Você ainda não fez nenhuma solicitação de convite'
   end
 end
