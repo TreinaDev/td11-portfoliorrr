@@ -14,7 +14,7 @@ class Post < ApplicationRecord
   enum pin: { unpinned: 0, pinned: 10 }
 
   after_commit :schedule_post, on: %i[create update]
-  after_create :create_notification
+  after_create :create_notification_to_followers
 
   has_rich_text :content
 
@@ -40,10 +40,8 @@ class Post < ApplicationRecord
 
   private
 
-  def create_notification
-    self.user.profile.connections.each do |connection|
-      Notification.create(profile: connection.follower, notifiable: self)
-    end
+  def create_notification_to_followers
+    NewPostNotificationJob.perform_later self
   end
 
   def schedule_post

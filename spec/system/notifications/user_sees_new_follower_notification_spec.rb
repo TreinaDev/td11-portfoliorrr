@@ -14,7 +14,7 @@ describe 'Usuário vê notificação de novo seguidor' do
     end
 
     expect(page).to have_current_path notifications_path
-    expect(page).to have_content "#{follower.full_name} começou a te seguir"
-    expect(page).to have_link "#{follower.full_name}", href: profile_path(follower)
+    expect(page).to have_content 'começou a te seguir'
+    expect(page).to have_link follower.full_name, href: profile_path(follower)
   end
 end
