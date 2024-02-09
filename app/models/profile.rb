@@ -42,7 +42,7 @@ class Profile < ApplicationRecord
        personal_infos.city LIKE :term OR
        users.full_name LIKE :term',
       { term: "%#{sanitize_sql_like(search_query)}%" }
-    ).public_profile.uniq
+    ).public_profile.active.uniq
   end
 
   def self.get_profile_job_categories_json(query)
@@ -87,8 +87,22 @@ class Profile < ApplicationRecord
 
   def inactive!
     super
+    user.update(old_name: user.full_name, full_name: 'Perfil Desativado')
+    user.posts.each do |post|
+      post.update(old_status: post.status)
+    end
+
     user.posts.each(&:archived!)
-    Connection.where(follower: self).or(Connection.where(followed_profile: self)).each(&:inactive!)
+    Connection.where(follower: self).or(Connection.where(followed_profile: self)).find_each(&:inactive!)
+  end
+
+  def active!
+    super
+    user.update(full_name: user.old_name)
+    user.posts.each do |post|
+      post.update(status: post.old_status)
+    end
+    Connection.where(follower: self).or(Connection.where(followed_profile: self)).find_each(&:active!)
   end
 
   private

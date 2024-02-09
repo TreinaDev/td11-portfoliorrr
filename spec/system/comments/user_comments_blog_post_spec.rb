@@ -45,4 +45,21 @@ describe 'Usuário comenta uma publicação' do
     expect(page).to have_content 'Não foi possível fazer o comentário'
     expect(Comment.count).to eq 0
   end
+
+  context 'e desativa o perfil' do
+    it 'então o nome é alterado nos comentários' do
+      user = create(:user, full_name: 'James')
+      comment = create(:comment, user:)
+      other_user = create(:user)
+
+      user.profile.inactive!
+      login_as other_user
+      visit post_path(comment.post)
+
+      within '#comments' do
+        expect(page).to have_content 'Perfil Desativado'
+        expect(page).not_to have_content 'James'
+      end
+    end
+  end
 end

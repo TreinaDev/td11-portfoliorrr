@@ -61,4 +61,18 @@ describe 'Usuário busca outros usuários' do
 
     expect(page).to have_link('João').once
   end
+
+  it 'e não encontra perfis desativados' do
+    user = create(:user)
+    other_user = create(:user, full_name: 'Carla')
+    other_user.profile.inactive!
+
+    login_as user
+    visit root_path
+    fill_in 'Buscar', with: 'Carla'
+    click_on 'Pesquisar'
+
+    expect(page).not_to have_link('Carla'), href: profile_path(other_user.profile)
+    expect(page).to have_content 'Nenhum resultado encontrado com: Carla'
+  end
 end

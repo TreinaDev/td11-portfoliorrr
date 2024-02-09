@@ -35,6 +35,8 @@ pt-BR:
       success: Privacidade alterada com sucesso
     show:
       private: O perfil que você acessou é privado
+    deactivate_profile:
+      succes: Perfil desativado com sucesso
   profile:
     update:
       success: 'Informações pessoais atualizadas com sucesso'

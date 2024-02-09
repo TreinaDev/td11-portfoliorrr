@@ -6,24 +6,24 @@ describe 'Usuário visita página de configurações' do
 
     login_as user
     visit root_path
-		click_button class: 'dropdown-toggle'
-		click_on 'Configurações'
+    click_button class: 'dropdown-toggle'
+    click_on 'Configurações'
 
     expect(page).to have_content 'Todos os dados relacionados ao seu perfil serão ARQUIVADOS'
-		expect(page).to have_button 'Desativar Perfil'
+    expect(page).to have_button 'Desativar Perfil'
   end
 
   it 'e desativa perfil' do
     user = create(:user)
 
-		login_as user
-		visit profile_settings_path(user)
-		accept_prompt do
-			click_on 'Desativar Perfil'
-		end
+    login_as user
+    visit profile_settings_path(user)
+    accept_prompt do
+      click_on 'Desativar Perfil'
+    end
 
-		expect(page).to have_current_path root_path
-		expect(page).to have_content 'Perfil desativado com sucesso'
+    expect(page).to have_current_path root_path
+    expect(page).to have_content 'Perfil desativado com sucesso'
   end
 
   it 'e não pode visitar página de outros usuários' do
@@ -34,6 +34,6 @@ describe 'Usuário visita página de configurações' do
     visit profile_settings_path(user)
 
     expect(page).to have_current_path root_path
-    expect(page).to have_content 'Você não pode realizar essa ação'
+    expect(page).to have_content 'Você não têm permissão para realizar essa ação.'
   end
 end

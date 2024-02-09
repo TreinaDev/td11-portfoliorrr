@@ -64,7 +64,7 @@ class ProfilesController < ApplicationController
   def deactivate_profile
     current_user.profile.inactive!
     sign_out current_user
-    return redirect_to root_path, alert: 'Perfil desativado com sucesso'
+    redirect_to root_path, alert: t('.succes')
   end
 
   private
