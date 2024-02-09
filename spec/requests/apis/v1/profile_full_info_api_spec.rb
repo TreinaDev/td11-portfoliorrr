@@ -107,8 +107,18 @@ describe 'API perfis de usuário' do
       expect(json_response['error']).to eq 'Perfil não existe.'
     end
 
+    it 'retorna um erro caso o perfil esteja inativo' do
+      profile = create(:profile, status: 'inactive')
+
+      get "/api/v1/profiles/#{profile.id}"
+
+      expect(response.status).to eq 404
+      json_response = JSON.parse(response.body)
+      expect(json_response['error']).to eq 'Perfil não existe.'
+    end
+
     it 'retorna um erro interno do servidor' do
-      allow(Profile).to receive(:find).and_raise(ActiveRecord::ConnectionFailed)
+      allow(Profile).to receive(:active).and_raise(ActiveRecord::ConnectionFailed)
 
       get '/api/v1/profiles/1'
 

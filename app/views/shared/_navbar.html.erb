@@ -55,6 +55,9 @@
               <%= link_to 'Criar Nova Publicação', new_post_path, class: 'nav-link', data: { turbo: false }  %>
             </li>
             <li class="dropdown-item" href="#">
+              <%= link_to 'Configurações', profile_settings_path(current_user), class: 'nav-link' %>
+            </li>
+            <li class="dropdown-item" href="#">
               <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-danger w-100' %>
             </li>
           </ul>

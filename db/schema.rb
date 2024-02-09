@@ -162,6 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_191251) do
     t.datetime "edited_at", default: "2024-02-09 19:41:51"
     t.integer "status", default: 0
     t.datetime "published_at"
+    t.string "old_status"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -197,6 +198,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_191251) do
     t.datetime "updated_at", null: false
     t.integer "work_status", default: 10
     t.integer "privacy", default: 10
+    t.integer "status", default: 5
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -349,6 +351,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_191251) do
     t.string "full_name"
     t.integer "role", default: 0
     t.string "citizen_id_number"
+    t.string "old_name"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

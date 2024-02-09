@@ -130,4 +130,28 @@ describe 'Usuário vê perfil de outro usuário' do
       expect(page).not_to have_content 'Exibir no Perfil:'
     end
   end
+
+  context 'quando perfil está desativado' do
+    it 'e não vê nenhuma informação' do
+      profile = create(:profile, status: 'inactive')
+      user = profile.user
+      visitor = create(:user)
+      personal_info = create(:personal_info, profile:, visibility: true)
+      educational_info = create(:education_info, profile:, visibility: true)
+      professional_info = create(:professional_info, profile:, visibility: true)
+      job_category = create(:job_category)
+      profile_job_category = create(:profile_job_category, profile:, job_category:)
+      post = create(:post, user:)
+
+      login_as visitor
+      visit profile_path(user.profile)
+
+      expect(page).to have_content 'Conta Desativada'
+      expect(page).not_to have_content personal_info.city
+      expect(page).not_to have_content educational_info.institution
+      expect(page).not_to have_content professional_info.company
+      expect(page).not_to have_content profile_job_category.job_category.name
+      expect(page).not_to have_content post.title
+    end
+  end
 end
