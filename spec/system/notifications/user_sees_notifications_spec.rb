@@ -33,6 +33,10 @@ describe 'Usuário vê notificações' do
     expect(page).to have_content 'comentou em sua publicação'
     expect(page).to have_content 'curtiu seu comentário'
     expect(page).to have_content 'Você recebeu um convite'
+    expect(page.body.index('começou a te seguir')).to be > page.body.index('curtiu sua publicação')
+    expect(page.body.index('curtiu sua publicação')).to be > page.body.index('comentou em sua publicação')
+    expect(page.body.index('comentou em sua publicação')).to be > page.body.index('curtiu seu comentário')
+    expect(page.body.index('curtiu seu comentário')).to be > page.body.index('Você recebeu um convite')
   end
 
   it 'deve estar logado' do
