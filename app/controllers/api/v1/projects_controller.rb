@@ -17,10 +17,13 @@ module Api
         connection = Faraday.new(url: 'http://localhost:3000', params: data)
         response = connection.post('api/v1/proposals')
 
-        return unless response.status == 201
-
-        proposal = JSON.parse(response.body)
-        render status: :ok, json: proposal.as_json
+        if response.status == 201
+          proposal = JSON.parse(response.body)
+          render status: :ok, json: proposal.as_json
+        else
+          errors = response.body
+          render status: :ok, json: errors.as_json
+        end
       end
 
       private

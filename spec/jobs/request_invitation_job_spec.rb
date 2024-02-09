@@ -28,10 +28,8 @@ RSpec.describe RequestInvitationJob, type: :job do
     expect(json_response['data']['proposal_id']).to eq 1
   end
 
-  # CONTEXTS: nossa api pode retornar: 200, 500
-  # 200 (API Portfoliorrr)
-  # 201 (API Cola?Bora) > sucesso completo
-  # 4XX (API Cola?Bora) > sucesso com erro
-  # 500 (API Cola?Bora) > sucesso com novo job
-  # 500 (API Portfoliorrr) > enfilera um novo job sem acrescer no contador
+  pending 'altera a solicitação de convite para pending caso receba uma confirmação de sucesso do Cola?Bora!'
+  pending 'altera a solicitação de convite para error caso receba um aviso de erro do Cola?Bora!'
+  pending 'enfileira um novo job caso receba um aviso de erro no servidor do Cola?Bora!'
+  pending 'altera a solicitação de convite para aborted se receber pela quinta vez um erro da API do Cola?Bora!'
 end
