@@ -158,7 +158,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_150412) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-09 15:16:16"
+    t.datetime "edited_at", default: "2024-02-10 11:45:48"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
