@@ -11,7 +11,7 @@ class SettingsController < ApplicationController
   end
 
   def delete_account
-    current_user.destroy
+    current_user.delete_user_data
     redirect_to root_path, notice: t('delete_account')
   end
 
