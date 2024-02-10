@@ -38,11 +38,11 @@
         </div>
       <% end %>
     <% elsif @error %>
-      <h3 class="mt-5 alert alert-warning text-center" >Não foi possível carregar informações dos projetos. Tente mais tarde</h3>
+      <h3 class="mt-5 alert alert-warning text-center" ><%= t(:project_api_error) %></h3>
     <% elsif params[:filter].nil? || params[:filter].blank? %>
-      <h3 class="mt-5 alert alert-warning text-center" >Você ainda não fez nenhuma solicitação de convite.</h3>
+      <h3 class="mt-5 alert alert-warning text-center" ><%= t(:no_invitation_request_msg) %></h3>
     <% else %>
-      <h3 class="mt-5 alert alert-warning text-center" >Não existem solicitações com o status selecionado.</h3>
+      <h3 class="mt-5 alert alert-warning text-center" ><%= t(:no_filter_results_msg) %></h3>
     <% end %>
   </div>
 </div>

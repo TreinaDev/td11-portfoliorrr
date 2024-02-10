@@ -19,3 +19,6 @@ pt-BR:
       success: 'A comunicação com Cola?Bora! está indisponivel no momento, mas sua solicitação está registrada e será enviada assim que o sistema voltar ao normal.'
       error: 'Não foi possível enviar solicitação'
   filter_btn: 'Filtrar'
+  project_api_error: Não foi possível carregar informações dos projetos. Tente mais tarde
+  no_invitation_request_msg: Você ainda não fez nenhuma solicitação de convite.
+  no_filter_results_msg: Não existem solicitações com o status selecionado.
