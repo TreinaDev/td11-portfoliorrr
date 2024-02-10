@@ -7,7 +7,7 @@
           <%= image_tag post.first_image_attached.representation(resize_to_limit: [ 1024, 300 ]), class:"img-fluid rounded mx-auto d-block mb-2"  %>
         <% end %>
         <p>
-          <%= post.content.to_plain_text.truncate(300, separator: ' ') %>
+          <%= content_fixer(post)  %>
         </p>
         <p class="card-subtitle mb-2 text-muted">Publicado por: <%= post.user.full_name %></p>
         <% if post.scheduled?%>

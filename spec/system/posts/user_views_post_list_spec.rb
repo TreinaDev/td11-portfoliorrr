@@ -30,6 +30,7 @@ describe 'Usuário vê a lista de publicações' do
     visit root_path
 
     expect(page).to have_selector '#post-list', text: post.content.to_plain_text.truncate(300, separator: ' ')
+                                                          .gsub(/\[[^\]]+\.\w+\]/, '')
   end
 
   it 'e vê a data de cada publicação' do
