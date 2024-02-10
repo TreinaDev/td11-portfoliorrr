@@ -1,4 +1,6 @@
 class InvitationRequestsController < ApplicationController
+  before_action :authenticate_user!, only: %i[index]
+
   def index
     invitation_requests = current_user.invitation_requests
     @error = false

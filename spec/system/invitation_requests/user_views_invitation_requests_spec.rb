@@ -54,4 +54,10 @@ describe 'Usuário acessa página de pedidos de convite' do
 
     expect(page).to have_content 'Não foi possível carregar informações dos projetos. Tente mais tarde'
   end
+
+  it 'e não está autenticado' do
+    visit invitation_requests_path
+
+    expect(page).to have_current_path new_user_session_path
+  end
 end
