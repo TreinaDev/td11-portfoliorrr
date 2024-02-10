@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_08_132247) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_09_150412) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -158,9 +158,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_132247) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-09 15:19:25"
+    t.datetime "edited_at", default: "2024-02-10 11:45:48"
     t.integer "status", default: 0
     t.datetime "published_at"
+    t.string "old_status"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -196,6 +197,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_132247) do
     t.datetime "updated_at", null: false
     t.integer "work_status", default: 10
     t.integer "privacy", default: 10
+    t.integer "status", default: 5
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -348,6 +350,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_132247) do
     t.string "full_name"
     t.integer "role", default: 0
     t.string "citizen_id_number"
+    t.string "old_name"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
