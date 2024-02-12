@@ -48,6 +48,10 @@
               <li class="dropdown-item" href="#">
                 <%= link_to 'Categorias de trabalho', job_categories_path, class: 'nav-link' %>
               </li>
+
+              <li class="dropdown-item" href="#">
+                <%= link_to 'Denúncias', reports_path, class: 'nav-link' %>
+              </li>
             <% end %>
             <li class="dropdown-item" href="#">
               <%= link_to 'Criar Nova Publicação', new_post_path, class: 'nav-link', data: { turbo: false }  %>

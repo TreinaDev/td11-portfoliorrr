@@ -1,14 +1,14 @@
 pt-BR:
   activerecord:
     models:
-      report: Denúncia
-
-
+      report:
+        one: Denúncia
+        other: Denúncias
     attributes:
       report:
+        reportable_type: Conteúdo reportado
         message: Mensagem
         offence_type: Tipo de ofensa
-
   reports:
     create:
       success: Sua denúncia foi registrada
@@ -16,4 +16,12 @@ pt-BR:
     new:
       not_published_post: Essa publicação não está disponível.
     report_btn: Denunciar
-    self_report: Você não pode denúnciar sí mesmo ou o próprio conteúdo.
+    pending: Pendente
+    granted: Deferido
+    not_granted: Indeferido
+    empty_state: Nenhuma denúncia encontrada
+    action: Ver mais
+    reporting_profile: Denunciado por
+    reported_when: Denunciado em
+    see_post: Ver publicação
+    self_report: Você não pode denunciar sí mesmo ou o próprio conteúdo.

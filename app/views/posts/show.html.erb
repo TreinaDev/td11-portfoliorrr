@@ -88,10 +88,11 @@
             <% end %>
           </div>
 
-          <div>
-            <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class),
-                        class: 'btn btn-dark btn-sm' unless comment.user == current_user %>
-          </div>
+          <% if current_user != comment.user %>
+            <div class="report-link-wrapper">
+              <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

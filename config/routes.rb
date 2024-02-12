@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     post 'pin', on: :member
   end
 
-  resources :reports, only: %i[index new create]
+  resources :reports, only: %i[index new create show]
 
   resources :users, only: [] do
     resources :posts, shallow: true, only: %i[show edit update]
