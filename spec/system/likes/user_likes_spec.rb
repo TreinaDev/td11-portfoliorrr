@@ -8,11 +8,11 @@ describe 'Usuário curte' do
 
       login_as user
       visit post_path(post)
-      click_on 'Curtir'
+      click_button id: 'like'
 
       expect(page).to have_content('1 Curtida')
-      expect(page).not_to have_content('Curtir')
-      expect(page).to have_content('Descurtir')
+      expect(page).not_to have_selector('#like')
+      expect(page).to have_selector('#unlike')
     end
 
     it 'e deixa de curtir' do
@@ -20,10 +20,10 @@ describe 'Usuário curte' do
 
       login_as like.user
       visit post_path(like.likeable)
-      click_on 'Descurtir'
+      click_button id: 'unlike'
 
       expect(page).to have_content '0 Curtida'
-      expect(page).to have_content 'Curtir'
+      expect(page).to have_selector '#like'
       expect(Like.count).to eq 0
     end
   end
@@ -37,14 +37,14 @@ describe 'Usuário curte' do
       login_as user
       visit post_path(post)
       within '#comments' do
-        click_on 'Curtir'
+        click_button id: 'like'
       end
 
       expect(page).to have_content('1 Curtida')
       within '#comments' do
-        expect(page).not_to have_content('Curtir')
+        expect(page).not_to have_selector('#like')
       end
-      expect(page).to have_content('Descurtir')
+      expect(page).to have_selector('#unlike')
     end
 
     it 'e deixa de curtir' do
@@ -53,10 +53,10 @@ describe 'Usuário curte' do
       login_as like.user
       visit post_path(like.likeable.post)
       within '#comments' do
-        click_on 'Descurtir'
+        click_button id: 'unlike'
 
         expect(page).to have_content '0 Curtida'
-        expect(page).to have_content 'Curtir'
+        expect(page).to have_selector '#like'
       end
       expect(Like.count).to eq 0
     end
