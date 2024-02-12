@@ -29,7 +29,6 @@
         <div class="ratio ratio-1x1 rounded-circle overflow-hidden w-50">
           <%= render 'profile_photo' %>
         </div>
-
         <%= link_to 'Alterar foto', edit_profile_path(@profile), class: 'badge bg-secondary' if current_user == @profile.user %>
         <h4><%= @user.full_name %></h4>
         <div class="d-flex gap-4">
@@ -43,25 +42,6 @@
               <p><%= @profile.followed_count %> <%= t(Connection.human_attribute_name(:followed_profile_id))%> </p>
             <% end %>
           </div>
-        </div>
-        <div class="mt-2">
-          <% if @profile.open_to_work? %>
-            <h6 class="text-success"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
-            <%= button_to 'alterar disponibilidade', work_unavailable_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
-          <% else %>
-            <h6 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
-            <%= button_to 'alterar disponibilidade', open_to_work_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
-          <% end %>
-        </div>
-        <div class="mt-3">
-          <% if current_user.profile == @profile %>
-            <% if @profile.public_profile? %>
-              <h6 class="text-success"><%= t Profile.human_attribute_name("privacy.#{@profile.privacy}") %></h6>
-            <% else %>
-              <h6 class="text-secondary"><%= t Profile.human_attribute_name("privacy.#{@profile.privacy}") %></h6>
-            <% end %>
-            <%= button_to 'alterar privacidade', change_privacy_path, method: :patch, class: 'btn btn-outline-primary btn-sm' %>
-          <% end %>
         </div>
         <br>
         <div class="w-75">
