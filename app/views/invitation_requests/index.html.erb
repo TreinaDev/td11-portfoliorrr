@@ -27,7 +27,7 @@
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <p class="m-0 text-muted">
-                  Enviada há <%= time_ago_in_words(invitation_request.created_at) %>
+                  <%= t(:time_ago, time: time_ago_in_words(invitation_request.created_at)) %>
                 </p>
                 <p class="m-0 text-center <%= css_color_class(invitation_request.status.to_sym) %> fw-bold fs-5">
                   <%= InvitationRequest.human_attribute_name("status.#{invitation_request.status}") %>

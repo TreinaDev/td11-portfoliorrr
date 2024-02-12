@@ -12,7 +12,7 @@ describe 'Usuário comenta uma publicação' do
       click_on 'Comentar'
 
       within '#comments' do
-        expect(page).to have_content 'Peter Parker'
+        expect(page).to have_link 'Peter Parker', href: profile_path(commenter.profile)
         expect(page).to have_content 'Um comentário legal'
       end
       expect(post).to be_persisted
@@ -47,7 +47,7 @@ describe 'Usuário comenta uma publicação' do
   end
 
   context 'e desativa o perfil' do
-    it 'então o nome é alterado nos comentários' do
+    it 'então o nome é alterado no comentário' do
       user = create(:user, full_name: 'James')
       comment = create(:comment, user:)
       other_user = create(:user)
@@ -59,6 +59,29 @@ describe 'Usuário comenta uma publicação' do
       within '#comments' do
         expect(page).to have_content 'Perfil Desativado'
         expect(page).not_to have_content 'James'
+      end
+    end
+  end
+
+  context 'e exclui sua conta' do
+    it 'então o nome é alterado no comentário' do
+      user = create(:user, full_name: 'James')
+      comment = create(:comment, user:, message: 'Por que a noite é escura?')
+      other_user = create(:user)
+
+      login_as user
+      visit profile_settings_path(user.profile)
+      accept_prompt do
+        click_on 'Excluir Conta'
+      end
+      login_as other_user
+      visit post_path(comment.post)
+
+      within '#comments' do
+        expect(page).to have_content 'Conta Excluída'
+        expect(page).to have_content 'Comentário Removido'
+        expect(page).not_to have_content 'James'
+        expect(page).not_to have_content 'Por que a noite é escura?'
       end
     end
   end

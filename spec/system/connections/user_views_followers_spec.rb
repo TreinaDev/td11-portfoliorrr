@@ -26,7 +26,7 @@ describe 'Usuário vê lista de usuários seguidos' do
       visit profile_path(follower.profile)
       click_on '3 Seguindo'
 
-      expect(current_path).to eq profile_following_path(follower.profile)
+      expect(page).to have_current_path profile_following_path(follower.profile)
       expect(page).to have_content follower.full_name
       expect(page).to have_content 'Seguindo 3 usuários'
       expect(page).not_to have_link first_followed.full_name

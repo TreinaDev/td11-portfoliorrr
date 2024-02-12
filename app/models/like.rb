@@ -10,6 +10,8 @@ class Like < ApplicationRecord
 
   def create_notification
     post_author = likeable.user.profile
+    return if user == post_author.user
+
     Notification.create(profile: post_author, notifiable: self)
   end
 end

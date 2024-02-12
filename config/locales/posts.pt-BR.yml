@@ -2,8 +2,8 @@ pt-BR:
   activerecord:
     models:
       post:
-        one: Postagem
-        other: Postagens
+        one: Publicação
+        other: Publicações
     attributes:
       post:
         title: Título da Publicação
