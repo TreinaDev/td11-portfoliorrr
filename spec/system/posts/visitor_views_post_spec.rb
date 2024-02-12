@@ -9,7 +9,7 @@ describe 'Visitante visualiza uma publicação' do
     expect(current_path).to eq post_path(post)
     expect(page).to have_content 'Título do post'
     expect(page).to have_content 'Conteúdo do post'
-    expect(page).to have_content "Criado por #{post.user.full_name}"
+    expect(page).to have_link "Criado por #{post.user.full_name}", href: profile_path(post.user.profile)
   end
 
   it 'e não vê arquivada' do

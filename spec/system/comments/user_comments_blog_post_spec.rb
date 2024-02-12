@@ -12,7 +12,7 @@ describe 'Usuário comenta uma publicação' do
       click_on 'Comentar'
 
       within '#comments' do
-        expect(page).to have_content 'Peter Parker'
+        expect(page).to have_link 'Peter Parker', href: profile_path(commenter.profile)
         expect(page).to have_content 'Um comentário legal'
       end
       expect(post).to be_persisted
