@@ -10,7 +10,7 @@
                 profile_path(notification.notifiable.user.profile) %>
               comentou no post
               "<%= link_to notification.notifiable.post.title,
-                post_path(notification.notifiable.post, anchor: "comment-#{notification.notifiable.id}") %>"
+                post_path(notification.notifiable.post, anchor: "comment_#{notification.notifiable.id}") %>"
               há <%= time_ago_in_words(notification.notifiable.created_at) %>
             </p>
           <% elsif  notification.notifiable.is_a?(Invitation)%>
@@ -21,7 +21,7 @@
             </p>
           <% end %>
         </div>
-      <% end %>
+      <% end%>
     </div>
   <% else %>
     <p>Nenhuma notificação encontrada</p>

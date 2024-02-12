@@ -43,8 +43,8 @@ describe 'Usuário é notificado' do
 
       expect(page).to have_content 'Gabriel comentou no post "Meu segundo post" há 10 minutos'
       expect(page).to have_content 'Gabriel comentou no post "Meu primeiro post" há aproximadamente 10 horas'
-      expect(page).to have_link post_one.title, href: post_path(post_one, anchor: "comment-#{comment_one.id}")
-      expect(page).to have_link post_two.title, href: post_path(post_two, anchor: "comment-#{comment_two.id}")
+      expect(page).to have_link post_one.title, href: post_path(post_one, anchor: "comment_#{comment_one.id}")
+      expect(page).to have_link post_two.title, href: post_path(post_two, anchor: "comment_#{comment_two.id}")
     end
   end
 end
