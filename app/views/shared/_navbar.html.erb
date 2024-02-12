@@ -40,6 +40,9 @@
               <%= link_to 'Convites', invitations_path, class: 'nav-link' %>
             </li>
             <li class="dropdown-item">
+              <%= link_to 'Solicitações de Convites', invitation_requests_path, class: 'nav-link' %>
+            </li>
+            <li class="dropdown-item">
               <%= link_to notifications_path, class: 'nav-link' do %>
                 Notificações <span class="badge bg-primary"><%= current_user.profile.notifications.count %></span>
               <% end %>

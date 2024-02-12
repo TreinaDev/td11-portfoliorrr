@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     patch 'decline', on: :member
   end
 
+  resources :invitation_requests, only: %i[index]
+
   resources :projects, only: %i[index]
   post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
