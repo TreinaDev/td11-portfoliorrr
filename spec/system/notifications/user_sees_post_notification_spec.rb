@@ -11,12 +11,8 @@ describe 'Usuário vê notificações de publicações' do
       create(:post, user: followed)
 
       login_as follower
-      visit root_path
-      click_button class: 'dropdown-toggle'
-      within 'nav' do
-        click_on 'Notificações'
-      end
-
+      visit notifications_path
+      
       expect(page).to have_current_path notifications_path
       expect(new_post_notification_job_spy).to have_received(:perform_later)
     end
@@ -29,11 +25,7 @@ describe 'Usuário vê notificações de publicações' do
       like = create(:like, likeable: post)
 
       login_as user
-      visit root_path
-      click_button class: 'dropdown-toggle'
-      within 'nav' do
-        click_on 'Notificações'
-      end
+      visit notifications_path
 
       expect(page).to have_current_path notifications_path
       expect(page).to have_content 'curtiu sua publicação'
@@ -46,11 +38,7 @@ describe 'Usuário vê notificações de publicações' do
       like = create(:like, likeable: post, user:)
 
       login_as user
-      visit root_path
-      click_button class: 'dropdown-toggle'
-      within 'nav' do
-        click_on 'Notificações'
-      end
+      visit notifications_path
 
       expect(page).not_to have_content 'curtiu sua publicação'
       expect(page).not_to have_link like.user.profile.full_name, href: profile_path(like.user.profile)

@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :reports, as: :reportable, dependent: :destroy
 
   validates :title, :content, :status, presence: true
+  validates :published_at, presence: true, if: -> { scheduled? }
   validate :correct_file_type
   validate :file_size
   validate :validate_published_at
