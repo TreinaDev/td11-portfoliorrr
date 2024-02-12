@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     patch 'decline', on: :member
   end
 
+  resources :invitation_requests, only: %i[index]
+
   resources :projects, only: %i[index]
   post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
@@ -19,12 +21,12 @@ Rails.application.routes.draw do
     post 'pin', on: :member
   end
 
-  resources :reports, only: %i[index new create]
+  resources :reports, only: %i[index new create show]
 
   resources :users, only: [] do
     resources :posts, shallow: true, only: %i[show edit update]
     resources :profiles, shallow: true, only: %i[edit show update] do
-      resources 'settings', only: %i[index]
+      resources :settings, only: %i[index]
       patch :remove_photo, on: :member
       resources :connections, only: %i[create index] do
         patch 'unfollow', 'follow_again'
@@ -34,10 +36,7 @@ Rails.application.routes.draw do
   end
 
   delete 'delete_account', controller: :settings
-  patch 'deactivate_profile', controller: :settings
-  patch 'work_unavailable', controller: :profiles
-  patch 'open_to_work', controller: :profiles
-  patch 'change_privacy', controller: :profiles
+  patch 'deactivate_profile', 'work_unavailable', 'open_to_work', 'change_privacy', controller: :settings
 
   resources :likes, only: %i[create destroy]
   resources :job_categories, only: %i[index create]
@@ -54,6 +53,8 @@ Rails.application.routes.draw do
       resources :job_categories, only: %i[index show]
       resources :profiles, only: %i[show index]
       resources :invitations, only: %i[create update]
+      
+      get 'projects/request_invitation', controller: :projects
     end
   end
 end

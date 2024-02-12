@@ -89,6 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_172630) do
     t.integer "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["profile_id", "project_id"], name: "index_invitation_requests_on_profile_id_and_project_id", unique: true
     t.index ["profile_id"], name: "index_invitation_requests_on_profile_id"
     t.index ["project_id"], name: "index_invitation_requests_on_project_id"
@@ -159,7 +160,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_172630) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-12 17:27:55"
+    t.datetime "edited_at", default: "2024-02-12 20:48:52"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
