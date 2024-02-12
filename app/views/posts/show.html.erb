@@ -46,9 +46,9 @@
         <%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %>
       </div>
       <% if @liked %>
-          <%= button_to 'Descurtir', like_path(post_like_id: @liked), method: :delete, class: 'btn btn-danger btn-sm' %>
+          <%= button_to 'Descurtir', post_like_path(@post, @liked), method: :delete, class: 'btn btn-danger btn-sm' %>
       <% else %>
-          <%= button_to 'Curtir', likes_path(post_id: @post), method: :post, class: 'btn btn-primary btn-sm' %>
+          <%= button_to 'Curtir', post_likes_path(@post), method: :post, class: 'btn btn-primary btn-sm' %>
       <% end %>
     </div>
   </div>
@@ -65,7 +65,7 @@
     <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
   </div>
   <% @post.comments.each do |comment| %>
-    <div class="card-body comment">
+    <div class="card-body" id="comment-<%= comment.id%>">
       <blockquote class="blockquote mb-0">
         <p><%= comment.message %></p>
         <footer class="blockquote-footer">
@@ -79,14 +79,14 @@
             <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
           </div>
 
-          <div class="me-2">
-            <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
-              <% like = comment.likes.find_by(user_id: current_user.id) %>
-              <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
-            <% else %>
-              <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
-            <% end %>
-          </div>
+        <div class="me-2">
+          <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+            <% like = comment.likes.find_by(user_id: current_user.id) %>
+            <%= button_to 'Descurtir', comment_like_path(comment, like), method: :delete, class: 'btn btn-danger btn-sm' %>
+          <% else %>
+            <%= button_to 'Curtir', comment_likes_path(comment), method: :post, class: 'btn btn-primary btn-sm' %>
+          <% end %>
+        </div>
 
           <% if current_user != comment.user %>
             <div class="report-link-wrapper">
