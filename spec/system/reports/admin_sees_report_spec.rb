@@ -20,15 +20,16 @@ describe 'Admin visualiza denúncia' do
 
   it 'de um comentário com sucesso' do
     admin = create(:user, :admin)
-    report = create(:report, :for_comment)
+    create(:comment, message: 'Comentário top')
+    report = create(:report, :for_comment, message: 'Esse comentário me da gatilho')
 
     login_as admin
     visit reports_path
     click_on 'Ver mais'
 
     expect(page).to have_current_path report_path(report)
-    expect(page).to have_content report.reportable.message
-    expect(page).to have_content report.message
+    expect(page).to have_content 'Comentário top'
+    expect(page).to have_content 'Esse comentário me da gatilho'
   end
 
   it 'de um perfil com sucesso e vê as últimas 3 publicações' do
