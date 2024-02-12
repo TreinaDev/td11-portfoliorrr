@@ -150,7 +150,7 @@ describe 'Usuário edita uma publicação' do
     visit edit_post_path(post)
     fill_in 'Título da Publicação', with: 'O título mudou'
     choose 'Agendar'
-    fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
+    fill_in 'post_published_at', with: 2.days.from_now.noon
     click_on 'Salvar'
 
     post = Post.last

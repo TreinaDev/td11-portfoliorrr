@@ -1,6 +1,6 @@
 <div class="d-flex">
   <div class="container d-flex flex-column w-50">
-
+  <% if @profile.active? %>
     <% if @posts.pinned.any? %>
       <div id="fixed">
         <h2 id="post-list-title">Destaque</h2>
@@ -15,7 +15,7 @@
       <% if @profile.user.posts.count - @profile.user.posts.pinned.count < 1 %>
         <p>Ainda não tem nada aqui... <br> Mas novas publicações vão ocupar este espaço. :)</p>
       <% end %>
-      
+
       <section>
         <%= render partial: 'posts/listing', locals: { posts: @posts.unpinned.order(created_at: :desc) } %>
       </section>
@@ -80,10 +80,14 @@
             </div>
           <% end %>
         </div>
+
       </section>
       <section>
         <%= render 'profile/profile', profile: @profile, professional_infos: @professional_infos, personal_info: @personal_info %>
       </section>
     </aside>
+  <% else %>
+    <h2 class="text-center">Conta Desativada</h2>
+  <% end %>
   </div>
 </div>

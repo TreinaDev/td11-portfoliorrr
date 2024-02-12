@@ -44,7 +44,7 @@ describe 'Usuário denuncia' do
       expect(page).not_to have_content 'Denunciar'
     end
 
-    it 'e não pode denúnciar o próprio comentário' do
+    it 'e não pode denunciar o próprio comentário' do
       user = create(:user)
       post = create(:comment, user:)
 
@@ -55,7 +55,7 @@ describe 'Usuário denuncia' do
       click_on 'Denunciar'
 
       expect(page).to have_current_path root_path
-      expect(page).to have_content 'Você não pode denúnciar sí mesmo ou o próprio conteúdo.'
+      expect(page).to have_content 'Você não pode denunciar sí mesmo ou o próprio conteúdo.'
     end
   end
 
@@ -102,7 +102,7 @@ describe 'Usuário denuncia' do
       expect(page.all('.comment').to_a.second).not_to have_link 'Denunciar'
     end
 
-    it 'e não pode denúnciar o próprio comentário' do
+    it 'e não pode denunciar o próprio comentário' do
       user = create(:user)
       comment = create(:comment, user:)
 
@@ -113,7 +113,7 @@ describe 'Usuário denuncia' do
       click_on 'Denunciar'
 
       expect(page).to have_current_path root_path
-      expect(page).to have_content 'Você não pode denúnciar sí mesmo ou o próprio conteúdo.'
+      expect(page).to have_content 'Você não pode denunciar sí mesmo ou o próprio conteúdo.'
     end
   end
 
@@ -138,7 +138,7 @@ describe 'Usuário denuncia' do
       expect(Report.last.profile).to eq user.profile
     end
 
-    it 'e não vê botão de comentar no próprio perfil' do
+    it 'e não vê botão de denunciar no próprio perfil' do
       user = create(:user)
 
       login_as user
@@ -147,7 +147,7 @@ describe 'Usuário denuncia' do
       expect(page).not_to have_link 'Denunciar'
     end
 
-    it 'e não pode denúnciar ele mesmo' do
+    it 'e não pode denunciar ele mesmo' do
       user = create(:user)
 
       login_as user
@@ -157,7 +157,7 @@ describe 'Usuário denuncia' do
       click_on 'Denunciar'
 
       expect(page).to have_current_path root_path
-      expect(page).to have_content 'Você não pode denúnciar sí mesmo ou o próprio conteúdo.'
+      expect(page).to have_content 'Você não pode denunciar sí mesmo ou o próprio conteúdo.'
     end
   end
 

@@ -84,8 +84,8 @@ describe 'Admin visita página de index de denúnicas' do
   it 'e precisa estar logado' do
     visit reports_path
 
-    expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
+    expect(page).to have_current_path new_user_session_path
   end
 
   it 'e precisa ser admin' do

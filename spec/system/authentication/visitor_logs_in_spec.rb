@@ -32,6 +32,22 @@ describe 'Usuário faz login' do
 
       expect(page).to have_content 'João (Admin)'
     end
+
+    it 'e seu perfil é reativado caso estivesse inativo' do
+      user = create(:user)
+      user.profile.inactive!
+
+      visit root_path
+      click_on 'Entrar'
+      within '#new_user' do
+        fill_in 'E-mail', with: user.email
+        fill_in 'Senha', with: user.password
+        click_on 'Entrar'
+      end
+
+      expect(page).to have_content 'Sua conta foi reativada com sucesso'
+      expect(user.profile.reload).to be_active
+    end
   end
 
   it 'e realiza o log out com sucesso' do
