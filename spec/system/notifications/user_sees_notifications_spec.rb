@@ -58,7 +58,7 @@ describe 'Usuário vê notificações' do
 
   it 'contagem de notificações muda ao ir para página de notificações' do
     user = create(:user)
-    invitation = create(:invitation, profile: user.profile)
+    create(:invitation, profile: user.profile)
 
     login_as user
     visit notifications_path

@@ -1,15 +1,17 @@
 <div class="container d-flex flex-column align-items-center">
   <h2>Notificações</h2>
   <% if @notifications&.any? %>
+    <ul class="list-group list-group-flush">
       <% @notifications.each do |notification| %>
-        <div class="list-group">
-            <%= render(
-            partial: "#{notification.notifiable.class.name.downcase}" ,
-            locals: { notification: notification }
-            )%>
-          há <%= distance_of_time_in_words_to_now(notification.notifiable.created_at) %></p>
-        </div>
+        <li class="list-group-item">
+          <%= render(
+          partial: "#{notification.notifiable.class.name.downcase}" ,
+          locals: { notification: notification }
+          )%>
+          há <%= distance_of_time_in_words_to_now(notification.notifiable.created_at) %>
+        </li>
       <% end %>
+    </ul>
   <% else %>
     <p>Nenhuma notificação encontrada</p>
   <% end %>
