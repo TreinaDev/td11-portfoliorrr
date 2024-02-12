@@ -7,14 +7,10 @@ describe 'Usuário vê notificação de novo seguidor' do
     Connection.create!(followed_profile: followed.profile, follower: follower.profile)
 
     login_as followed
-    visit root_path
-    click_button class: 'dropdown-toggle'
-    within 'nav' do
-      click_on 'Notificações'
-    end
+    visit notifications_path
 
     expect(page).to have_current_path notifications_path
-    expect(page).to have_content 'começou a te seguir'
+    expect(page).to have_content 'Paulo começou a te seguir'
     expect(page).to have_link follower.full_name, href: profile_path(follower)
   end
 end
