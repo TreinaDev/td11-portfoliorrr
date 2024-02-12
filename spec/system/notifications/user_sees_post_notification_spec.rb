@@ -12,7 +12,7 @@ describe 'Usuário vê notificações de publicações' do
 
       login_as follower
       visit notifications_path
-      
+
       expect(page).to have_current_path notifications_path
       expect(new_post_notification_job_spy).to have_received(:perform_later)
     end
