@@ -1,8 +1,7 @@
 <ul>
   <% if personal_info.has_key?('visibility') && user_is_owner %>
     <li class="fs-5 mb-3">
-      <span class="fw-bold"><%= PersonalInfo.human_attribute_name('visibility') %>:</span>
-      <%= t(info_fixer(personal_info['visibility'])) %>
+      <span class="fw-bold"><%= t(personal_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
     </li>
   <% end %>
   <% personal_info.each do |attribute, value| %>    

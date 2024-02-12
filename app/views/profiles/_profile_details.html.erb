@@ -39,7 +39,7 @@
         <ul>
           <% if user_is_owner %>
             <li class="fs-5 mb-3">
-              <span class="fw-bold"><%= ProfessionalInfo.human_attribute_name(:visibility) %></span>: <%= t(professional_info.visibility) %>
+              <span class="fw-bold"><%= t(professional_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
             </li>
           <% end %>
           <li>
@@ -83,7 +83,7 @@
           <ul>
             <% if user_is_owner %>
               <li class="fs-5 mb-3">
-                <span class="fw-bold"><%= EducationInfo.human_attribute_name(:visibility) %></span>: <%= t(education_info.visibility) %>
+                <span class="fw-bold"><%= t(education_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
               </li>
             <% end %>
             <li>

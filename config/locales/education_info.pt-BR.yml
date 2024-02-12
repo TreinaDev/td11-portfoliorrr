@@ -1,4 +1,7 @@
 pt-BR:
+  visibility:
+    'true': 'Exibido no Perfil'
+    'false': 'Não Exibido no Perfil'
   activerecord:
     models:
       education_info:
