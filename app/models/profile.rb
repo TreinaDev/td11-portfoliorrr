@@ -21,6 +21,10 @@ class Profile < ApplicationRecord
   has_many :posts, through: :user
   has_many :notifications, dependent: :destroy
 
+  has_many :reports_submitted, class_name: 'Report', dependent: :destroy
+
+  has_many :reports_received, class_name: 'Report', as: :reportable, dependent: :destroy
+
   accepts_nested_attributes_for :personal_info
   accepts_nested_attributes_for :professional_infos
   accepts_nested_attributes_for :education_infos
@@ -32,6 +36,7 @@ class Profile < ApplicationRecord
 
   enum work_status: { unavailable: 0, open_to_work: 10 }
   enum privacy: { private_profile: 0, public_profile: 10 }
+  enum status: { inactive: 0, active: 5 }
 
   delegate :full_name, to: :user
   delegate :email, to: :user
@@ -42,7 +47,7 @@ class Profile < ApplicationRecord
        personal_infos.city LIKE :term OR
        users.full_name LIKE :term',
       { term: "%#{sanitize_sql_like(search_query)}%" }
-    ).public_profile.uniq
+    ).public_profile.active.uniq
   end
 
   def self.get_profile_job_categories_json(query)
@@ -83,6 +88,26 @@ class Profile < ApplicationRecord
       .group(:id)
       .order('count(follower_id) DESC, id ASC')
       .limit(limit)
+  end
+
+  def inactive!
+    super
+    user.update(old_name: user.full_name, full_name: 'Perfil Desativado')
+    user.posts.each do |post|
+      post.update(old_status: post.status)
+    end
+
+    user.posts.each(&:archived!)
+    Connection.where(follower: self).or(Connection.where(followed_profile: self)).find_each(&:inactive!)
+  end
+
+  def active!
+    super
+    user.update(full_name: user.old_name)
+    user.posts.each do |post|
+      post.update(status: post.old_status)
+    end
+    Connection.where(follower: self).or(Connection.where(followed_profile: self)).find_each(&:active!)
   end
 
   private

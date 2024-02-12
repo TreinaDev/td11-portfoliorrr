@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_09_192701) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_10_163321) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_192701) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "old_message"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -162,6 +163,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_192701) do
     t.datetime "edited_at", default: "2024-02-12 12:29:41"
     t.integer "status", default: 0
     t.datetime "published_at"
+    t.string "old_status"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -197,7 +199,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_192701) do
     t.datetime "updated_at", null: false
     t.integer "work_status", default: 10
     t.integer "privacy", default: 10
+    t.integer "status", default: 5
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.text "message"
+    t.integer "status", default: 0
+    t.integer "profile_id", null: false
+    t.string "reportable_type", null: false
+    t.integer "reportable_id", null: false
+    t.string "offence_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_reports_on_profile_id"
+    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable"
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
@@ -336,7 +352,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_192701) do
     t.string "full_name"
     t.integer "role", default: 0
     t.string "citizen_id_number"
+    t.string "old_name"
+    t.datetime "deleted_at"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -358,6 +377,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_192701) do
   add_foreign_key "profile_job_categories", "job_categories"
   add_foreign_key "profile_job_categories", "profiles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "reports", "profiles"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

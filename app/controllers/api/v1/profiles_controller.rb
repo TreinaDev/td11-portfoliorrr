@@ -3,16 +3,16 @@ module Api
     class ProfilesController < ApiController
       def index
         if params[:search].blank?
-          profiles = Profile.open_to_work
+          profiles = Profile.active.open_to_work
           profiles = profiles.map { |profile| format_profile(profile) }
         else
-          profiles = Profile.open_to_work.get_profile_job_categories_json(params[:search])
+          profiles = Profile.active.open_to_work.get_profile_job_categories_json(params[:search])
         end
         render status: :ok, json: { data: profiles }
       end
 
       def show
-        profile = Profile.find(params[:id])
+        profile = Profile.active.find(params[:id])
         render status: :ok, json: json_output(profile)
       rescue ActiveRecord::RecordNotFound
         render status: :not_found, json: { error: 'Perfil não existe.' }

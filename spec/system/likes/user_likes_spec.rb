@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Usuário curte' do
   context 'Uma publicação' do
-    it 'com sucesso e mailer é enviado' do
-      post = create(:post)
+    it 'com sucesso' do
+      post = create(:post, title: 'Publicação do Teste')
       user = create(:user, email: 'user@email.com', citizen_id_number: '028.998.450-55')
 
       login_as user

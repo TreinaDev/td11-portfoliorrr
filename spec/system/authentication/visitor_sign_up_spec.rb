@@ -16,6 +16,23 @@ describe 'Usuário acessa página de cadastro de usuário' do
     expect(page).to have_content 'Boas vindas 👋 Você realizou seu cadastro com sucesso.'
   end
 
+  it 'e após o cadastro com sucesso é cadastrado no job de notificações de curtidas' do
+    daily_likes_job_spy = spy('DailyLikesDigestJob')
+    stub_const('DailyLikesDigestJob', daily_likes_job_spy)
+    allow(daily_likes_job_spy).to receive(:set).and_return(daily_likes_job_spy)
+
+    visit root_path
+    click_on 'Criar Nova Conta'
+    fill_in 'Nome Completo', with: 'João Almeida'
+    fill_in 'E-mail', with: 'joaoalmeida@email.com'
+    fill_in 'CPF', with: '88257290068'
+    fill_in 'Senha', with: '123456'
+    fill_in 'Confirme sua Senha', with: '123456'
+    click_on 'Cadastrar'
+
+    expect(daily_likes_job_spy).to have_received(:perform_later).once
+  end
+
   context 'e realiza o cadastro com falhas' do
     it 'campos não podem ficar em brancos' do
       visit new_user_registration_path

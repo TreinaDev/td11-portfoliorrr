@@ -2,8 +2,10 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
+  has_many :reports, as: :reportable, dependent: :destroy
 
   validates :title, :content, :status, presence: true
+  validates :published_at, presence: true, if: -> { scheduled? }
   validate :correct_file_type
   validate :file_size
   validate :validate_published_at
@@ -14,6 +16,7 @@ class Post < ApplicationRecord
   enum pin: { unpinned: 0, pinned: 10 }
 
   after_commit :schedule_post, on: %i[create update]
+  after_create :create_notification_to_followers
 
   has_rich_text :content
 
@@ -38,6 +41,10 @@ class Post < ApplicationRecord
   end
 
   private
+
+  def create_notification_to_followers
+    NewPostNotificationJob.perform_later self
+  end
 
   def schedule_post
     return unless status == 'scheduled' && !published_at.nil?

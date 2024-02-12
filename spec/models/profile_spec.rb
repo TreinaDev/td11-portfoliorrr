@@ -203,4 +203,49 @@ RSpec.describe Profile, type: :model do
       expect(result.first).to eq first_user.profile
     end
   end
+
+  describe '#inactive' do
+    it 'arquiva dados do usuário' do
+      user = create(:user, full_name: 'James')
+      profile = create(:profile, user:)
+      post1 = create(:post, user:, status: 'published')
+      post2 = create(:post, user:, status: 'draft')
+      post3 = create(:post, user:, status: 'archived')
+      other_user = create(:user)
+      Connection.create(follower: profile, followed_profile: other_user.profile)
+      Connection.create(follower: other_user.profile, followed_profile: profile)
+
+      profile.inactive!
+
+      expect(user.reload.full_name).to eq 'Perfil Desativado'
+      expect(profile.reload).to be_inactive
+      expect(post1.reload).to be_archived
+      expect(post2.reload).to be_archived
+      expect(post3.reload).to be_archived
+      expect(Connection.inactive.count).to eq 2
+    end
+  end
+
+  describe '#active' do
+    it 'restaura dados do usuário' do
+      user = create(:user, full_name: 'James')
+      profile = create(:profile, user:)
+      post1 = create(:post, user:, status: 'published')
+      post2 = create(:post, user:, status: 'draft')
+      post3 = create(:post, user:, status: 'archived')
+      other_user = create(:user)
+      Connection.create(follower: profile, followed_profile: other_user.profile)
+      Connection.create(follower: other_user.profile, followed_profile: profile)
+      profile.inactive!
+
+      profile.active!
+
+      expect(user.reload.full_name).to eq 'James'
+      expect(profile.reload).to be_active
+      expect(post1.reload).to be_published
+      expect(post2.reload).to be_draft
+      expect(post3.reload).to be_archived
+      expect(Connection.active.count).to eq 2
+    end
+  end
 end
