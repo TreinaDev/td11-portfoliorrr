@@ -11,7 +11,7 @@
     </div>
 
     <h6 class="card-subtitle mb-2">
-      <%= t('posts.views.show.authored_by', author_name: @post.user.full_name) %>
+      <%= link_to t('posts.views.show.authored_by', author_name: @post.user.full_name), @post.user.profile %>
     </h6>
 
     <p class="card-text"><%= @post.content %></p>
@@ -65,36 +65,38 @@
     <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
   </div>
   <% @post.comments.each do |comment| %>
-    <div class="card-body">
+    <div class="card-body comment">
       <% if comment.removed?%>
         <p><%= t('comments.removed_content') %> </p>
       <% else %>
         <blockquote class="blockquote mb-0">
           <p><%= comment.message %></p>
           <footer class="blockquote-footer">
-            <%= comment.user.full_name %> <%= '(autor)' if comment.user == @post.user %>
+            <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
           </footer>
         </blockquote>
 
-        <div class="btn-group">
-          <div class="me-2">
-            <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
-          </div>
+        <% if comment.user.deleted_at.nil? %>
+          <div class="btn-group">
+            <div class="me-2">
+              <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
+            </div>
 
-          <div class="me-2">
-            <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
-              <% like = comment.likes.find_by(user_id: current_user.id) %>
-              <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
-            <% else %>
-              <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
-            <% end %>
-          </div>
+            <div class="me-2">
+              <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+                <% like = comment.likes.find_by(user_id: current_user.id) %>
+                <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
+              <% else %>
+                <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
+              <% end %>
+            </div>
 
-          <div>
-            <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class),
-                        class: 'btn btn-secondary btn-sm reporting-button' unless comment.user == current_user %>
+            <div>
+              <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class),
+                          class: 'btn btn-secondary btn-sm reporting-button' unless comment.user == current_user %>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
   <% end %>

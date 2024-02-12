@@ -8,4 +8,8 @@ module PostsHelper
       'Publicado em: '
     end
   end
+
+  def content_fixer(post)
+    post.content.to_plain_text.truncate(300, separator: ' ').gsub(/\[[^\]]+\.\w+\]/, '')
+  end
 end

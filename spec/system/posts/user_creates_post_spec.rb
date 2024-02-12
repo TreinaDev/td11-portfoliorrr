@@ -174,14 +174,29 @@ describe 'Usuário cria uma postagem' do
       fill_in 'Título da Publicação', with: 'Olá Mundo!'
       fill_in_rich_text_area 'conteudo', with: 'Primeira <em>publicação</em>'
       choose 'Agendar'
-      fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
+      fill_in 'post_published_at', with: 2.days.from_now.noon
       click_on 'Salvar'
       posts = Post.all
 
       expect(posts.count).to eq 1
       expect(posts.first).to be_scheduled
+      expect(post_schedule_spy).to have_received(:perform_later).with(Post.last)
       expect(page).to have_content 'Publicação agendada com sucesso'
       expect(page).to have_content "Agendado para: #{I18n.l(posts.last.published_at.to_datetime, format: :long)}"
+    end
+
+    it 'com falha' do
+      user = create(:user, full_name: 'Seiya de Pégaso')
+
+      login_as user
+      visit new_post_path
+      fill_in 'Título da Publicação', with: 'Olá Mundo!'
+      fill_in_rich_text_area 'conteudo', with: 'Primeira <em>publicação</em>'
+      choose 'Agendar'
+      fill_in 'post_published_at', with: ''
+      click_on 'Salvar'
+
+      expect(page).to have_content 'Data de publicação não pode ficar em branco'
     end
   end
 end

@@ -40,7 +40,7 @@ describe 'Usuário denuncia' do
 
     it 'mas post está agendado' do
       user = create(:user)
-      post = create(:post, status: :scheduled)
+      post = create(:post, status: :scheduled, published_at: Time.current + 5.seconds)
 
       login_as user
       post reports_path, params: {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_09_191251) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_10_163321) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_191251) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "old_message"
     t.integer "status", default: 0
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
@@ -89,6 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_191251) do
     t.integer "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["profile_id", "project_id"], name: "index_invitation_requests_on_profile_id_and_project_id", unique: true
     t.index ["profile_id"], name: "index_invitation_requests_on_profile_id"
     t.index ["project_id"], name: "index_invitation_requests_on_project_id"
@@ -159,7 +161,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_191251) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-09 19:41:51"
+    t.datetime "edited_at", default: "2024-02-12 13:53:59"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
@@ -352,7 +354,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_191251) do
     t.integer "role", default: 0
     t.string "citizen_id_number"
     t.string "old_name"
+    t.datetime "deleted_at"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

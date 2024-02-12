@@ -62,4 +62,22 @@ RSpec.describe User, type: :model do
       expect(user.description).to eq 'João (Admin)'
     end
   end
+
+  describe '#delete_user_data' do
+    it 'deleta dados relaciondos ao usuário mantendo posts e comentarios em usuário coringa' do
+      user = create(:user, full_name: 'João Almeida')
+      user.posts.create(title: 'Post do usuário excluído', content: 'Conteúdo')
+      post = create(:post)
+      post.comments.create(message: 'Novo comentário', user:)
+
+      user.delete_user_data
+
+      expect(User.find_by(id: user.id)).to be_nil
+      deleted_user = User.find_by(full_name: 'Conta Excluída')
+      expect(deleted_user.deleted_at).not_to be_nil
+      expect(deleted_user.comments.first.message).to eq 'Comentário Removido'
+      expect(deleted_user.comments.first.old_message).to eq 'Novo comentário'
+      expect(deleted_user.posts.count).to eq 1
+    end
+  end
 end

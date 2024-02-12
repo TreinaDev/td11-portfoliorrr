@@ -2,6 +2,6 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @notifications = current_user.profile.notifications
+    @notifications = current_user.profile.notifications.order(created_at: :desc)
   end
 end

@@ -1,14 +1,15 @@
 <div class="container d-flex flex-column align-items-center">
   <h2>Notificações</h2>
   <% if @notifications&.any? %>
-    <div class="list-group">
       <% @notifications.each do |notification| %>
         <div class="list-group">
-          <p>Você recebeu um convite para <%= link_to notification.notifiable.project_title, invitation_path(notification.notifiable) %>
+            <%= render(
+            partial: "#{notification.notifiable.class.name.downcase}" ,
+            locals: { notification: notification }
+            )%>
           há <%= distance_of_time_in_words_to_now(notification.notifiable.created_at) %></p>
         </div>
       <% end %>
-    </div>
   <% else %>
     <p>Nenhuma notificação encontrada</p>
   <% end %>
