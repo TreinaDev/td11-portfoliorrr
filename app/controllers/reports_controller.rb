@@ -48,12 +48,12 @@ class ReportsController < ApplicationController
 
   def set_offences
     @offences = [
-      'Discurso de ódio',
-      'Pornografia',
-      'Racismo',
-      'Spam',
-      'Conteúdo pertubador',
-      'Abuso/Perseguição'
+      t('reports.hate_speech'),
+      t('reports.pornography'),
+      t('reports.racism'),
+      t('reports.spam'),
+      t('reports.disturbin_content'),
+      t('reports.harassment')
     ]
   end
 

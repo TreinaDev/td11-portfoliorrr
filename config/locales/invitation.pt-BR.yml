@@ -8,3 +8,4 @@ pt-BR:
   invitations_mailer:
     received_invitation:
       subject: 'Você recebeu um convite'
+    body: Você recebeu um convite para participar do projeto %{title}.

@@ -8,3 +8,6 @@ pt-BR:
     create:    
       success: Curtiu
       error: Você já curtiu isso
+
+  likes_mailer:
+    subject: Você recebeu %{likes} curtidas nas últimas 24 horas!

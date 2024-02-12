@@ -8,7 +8,7 @@ class LikesMailer < ApplicationMailer
     @most_liked_post = @user.most_liked_post_since(1)
     @most_liked_comment = @user.most_liked_comment_since(1)
 
-    mail(subject: "Você recebeu #{@post_likes.count + @comment_likes.count} curtidas nas últimas 24 horas!",
+    mail(subject: t('.subject', likes: @post_likes.count + @comment_likes.count),
          to: @user.email)
   end
 end
