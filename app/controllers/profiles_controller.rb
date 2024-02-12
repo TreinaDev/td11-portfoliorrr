@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile_and_posts, only: %i[show edit remove_photo update]
   before_action :private_profile?, only: %i[show]
-  before_action :redirect_unauthorized_access, only: %i[edit update remove_photo settings]
+  before_action :redirect_unauthorized_access, only: %i[edit update remove_photo]
 
   def edit; end
 
@@ -59,14 +59,6 @@ class ProfilesController < ApplicationController
     redirect_to root_path, alert: t('.private')
   end
 
-  def settings; end
-
-  def deactivate_profile
-    current_user.profile.inactive!
-    sign_out current_user
-    redirect_to root_path, alert: t('.success')
-  end
-
   private
 
   def profile_params
@@ -74,7 +66,6 @@ class ProfilesController < ApplicationController
   end
 
   def redirect_unauthorized_access
-    @profile = Profile.find(params[:profile_id]) if params[:profile_id]
     return if current_user == @profile.user
 
     redirect_to root_path, alert: t('alerts.unauthorized')
