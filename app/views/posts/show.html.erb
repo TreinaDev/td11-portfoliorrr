@@ -65,7 +65,7 @@
     <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
   </div>
   <% @post.comments.each do |comment| %>
-    <div class="card-body">
+    <div class="card-body comment">
       <blockquote class="blockquote mb-0">
         <p><%= comment.message %></p>
         <footer class="blockquote-footer">
@@ -88,10 +88,11 @@
             <% end %>
           </div>
 
-          <div>
-            <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class),
-                        class: 'btn btn-dark btn-sm' unless comment.user == current_user %>
-          </div>
+          <% if current_user != comment.user %>
+            <div class="report-link-wrapper">
+              <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

@@ -1,0 +1,18 @@
+<div class="card text-dark d-flex flex-column px-5 shadow mb-4 p-3 rounded justify-content-center">
+  <blockquote class="blockquote mb-1">
+    <p><%= comment.message %></p>
+    <footer class="blockquote-footer">
+      <%= comment.user.full_name %>
+    </footer>
+  </blockquote>
+
+  <div class="btn-group">
+    <div class="me-2">
+      <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
+    </div>
+  </div>
+
+  <div class="card-subtitle mb-2 mt-2 text-muted">
+    <%= link_to t('reports.see_post'), post_path(comment.post) %>
+  </div>
+</div>

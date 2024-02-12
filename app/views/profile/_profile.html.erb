@@ -6,16 +6,16 @@
   <h5><%= profile.cover_letter %></h5><br>
 
   <% if profile.personal_info[:visibility] || user_is_owner %>
-    <h3><%= PersonalInfo.model_name.human %></h3>  
+    <h3><%= PersonalInfo.model_name.human %></h3>
     <%= render 'profile/personal_info', personal_info: personal_info, user_is_owner: user_is_owner %>
   <% end %>
 
   <%= link_to 'Editar Informações Pessoais', edit_user_profile_path, class:'btn btn-secondary' if user_is_owner %>
-  
+
   <% if profile.professional_infos.visibles_list.any? || user_is_owner %>
     <h3 class='mt-5'><%= ProfessionalInfo.model_name.human %></h3>
   <% end %>
-  
+
   <p>
     <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path, class:'btn btn-primary' if user_is_owner %>
   </p>
@@ -51,7 +51,7 @@
       <%= link_to 'Editar Experiência Profissional', edit_professional_info_path(professional_info), class:'btn btn-secondary' if user_is_owner %>
     </p>
   <% end %>
-  
+
   <% if profile.education_infos.visibles_list.any? || user_is_owner %>
     <h3 class='mt-5'><%= EducationInfo.model_name.human %></h3>
   <% end %>
@@ -61,7 +61,7 @@
   </p>
     <% profile.education_infos.each do |education_info| %>
       <% if education_info.visibility || user_is_owner %>
-        <h4>  
+        <h4>
           <%= EducationInfo.human_attribute_name(:institution) %>: <%= education_info.institution %>
         </h4>
         <ul>
@@ -87,9 +87,9 @@
     <% end %>
 </div>
 <div id='profile-job-categories'>
-  <% if profile.profile_job_categories.any? || user_is_owner %> 
+  <% if profile.profile_job_categories.any? || user_is_owner %>
     <h3><%= t('content.section_title') %></h3>
-  <% end %> 
+  <% end %>
 
   <%= link_to t('links.new_profile_job_category_path'), new_profile_job_category_path, class:'btn btn-primary' if user_is_owner %>
   <div class='mt-2'>
