@@ -20,8 +20,8 @@ describe 'Admin visualiza denúncia' do
 
   it 'de um comentário com sucesso' do
     admin = create(:user, :admin)
-    create(:comment, message: 'Comentário top')
-    report = create(:report, :for_comment, message: 'Esse comentário me da gatilho')
+    comment = create(:comment, message: 'Comentário top')
+    report = create(:report, reportable: comment, message: 'Esse comentário me da gatilho')
 
     login_as admin
     visit reports_path
