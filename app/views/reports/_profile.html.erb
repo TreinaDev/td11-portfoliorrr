@@ -1,0 +1,46 @@
+<div class="d-flex flex-column align-items-center mb-5">
+  <div class="ratio ratio-1x1 rounded-circle overflow-hidden w-50">
+    <%= render partial: 'profiles/profile_photo', locals: { profile: profile } %>
+  </div>
+
+  <h4><%= link_to profile.full_name, profile_path(profile) %></h4>
+  <div class="d-flex gap-4 justify-content-center">
+    <div class="d-flex flex-column" id="followers-count">
+      <%= link_to profile_connections_path(profile), class: "text-decoration-none fs-5" do %>
+        <p><%= profile.followers_count %> <%= t(Connection.human_attribute_name(:follower_id, count: profile.followers_count ))%></p>
+      <% end %>
+    </div>
+    <div class="text-center d-flex flex-column" id="following-count">
+      <%= link_to profile_following_path(profile), class: "text-decoration-none fs-5" do %>
+        <p><%= profile.followed_count %> <%= t(Connection.human_attribute_name(:followed_profile_id))%> </p>
+      <% end %>
+    </div>
+  </div>
+  <div class="mt-2">
+    <% if profile.open_to_work? %>
+      <h6 class="text-success"><%= t Profile.human_attribute_name("work_status.#{profile.work_status}") %></h6>
+    <% else %>
+      <h6 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{profile.work_status}") %></h6>
+    <% end %>
+  </div>
+  <div class="mt-3">
+    <% if profile.public_profile? %>
+      <h6 class="text-success"><%= t Profile.human_attribute_name("privacy.#{profile.privacy}") %></h6>
+    <% else %>
+      <h6 class="text-secondary"><%= t Profile.human_attribute_name("privacy.#{profile.privacy}") %></h6>
+    <% end %>
+  </div>
+</div>
+
+<div class="container d-flex flex-column">
+  <div id="publications">
+    <h2 id="post-list-title">Publicações</h2>
+    <% if profile.posts.empty? %>
+      <p> Esse perfil não tem publicações </p>
+    <% end %>
+
+    <section>
+      <%= render partial: 'posts/listing', locals: { posts: profile.posts.not_draft.last(3) } %>
+    </section>
+  </div>
+</div>

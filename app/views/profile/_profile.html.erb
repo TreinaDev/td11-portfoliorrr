@@ -1,0 +1,105 @@
+<div>
+  <% user_is_owner = profile.user == current_user %>
+  <br>
+  <p><%= profile.user.email %></p>
+
+  <h5><%= profile.cover_letter %></h5><br>
+
+  <% if profile.personal_info[:visibility] || user_is_owner %>
+    <h3><%= PersonalInfo.model_name.human %></h3>
+    <%= render 'profile/personal_info', personal_info: personal_info, user_is_owner: user_is_owner %>
+  <% end %>
+
+  <%= link_to 'Editar Informações Pessoais', edit_user_profile_path, class:'btn btn-secondary' if user_is_owner %>
+
+  <% if profile.professional_infos.visibles_list.any? || user_is_owner %>
+    <h3 class='mt-5'><%= ProfessionalInfo.model_name.human %></h3>
+  <% end %>
+
+  <p>
+    <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path, class:'btn btn-primary' if user_is_owner %>
+  </p>
+  <% professional_infos.each do |professional_info| %>
+    <% if professional_info.visibility || user_is_owner %>
+      <h4>
+        <%= ProfessionalInfo.human_attribute_name(:company) %>: <%= professional_info.company %>
+      </h4>
+      <ul>
+        <li>
+          <%= ProfessionalInfo.human_attribute_name(:current_job) %>: <%= t(professional_info.current_job) %>
+        </li>
+        <li>
+          <%= ProfessionalInfo.human_attribute_name(:position) %>: <%= professional_info.position %>
+        </li>
+        <li>
+          <%= ProfessionalInfo.human_attribute_name(:description) %>: <%= professional_info.description %>
+        </li>
+        <li>
+          <%= ProfessionalInfo.human_attribute_name(:start_date) %>: <%= l professional_info.start_date if professional_info.start_date%>
+        </li>
+        <li>
+          <%= ProfessionalInfo.human_attribute_name(:end_date) %>: <%= l professional_info.end_date if professional_info.end_date %>
+        </li>
+        <% if user_is_owner %>
+          <li>
+            <%= ProfessionalInfo.human_attribute_name(:visibility) %>: <%= t(professional_info.visibility) %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+    <p>
+      <%= link_to 'Editar Experiência Profissional', edit_professional_info_path(professional_info), class:'btn btn-secondary' if user_is_owner %>
+    </p>
+  <% end %>
+
+  <% if profile.education_infos.visibles_list.any? || user_is_owner %>
+    <h3 class='mt-5'><%= EducationInfo.model_name.human %></h3>
+  <% end %>
+
+  <p>
+    <%= link_to 'Adicionar Formação Acadêmica', new_user_profile_education_info_path, class:'btn btn-primary' if user_is_owner %>
+  </p>
+    <% profile.education_infos.each do |education_info| %>
+      <% if education_info.visibility || user_is_owner %>
+        <h4>
+          <%= EducationInfo.human_attribute_name(:institution) %>: <%= education_info.institution %>
+        </h4>
+        <ul>
+          <li>
+            <%= EducationInfo.human_attribute_name(:course) %>: <%= education_info.course %>
+          </li>
+          <li>
+            <%= EducationInfo.human_attribute_name(:start_date) %>: <%= l education_info.start_date if education_info.start_date%>
+          </li>
+          <li>
+            <%= EducationInfo.human_attribute_name(:end_date) %>: <%= l education_info.end_date if education_info.end_date %>
+          </li>
+          <% if user_is_owner %>
+            <li>
+              <%= EducationInfo.human_attribute_name(:visibility) %>: <%= t(education_info.visibility) %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <p>
+        <%= link_to 'Editar Formação Acadêmica', edit_education_info_path(education_info), class:'btn btn-secondary' if user_is_owner %>
+      </p>
+    <% end %>
+</div>
+<div id='profile-job-categories'>
+  <% if profile.profile_job_categories.any? || user_is_owner %>
+    <h3><%= t('content.section_title') %></h3>
+  <% end %>
+
+  <%= link_to t('links.new_profile_job_category_path'), new_profile_job_category_path, class:'btn btn-primary' if user_is_owner %>
+  <div class='mt-2'>
+    <% profile.profile_job_categories.each do |profile_job_category| %>
+      <p><strong><%= profile_job_category.job_category.name %></strong></p>
+      <% if profile_job_category.description.present? %>
+        <p><%= profile_job_category.description %></p>
+      <% else %>
+        <p><%= t('content.profile_job_category_without_description') %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

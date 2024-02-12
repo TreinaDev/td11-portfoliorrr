@@ -10,7 +10,7 @@
   <h2>Alterar foto de perfil</h2>
   <div class="d-flex gap-4 align-items-center w-75 justify-content-center">
     <div id="photo-preview" class="ratio ratio-1x1 rounded-circle overflow-hidden w-25">
-      <%= render 'profile_photo' %>
+      <%= render partial: 'profiles/profile_photo', locals: { profile: @profile } %>
     </div>
     <div id="photo-form">
       <%= form_with model: @profile do |f| %>
