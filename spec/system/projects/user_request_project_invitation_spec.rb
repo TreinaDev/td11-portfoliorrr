@@ -17,7 +17,7 @@ describe 'Usuário solicita convite para projetos' do
       click_button 'Enviar'
 
       expect(request_invitation_job_spy).to have_received(:perform_later).once
-      expect(page).to have_content 'Sua solicitação está sendo processada'
+      expect(page).to have_content 'Sua solicitação está sendo processada, acompanhe em Solicitações de Convite'
       expect(user.profile.invitation_requests.count).to eq 1
       expect(page).to have_button 'Convite Solicitado', disabled: true
       expect(page).to have_button 'Solicitar Convite', count: 2
@@ -39,7 +39,7 @@ describe 'Usuário solicita convite para projetos' do
       click_on 'Solicitar Convite', match: :first
       click_button 'Enviar'
 
-      expect(page).to have_content 'Sua solicitação está sendo processada'
+      expect(page).to have_content 'Sua solicitação está sendo processada, acompanhe em Solicitações de Convite'
       expect(user.profile.invitation_requests.count).to eq 1
       expect(page).to have_button 'Convite Solicitado', disabled: true
       expect(page).to have_button 'Solicitar Convite', count: 2

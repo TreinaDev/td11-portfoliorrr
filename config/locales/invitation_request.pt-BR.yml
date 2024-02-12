@@ -9,5 +9,5 @@ pt-BR:
         message: 'Mensagem'
   projects:
     create_invitation_request:
-      success: 'Sua solicitação está sendo processada'
+      success: 'Sua solicitação está sendo processada, acompanhe em Solicitações de Convite'
       error: 'Não foi possível enviar solicitação'
