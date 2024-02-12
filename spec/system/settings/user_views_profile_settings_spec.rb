@@ -17,6 +17,7 @@ describe 'Usuário visita página de configurações' do
     expect(page).to have_content 'Todos os dados relacionados a conta serão EXCLUÍDOS e não poderão ser recuperados'
     expect(page).to have_button 'Excluir Conta'
   end
+
   it 'e deleta conta' do
     user = create(:user)
 

@@ -205,7 +205,7 @@ RSpec.describe Profile, type: :model do
   end
 
   describe '#inactive' do
-    it 'restaura dados do usuário' do
+    it 'arquiva dados do usuário' do
       user = create(:user, full_name: 'James')
       profile = create(:profile, user:)
       post1 = create(:post, user:, status: 'published')
