@@ -44,7 +44,7 @@ class Profile < ApplicationRecord
     left_outer_joins(:job_categories, :personal_info, :user).where(
       'job_categories.name LIKE :term OR
        personal_infos.city LIKE :term OR
-       users.full_name LIKE :term',
+       users.full_name LIKE :term OR users.search_name LIKE :term',
       { term: "%#{sanitize_sql_like(search_query)}%" }
     ).public_profile.active.uniq
   end
