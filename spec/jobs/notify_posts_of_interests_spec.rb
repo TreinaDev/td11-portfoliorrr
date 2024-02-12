@@ -26,7 +26,7 @@ RSpec.describe PostInterestNotificationJob, type: :job do
 
       expect(commenter_user.reload.profile.notifications).to be_empty
       expect(no_related_user.reload.profile.notifications).to be_empty
-      expect(post_author.reload.profile.notifications).to be_empty
+      expect(post_author.reload.profile.notifications.count).to eq 3
     end
 
     it 'não envia notificação ao autor do post quando ele tem comentário no próprio post' do

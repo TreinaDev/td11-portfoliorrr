@@ -11,4 +11,5 @@ pt-BR:
     index:
       no_notifications: 'Nenhuma notificação encontrada'
       commented_on_post: 'comentou no post'
+      commented_on_your_post: 'comentou em sua publicação'
       time_ago: 'há %{time}'

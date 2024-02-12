@@ -38,4 +38,24 @@ RSpec.describe Like, type: :model do
       expect(like).to be_valid
     end
   end
+
+  describe '#create_notification' do
+    it 'cria notificação para o dono da publicação' do
+      user = create(:user)
+      other_user = create(:user)
+      post = create(:post, user:)
+      like = create(:like, likeable: post, user: other_user)
+
+      expect(Notification.count).to eq 1
+      expect(Notification.last.notifiable).to eq like
+    end
+
+    it 'não cria notificação para o dono do like' do
+      user = create(:user)
+      post = create(:post, user:)
+      create(:like, likeable: post, user:)
+
+      expect(Notification.count).to eq 0
+    end
+  end
 end

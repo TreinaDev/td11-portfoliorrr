@@ -5,6 +5,7 @@
     <%= t('notifications.index.commented_on_post') %>
     "<%= link_to notification.notifiable.post.title,
       post_path(notification.notifiable.post, anchor: "comment_#{notification.notifiable.id}") %>"
-    <%= t('notifications.index.time_ago', time: time_ago_in_words(notification.notifiable.created_at)) %>
-  </p>
+<% else %>
+  <p>
+    <%= link_to notification.notifiable.user.full_name, profile_path(notification.notifiable.user.profile) %> <%= t('notifications.index.commented_on_your_post') %>
 <% end %>
