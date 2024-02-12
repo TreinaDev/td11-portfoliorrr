@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'Usuário vê notificações de publicações' do
-  
   it 'e visualiza a notificação' do
     follower = create(:user, full_name: 'Paulo')
     followed = create(:user, full_name: 'Ana')
