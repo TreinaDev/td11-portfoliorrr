@@ -1,6 +1,6 @@
 <% posts.each do |post| %>
-  <div class="feed-post shadow mb-4 p-3 rounded" id="post-list">
-    <%= link_to post, class: "text-decoration-none link-dark" do %>
+  <div class="feed-post shadow mb-4 p-3 rounded row" id="post-list">
+    <%= link_to post, class: "text-decoration-none link-dark col-md-10" do %>
       <div class="card-body">
         <h4 class="text-break text-primary"><%= post.title %></h4>
         <% if post.exists_image_attached? %>
@@ -22,10 +22,17 @@
       </div>
     <% end %>
     <% if current_user == post.user %>
-      <div class="text-center mt-2" id="post-<%= post.id %>">
+      <div class="text-center mt-2 col-md-2" id="post-<%= post.id %>">
         <% if request.path == profile_path(post.user.profile) %>
-          <% btn_value = post.pinned? ? 'Desfixar' : 'Fixar' %>
-          <%= button_to btn_value, pin_post_path(post), method: :post, class: "btn btn-outline-primary btn-sm" %>
+          <% if post.pinned? %>
+            <%= button_to pin_post_path(post), method: :post, class: "btn border border-primary btn-sm", id: 'unpin' do %>
+              <%= image_tag 'pin-angle-fill.svg' %>
+            <% end %>
+          <% else %>
+            <%= button_to pin_post_path(post), method: :post, class: "btn border border-primary btn-sm", id: 'pin' do %>
+              <%= image_tag 'pin-angle.svg' %>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
     <% end %>

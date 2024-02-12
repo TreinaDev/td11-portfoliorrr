@@ -1,9 +1,7 @@
 pt-BR:
   activerecord:
     models:
-      personal_info: 
-        one: 'Informação Pessoal'
-        other: 'Informações Pessoais'
+      personal_info: 'Informações Pessoais'
     attributes:
       personal_info:
         street: 'Rua'
