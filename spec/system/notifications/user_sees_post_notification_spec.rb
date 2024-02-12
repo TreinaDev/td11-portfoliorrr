@@ -9,12 +9,7 @@ describe 'Nova publicação envia notificação para seguidores' do
     stub_const('NewPostNotificationJob', new_post_notification_job_spy)
     create(:post, user: followed)
 
-    login_as follower
-    visit root_path
-    click_button class: 'dropdown-toggle'
-    within 'nav' do
-      click_on 'Notificações'
-    end
+    visit notifications_path
 
     expect(page).to have_current_path notifications_path
     expect(new_post_notification_job_spy).to have_received(:perform_later)
