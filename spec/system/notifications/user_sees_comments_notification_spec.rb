@@ -12,7 +12,8 @@ describe 'Usuário vê notificação de comentário' do
 
     expect(Notification.count).to eq 1
     expect(page).to have_current_path notifications_path
-    expect(page).to have_content 'comentou em sua publicação'
+    expect(page).to have_content "comentou em sua publicação: #{post.title}"
+    expect(page).to have_link post.title, href: post_path(post)
     expect(page).to have_link comment.user.profile.full_name, href: profile_path(comment.user.profile)
   end
 
