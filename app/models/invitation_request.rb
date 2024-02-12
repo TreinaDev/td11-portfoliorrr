@@ -12,8 +12,18 @@ class InvitationRequest < ApplicationRecord
     if response.keys.first == 'data'
       pending!
     elsif response['errors'].first == 'Erro interno de servidor.'
-      RequestInvitationJob.set(wait: 1.hour).perform_later(invitation_request: self)
+      raise Exceptions::ColaBoraAPIOffline
+    else
+      error!
     end
+  end
+
+  def create_json_for_proposal_request
+    { data: { proposal: { invitation_request_id: id,
+                          project_id:,
+                          profile_id: profile.id,
+                          email: profile.email,
+                          message: } } }.as_json
   end
 
   private
