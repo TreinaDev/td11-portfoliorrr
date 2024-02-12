@@ -1,0 +1,10 @@
+<% if notification.notifiable.post.user != current_user %>
+  <p>
+    <%= link_to notification.notifiable.user.full_name,
+      profile_path(notification.notifiable.user.profile) %>
+    comentou no post
+    "<%= link_to notification.notifiable.post.title,
+      post_path(notification.notifiable.post, anchor: "comment_#{notification.notifiable.id}") %>"
+    há <%= time_ago_in_words(notification.notifiable.created_at) %>
+  </p>
+<% end %>
