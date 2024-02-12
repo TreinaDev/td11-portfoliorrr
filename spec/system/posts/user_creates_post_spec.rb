@@ -174,7 +174,7 @@ describe 'Usuário cria uma postagem' do
       fill_in 'Título da Publicação', with: 'Olá Mundo!'
       fill_in_rich_text_area 'conteudo', with: 'Primeira <em>publicação</em>'
       choose 'Agendar'
-      fill_in 'post_published_at', with: 2.days.from_now.strftime('%d/%m/%Y %H:%M')
+      fill_in 'post_published_at', with: 2.days.from_now.noon
       click_on 'Salvar'
       posts = Post.all
 
