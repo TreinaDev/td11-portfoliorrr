@@ -41,7 +41,9 @@
             </li>
             <li class="dropdown-item">
               <%= link_to notifications_path, class: 'nav-link' do %>
-                Notificações <span class="badge bg-primary"><%= current_user.profile.notifications.count %></span>
+                Notificações <span class="badge bg-primary">
+                              <%= current_user.profile.notifications.where(read: false).count if current_user.profile.notifications.where(read: false).count > 0 %>
+                             </span>
               <% end %>
             </li>
             <% if current_user.admin? %>

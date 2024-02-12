@@ -55,4 +55,17 @@ describe 'Usuário vê notificações' do
     expect(page).to have_content 'Nenhuma notificação'
     expect(Notification.count).to eq 0
   end
+
+  it 'contagem de notificações muda ao ir para página de notificações' do
+    user = create(:user)
+    invitation = create(:invitation, profile: user.profile)
+
+    login_as user
+    visit notifications_path
+    click_button class: 'dropdown-toggle'
+
+    expect(page).not_to have_content 'Notificações 1'
+    expect(page).to have_content 'Notificações'
+    expect(user.profile.notifications.count).to eq 1
+  end
 end
