@@ -8,3 +8,7 @@ pt-BR:
   notifications:
     new_follower_mail: '%{follower_name} te seguiu'
     new_notificaiton: 'Você recebeu uma nova notificação!'
+    index:
+      no_notifications: 'Nenhuma notificação encontrada'
+      commented_on_post: 'comentou no post'
+      time_ago: 'há %{time}'

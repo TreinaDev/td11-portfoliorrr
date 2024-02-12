@@ -1,5 +1,5 @@
 <div class="container d-flex flex-column align-items-center">
-  <h2>Notificações</h2>
+  <h2><%= Notification.model_name.human(count: @notifications.count) %></h2>
   <% if @notifications&.any? %>
     <div class="list-group">
       <% @notifications.each do |notification| %>
@@ -8,14 +8,12 @@
             <p><%= notification.notifiable.user.full_name %> fez uma <%= link_to 'publicação', post_path(notification.notifiable) %>
           <% elsif notification.notifiable.is_a?(Comment) && notification.notifiable.post.user != current_user %>
             <p>
-              <%= link_to notification.notifiable.user.full_name,
-                profile_path(notification.notifiable.user.profile) %>
-              comentou no post
-              "<%= link_to notification.notifiable.post.title,
-                post_path(notification.notifiable.post, anchor: "comment_#{notification.notifiable.id}") %>"
-              há <%= time_ago_in_words(notification.notifiable.created_at) %>
+              <%= render(
+                partial: "notifications/comment" ,
+                locals: { notification: notification }
+              )%>
             </p>
-          <% elsif  notification.notifiable.is_a?(Invitation)%>
+          <% elsif notification.notifiable.is_a?(Invitation)%>
             <p>
               Você recebeu um convite para
               <%= link_to notification.notifiable.project_title, invitation_path(notification.notifiable) %>
@@ -26,11 +24,11 @@
           <% elsif notification.notifiable.is_a?Connection %>
             <p><%= link_to notification.notifiable.follower.user.full_name, profile_path(notification.notifiable.follower) %> começou a te seguir
           <% end %>
-          há <%= distance_of_time_in_words_to_now(notification.notifiable.created_at) %></p>
+
         </div>
       <% end%>
     </div>
   <% else %>
-    <p>Nenhuma notificação encontrada</p>
+    <p><%= t('.no_notifications') %></p>
   <% end %>
 </div>
