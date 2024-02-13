@@ -1,8 +1,8 @@
 <div class="container d-flex flex-column align-items-center">
-  <h2>Resultados da Pesquisa</h2>
+  <h2><%= t('searches.search_result') %></h2>
 
   <% if @profiles&.any? %>
-    <h3><%= @profiles.count %> <%= t('profiles.search.results', count: @profiles.count) %> para: <%= @query %></h3>
+    <h3><%= @profiles.count %> <%= t('profiles.search.results', count: @profiles.count) %> <%= t('searches.of') %>: <%= @query %></h3>
     <% @profiles.each do |profile| %>
       <%= link_to profile, class: "search-result card text-decoration-none py-2 px-5 rounded follower-card bg-light-subtle mt-3 w-50" do %>
         <div class="card-body row justify-content-center align-items-center">
@@ -30,12 +30,12 @@
       <% end %>
     <% end %>
   <% elsif @posts&.any? %>
-      <h3 class="mb-3"><%= @posts.size %> <%= Post.model_name.human count: @posts.size %> com: #<%= @tags.join(', #') %></h3>
+      <h3 class="mb-3"><%= @posts.size %> <%= Post.model_name.human count: @posts.size %> <%= t('searches.with') %>: #<%= @tags.join(', #') %></h3>
   
       <%= render partial: 'posts/listing', locals: { posts: @posts.each } %>
       
   <% else %>
-    <p>Nenhum resultado encontrado com: <%= @query %></p>
+    <p><%= t('searches.empty_state') %>: <%= @query %></p>
   <% end %>
 </div>
 

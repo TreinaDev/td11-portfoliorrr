@@ -3,7 +3,7 @@
   <% if @profile.active? %>
     <% if @posts.pinned.any? %>
       <div id="fixed">
-        <h2 id="post-list-title">Destaque</h2>
+        <h2 id="post-list-title"><%= t('profiles.views.show.highlight') %></h2>
         <section>
           <%= render partial: 'posts/listing', locals: { posts: @posts.pinned } %>
         </section>
@@ -11,9 +11,9 @@
     <% end %>
 
     <div id="publications">
-      <h2 id="post-list-title">Publicações</h2>
+      <h2 id="post-list-title"><%= Post.model_name.human(count: 2) %></h2>
       <% if @profile.user.posts.count - @profile.user.posts.pinned.count < 1 %>
-        <p>Ainda não tem nada aqui... <br> Mas novas publicações vão ocupar este espaço. :)</p>
+        <p><%= t('profiles.views.show.nothing_here') %> <br> <%= t('profiles.views.show.new_posts') %> :)</p>
       <% end %>
 
       <section>
@@ -30,7 +30,7 @@
           <%= render partial: 'profile_photo', locals: { profile: @profile } %>
         </div>
 
-        <%= link_to 'Alterar foto', edit_profile_path(@profile), class: 'badge bg-secondary' if current_user == @profile.user %>
+        <%= link_to t('profiles.views.show.change_photo'), edit_profile_path(@profile), class: 'badge bg-secondary' if current_user == @profile.user %>
         <h4><%= @user.full_name %></h4>
         <div class="d-flex gap-4">
           <div class="d-flex flex-column" id="followers-count">
@@ -47,10 +47,10 @@
         <div class="mt-2">
           <% if @profile.open_to_work? %>
             <h6 class="text-success"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
-            <%= button_to 'alterar disponibilidade', work_unavailable_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
+            <%= button_to t('profiles.views.show.change_availability'), work_unavailable_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
           <% else %>
             <h6 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
-            <%= button_to 'alterar disponibilidade', open_to_work_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
+            <%= button_to t('profiles.views.show.change_availability'), open_to_work_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
           <% end %>
         </div>
         <div class="mt-3">
@@ -60,7 +60,7 @@
             <% else %>
               <h6 class="text-secondary"><%= t Profile.human_attribute_name("privacy.#{@profile.privacy}") %></h6>
             <% end %>
-            <%= button_to 'alterar privacidade', change_privacy_path, method: :patch, class: 'btn btn-outline-primary btn-sm' %>
+            <%= button_to t('profiles.views.show.change_privacy'), change_privacy_path, method: :patch, class: 'btn btn-outline-primary btn-sm' %>
           <% end %>
         </div>
         <br>
@@ -68,11 +68,11 @@
           <% if current_user.profile != @profile %>
             <div>
               <% if @profile.following?(current_user.profile) %>
-                <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
+                <%= button_to t('profiles.views.show.unfollow_btn'), connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
               <% elsif @profile.inactive_follower?(current_user.profile) %>
-                <%= button_to 'Seguir', connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
+                <%= button_to t('profiles.views.show.follow_btn'), connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
               <% else %>
-                <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
+                <%= button_to t('profiles.views.show.follow_btn'), profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
               <% end %>
             </div>
             <div class="mt-2">
@@ -87,7 +87,7 @@
       </section>
     </aside>
   <% else %>
-    <h2 class="text-center">Conta Desativada</h2>
+    <h2 class="text-center"><%= t('profiles.views.show.arquived_account') %></h2>
   <% end %>
   </div>
 </div>

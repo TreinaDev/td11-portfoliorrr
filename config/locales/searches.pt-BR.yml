@@ -1,4 +1,10 @@
 pt-BR:
   searches:
-    index:
-      error: 'Você precisa informar um termo para fazer a pesquisa'
+    error: 'Você precisa informar um termo para fazer a pesquisa'
+    results:
+      one: 'resultado'
+      other: 'resultados'
+    of: para
+    with: com
+    search_result: Resultados da Pesquisa
+    empty_state: Nenhum resultado encontrado com

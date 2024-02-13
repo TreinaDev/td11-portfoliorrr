@@ -43,4 +43,17 @@ pt-BR:
         authored_by: "Criado por %{author_name}"
         publish_date: "Publicado em: %{publish_date}"
         last_update: "Última atualização em: %{update_date}"
+      form:
+        suported_files: "(*)Arquivos suportados: .mp3, .mp4, .pdf, .jpg, .png"
+      listing:
+        published_by: Publicado por
+      edit:
+        edit_post: Editar Publicação
+      new:
+        new_post: Criar Nova Publicação
+    helpers:
+      created_at: 'Criado em: '
+      scheduled_for: 'Agendado para: '
+      published_at: 'Publicado em: '
+    
 

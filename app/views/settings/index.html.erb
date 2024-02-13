@@ -1,8 +1,8 @@
-<h2>Configurações</h2>
+<h2><%= t('settings.profile_settings') %></h2>
 <div>
 	<%= form_with(url: deactivate_profile_path, method: :patch) do |form| %>
-		<p><strong class="text-danger">Atenção:</strong> Todos os dados relacionados ao seu perfil serão ARQUIVADOS. Você pode reativar sua conta fazendo log-in novamente.</p>
-		<%= form.submit 'Desativar Perfil',
+		<p><strong class="text-danger"><%= t('settings.attention') %>:</strong> <%= t('settings.arquive') %></p>
+		<%= form.submit t('settings.arquive_btn'),
 			class: "btn btn-danger",
 			data: { turbo_confirm: 'Seu perfil será DESATIVADO, deseja prosseguir?' }
 		%>
@@ -11,8 +11,8 @@
 
 <div>
 	<%= form_with(url: delete_account_path, method: :delete) do |form| %>
-		<p><strong class="text-danger">Atenção:</strong> Todos os dados relacionados a conta serão EXCLUÍDOS e não poderão ser recuperados.</p>
-		<%= form.submit 'Excluir Conta',
+		<p><strong class="text-danger"><%= t('settings.attention') %>:</strong> <%= t('settings.delete') %></p>
+		<%= form.submit t('settings.delete_btn'),
 			class: "btn btn-danger",
 			data: { turbo_confirm: 'Sua conta será EXCLUÍDA, deseja prosseguir?' }
 		%>

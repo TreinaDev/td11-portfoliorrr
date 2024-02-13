@@ -3,7 +3,7 @@
     <h2 class="card-title"><%= @post.title %></h2>
     <div class="my-4">
       <% if current_user == @post.user %>
-        <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
+        <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
         <%= Post.human_attribute_name @post.status %>
       <% else %>
         <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm' %>
@@ -46,17 +46,17 @@
         <%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %>
       </div>
       <% if @liked %>
-          <%= button_to 'Descurtir', like_path(post_like_id: @liked), method: :delete, class: 'btn btn-danger btn-sm' %>
+          <%= button_to t('likes.unlike_btn'), like_path(post_like_id: @liked), method: :delete, class: 'btn btn-danger btn-sm' %>
       <% else %>
-          <%= button_to 'Curtir', likes_path(post_id: @post), method: :post, class: 'btn btn-primary btn-sm' %>
+          <%= button_to t('likes.like_btn'), likes_path(post_id: @post), method: :post, class: 'btn btn-primary btn-sm' %>
       <% end %>
     </div>
   </div>
 </div>
 
 <%= form_with model: [@post, @comment] , method: :post, class: 'mt-3' do |form| %>
-  <%= form.text_area :message, placeholder: "Mensagem", class:"form-control" %>
-  <%= form.submit "Comentar", class:"btn btn-primary mt-2" %>
+  <%= form.text_area :message, placeholder: (Comment.human_attribute_name :message), class:"form-control" %>
+  <%= form.submit t('comments.comment_btn'), class:"btn btn-primary mt-2" %>
 <% end %>
 
 
@@ -82,9 +82,9 @@
           <div class="me-2">
             <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
               <% like = comment.likes.find_by(user_id: current_user.id) %>
-              <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
+              <%= button_to t('likes.unlike_btn'), like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
             <% else %>
-              <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
+              <%= button_to t('likes.like_btn'), likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
             <% end %>
           </div>
 

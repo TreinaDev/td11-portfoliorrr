@@ -1,0 +1,20 @@
+pt-BR:
+  activerecord:
+    models:
+      education_info:
+        one: Formação Acadêmica
+        other: Formações Acadêmicas
+    attributes:
+      education_info:
+        institution: Instituição
+        course: Curso
+        start_date: Início
+        end_date: Término
+        visibility: Exibir no Perfil
+  education_infos:
+    create:
+      success: Formação acadêmica cadastrada com sucesso
+      error: Não foi possível cadastrar formação acadêmica
+    update:
+      success: Formação acadêmica atualizada com sucesso
+      error: Não foi possível atualizar formação acadêmica

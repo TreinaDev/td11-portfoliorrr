@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      job_category: 'Categoria de Trabalho'
+      job_category:
+        one: 'Categoria de Trabalho'
+        other: 'Categorias de trabalho'
     attributes:
       job_category:
         name: 'Nome'
@@ -14,3 +16,5 @@ pt-BR:
     destroy:
       success: 'Categoria de Trabalho removida com sucesso!'
       error: 'Categoria de Trabalho está em uso e não pode ser removida!'
+    register: Cadastro de categorias de trabalho
+    registered: Categorias de trabalho cadastradas

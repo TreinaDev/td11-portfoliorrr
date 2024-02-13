@@ -7,7 +7,7 @@ describe 'Usuário altera o status de disponibilidade de trabalho' do
 
       login_as user
       visit profile_path(user.profile)
-      click_on 'alterar disponibilidade'
+      click_on 'Alterar disponibilidade'
 
       expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'Alteração salva com sucesso'
@@ -22,7 +22,7 @@ describe 'Usuário altera o status de disponibilidade de trabalho' do
       visit profile_path(user_a.profile)
 
       expect(page).to have_content 'Disponível Para Trabalho'
-      expect(page).not_to have_button 'alterar disponibilidade'
+      expect(page).not_to have_button 'Alterar disponibilidade'
     end
   end
 
@@ -33,7 +33,7 @@ describe 'Usuário altera o status de disponibilidade de trabalho' do
 
       login_as user
       visit profile_path(user.profile)
-      click_on 'alterar disponibilidade'
+      click_on 'Alterar disponibilidade'
 
       expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'Alteração salva com sucesso'
@@ -49,7 +49,7 @@ describe 'Usuário altera o status de disponibilidade de trabalho' do
       visit profile_path(user_a.profile)
 
       expect(page).to have_content 'Indisponível Para Trabalho'
-      expect(page).not_to have_button 'alterar disponibilidade'
+      expect(page).not_to have_button 'Alterar disponibilidade'
     end
   end
 end

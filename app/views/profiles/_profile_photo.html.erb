@@ -1,5 +1,5 @@
 <% if profile.photo.present? && profile.valid? %>
-  <%= image_tag profile.photo, alt: 'Foto de perfil', class: 'img-cover' %>
+  <%= image_tag profile.photo, alt: t('profiles.views.photo.alt_text'), class: 'img-cover' %>
 <% else %>
-  <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', class: 'img-cover' %>
+  <%= image_tag 'default_portfoliorrr_photo.png', alt: t('profiles.views.photo.alt_text'), class: 'img-cover' %>
 <% end %>

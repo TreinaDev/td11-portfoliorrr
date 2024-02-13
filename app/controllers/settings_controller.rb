@@ -7,12 +7,12 @@ class SettingsController < ApplicationController
   def deactivate_profile
     current_user.profile.inactive!
     sign_out current_user
-    redirect_to root_path, alert: t('deactivate_profile')
+    redirect_to root_path, alert: t('settings.deactivate_profile')
   end
 
   def delete_account
     current_user.delete_user_data
-    redirect_to root_path, notice: t('delete_account')
+    redirect_to root_path, notice: t('settings.delete_account')
   end
 
   private

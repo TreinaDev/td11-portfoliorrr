@@ -10,14 +10,14 @@
     <%= render 'profile/personal_info', personal_info: personal_info, user_is_owner: user_is_owner %>
   <% end %>
 
-  <%= link_to 'Editar Informações Pessoais', edit_user_profile_path, class:'btn btn-secondary' if user_is_owner %>
+  <%= link_to t('profiles.views.profile.edit_personal_info'), edit_user_profile_path, class:'btn btn-secondary' if user_is_owner %>
 
   <% if profile.professional_infos.visibles_list.any? || user_is_owner %>
     <h3 class='mt-5'><%= ProfessionalInfo.model_name.human %></h3>
   <% end %>
 
   <p>
-    <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path, class:'btn btn-primary' if user_is_owner %>
+    <%= link_to t('profiles.views.profile.add_professional_info'), new_user_profile_professional_info_path, class:'btn btn-primary' if user_is_owner %>
   </p>
   <% professional_infos.each do |professional_info| %>
     <% if professional_info.visibility || user_is_owner %>
@@ -48,7 +48,7 @@
       </ul>
     <% end %>
     <p>
-      <%= link_to 'Editar Experiência Profissional', edit_professional_info_path(professional_info), class:'btn btn-secondary' if user_is_owner %>
+      <%= link_to t('profiles.views.profile.edit_professional_info'), edit_professional_info_path(professional_info), class:'btn btn-secondary' if user_is_owner %>
     </p>
   <% end %>
 
@@ -57,7 +57,7 @@
   <% end %>
 
   <p>
-    <%= link_to 'Adicionar Formação Acadêmica', new_user_profile_education_info_path, class:'btn btn-primary' if user_is_owner %>
+    <%= link_to t('profiles.views.profile.add_educational_info'), new_user_profile_education_info_path, class:'btn btn-primary' if user_is_owner %>
   </p>
     <% profile.education_infos.each do |education_info| %>
       <% if education_info.visibility || user_is_owner %>
@@ -82,7 +82,7 @@
         </ul>
       <% end %>
       <p>
-        <%= link_to 'Editar Formação Acadêmica', edit_education_info_path(education_info), class:'btn btn-secondary' if user_is_owner %>
+        <%= link_to t('profiles.views.profile.edit_educational_info'), edit_education_info_path(education_info), class:'btn btn-secondary' if user_is_owner %>
       </p>
     <% end %>
 </div>

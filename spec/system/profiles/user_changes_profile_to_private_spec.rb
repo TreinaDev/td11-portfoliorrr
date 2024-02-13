@@ -7,7 +7,7 @@ describe 'Usuário altera a privacidade do perfil' do
 
       login_as user
       visit profile_path(user.profile)
-      click_on 'alterar privacidade'
+      click_on 'Alterar privacidade'
 
       expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'Privacidade alterada com sucesso'
@@ -21,7 +21,7 @@ describe 'Usuário altera a privacidade do perfil' do
       login_as another_user
       visit profile_path(user.profile)
 
-      expect(page).not_to have_button 'alterar privacidade'
+      expect(page).not_to have_button 'Alterar privacidade'
     end
 
     it 'e não aparece nas buscas' do
@@ -101,7 +101,7 @@ describe 'Usuário altera a privacidade do perfil' do
 
       login_as user
       visit profile_path(user.profile)
-      click_on 'alterar privacidade'
+      click_on 'Alterar privacidade'
 
       expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'Privacidade alterada com sucesso'

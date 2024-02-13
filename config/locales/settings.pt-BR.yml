@@ -1,3 +1,13 @@
 pt-BR:
-  deactivate_profile: Perfil desativado com sucesso
-  delete_account: Conta excluída com sucesso
+  settings:
+    settings: Configurações
+    deactivate_profile: Perfil desativado com sucesso
+    delete_account: Conta excluída com sucesso
+    profile_settings: Configurações do Perfil
+    attention: Atenção
+    arquive: Todos os dados relacionados ao seu perfil serão ARQUIVADOS. Você pode reativar sua conta fazendo log-in novamente.
+    arquive_btn: Desativar Perfil
+    arquive_turbo_warning: Seu perfil será DESATIVADO, deseja prosseguir?
+    delete: Todos os dados relacionados a conta serão EXCLUÍDOS e não poderão ser recuperados.
+    delete_btn: Excluir Conta
+    delete_turbo_warning: Sua conta será EXCLUÍDA, deseja prosseguir?

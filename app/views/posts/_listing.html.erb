@@ -9,7 +9,7 @@
         <p>
           <%= content_fixer(post)  %>
         </p>
-        <p class="card-subtitle mb-2 text-muted">Publicado por: <%= post.user.full_name %></p>
+        <p class="card-subtitle mb-2 text-muted"><%= t('posts.views.listing.published_by') %>: <%= post.user.full_name %></p>
         <% if post.scheduled?%>
           <small datetime="<%= post.published_at.to_datetime %>">
             <%= date_fixer(post) %> <%= I18n.l(post.published_at.to_datetime, format: :long) %>
@@ -24,7 +24,7 @@
     <% if current_user == post.user %>
       <div class="text-center mt-2" id="post-<%= post.id %>">
         <% if request.path == profile_path(post.user.profile) %>
-          <% btn_value = post.pinned? ? 'Desfixar' : 'Fixar' %>
+          <% btn_value = post.pinned? ? t('unpin_btn') : t('pin_btn') %>
           <%= button_to btn_value, pin_post_path(post), method: :post, class: "btn btn-outline-primary btn-sm" %>
         <% end %>
       </div>
