@@ -93,7 +93,7 @@ describe 'Usuário edita uma publicação' do
     login_as user
     visit profile_path(user)
     within 'div#fixed' do
-      click_on 'Desfixar'
+      click_on 'Desafixar'
     end
 
     expect(page).not_to have_content 'Destaque'
@@ -127,7 +127,7 @@ describe 'Usuário edita uma publicação' do
     end
   end
 
-  it 'e botão de fixar e desfixar não aparece para outros usuários' do
+  it 'e botão de fixar e desafixar não aparece para outros usuários' do
     user = create(:user)
     create(:post, user:, title: 'Post A', content: 'Primeira postagem', pin: 'pinned')
     create(:post, user:, title: 'Post B', content: 'Segunda postagem', pin: 'unpinned')
@@ -137,7 +137,7 @@ describe 'Usuário edita uma publicação' do
     visit profile_path(user)
 
     expect(page).not_to have_content 'Fixar'
-    expect(page).not_to have_content 'Desfixar'
+    expect(page).not_to have_content 'Desafixar'
   end
 
   it 'e programa data de publicação' do

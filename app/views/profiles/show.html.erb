@@ -44,25 +44,6 @@
             <% end %>
           </div>
         </div>
-        <div class="mt-2">
-          <% if @profile.open_to_work? %>
-            <h6 class="text-success"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
-            <%= button_to t('profiles.views.show.change_availability'), work_unavailable_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
-          <% else %>
-            <h6 class="text-danger"><%= t Profile.human_attribute_name("work_status.#{@profile.work_status}") %></h6>
-            <%= button_to t('profiles.views.show.change_availability'), open_to_work_path, method: :patch, class: 'btn btn-outline-primary btn-sm' if current_user.profile == @profile %>
-          <% end %>
-        </div>
-        <div class="mt-3">
-          <% if current_user.profile == @profile %>
-            <% if @profile.public_profile? %>
-              <h6 class="text-success"><%= t Profile.human_attribute_name("privacy.#{@profile.privacy}") %></h6>
-            <% else %>
-              <h6 class="text-secondary"><%= t Profile.human_attribute_name("privacy.#{@profile.privacy}") %></h6>
-            <% end %>
-            <%= button_to t('profiles.views.show.change_privacy'), change_privacy_path, method: :patch, class: 'btn btn-outline-primary btn-sm' %>
-          <% end %>
-        </div>
         <br>
         <div class="w-75">
           <% if current_user.profile != @profile %>

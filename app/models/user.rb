@@ -23,6 +23,7 @@ class User < ApplicationRecord
 
   after_create :'create_profile!'
   after_create :subscribe_likes_mailer_job
+  after_create :update_search_name
 
   def description
     if admin?
@@ -104,5 +105,9 @@ class User < ApplicationRecord
     clone.deleted_at = Time.current
     clone.save!
     clone
+  end
+
+  def update_search_name
+    update(search_name: I18n.transliterate(full_name, locale: :en))
   end
 end
