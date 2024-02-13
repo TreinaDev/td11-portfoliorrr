@@ -5,6 +5,7 @@ class ReportsController < ApplicationController
   before_action :redirect_unless_published_post
   before_action :authorize!, only: %i[index show]
   before_action :redirect_if_self_report, only: :create
+  before_action :set_report, only: %i[reject show remove_content]
 
   def new
     set_offences
@@ -18,13 +19,22 @@ class ReportsController < ApplicationController
 
   def index
     return @reports = Report.granted.all if params[:filter] == 'granted'
-    return @reports = Report.not_granted.all if params[:filter] == 'not_granted'
+    return @reports = Report.rejected.all if params[:filter] == 'rejected'
 
     @reports = Report.pending.all
   end
 
-  def show
-    @report = Report.find(params[:id])
+  def show; end
+
+  def reject
+    @report.rejected!
+    redirect_to @report, notice: t('.success')
+  end
+
+  def remove_content
+    @report.reportable.removed!
+    @report.granted!
+    redirect_to @report, notice: t('.success')
   end
 
   private
@@ -55,6 +65,10 @@ class ReportsController < ApplicationController
       t('reports.disturbin_content'),
       t('reports.harassment')
     ]
+  end
+
+  def set_report
+    @report = Report.find(params[:id])
   end
 
   def post_and_published?

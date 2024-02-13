@@ -21,7 +21,7 @@ pt-BR:
         status_published: Publicada
   posts:
     redirect_alert:
-      invalid_user: Você não pode realizar essa ação
+      invalid_user: Você não pode acessar este conteúdo ou realizar esta ação
     create:
       success: "Publicação %{status} com sucesso!"
       error: Não foi possível criar sua publicação
