@@ -1,1 +1,1 @@
-<%= link_to notification.notifiable.user.full_name, profile_path(notification.notifiable.user.profile) %> comentou em sua publicação: <%= link_to notification.notifiable.post.title, post_path(notification.notifiable.post) %>
+<%= notification.notifiable.user.full_name %> comentou em sua publicação: <%= notification.notifiable.post.title %>

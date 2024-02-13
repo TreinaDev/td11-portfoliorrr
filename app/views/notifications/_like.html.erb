@@ -1,5 +1,5 @@
 <% if notification.notifiable.likeable.is_a?Post %>
-  <%= link_to notification.notifiable.user.full_name, profile_path(notification.notifiable.user.profile) %> curtiu sua publicação
+  <%= notification.notifiable.user.full_name %> curtiu sua publicação
 <% else %>
-  <%= link_to notification.notifiable.user.full_name, profile_path(notification.notifiable.user.profile) %> curtiu seu comentário
+  <%= notification.notifiable.user.full_name %> curtiu seu comentário
 <% end %>

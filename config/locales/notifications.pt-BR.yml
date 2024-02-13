@@ -6,5 +6,7 @@ pt-BR:
         other: 'Notificações'
 
   notifications:
+    no_notifications: 'Nenhuma notificação'
+
     new_follower_mail: '%{follower_name} te seguiu'
     new_notificaiton: 'Você recebeu uma nova notificação!'
