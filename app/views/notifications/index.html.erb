@@ -1,16 +1,16 @@
 <div class="container d-flex flex-column align-items-center">
-  <h2>Notificações</h2>
+  <h2><%= Notification.model_name.human(count: @notifications.count) %></h2>
   <% if @notifications&.any? %>
-      <% @notifications.each do |notification| %>
-        <div class="list-group">
-            <%= render(
-            partial: "#{notification.notifiable.class.name.downcase}" ,
-            locals: { notification: notification }
-            )%>
-          há <%= distance_of_time_in_words_to_now(notification.notifiable.created_at) %></p>
-        </div>
-      <% end %>
+    <% @notifications.each do |notification| %>
+      <div class="list-group">
+        <%= render(
+          partial: "#{notification.notifiable.class.name.downcase}" ,
+          locals: { notification: notification }
+        )%>
+        <%= t('.time_ago', time: time_ago_in_words(notification.notifiable.created_at)) %>
+      </div>
+    <% end %>
   <% else %>
-    <p>Nenhuma notificação encontrada</p>
+    <p><%= t('.no_notifications') %></p>
   <% end %>
 </div>
