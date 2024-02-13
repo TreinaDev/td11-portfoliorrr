@@ -25,7 +25,9 @@ describe 'Solicitação de convite é aceita' do
     allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/invitations?profile_id=#{user.profile.id}")
                   .and_return(fake_invitation_list_response)
 
-    create(:invitation, profile: user.profile, colabora_invitation_id: 1)
+    invitation = build(:invitation, profile: user.profile, colabora_invitation_id: 1)
+
+    AcceptInvitationRequestJob.perform_now invitation
 
     login_as user
     visit invitation_requests_path

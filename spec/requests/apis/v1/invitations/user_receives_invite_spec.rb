@@ -31,9 +31,9 @@ describe 'API convites' do
       expect(user_profile.invitations.first.colabora_invitation_id).to eq 1
     end
 
-    it 'e altera status de solicitação pendente para aceita' do
+    it 'enfileira job para validar solicitação pendente e alterar para aceita' do
       user = create(:user)
-      invitation_request = create(:invitation_request, status: :pending, profile: user.profile, project_id: 1)
+      create(:invitation_request, status: :pending, profile: user.profile, project_id: 1)
       colabora_invitation_json = [{
         invitation_id: 1,
         expiration_date: 3.days.from_now.to_date,
@@ -41,6 +41,10 @@ describe 'API convites' do
         project_title: 'Meu primeiro projeto',
         message: 'Venha fazer parte'
       }].to_json
+
+      accept_invitation_request_job_spy = spy(AcceptInvitationRequestJob)
+      stub_const('AcceptInvitationRequestJob', accept_invitation_request_job_spy)
+
       fake_response = double('faraday_response', status: 200, body: colabora_invitation_json)
       allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/invitations?profile_id=#{user.id}")
                     .and_return(fake_response)
@@ -57,7 +61,7 @@ describe 'API convites' do
         }
       }
 
-      expect(invitation_request.reload.status).to eq 'accepted'
+      expect(accept_invitation_request_job_spy).to have_receive(:perform_later)
     end
 
     context 'com parâmetros inválidos' do

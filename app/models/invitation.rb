@@ -11,7 +11,7 @@ class Invitation < ApplicationRecord
 
   after_create :set_status
   after_create :create_notification
-  after_create :validate_pending_request
+  after_create :queue_pending_request_status_update
 
   def set_status
     self.status = 'pending'
@@ -33,10 +33,7 @@ class Invitation < ApplicationRecord
     Notification.create(profile:, notifiable: self)
   end
 
-  def validate_pending_request
-    project_id = InvitationRequestService::ProjectIdRetriever.send(self)
-
-    request = InvitationRequest.pending.find_by(profile_id:, project_id:)
-    request.accepted! if request.present?
+  def queue_pending_request_status_update
+    AcceptInvitationRequestJob.perform_later(self)
   end
 end
