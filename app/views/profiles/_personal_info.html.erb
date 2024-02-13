@@ -6,16 +6,10 @@
   <% end %>
   <% personal_info.each do |attribute, value| %>    
     <% next if attribute == 'visibility' %>
-    <% if value && attribute == 'birth_date' %>
-      <li>
-        <span class="fw-bold"><%= PersonalInfo.human_attribute_name(attribute) %></span>:
-        <%= l(info_fixer(value.to_date)) %>
-      </li>
-    <% else %>
-      <li>
-        <span class="fw-bold"><%= PersonalInfo.human_attribute_name(attribute) %></span>:
-        <%= info_fixer(value) %>
-      </li>
-    <% end %>  
+      <% new_value = (value && attribute == 'birth_date') ? l(value.to_date) : value  %>
+    <li>
+      <span class="fw-bold"><%= PersonalInfo.human_attribute_name(attribute) %></span>:
+      <%= info_fixer(new_value) %>
+    </li>
   <% end %>
 </ul>

@@ -3,7 +3,7 @@
   <% if @profile.active? %>
     <% if @posts.pinned.any? %>
       <div id="fixed">
-        <h2 id="post-list-title">Destaque</h2>
+        <h2 id="post-list-title"><%= Post.human_attribute_name(:pinned) %></h2>
         <section>
           <%= render partial: 'posts/listing', locals: { posts: @posts.pinned } %>
         </section>
@@ -11,7 +11,7 @@
     <% end %>
 
     <div id="publications">
-      <h2 id="post-list-title">Publicações</h2>
+      <h2 id="post-list-title"><%= Post.model_name.human(count: @profile.user.posts.count) %></h2>
       <% if @profile.user.posts.count - @profile.user.posts.pinned.count < 1 %>
         <p>Ainda não tem nada aqui... <br> Mas novas publicações vão ocupar este espaço. :)</p>
       <% end %>
@@ -29,7 +29,7 @@
         <div class="w-100">
           <div class="bg-primary profile-header mb-4 w-100 rounded-top d-flex flex-column">
             <%= render partial: 'profile_photo', locals: { profile: @profile } %>
-            <%= link_to 'Alterar foto', edit_profile_path(@profile), class: 'badge bg-secondary mt-3' if current_user == @profile.user %>
+            <%= link_to t('profiles.edit.change_photo'), edit_profile_path(@profile), class: 'badge bg-secondary mt-3' if current_user == @profile.user %>
           </div>
           <h4><%= @user.full_name %></h4>
           <p><%= @user.email %></p>
