@@ -69,7 +69,7 @@
     <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
   </div>
   <% @post.comments.each do |comment| %>
-    <div class="card-body comment">
+    <div class="card-body" id="<%= dom_id(comment) %>">
       <blockquote class="blockquote mb-0">
         <p><%= comment.message %></p>
         <footer class="blockquote-footer">
@@ -107,3 +107,20 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener('turbo:load', () => {
+    if (window.location.pathname === "/posts/<%= @post.id%>")  {
+      const anchor_tag = window.location.hash;
+      if (anchor_tag) {
+        const comment = document.querySelector(anchor_tag);
+        if (comment) {
+          comment.classList.add('highlighted');
+          setTimeout(function() {
+            comment.classList.remove('highlighted');
+          }, 4000);
+        }
+      }
+    };
+  });
+</script>
