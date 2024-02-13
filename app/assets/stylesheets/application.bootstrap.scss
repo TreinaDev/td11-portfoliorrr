@@ -8,70 +8,12 @@ $theme-colors: (
   "light":      rgba(255, 251, 251, 0.603),
   "dark":       #1b1b1b
 );
+
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'actiontext.css';
+@import 'navbar.scss';
+@import 'posts.scss';
+@import 'profile.scss';
+@import 'layout.scss';
 
-body{
-  min-width: 400px;
-}
-
-input[type="checkbox"]:checked {
-  background-color: #a130fd !important;
-}
-
-.feed-post:hover{
-  transform: scale(1.01, 1.01);
-  transition-duration: 300ms;
-}
-
-.img-cover{
-  object-fit: cover;
-  object-position: center;
-}
-
-.field_with_errors input{
-  border: 1px solid red !important;
-}
-
-.home_logo{
-  width: 12rem;
-  margin: 0 7rem 0 7rem;
-}
-
-.drop-menu{
-  margin-right: 2.5rem !important;
-}
-
-#searchText{
-  width: 380px !important;
-}
-
-.dropdown-menu[data-bs-popper]{
-  left: -20px !important;
-}
-
-.follower-card:hover{
-  transform: scale(1.01, 1.01);
-  transition-duration: 300ms;
-}
-  
-.profile-image{
-   min-width: 80px;
-}
-
-.trix-content{
-  color: rgb(10, 10, 10);
-}
-
-.dropdown-item:active {
-  background-color: #9030df !important; 
-}
-
-.categories{
-  width: 35% !important;
-}
-
-ul{
-  list-style: none !important;
-}
