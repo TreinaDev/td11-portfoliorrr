@@ -18,6 +18,7 @@ FactoryBot.define do
     trait :first_seed do
       company { Faker::Company.name }
       position { Faker::Job.position }
+      profile
       start_date { Faker::Date.backward(days: Time.zone.today - profile.personal_info.birth_date + 5840) }
       end_date { Faker::Date.between(from: start_date, to: start_date.advance(months: rand(2..120))) }
     end
@@ -25,10 +26,10 @@ FactoryBot.define do
     trait :seed do
       company { Faker::Company.name }
       position { Faker::Job.position }
-      start_date {
+      start_date do
         Faker::Date.between(from: profile.professional_infos.last.end_date,
                             to: profile.professional_infos.last.end_date.advance(months: rand(2..12)))
-      }
+      end
       end_date { Faker::Date.between(from: start_date, to: start_date.advance(months: rand(2..120))) }
     end
   end

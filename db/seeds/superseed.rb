@@ -3,6 +3,29 @@ require 'faker'
 Faker::Config.locale = :'pt-BR'
 Faker::UniqueGenerator.clear
 
+# Cria usu
+FactoryBot.create(:user, full_name: 'Boninho da Globo', email: 'admin@admin.com', password: '654321', role: 'admin')
+
+# Para cada usuário, cria:
+# rand(2..7) experiências de trabalho
+# rand(2..7) experiências acadêmicas
+# rand(2..7) categorias de trabalho com descrição
+# 1 post com uma dentre 3 imagens
+# rand(1..3) posts somente texto
+# rand(2..5) seguidores
+# rand(0..10) comentários por posts
+# rand(0..10) likes em posts
+# rand(0..10) likes em comentários
+
+# FALTA
+# Imagens de Perfil
+# ???
+
+
+# Setup
+@number_of_users = 30
+
+
 # 30 categorias de Trabalho
 [
   'Trabalho em equipe', 'Comunicação', 'Resolução de problemas', 'Liderança', 'Organização',
@@ -39,7 +62,7 @@ images_for_posts = [
 ]
 
 # Adiciona usuários, perfis, informações pessoais
-20.times do
+40.times do
   user = FactoryBot.create(:user, :seed)
   profile = FactoryBot.create(:profile, :seed, user:)
   personal_info = FactoryBot.create(:personal_info, :seed, profile:)
@@ -90,9 +113,9 @@ Post.all.each do |post|
   rand(0..10).times do
     FactoryBot.create(:like, :for_post, likeable: post, user:  User.all.reject { |user| post.likes.pluck(:user_id).include?(user.id) }.sample)
   end
-  rand(1..10).times do
+  rand(0..10).times do
     comment = FactoryBot.create(:comment, :seed, post:, user: User.all.sample)
-    rand(1..3).times do
+    rand(0..10).times do
       FactoryBot.create(:like, :for_post, likeable: comment, user: User.all.reject { |user| comment.likes.pluck(:user_id).include?(user.id) }.sample)
     end
   end
