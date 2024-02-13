@@ -43,6 +43,8 @@ pt-BR:
       max_audio_size: Tamanho do áudio permitido é 3mb
       max_pdf_size: Tamanho do PDF permitido é 900kb
       invalid_date: não pode estar no passado
+    likes:
+      error: Você já curtiu isso
 
     index:
       blog_title: "Blog de %{full_name}"
