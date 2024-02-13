@@ -20,8 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :reports, only: %i[index new create show] do
-    post 'reject', on: :member
-    post 'remove_content', on: :member
+    post 'reject', 'remove_content', on: :member
   end
 
   resources :users, only: [] do
