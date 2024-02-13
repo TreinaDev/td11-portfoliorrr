@@ -31,6 +31,35 @@ describe 'API convites' do
       expect(user_profile.invitations.first.colabora_invitation_id).to eq 1
     end
 
+    it 'e altera status de solicitação pendente para aceita' do
+      user = create(:user)
+      invitation_request = create(:invitation_request, status: :pending, profile: user.profile, project_id: 1)
+      colabora_invitation_json = [{
+        invitation_id: 1,
+        expiration_date: 3.days.from_now.to_date,
+        project_id: 1,
+        project_title: 'Meu primeiro projeto',
+        message: 'Venha fazer parte'
+      }].to_json
+      fake_response = double('faraday_response', status: 200, body: colabora_invitation_json)
+      allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/invitations?profile_id=#{user.id}")
+                    .and_return(fake_response)
+
+      post '/api/v1/invitations', params: {
+        invitation: {
+          profile_id: user.id,
+          project_title: 'Projeto Cola?Bora!',
+          project_description: 'Projeto Legal',
+          project_category: 'Tecnologia',
+          colabora_invitation_id: 1,
+          message: 'Venha participar do meu projeto!',
+          expiration_date: 1.week.from_now.to_date
+        }
+      }
+
+      expect(invitation_request.reload.status).to eq 'accepted'
+    end
+
     context 'com parâmetros inválidos' do
       it 'parametros em branco' do
         post '/api/v1/invitations'
