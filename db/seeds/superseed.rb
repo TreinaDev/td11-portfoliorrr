@@ -6,11 +6,11 @@ Faker::UniqueGenerator.clear
 # Cria usu
 FactoryBot.create(:user, full_name: 'Boninho da Globo', email: 'admin@admin.com', password: '654321', role: 'admin')
 
-# Para cada usuário, cria:
+# Cria 40 usuários e pra cada um cria:
 # rand(2..7) experiências de trabalho
 # rand(2..7) experiências acadêmicas
 # rand(2..7) categorias de trabalho com descrição
-# 1 post com uma dentre 3 imagens
+# 1 post com imagem
 # rand(1..3) posts somente texto
 # rand(2..5) seguidores
 # rand(0..10) comentários por posts
