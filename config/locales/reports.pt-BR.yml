@@ -15,13 +15,24 @@ pt-BR:
       not_published_post: Essa publicação não está disponível.
     new:
       not_published_post: Essa publicação não está disponível.
+    reject:
+      success: Denúncia rejeitada com sucesso
+    remove_content:
+      success: Conteúdo removido com sucesso
+    reject_btn: Rejeitar denúncia
     report_btn: Denunciar
     pending: Pendente
-    granted: Deferido
-    not_granted: Indeferido
+    granted: Conteúdo removido
+    rejected: Denúncia rejeitada
+    rejected_tab: Denúncias rejeitadas
     empty_state: Nenhuma denúncia encontrada
     action: Ver mais
     reporting_profile: Denunciado por
     reported_when: Denunciado em
     see_post: Ver publicação
     self_report: Você não pode denunciar sí mesmo ou o próprio conteúdo.
+    remove_content_btn: Remover conteúdo
+
+  pending: Pendente
+  granted: Conteúdo removido
+  rejected: Denúncia rejeitada

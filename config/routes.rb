@@ -21,7 +21,9 @@ Rails.application.routes.draw do
     post 'pin', on: :member
   end
 
-  resources :reports, only: %i[index new create show]
+  resources :reports, only: %i[index new create show] do
+    post 'reject', 'remove_content', on: :member
+  end
 
   resources :posts, only: %i[] do
     resources :likes, only: %i[create destroy], module: :posts

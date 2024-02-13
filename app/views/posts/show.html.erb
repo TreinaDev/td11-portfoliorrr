@@ -69,41 +69,45 @@
     <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
   </div>
   <% @post.comments.each do |comment| %>
-    <div class="card-body" id="<%= dom_id(comment) %>">
-      <blockquote class="blockquote mb-0">
-        <p><%= comment.message %></p>
-        <footer class="blockquote-footer">
-          <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
-        </footer>
-      </blockquote>
+    <div class="card-body comment" id="<%= dom_id(comment) %>">
+      <% if comment.removed?%>
+        <p><%= t('comments.removed_content') %> </p>
+      <% else %>
+        <blockquote class="blockquote mb-0">
+          <p><%= comment.message %></p>
+          <footer class="blockquote-footer">
+            <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
+          </footer>
+        </blockquote>
 
-      <% if comment.user.deleted_at.nil? %>
-        <div class="btn-group flex-column">
-          <div class="d-flex">
-            <div class="mt-2 me-2">
-              <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
+        <% if comment.user.deleted_at.nil? %>
+          <div class="btn-group flex-column">
+            <div class="d-flex">
+              <div class="mt-2 me-2">
+                <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
+              </div>
+
+              <div class="me-2">
+                <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+                  <% like = comment.likes.find_by(user_id: current_user.id) %>
+                  <%= button_to comment_like_path(comment, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+                        <%= image_tag 'thumbs-up-solid', width: '20rem', class: 'mb-4' %>
+                  <% end %>
+                <% else %>
+                  <%= button_to comment_likes_path(comment), method: :post, class: 'btn btn-sm', id: 'like' do %>
+                    <%= image_tag 'thumbs-up-regular', width: '20rem', class: 'mb-2' %>
+                  <% end %>
+                <% end %>
+              </div>
             </div>
 
-            <div class="me-2">
-              <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
-                <% like = comment.likes.find_by(user_id: current_user.id) %>
-                <%= button_to comment_like_path(comment, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
-                      <%= image_tag 'thumbs-up-solid', width: '20rem', class: 'mb-4' %>
-                <% end %>
-              <% else %>
-                <%= button_to comment_likes_path(comment), method: :post, class: 'btn btn-sm', id: 'like' do %>
-                  <%= image_tag 'thumbs-up-regular', width: '20rem', class: 'mb-2' %>
-                <% end %>
-              <% end %>
-            </div>
+            <% if current_user != comment.user %>
+              <div class="report-link-wrapper">
+                <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %>
+              </div>
+            <% end %>
           </div>
-
-          <% if current_user != comment.user %>
-            <div class="report-link-wrapper">
-              <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %>
-            </div>
-          <% end %>
-        </div>
+        <% end %>
       <% end %>
     </div>
   <% end %>

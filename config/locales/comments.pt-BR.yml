@@ -12,3 +12,4 @@ pt-BR:
     create:
       success: Comentário enviado com sucesso
       error: Não foi possível fazer o comentário
+    removed_content: Comentário removido pela administração
