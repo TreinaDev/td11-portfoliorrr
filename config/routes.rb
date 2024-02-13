@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
   resources :job_categories, only: %i[index create destroy]
-  resources :notifications, only: %i[index]
+  resources :notifications, only: %i[index update]
 
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]

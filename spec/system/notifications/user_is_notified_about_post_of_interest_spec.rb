@@ -41,8 +41,8 @@ describe 'Usuário é notificado' do
       login_as interested_user
       visit notifications_path
 
-      expect(page).to have_content 'Gabriel comentou no post "Meu segundo post" há 10 minutos'
-      expect(page).to have_content 'Gabriel comentou no post "Meu primeiro post" há aproximadamente 10 horas'
+      expect(page).to have_content 'Gabriel comentou na publicação: Meu segundo post há 10 minutos'
+      expect(page).to have_content 'Gabriel comentou na publicação: Meu primeiro post há aproximadamente 10 horas'
       expect(page).to have_link post_one.title, href: post_path(post_one, anchor: "comment_#{comment_one.id}")
       expect(page).to have_link post_two.title, href: post_path(post_two, anchor: "comment_#{comment_two.id}")
     end
