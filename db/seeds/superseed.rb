@@ -3,8 +3,8 @@ require 'faker'
 Faker::Config.locale = :'pt-BR'
 Faker::UniqueGenerator.clear
 
-# Cria usu
-FactoryBot.create(:user, full_name: 'Boninho da Globo', email: 'admin@admin.com', password: '654321', role: 'admin')
+# Cria admin
+admin = FactoryBot.create(:user, full_name: 'Boninho da Globo', email: 'admin@admin.com', password: '654321', role: 'admin')
 
 # Cria 40 usuários e pra cada um cria:
 # rand(2..7) experiências de trabalho
@@ -17,13 +17,9 @@ FactoryBot.create(:user, full_name: 'Boninho da Globo', email: 'admin@admin.com'
 # rand(0..10) likes em posts
 # rand(0..10) likes em comentários
 
-# FALTA
-# Imagens de Perfil
-# ???
-
 
 # Setup
-@number_of_users = 30
+@number_of_users = 40
 
 
 # 30 categorias de Trabalho
@@ -62,9 +58,10 @@ images_for_posts = [
 ]
 
 # Adiciona usuários, perfis, informações pessoais
-40.times do
+@number_of_users.times do
   user = FactoryBot.create(:user, :seed)
   profile = FactoryBot.create(:profile, :seed, user:)
+  profile.photo.attach(Rails.root.join('app', 'assets', 'images', 'avatars', "avatar#{user.id}.png"))
   personal_info = FactoryBot.create(:personal_info, :seed, profile:)
 
   # Adiciona experiências profissionais
@@ -95,7 +92,6 @@ images_for_posts = [
   rand(1..3).times do
     user.posts.create(title: Faker::Lorem.sentence, content: "#{Faker::Lorem.paragraph}", tag_list: [tags].sample)
   end
-  puts "Criado: usuário #{User.last.full_name}, Usuários: #{User.count}, Posts: #{Post.count}, Follows: #{Connection.count}"
 end
 
 # Adiciona followers aos perfis
@@ -105,7 +101,6 @@ User.all.each do |user|
     followed_profile = not_followed_profiles.sample if not_followed_profiles.any?
     Connection.create!(follower: user.profile, followed_profile:) unless followed_profile == user.profile
   end
-  puts "Perfil #{user.full_name} tem #{user.profile.followers.count} seguidores"
 end
 
 # Adiciona comentários e likes
@@ -119,5 +114,7 @@ Post.all.each do |post|
       FactoryBot.create(:like, :for_post, likeable: comment, user: User.all.reject { |user| comment.likes.pluck(:user_id).include?(user.id) }.sample)
     end
   end
-  puts "Post: '#{post.title}, Likes: #{post.likes.count}, Comentários: #{post.comments.count}"
 end
+
+puts "Pronto! #{@number_of_users} usuários criados."
+puts "Admin: #{admin.email}, senha: #{admin.password}"
