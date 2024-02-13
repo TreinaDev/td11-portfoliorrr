@@ -3,7 +3,6 @@ pt-BR:
     models:
       education_info:
         one: Formação Acadêmica
-        other: Formações Acadêmicas
     attributes:
       education_info:
         institution: Instituição
