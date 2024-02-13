@@ -4,7 +4,7 @@
   <div class="border py-1 px-2 rounded mb-3">
     <div class="d-flex gap-1">
       <%= image_tag 'about-icon', width: '23rem', class: 'mb-2'  %>
-      <h3>Sobre</h3>
+      <h3><%= Profile.human_attribute_name(:cover_letter) %></h3>
     </div>
     <h5><%= profile.cover_letter %></h5><br>
   </div>
