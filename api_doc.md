@@ -425,3 +425,66 @@ Retorno esperado:
 }
 ```
 </details>
+
+## 7. Alterar status de solicitação de convite
+
+<details>
+<summary>PATCH /api/v1/invitation_requests/:id</summary>
+
+<br>
+
+### Endpoint
+
+```shell
+PATCH /api/v1/invitation_requests/:id
+```
+
+Retorno esperado caso a requisição seja bem sucedida. **(Status: 200)**
+
+Resposta:
+```json
+{
+  "id": 1,
+  "profile_id": 1,
+  "message": "exemplo de mensagem enviada pelo usuário do Portfoliorrr",
+  "project_id": 1,
+  "status": "refused"
+}
+```
+
+### Erros tratados
+
+Erro quando a solicitação não estiver com status Pendente **(Status: 409)**
+
+Resposta:
+```json
+{
+  "errors": "Solicitação de convite não está pendente para ser recusada."
+}
+```
+
+Erro para id de solicitação de convite inválido **(Status: 404)**
+
+Este erro acontece quando a requisição é feita com um id de solicitação de convite que não existe.
+
+```shell
+PATCH /api/v1/invitation_requests/999999999999999
+```
+
+Retorno esperado:
+
+```json
+{
+  "error": "Não encontrado"
+}
+```
+
+Erro interno do servidor **(Status: 500)**
+
+Resposta:
+```json
+{
+  "errors": "Houve um erro interno no servidor ao processar sua solicitação."
+}
+```
+</details>
