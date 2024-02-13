@@ -1,0 +1,10 @@
+pt-BR:
+  deactivate_profile: Perfil desativado com sucesso
+  delete_account: Conta excluída com sucesso
+  settings:
+    change_privacy:
+        success: Privacidade alterada com sucesso
+    work_unavailable:
+      success: Alteração salva com sucesso
+    open_to_work:
+      success: Alteração salva com sucesso

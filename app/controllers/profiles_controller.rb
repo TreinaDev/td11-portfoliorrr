@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile_and_posts, only: %i[show edit remove_photo update]
   before_action :private_profile?, only: %i[show]
-  before_action :redirect_unauthorized_access, only: %i[edit update remove_photo settings]
+  before_action :redirect_unauthorized_access, only: %i[edit update remove_photo]
 
   def edit; end
 
@@ -28,27 +28,7 @@ class ProfilesController < ApplicationController
     @personal_info = personal_info
   end
 
-  def work_unavailable
-    @profile = current_user.profile
-    @profile.unavailable!
-    redirect_to profile_path(@profile), notice: t('.success')
-  end
-
-  def open_to_work
-    @profile = current_user.profile
-    @profile.open_to_work!
-    redirect_to profile_path(@profile), notice: t('.success')
-  end
-
-  def change_privacy
-    @profile = current_user.profile
-    if @profile.public_profile?
-      @profile.private_profile!
-    else
-      @profile.public_profile!
-    end
-    redirect_to profile_path(@profile), notice: t('.success')
-  end
+  private
 
   def private_profile?
     return if @profile.user == current_user
@@ -59,22 +39,11 @@ class ProfilesController < ApplicationController
     redirect_to root_path, alert: t('.private')
   end
 
-  def settings; end
-
-  def deactivate_profile
-    current_user.profile.inactive!
-    sign_out current_user
-    redirect_to root_path, alert: t('.success')
-  end
-
-  private
-
   def profile_params
     params.require(:profile).permit(:photo)
   end
 
   def redirect_unauthorized_access
-    @profile = Profile.find(params[:profile_id]) if params[:profile_id]
     return if current_user == @profile.user
 
     redirect_to root_path, alert: t('alerts.unauthorized')

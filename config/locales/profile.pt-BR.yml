@@ -27,16 +27,8 @@ pt-BR:
       results:
         one: 'resultado'
         other: 'resultados'
-    work_unavailable:
-      success: Alteração salva com sucesso
-    open_to_work:
-      success: Alteração salva com sucesso
-    change_privacy:
-      success: Privacidade alterada com sucesso
     show:
       private: O perfil que você acessou é privado
-    deactivate_profile:
-      success: Perfil desativado com sucesso
   profile:
     update:
       success: 'Informações pessoais atualizadas com sucesso'

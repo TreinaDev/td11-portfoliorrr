@@ -9,8 +9,26 @@ describe 'Usuário visita página de configurações' do
     click_button class: 'dropdown-toggle'
     click_on 'Configurações'
 
-    expect(page).to have_content 'Todos os dados relacionados ao seu perfil serão ARQUIVADOS'
+    within 'h2' do
+      expect(page).to have_content 'Configurações'
+    end
+    expect(page).to have_content 'Atenção: Ao desativar o perfil todos os dados relacionados serão ARQUIVADOS.'
+    expect(page).to have_content 'Você pode reativar sua conta fazendo login novamente.'
     expect(page).to have_button 'Desativar Perfil'
+    expect(page).to have_button 'Excluir Conta'
+  end
+
+  it 'e deleta conta' do
+    user = create(:user)
+
+    login_as user
+    visit profile_settings_path(user)
+    accept_prompt do
+      click_on 'Excluir Conta'
+    end
+
+    expect(page).to have_current_path root_path
+    expect(page).to have_content 'Conta excluída com sucesso'
   end
 
   it 'e desativa perfil' do

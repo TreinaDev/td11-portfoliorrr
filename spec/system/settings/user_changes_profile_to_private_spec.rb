@@ -6,22 +6,12 @@ describe 'Usuário altera a privacidade do perfil' do
       user = create(:user)
 
       login_as user
-      visit profile_path(user.profile)
-      click_on 'alterar privacidade'
+      visit profile_settings_path(user.profile)
+      click_on 'Alterar Privacidade'
 
-      expect(page).to have_current_path profile_path(user.profile)
+      expect(page).to have_current_path profile_settings_path(user.profile)
       expect(page).to have_content 'Privacidade alterada com sucesso'
       expect(page).to have_content 'Perfil Privado'
-    end
-
-    it 'apenas do seu próprio perfil' do
-      user = create(:user)
-      another_user = create(:user)
-
-      login_as another_user
-      visit profile_path(user.profile)
-
-      expect(page).not_to have_button 'alterar privacidade'
     end
 
     it 'e não aparece nas buscas' do
@@ -100,10 +90,10 @@ describe 'Usuário altera a privacidade do perfil' do
       user.profile.private_profile!
 
       login_as user
-      visit profile_path(user.profile)
-      click_on 'alterar privacidade'
+      visit profile_settings_path(user.profile)
+      click_on 'Alterar Privacidade'
 
-      expect(page).to have_current_path profile_path(user.profile)
+      expect(page).to have_current_path profile_settings_path(user.profile)
       expect(page).to have_content 'Privacidade alterada com sucesso'
       expect(page).to have_content 'Perfil Público'
     end

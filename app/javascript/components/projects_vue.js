@@ -44,8 +44,6 @@ export default {
   },
 
   async created() {
-    this.errorMsg = false;
-
     try {
       let response = await fetch('/api/v1/projects', { signal });
       if (response.ok) {

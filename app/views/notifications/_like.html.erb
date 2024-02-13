@@ -1,0 +1,5 @@
+<% if notification.notifiable.likeable.is_a?Post %>
+  <%= notification.notifiable.user.full_name %> <%= t('notifications.liked_your_post') %>
+<% else %>
+  <%= notification.notifiable.user.full_name %> <%= t('notifications.liked_your_comment') %>
+<% end %>

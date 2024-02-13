@@ -42,13 +42,17 @@
     </p>
 
     <div class="btn-group">
-      <div class="me-2">
+      <div class="me-2 mt-2">
         <%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %>
       </div>
       <% if @liked %>
-          <%= button_to 'Descurtir', like_path(post_like_id: @liked), method: :delete, class: 'btn btn-danger btn-sm' %>
+        <%= button_to post_like_path(@post, @liked), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+          <%= image_tag 'thumbs-up-solid', width: '20rem' %>
+        <% end %>
       <% else %>
-          <%= button_to 'Curtir', likes_path(post_id: @post), method: :post, class: 'btn btn-primary btn-sm' %>
+        <%= button_to post_likes_path(@post), method: :post, class: 'btn btn-sm', id: 'like' do %>
+          <%= image_tag 'thumbs-up-regular', width: '20rem' %>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -65,7 +69,7 @@
     <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
   </div>
   <% @post.comments.each do |comment| %>
-    <div class="card-body">
+    <div class="card-body" id="<%= dom_id(comment) %>">
       <blockquote class="blockquote mb-0">
         <p><%= comment.message %></p>
         <footer class="blockquote-footer">
@@ -73,25 +77,51 @@
         </footer>
       </blockquote>
 
-      <div class="btn-group">
-        <div class="me-2">
-          <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
-        </div>
+      <% if comment.user.deleted_at.nil? %>
+        <div class="btn-group flex-column">
+          <div class="d-flex">
+            <div class="mt-2 me-2">
+              <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
+            </div>
 
-        <div class="me-2">
-          <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
-            <% like = comment.likes.find_by(user_id: current_user.id) %>
-            <%= button_to 'Descurtir', like_path(comment_like_id: like.id), method: :delete, class: 'btn btn-danger btn-sm' %>
-          <% else %>
-            <%= button_to 'Curtir', likes_path(comment_id: comment.id), method: :post, class: 'btn btn-primary btn-sm' %>
+            <div class="me-2">
+              <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+                <% like = comment.likes.find_by(user_id: current_user.id) %>
+                <%= button_to comment_like_path(comment, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+                      <%= image_tag 'thumbs-up-solid', width: '20rem', class: 'mb-4' %>
+                <% end %>
+              <% else %>
+                <%= button_to comment_likes_path(comment), method: :post, class: 'btn btn-sm', id: 'like' do %>
+                  <%= image_tag 'thumbs-up-regular', width: '20rem', class: 'mb-2' %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <% if current_user != comment.user %>
+            <div class="report-link-wrapper">
+              <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %>
+            </div>
           <% end %>
         </div>
-
-        <div>
-          <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class),
-                      class: 'btn btn-dark btn-sm' unless comment.user == current_user %>
-        </div>
-      </div>
+      <% end %>
     </div>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener('turbo:load', () => {
+    if (window.location.pathname === "/posts/<%= @post.id%>")  {
+      const anchor_tag = window.location.hash;
+      if (anchor_tag) {
+        const comment = document.querySelector(anchor_tag);
+        if (comment) {
+          comment.classList.add('highlighted');
+          setTimeout(function() {
+            comment.classList.remove('highlighted');
+          }, 4000);
+        }
+      }
+    };
+  });
+</script>

@@ -4,7 +4,13 @@ pt-BR:
       notification:
         one: 'Notificação'
         other: 'Notificações'
-
   notifications:
-    new_follower_mail: '%{follower_name} te seguiu'
-    new_notificaiton: 'Você recebeu uma nova notificação!'
+    no_notification: 'Nenhuma notificação'
+    published_a_new_post: 'fez uma publicação'
+    liked_your_post: 'curtiu sua publicação'
+    liked_your_comment: 'curtiu seu comentário'
+    commented_on_your_post: 'comentou em sua publicação:'
+    commented_on_post: 'comentou na publicação:'
+    started_following_you: 'começou a seguir você'
+    new_invitation_to: 'Você recebeu um convite para'
+    time_ago: 'há %{time}'

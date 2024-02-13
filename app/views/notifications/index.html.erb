@@ -1,15 +1,18 @@
 <div class="container d-flex flex-column align-items-center">
-  <h2>Notificações</h2>
-  <% if @notifications&.any? %>
-    <div class="list-group">
+  <h2><%= Notification.model_name.human(count: 2) %></h2>
+  <% if @notifications.any? %>
+    <ul class="list-group list-group-action">
       <% @notifications.each do |notification| %>
-        <div class="list-group">
-          <p>Você recebeu um convite para <%= link_to notification.notifiable.project_title, invitation_path(notification.notifiable) %>
-          há <%= distance_of_time_in_words_to_now(notification.notifiable.created_at) %></p>
-        </div>
+        <li class="list-group-item <%= 'list-group-item-primary' if notification.seen? %> ">
+          <%= button_to notification_path(notification), method: :patch, class: 'btn btn-link' do %>
+            <%= render( partial: "#{notification.notifiable.class.name.downcase}",
+                        locals: { notification: notification } ) %>
+            <%= t('notifications.time_ago', time: time_ago_in_words(notification.notifiable.created_at)) %>
+          <% end %>
+        </li>
       <% end %>
-    </div>
+    </ul>
   <% else %>
-    <p>Nenhuma notificação encontrada</p>
+    <p><%= t('notifications.no_notification') %></p>
   <% end %>
 </div>

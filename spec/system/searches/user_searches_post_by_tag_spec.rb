@@ -34,7 +34,7 @@ describe 'Usuário pesquisa hashtag' do
     expect(page).to have_content post.title
     expect(page).to have_content another_post.title
     expect(page).not_to have_content other_post.title
-    expect(page).to have_content '2 Postagens com: #tdd'
+    expect(page).to have_content '2 Publicações com: #tdd'
   end
 
   it 'deve ser uma busca exata' do
