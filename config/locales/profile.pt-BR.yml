@@ -16,7 +16,7 @@ pt-BR:
           private_profile: 'Perfil privado'
   profiles:
     edit: 
-      change_photo: 'Alterar Foto'
+      change_photo: 'Alterar foto'
     update:
       error: 'Sua alteração não pôde ser salva'
       success: 'Sua foto foi alterada com sucesso'
