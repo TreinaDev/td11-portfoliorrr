@@ -1,17 +1,17 @@
-<p><%= t('likes_mailer.greeting', recipient: @user.full_name) %></p>
+<p><%= t('.greeting', recipient: @user.full_name) %></p>
 
-<p><%= t('likes_mailer.profile_activity') %>:</p>
+<p><%= t('.profile_activity') %>:</p>
 <dl>
-  <dd> <%= t('likes_mailer.post_likes', like_count: @post_likes.count) if @post_likes.any? %></dd>
-  <dd><%= t('likes_mailer.comment_likes', like_count: @comment_likes.count) if @comment_likes.any? %></dd>
+  <dd> <%= t('.post_likes', like_count: @post_likes.count) if @post_likes.any? %></dd>
+  <dd><%= t('.comment_likes', like_count: @comment_likes.count) if @comment_likes.any? %></dd>
 </dl>
 <% if @post_likes.any? %>
-  <br><p><%= t('likes_mailer.most_liked_post') %> <%= link_to @most_liked_post.title, post_url(@most_liked_post) %></p>
+  <br><p><%= t('.most_liked_post') %> <%= link_to @most_liked_post.title, post_url(@most_liked_post) %></p>
 <% end %>
 <% if @comment_likes.any? %>
-  <p><%= t('likes_mailer.most_liked_comment', comment: @most_liked_comment.message) %> <%= link_to @most_liked_comment.post.title, post_url(@most_liked_comment.post) %></p>
+  <p><%= t('.most_liked_comment', comment: @most_liked_comment.message) %> <%= link_to @most_liked_comment.post.title, post_url(@most_liked_comment.post) %></p>
 <% end %>
 
-<br><p><%= link_to t('click_btn'), profile_url(@user.profile) %> <%= t('likes_mailer.access_profile') %></p>
-<%= t('likes_mailer.regards') %>,
+<br><p><%= link_to t('click_btn'), profile_url(@user.profile) %> <%= t('.access_profile') %></p>
+<%= t('.regards') %>,
 Portfoliorrr

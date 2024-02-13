@@ -20,8 +20,10 @@ pt-BR:
     unfollow:
       success: Você deixou de seguir %{full_name}
       error: Você ainda não segue este usuário
-    following: Seguindo
-    followed_by: Seguido por
+    following:
+      following: Seguindo
+    index:
+      followed_by: Seguido por
     same_user: não pode ser o mesmo do usuário
 
 

@@ -35,7 +35,7 @@
           <p class="card-text"><%= @report.message %></p>
 
           <p class="card-subtitle mb-2 text-muted">
-            <%= I18n.t('reports.reporting_profile') %>: <%= link_to @report.profile.full_name, profile_path(@report.profile) %>
+            <%= I18n.t('.reporting_profile') %>: <%= link_to @report.profile.full_name, profile_path(@report.profile) %>
           </p>
         </div>
       </div>

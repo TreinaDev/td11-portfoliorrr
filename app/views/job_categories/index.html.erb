@@ -1,5 +1,5 @@
 <div>
-  <h2 class="text-center"> <%= t('job_categories.register') %> </h2>
+  <h2 class="text-center"> <%= t('.register') %> </h2>
   <% if @job_category.errors.any? %>
     <div>
       <% @job_category.errors.each do |error| %>
@@ -16,7 +16,7 @@
     </div>
   <% end %>
   <div class="d-flex flex-column mt-5 align-items-center">
-    <h2> <%= t('job_categories.registered') %> </h2>
+    <h2> <%= t('.registered') %> </h2>
     <div class="d-flex flex-column mt-3 gap-3 categories">
       <% @job_categories.each do |category| %>
         <div class="d-flex justify-content-between">

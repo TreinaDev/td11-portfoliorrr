@@ -7,7 +7,7 @@
 <% end %>
 
 <div class="d-flex gap-4 flex-column align-items-center justify-content-center w-75 align-self-center mx-auto">
-  <h2><%= t('profile.views.edit.change_photo') %></h2>
+  <h2><%= t('.change_photo') %></h2>
   <div class="d-flex gap-4 align-items-center w-75 justify-content-center">
     <div id="photo-preview" class="ratio ratio-1x1 rounded-circle overflow-hidden w-25">
       <%= render partial: 'profiles/profile_photo', locals: { profile: @profile } %>
@@ -24,7 +24,7 @@
       <% end %>
 
       <div class="mb-3">
-        <%= button_to t('profiles.views.edit.remove_photo'), remove_photo_profile_path(@profile), method: :patch, class: 'btn btn-danger' %>
+        <%= button_to t('.remove_photo'), remove_photo_profile_path(@profile), method: :patch, class: 'btn btn-danger' %>
       </div>
     </div>
   </div>

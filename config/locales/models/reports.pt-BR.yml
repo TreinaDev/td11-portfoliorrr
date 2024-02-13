@@ -10,25 +10,29 @@ pt-BR:
         message: Mensagem
         offence_type: Tipo de ofensa
   reports:
+    report_btn: Denunciar
     create:
+      self_report: Você não pode denunciar sí mesmo ou o próprio conteúdo.
       success: Sua denúncia foi registrada
       not_published_post: Essa publicação não está disponível.
     new:
       not_published_post: Essa publicação não está disponível.
-    report_btn: Denunciar
-    pending: Pendente
-    granted: Deferido
-    not_granted: Indeferido
-    empty_state: Nenhuma denúncia encontrada
-    action: Ver mais
-    reporting_profile: Denunciado por
-    reported_when: Denunciado em
-    see_post: Ver publicação
-    self_report: Você não pode denunciar sí mesmo ou o próprio conteúdo.
+    comment:
+      see_post: Ver publicação
+    show:
+      reporting_profile: Denunciado por
+    index:
+      pending: Pendente
+      granted: Deferido
+      not_granted: Indeferido
+      empty_state: Nenhuma denúncia encontrada
+      action: Ver mais
+      reported_when: Denunciado em
+    profile:
+      post_empty_state: Esse perfil não tem publicações
     hate_speech: Discurso de ódio
     pornography: Pornografia
     racism: Racismo
     spam: Spam
     disturbin_content: Conteúdo pertubador
     harassment: Abuso/Perseguição
-    profile_post_empty_state: Esse perfil não tem publicações

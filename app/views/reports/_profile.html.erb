@@ -36,7 +36,7 @@
   <div id="publications">
     <h2 id="post-list-title"><%= Post.model_name.human(count: 2)%></h2>
     <% if profile.posts.empty? %>
-      <p> <%= t('reports.profile_post_empty_state') %> </p>
+      <p> <%= t('.post_empty_state') %> </p>
     <% end %>
 
     <section>

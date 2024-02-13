@@ -1,7 +1,7 @@
 <h2><%= PersonalInfo.model_name.human %></h2>
 <p>
   <% if URI.parse(request.referer || '').path == new_user_registration_path %>
-    <%= link_to t('profiles.views.edit.fill_later'), root_path, class: 'btn btn-secondary' %>
+    <%= link_to t('profiles.edit.fill_later'), root_path, class: 'btn btn-secondary' %>
   <% else %>
     <%= link_to t('return_btn'), profile_path(current_user.profile), class: 'btn btn-secondary' %>
   <% end %>

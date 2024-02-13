@@ -2,7 +2,7 @@
   <% if user_signed_in? %>
     <div class="row">
       <section class="col-md-9 y-5">
-        <h2><%= t('home.feed') %></h2>
+        <h2><%= t('.feed') %></h2>
         <% if current_user.profile.followed_count > 0 %>
           <% if @followed_posts.any? %>
             <div>
@@ -10,20 +10,20 @@
             </div>
           <% else %>
             <div>
-              <h4> <%= t('home.what_people_are_posting') %>: </h4>
+              <h4> <%= t('.what_people_are_posting') %>: </h4>
               <%= render partial: 'posts/listing', locals: { posts: @posts } %>
             </div>
           <% end %>
         <% else %>
           <div>
-            <h4> <%= t('home.follow_someone') %> </h4>
+            <h4> <%= t('.follow_someone') %> </h4>
             <%= render partial: 'posts/listing', locals: { posts: @posts } %>
           </div>
         <% end %>
       </section>
 
       <aside class="col-md-3">
-        <h2> <%= t('home.most_followed') %> </h2>
+        <h2> <%= t('.most_followed') %> </h2>
 
         <div class="py-2"  style="width: 18rem;">
           <% @most_followed.each do |profile| %>
@@ -31,7 +31,7 @@
               <div class="card-body">
                 <h5 class="card-title"><%= profile.full_name %></h5>
                 <p class="card-text"><%= profile.followers_count %> <%= t('followers', count: profile.followers_count) %></p>
-                <a href="<%= profile_path(profile) %>" class="btn btn-primary"> <%= t('home.view_profile_btn') %> </a>
+                <a href="<%= profile_path(profile) %>" class="btn btn-primary"> <%= t('.view_profile_btn') %> </a>
               </div>
             </div>
           <% end %>
@@ -44,17 +44,17 @@
         <div class="row g-0 d-flex align-items-center border-bottom justify-content-center">
           <%= image_tag 'logop.svg', class: 'home_logo col-sm-8 col-md-2'%>
           <h3 class="col-6 col-md-4">
-            <%= t('home.find_connect_shine') %> <br>
-            <span> <%= t('home.your_profile_your_space') %> </span><br>
-             <span class="text-primary fw-bold py-3"><%= t('home.become_part_of_comunity') %></span> <br>
-            <%= link_to t('home.create_account'), new_user_registration_path, class: 'btn btn-primary col-10 py-2 my-4 fs-4' %>
+            <%= t('.find_connect_shine') %> <br>
+            <span> <%= t('.your_profile_your_space') %> </span><br>
+             <span class="text-primary fw-bold py-3"><%= t('.become_part_of_comunity') %></span> <br>
+            <%= link_to t('.create_account'), new_user_registration_path, class: 'btn btn-primary col-10 py-2 my-4 fs-4' %>
           </h3>
         </div>
       </div>
 
-      <h2><%= t('home.feed') %></h2>
+      <h2><%= t('.feed') %></h2>
       <div>
-        <h4><%= t('home.find_out_more.do') %> <%= link_to t('home.login'), new_user_session_path %> <%= t('home.find_out_more.or') %> <%= link_to t('home.create_account'), new_user_registration_path %> <%= t('home.find_out_more.find_out') %></h4>
+        <h4><%= t('.find_out_more.do') %> <%= link_to t('.login'), new_user_session_path %> <%= t('.find_out_more.or') %> <%= link_to t('.create_account'), new_user_registration_path %> <%= t('.find_out_more.find_out') %></h4>
       </div>
     </section>
   <% end %>

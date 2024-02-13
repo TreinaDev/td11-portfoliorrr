@@ -4,16 +4,16 @@
 
 <div class="nav-scroller border-bottom mb-4">
   <nav class="d-flex nav nav-underline">
-    <%= link_to t('reports.pending'), reports_path, class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter].blank? }" %>
-    <%= link_to t('reports.granted'), reports_path(params: { filter: 'granted' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'granted'}" %>
-    <%= link_to t('reports.not_granted'), reports_path(params: { filter: 'not_granted' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'not_granted'}" %>
+    <%= link_to t('.pending'), reports_path, class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter].blank? }" %>
+    <%= link_to t('.granted'), reports_path(params: { filter: 'granted' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'granted'}" %>
+    <%= link_to t('.not_granted'), reports_path(params: { filter: 'not_granted' }), class: "nav-item nav-link link-body-emphasis #{'active' if params[:filter] == 'not_granted'}" %>
   </nav>
 </div>
 
 <section>
   <div class="mb-3 mt-3" id="meeting-list">
     <% if @reports.empty? %>
-      <p><%= t('reports.empty_state') %></p>
+      <p><%= t('.empty_state') %></p>
     <% else %>
       <table class="table table-hover">
         <thead>
@@ -21,7 +21,7 @@
             <th><%= Report.human_attribute_name :offence_type %></th>
             <th><%= Report.human_attribute_name :message %></th>
             <th><%= Report.human_attribute_name :reportable_type %></th>
-            <th><%= t('reports.action') %></th>
+            <th><%= t('.action') %></th>
           </tr>
         </thead>
 
@@ -31,7 +31,7 @@
               <td><%= report.offence_type %></td>
               <td><%= report.truncated_message %></td>
               <td><%= I18n.t (report.reportable_type) %></td>
-              <td><%= link_to t('reports.action'), report_path(report), class: "see_more btn btn-sm btn-secondary"%></td>
+              <td><%= link_to t('.action'), report_path(report), class: "see_more btn btn-sm btn-secondary"%></td>
             </tr>
           <% end %>
         </tbody>

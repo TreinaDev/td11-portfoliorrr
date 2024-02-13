@@ -57,10 +57,10 @@
               </li>
             <% end %>
             <li class="dropdown-item" href="#">
-              <%= link_to t('posts.views.new.new_post'), new_post_path, class: 'nav-link', data: { turbo: false }  %>
+              <%= link_to t('posts.new.new_post'), new_post_path, class: 'nav-link', data: { turbo: false }  %>
             </li>
             <li class="dropdown-item" href="#">
-              <%= link_to t('settings.settings'), profile_settings_path(current_user.profile), class: 'nav-link' %>
+              <%= link_to t('settings.index.settings'), profile_settings_path(current_user.profile), class: 'nav-link' %>
             </li>
             <li class="dropdown-item" href="#">
               <%= button_to t('log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-danger w-100' %>

@@ -11,7 +11,7 @@
     </div>
 
     <h6 class="card-subtitle mb-2">
-      <%= link_to t('posts.views.show.authored_by', author_name: @post.user.full_name), @post.user.profile %>
+      <%= link_to t('.authored_by', author_name: @post.user.full_name), @post.user.profile %>
     </h6>
 
     <p class="card-text"><%= @post.content %></p>
@@ -31,7 +31,7 @@
     <% end %>
     <p>
       <time datetime="<%= @post.edited_at.to_date %>">
-        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
+        <%= t('.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
       </time>
     </p>
 

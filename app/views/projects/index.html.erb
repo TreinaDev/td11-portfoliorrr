@@ -1,5 +1,5 @@
 <div class="container" id="vue-projects-app">
-  <h2 class="text-center"><%= t('projects.index_title') %> </h2>
+  <h2 class="text-center"><%= t('.index_title') %> </h2>
 
   <div v-if="emptyData" class="text-center">
     <p>{{ emptyData }}</p>
@@ -7,7 +7,7 @@
 
   <div class="row" v-else>
     <div class="col-md-4 mx-auto mt-3">
-      <label class="form-label visually-hidden" for="searchText"><%= t('projects.search') %></label>
+      <label class="form-label visually-hidden" for="searchText"><%= t('.search') %></label>
       <input class="form-control" v-model="searchText" type="text" name="searchText" id="searchText" placeholder="Digite sua pesquisa">
 
       <div class="d-flex gap-3 mt-3">
@@ -30,15 +30,15 @@
     </div>
 
     <h3 v-if="errorMsg" class="mt-5 alert alert-danger text-center">
-      <%= t('projects.errors.load') %>
+      <%= t('.errors.load') %>
     </h3>
 
     <h3 v-else-if="projects.length && filteredProjects.length === 0 && !errorMsg" class="mt-5 alert alert-warning text-center">
-      <%= t('projects.errors.not_found') %>
+      <%= t('.errors.not_found') %>
     </h3>
 
     <h3 v-else-if="projects.length == 0 && !errorMsg" class="mt-5 alert alert-warning text-center">
-      <%= t('projects.errors.no_result') %>
+      <%= t('.errors.no_result') %>
     </h3>
     
     <div v-else>
@@ -47,8 +47,8 @@
         <p><%= t('projects.attributes.description') %>: {{ project.description }}</p>
         <p><%= t('projects.attributes.category') %>: {{ project.category }}</p>
 
-        <button class="btn btn-primary" @click="showForm(project.id)" v-if="!invitationRequestsProjectsIds.includes(project.id)" ><%= t('projects.request_invitation') %></button>
-        <button v-else class="btn btn-warning" disabled ><%= t('projects.invitation_requested') %></button>
+        <button class="btn btn-primary" @click="showForm(project.id)" v-if="!invitationRequestsProjectsIds.includes(project.id)" ><%= t('.request_invitation') %></button>
+        <button v-else class="btn btn-warning" disabled ><%= t('.invitation_requested') %></button>
 
         <div v-if="showingForm && currentProjectId === project.id">
           <%= form_with(model: @invitation_request, url: invitation_request_path, method: :post, local: true) do |form| %>
@@ -56,7 +56,7 @@
 
             <p>
               <%= form.label :message, class: 'form-label' %>
-              <%= form.text_area :message, class: 'form-control', placeholder: t('projects.request_message') %>
+              <%= form.text_area :message, class: 'form-control', placeholder: t('.request_message') %>
             </p>
 
             <p>

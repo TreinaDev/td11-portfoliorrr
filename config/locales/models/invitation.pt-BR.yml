@@ -15,20 +15,19 @@ pt-BR:
       error: 'Impossível recusar um convite que não esteja pendente'
       success: 'Convite recusado com sucesso'
       processing: 'Convite sendo recusado'
-    empty_state: Nenhum convite encontrado
+    index:
+      empty_state: Nenhum convite encontrado
+      all: Todos
+      pending: Pendentes
+      accepted: Aceitos
+      declined: Recusados
+      expired: Expirados
+    date_error: deve ser maior que a data atual
     accepted_status: Aceito
     expired_status: Expirado
     declined_status: Recusado
     cancelled_status: Cancelado
     processing_status: Processando
-    all: Todos
-    pending: Pendentes
-    accepted: Aceitos
-    declined: Recusados
-    expired: Expirados
-    accept_btn: Aceitar
-    decline_btn: Recusar
-    date_error: deve ser maior que a data atual
 
   invitations_mailer:
     received_invitation:

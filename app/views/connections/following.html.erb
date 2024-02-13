@@ -1,7 +1,7 @@
 <div class="container text-center">
   <div class="d-flex flex-column">
     <h1 class="text-primary"><%= @profile.full_name %></span></h1>
-    <h3><%= t('connections.following') %> <%= @followed_profiles.count %> <%= User.model_name.human(count: @followed_profiles.count).downcase %></h3>
+    <h3><%= t('.following') %> <%= @followed_profiles.count %> <%= User.model_name.human(count: @followed_profiles.count).downcase %></h3>
   </div>
   <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center gap-3 mt-4">
     <% @followed_profiles.each do |followed| %>

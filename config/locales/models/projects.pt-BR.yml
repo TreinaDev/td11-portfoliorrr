@@ -10,12 +10,13 @@ pt-BR:
     create_invitation_request:
       success: 'Sua solicitação está sendo processada, acompanhe em Solicitações de Convite'
       error: 'Não foi possível enviar solicitação'
-    index_title: Pesquisa de Projetos no Cola?Bora!
-    search: Pesquisar
-    errors:
-      load: Não foi possível carregar os projetos. Tente mais tarde
-      not_found: Não foi possível encontrar nenhum projeto.
-      no_result: Não há projetos cadastrados no momento.
-    request_invitation: Solicitar Convite
-    invitation_requested: Convite Solicitado
-    request_message: Escreva sua mensagem para o líder do projeto
+    index:
+      index_title: Pesquisa de Projetos no Cola?Bora!
+      search: Pesquisar
+      errors:
+        load: Não foi possível carregar os projetos. Tente mais tarde
+        not_found: Não foi possível encontrar nenhum projeto.
+        no_result: Não há projetos cadastrados no momento.
+      request_invitation: Solicitar Convite
+      invitation_requested: Convite Solicitado
+      request_message: Escreva sua mensagem para o líder do projeto
