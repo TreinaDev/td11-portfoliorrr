@@ -4,7 +4,12 @@ pt-BR:
       like: 
         one: Curtida
         other: Curtidas
-  likes:
-    create:    
-      success: Curtiu
-      error: Você já curtiu isso
+  posts:
+    likes:
+      create:    
+        success: Curtiu
+        error: Você já curtiu isso
+  comments:
+    likes:
+      create:    
+        error: Você já curtiu isso

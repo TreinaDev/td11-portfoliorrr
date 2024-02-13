@@ -12,9 +12,9 @@ describe 'Usuário visita página de configurações' do
     within 'h2' do
       expect(page).to have_content 'Configurações'
     end
-    expect(page).to have_content 'Todos os dados relacionados ao seu perfil serão ARQUIVADOS'
+    expect(page).to have_content 'Atenção: Ao desativar o perfil todos os dados relacionados serão ARQUIVADOS.'
+    expect(page).to have_content 'Você pode reativar sua conta fazendo login novamente.'
     expect(page).to have_button 'Desativar Perfil'
-    expect(page).to have_content 'Todos os dados relacionados a conta serão EXCLUÍDOS e não poderão ser recuperados'
     expect(page).to have_button 'Excluir Conta'
   end
 
