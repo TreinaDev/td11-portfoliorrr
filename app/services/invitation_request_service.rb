@@ -39,14 +39,15 @@ module InvitationRequestService
   end
 
   class ProjectIdRetriever
-    def self.send(invitation)
-      response = Faraday.get("#{COLABORA_INVITATIONS_BASE_URL}?profile_id=#{invitation.profile_id}")
+    def self.send(profile_id:, colabora_invitation_id:)
+      url = "#{COLABORA_INVITATIONS_BASE_URL}?profile_id=#{profile_id}"
+      response = Faraday.new { |faraday| faraday.response :raise_error }.get(url)
       response_json = JSON.parse(response.body, symbolize_names: true)
 
-      invitation = response_json.find do |inv|
-        inv[:invitation_id] == invitation.colabora_invitation_id
+      invitation_request = response_json.find do |inv|
+        inv[:invitation_id] == colabora_invitation_id
       end
-      invitation[:project_id]
+      invitation_request[:project_id]
     end
   end
 end

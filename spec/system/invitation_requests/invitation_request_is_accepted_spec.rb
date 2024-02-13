@@ -22,12 +22,15 @@ describe 'Solicitação de convite é aceita' do
     }].to_json
 
     fake_invitation_list_response = double('faraday_response', status: 200, body: colabora_invitation_json)
-    allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/invitations?profile_id=#{user.profile.id}")
+    allow(Faraday).to receive_message_chain(:new, :get).with("http://localhost:3000/api/v1/invitations?profile_id=#{user.profile.id}")
                   .and_return(fake_invitation_list_response)
 
     invitation = build(:invitation, profile: user.profile, colabora_invitation_id: 1)
 
-    AcceptInvitationRequestJob.perform_now invitation
+    AcceptInvitationRequestJob.perform_now(
+      profile_id: user.profile.id,
+      colabora_invitation_id: invitation.colabora_invitation_id
+    )
 
     login_as user
     visit invitation_requests_path

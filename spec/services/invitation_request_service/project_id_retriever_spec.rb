@@ -18,12 +18,15 @@ RSpec.describe InvitationRequestService::ProjectIdRetriever do
       }].to_json
 
       fake_response = double('faraday_response', status: 200, body: colabora_invitation_json)
-      allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/invitations?profile_id=#{user.profile.id}")
+      allow(Faraday).to receive_message_chain(:new, :get).with("http://localhost:3000/api/v1/invitations?profile_id=#{user.profile.id}")
                     .and_return(fake_response)
 
       invitation = create(:invitation, profile: user.profile, colabora_invitation_id: 1)
 
-      project_id = InvitationRequestService::ProjectIdRetriever.send(invitation)
+      project_id = InvitationRequestService::ProjectIdRetriever.send(
+        profile_id: user.profile.id,
+        colabora_invitation_id: invitation.colabora_invitation_id
+      )
 
       expect(project_id).to eq 2
     end

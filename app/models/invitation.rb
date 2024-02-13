@@ -34,6 +34,6 @@ class Invitation < ApplicationRecord
   end
 
   def queue_pending_request_status_update
-    AcceptInvitationRequestJob.perform_later(self)
+    AcceptInvitationRequestJob.perform_later(profile_id:, colabora_invitation_id:)
   end
 end
