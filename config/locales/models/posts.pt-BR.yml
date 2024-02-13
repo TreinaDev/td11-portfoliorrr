@@ -36,11 +36,34 @@ pt-BR:
       unpinned:
         success: Publicação desfixada com sucesso!
         error: A publicação não pôde ser desfixada
-    views:
-      index:
-        blog_title: "Blog de %{full_name}"
-      show:
-        authored_by: "Criado por %{author_name}"
-        publish_date: "Publicado em: %{publish_date}"
-        last_update: "Última atualização em: %{update_date}"
+    model:
+      invalid_file: Tipo de arquivo inválido.
+      max_image_size: Tamanho de imagem permitido é 2mb
+      max_video_size: Tamanho do vídeo permitido é 15mb
+      max_audio_size: Tamanho do áudio permitido é 3mb
+      max_pdf_size: Tamanho do PDF permitido é 900kb
+      invalid_date: não pode estar no passado
+    likes:
+      error: Você já curtiu isso
+
+    index:
+      blog_title: "Blog de %{full_name}"
+    show:
+      authored_by: "Criado por %{author_name}"
+      publish_date: "Publicado em: %{publish_date}"
+      last_update: "Última atualização em: %{update_date}"
+    form:
+      suported_files: "(*)Arquivos suportados: .mp3, .mp4, .pdf, .jpg, .png"
+    listing:
+      published_by: Publicado por
+    edit:
+      edit_post: Editar Publicação
+    new:
+      new_post: Criar Nova Publicação
+
+    helpers:
+      created_at: 'Criado em: '
+      scheduled_for: 'Agendado para: '
+      published_at: 'Publicado em: '
+    
 

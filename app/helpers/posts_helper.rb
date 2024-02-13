@@ -1,11 +1,11 @@
 module PostsHelper
   def date_fixer(post)
     if post.draft?
-      'Criado em: '
+      t('posts.helpers.created_at')
     elsif post.scheduled?
-      'Agendado para: '
+      t('posts.helpers.scheduled_for')
     else
-      'Publicado em: '
+      t('posts.helpers.published_at')
     end
   end
 

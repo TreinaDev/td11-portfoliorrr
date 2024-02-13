@@ -15,7 +15,7 @@ module Api
         profile = Profile.active.find(params[:id])
         render status: :ok, json: json_output(profile)
       rescue ActiveRecord::RecordNotFound
-        render status: :not_found, json: { error: 'Perfil não existe.' }
+        render status: :not_found, json: { error: I18n.t('profile_not_found') }
       end
 
       private

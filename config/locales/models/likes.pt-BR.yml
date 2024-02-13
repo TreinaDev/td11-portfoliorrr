@@ -1,0 +1,24 @@
+pt-BR:
+  activerecord:
+    models:
+      like: 
+        one: Curtida
+        other: Curtidas
+  likes:
+    create:    
+      success: Curtiu
+      error: Você já curtiu isso
+    like_btn: Curtir
+    unlike_btn: Descurtir
+
+  likes_mailer:
+    subject: Você recebeu %{likes} curtidas nas últimas 24 horas!
+    notify_like:
+      greeting: Olá, %{recipient}!
+      profile_activity: Seu perfil andou movimentado
+      post_likes: Você recebeu %{like_count} curtidas em seus posts
+      comment_likes: Você recebeu %{like_count} curtidas em seus comentários
+      most_liked_post: A publicação mais curtida foi
+      most_liked_comment: O seu comentário mais curtido foi %{comment} na publicação
+      access_profile: para acessar seu perfil e continuar interagindo.
+      regards: Abraços

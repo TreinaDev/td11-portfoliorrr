@@ -12,4 +12,5 @@ pt-BR:
     create:
       success: Comentário enviado com sucesso
       error: Não foi possível fazer o comentário
+    comment_btn: Comentar
     removed_content: Comentário removido pela administração

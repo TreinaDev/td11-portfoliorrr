@@ -3,7 +3,7 @@
     <h2 class="card-title"><%= @post.title %></h2>
     <div class="my-4">
       <% if current_user == @post.user %>
-        <%= link_to "Editar", edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
+        <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
         <%= Post.human_attribute_name @post.status %>
       <% else %>
         <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm' %>
@@ -11,7 +11,7 @@
     </div>
 
     <h6 class="card-subtitle mb-2">
-      <%= link_to t('posts.views.show.authored_by', author_name: @post.user.full_name), @post.user.profile %>
+      <%= link_to t('.authored_by', author_name: @post.user.full_name), @post.user.profile %>
     </h6>
 
     <p class="card-text"><%= @post.content %></p>
@@ -31,7 +31,7 @@
     <% end %>
     <p>
       <time datetime="<%= @post.edited_at.to_date %>">
-        <%= t('posts.views.show.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
+        <%= t('.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
       </time>
     </p>
 
@@ -59,8 +59,8 @@
 </div>
 
 <%= form_with model: [@post, @comment] , method: :post, class: 'mt-3' do |form| %>
-  <%= form.text_area :message, placeholder: "Mensagem", class:"form-control" %>
-  <%= form.submit "Comentar", class:"btn btn-primary mt-2" %>
+  <%= form.text_area :message, placeholder: (Comment.human_attribute_name :message), class:"form-control" %>
+  <%= form.submit t('comments.comment_btn'), class:"btn btn-primary mt-2" %>
 <% end %>
 
 

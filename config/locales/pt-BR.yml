@@ -1,16 +1,13 @@
 pt-BR:
-  sign up: 'Cadastrar'
-  log in: 'Entrar'
-  log out: 'Sair'
+  sign_up: 'Criar Nova Conta'
+  log_in: 'Entrar'
+  log_out: 'Sair'
   login_required: 'Você não está logado'
   true: 'Sim'
   false: 'Não'
   followers:
     one: Seguidor
     other: Seguidores
-  buttons:
-    save: Salvar
-    return: Voltar
   application_errors:
     not_found: 'Não foi possível completar sua ação'
   post_creation:
@@ -21,3 +18,7 @@ pt-BR:
   Post: Publicação
   Comment: Comentário
   Profile: Perfil
+  check_errors: Verifique o(s) erro(s) abaixo
+  all: Todos
+  search: Pesquisar
+  search_placeholder: Buscar
