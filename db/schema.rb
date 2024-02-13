@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_10_163321) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_12_195603) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -134,7 +134,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_10_163321) do
     t.integer "notifiable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "read", default: false
+    t.integer "status", default: 0
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["profile_id"], name: "index_notifications_on_profile_id"
   end
@@ -161,7 +161,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_10_163321) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-12 13:53:59"
+    t.datetime "edited_at", default: "2024-02-13 03:11:57"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
@@ -355,6 +355,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_10_163321) do
     t.string "citizen_id_number"
     t.string "old_name"
     t.datetime "deleted_at"
+    t.string "search_name"
     t.index ["citizen_id_number"], name: "index_users_on_citizen_id_number", unique: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true

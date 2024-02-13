@@ -28,27 +28,7 @@ class ProfilesController < ApplicationController
     @personal_info = personal_info
   end
 
-  def work_unavailable
-    @profile = current_user.profile
-    @profile.unavailable!
-    redirect_to profile_path(@profile), notice: t('.success')
-  end
-
-  def open_to_work
-    @profile = current_user.profile
-    @profile.open_to_work!
-    redirect_to profile_path(@profile), notice: t('.success')
-  end
-
-  def change_privacy
-    @profile = current_user.profile
-    if @profile.public_profile?
-      @profile.private_profile!
-    else
-      @profile.public_profile!
-    end
-    redirect_to profile_path(@profile), notice: t('.success')
-  end
+  private
 
   def private_profile?
     return if @profile.user == current_user
@@ -58,8 +38,6 @@ class ProfilesController < ApplicationController
 
     redirect_to root_path, alert: t('.private')
   end
-
-  private
 
   def profile_params
     params.require(:profile).permit(:photo)

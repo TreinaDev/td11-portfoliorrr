@@ -38,14 +38,13 @@ class Profile < ApplicationRecord
   enum privacy: { private_profile: 0, public_profile: 10 }
   enum status: { inactive: 0, active: 5 }
 
-  delegate :full_name, to: :user
-  delegate :email, to: :user
+  delegate :full_name, :email, to: :user
 
   def self.advanced_search(search_query)
     left_outer_joins(:job_categories, :personal_info, :user).where(
       'job_categories.name LIKE :term OR
        personal_infos.city LIKE :term OR
-       users.full_name LIKE :term',
+       users.full_name LIKE :term OR users.search_name LIKE :term',
       { term: "%#{sanitize_sql_like(search_query)}%" }
     ).public_profile.active.uniq
   end
