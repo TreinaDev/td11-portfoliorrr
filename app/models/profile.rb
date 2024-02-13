@@ -115,13 +115,13 @@ class Profile < ApplicationRecord
   def valid_photo_content_type
     return if photo.present? && photo.content_type.in?(%w[image/jpg image/jpeg image/png])
 
-    errors.add(:photo, message: 'deve ser do formato .jpg, .jpeg ou .png') if photo.present?
+    errors.add(:photo, message: I18n.t('profiles.model.photo_extention')) if photo.present?
   end
 
   def photo_size_lower_than_3mb
     return if photo.present? && photo.byte_size <= 3.megabytes
 
-    errors.add(:photo, message: 'deve ter no máximo 3MB') if photo.present?
+    errors.add(:photo, message: I18n.t('profiles.model.photo_size')) if photo.present?
   end
 end
 

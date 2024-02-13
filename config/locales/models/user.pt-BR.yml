@@ -11,3 +11,6 @@ pt-BR:
         citizen_id_number: CPF
         password: Senha
         password_confirmation: Confirme sua Senha
+  users:
+    model:
+      invalid_cpf: inválido

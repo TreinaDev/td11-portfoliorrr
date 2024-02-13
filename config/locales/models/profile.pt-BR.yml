@@ -67,7 +67,9 @@ pt-BR:
         unfollow_btn: Deixar de Seguir
         follow_btn: Seguir
         arquived_account: Conta Desativada
-
+    model:
+      photo_extention: deve ser do formato .jpg, .jpeg ou .png
+      photo_size: deve ter no máximo 3MB
 
   profile:
     update:

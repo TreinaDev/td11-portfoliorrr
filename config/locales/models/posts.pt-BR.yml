@@ -36,6 +36,13 @@ pt-BR:
       unpinned:
         success: Publicação desfixada com sucesso!
         error: A publicação não pôde ser desfixada
+    model:
+      invalid_file: Tipo de arquivo inválido.
+      max_image_size: Tamanho de imagem permitido é 2mb
+      max_video_size: Tamanho do vídeo permitido é 15mb
+      max_audio_size: Tamanho do áudio permitido é 3mb
+      max_pdf_size: Tamanho do PDF permitido é 900kb
+      invalid_date: não pode estar no passado
     views:
       index:
         blog_title: "Blog de %{full_name}"

@@ -61,7 +61,7 @@ class Post < ApplicationRecord
     content_types = content.body.to_s.scan(/content-type="(.*?)"/)
 
     content_types.each do |type|
-      errors.add(:content, 'Tipo de arquivo inválido.') unless options.include? type[0]
+      errors.add(:content, I18n.t('posts.model.invalid_file')) unless options.include? type[0]
     end
   end
 
@@ -73,11 +73,11 @@ class Post < ApplicationRecord
 
   def test_file_size(attachments)
     attachments.each do |attachment|
-      validate_attachment_size(attachment, 'image/png', 2_000_000, 'Tamanho de imagem permitido é 2mb')
-      validate_attachment_size(attachment, 'image/jpeg', 2_000_000, 'Tamanho de imagem permitido é 2mb')
-      validate_attachment_size(attachment, 'video/mp4', 15_000_000, 'Tamanho do vídeo permitido é 15mb')
-      validate_attachment_size(attachment, 'audio/mpeg', 3_000_000, 'Tamanho do áudio permitido é 3mb')
-      validate_attachment_size(attachment, 'application/pdf', 900_000, 'Tamanho do PDF permitido é 900kb')
+      validate_attachment_size(attachment, 'image/png', 2_000_000, I18n.t('posts.model.max_image_size'))
+      validate_attachment_size(attachment, 'image/jpeg', 2_000_000, I18n.t('posts.model.max_image_size'))
+      validate_attachment_size(attachment, 'video/mp4', 15_000_000, I18n.t('posts.model.max_video_size'))
+      validate_attachment_size(attachment, 'audio/mpeg', 3_000_000, I18n.t('posts.model.max_audio_size'))
+      validate_attachment_size(attachment, 'application/pdf', 900_000, I18n.t('posts.model.max_pdf_size'))
     end
   end
 
@@ -90,6 +90,6 @@ class Post < ApplicationRecord
   def validate_published_at
     return if published_at.nil?
 
-    errors.add(:published_at, 'não pode estar no passado') if published_at < (Time.zone.now - 1.second)
+    errors.add(:published_at, I18n.t('posts.model.invalid_date')) if published_at < (Time.zone.now - 1.second)
   end
 end

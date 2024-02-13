@@ -22,6 +22,9 @@ pt-BR:
       error: Você ainda não segue este usuário
     following: Seguindo
     followed_by: Seguido por
+    same_user: não pode ser o mesmo do usuário
+
+
   connections_mailer:
     notify_follow:
       subject: 'Alguém seguiu seu perfil'

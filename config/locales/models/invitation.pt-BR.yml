@@ -28,6 +28,7 @@ pt-BR:
     expired: Expirados
     accept_btn: Aceitar
     decline_btn: Recusar
+    date_error: deve ser maior que a data atual
 
   invitations_mailer:
     received_invitation:
