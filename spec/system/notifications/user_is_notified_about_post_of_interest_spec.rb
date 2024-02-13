@@ -5,15 +5,15 @@ describe 'Usuário é notificado' do
     it 'quando alguém comenta nele' do
       post_author = create(:user)
       interested_user = create(:user)
-
       commenter_user = create(:user)
+
       post = create(:post, user: post_author, title: 'Meu primeiro post')
-      create(:comment, post:, user: commenter_user)
+      create(:comment, post:, user: interested_user)
 
       post_interest_notification_job_spy = spy(PostInterestNotificationJob)
       stub_const('PostInterestNotificationJob', post_interest_notification_job_spy)
 
-      create(:comment, post:, user: interested_user)
+      create(:comment, post:, user: commenter_user)
 
       expect(post_interest_notification_job_spy).to have_received(:perform_later)
     end
