@@ -28,12 +28,12 @@ describe 'Usuário vê notificações' do
     expect(page).to have_current_path notifications_path
     expect(new_post_notification_job_spy).to have_received(:perform_later)
     expect(user.profile.notifications.count).to eq 5
-    expect(page).to have_content 'começou a te seguir'
+    expect(page).to have_content 'começou a seguir você'
     expect(page).to have_content 'curtiu sua publicação'
     expect(page).to have_content 'comentou em sua publicação'
     expect(page).to have_content 'curtiu seu comentário'
     expect(page).to have_content 'Você recebeu um convite'
-    expect(page.body.index('começou a te seguir')).to be > page.body.index('curtiu sua publicação')
+    expect(page.body.index('começou a seguir você')).to be > page.body.index('curtiu sua publicação')
     expect(page.body.index('curtiu sua publicação')).to be > page.body.index('comentou em sua publicação')
     expect(page.body.index('comentou em sua publicação')).to be > page.body.index('curtiu seu comentário')
     expect(page.body.index('curtiu seu comentário')).to be > page.body.index('Você recebeu um convite')
