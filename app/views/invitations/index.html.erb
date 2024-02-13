@@ -10,6 +10,7 @@
           <%= link_to 'Aceitos', invitations_path(status: :accepted), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'accepted'}" %>
           <%= link_to 'Recusados', invitations_path(status: :declined), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'declined'}" %>
           <%= link_to 'Expirados', invitations_path(status: :expired), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'expired'}" %>
+          <%= link_to 'Cancelados', invitations_path(status: :cancelled), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'cancelled'}" %>
         </nav>
       </div>
 

@@ -96,6 +96,22 @@ describe 'Usuário acessa página de convites' do
     end
   end
 
+  it 'e visualiza convites cancelados' do
+    user = create(:user)
+    cancelled_invitation = build(:invitation, profile: user.profile, status: 'cancelled')
+    cancelled_invitation.save(validate: false)
+    pending_invitation = create(:invitation, profile: user.profile, project_title: 'Projeto Gotta cath`em all',
+                                             project_description: 'Capturar todos os Pokémons',
+                                             project_category: 'Collection', colabora_invitation_id: 2)
+
+    login_as user
+    visit invitations_path
+    click_on 'Cancelados'
+
+    expect(page).to have_content cancelled_invitation.project_title
+    expect(page).not_to have_content pending_invitation.project_title
+  end
+
   it 'e nao visualiza dos outros' do
     user = create(:user)
     other_user = create(:user)
