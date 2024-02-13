@@ -55,8 +55,24 @@ describe 'API solicitações' do
       expect(json_last_response['errors']).to include 'Solicitação de convite não está pendente para ser recusada.'
     end
 
-    pending 'retorna erro 404 se a solicitação não for encontrada'
-    pending 'retorna erro 400 se a requisição não contiver um id de solicitação de convite'
-    pending 'retorna erro 500, com mensagem identificando erro do servidor'
+    it 'retorna erro 404 se a solicitação não for encontrada' do
+      patch '/api/v1/invitation_requests/1939'
+
+      expect(response.status).to eq 404
+      expect(response.content_type).to include 'application/json'
+      json_response = JSON.parse(response.body)
+      expect(json_response['error']).to include 'Não encontrado'
+    end
+
+    it 'retorna erro 500, com mensagem identificando erro do servidor' do
+      allow(InvitationRequest).to receive(:find).and_raise(ActiveRecord::ActiveRecordError)
+      invitation_request = create(:invitation_request)
+      patch "/api/v1/invitation_requests/#{invitation_request.id}"
+
+      expect(response.status).to eq 500
+      expect(response.content_type).to include 'application/json'
+      json_response = JSON.parse(response.body)
+      expect(json_response['error']).to include 'Houve um erro interno no servidor ao processar sua solicitação.'
+    end
   end
 end

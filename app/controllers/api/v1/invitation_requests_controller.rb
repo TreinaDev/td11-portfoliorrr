@@ -2,6 +2,8 @@ module Api
   module V1
     class InvitationRequestsController < ApiController
       def update
+        raise ActiveRecord::ParameterMissing if params[:id].blank?
+
         invitation_request = InvitationRequest.find(params[:id])
         if invitation_request.pending?
           invitation_request.refused!
