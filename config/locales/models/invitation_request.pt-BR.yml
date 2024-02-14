@@ -23,3 +23,4 @@ pt-BR:
   no_invitation_request_msg: Você ainda não fez nenhuma solicitação de convite.
   no_filter_results_msg: Não existem solicitações com o status selecionado.
   time_ago: 'Enviada há %{time}'
+  api_not_pending_error: 'Solicitação de convite não está pendente para ser recusada.'
