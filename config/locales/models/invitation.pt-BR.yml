@@ -22,6 +22,7 @@ pt-BR:
       accepted: Aceitos
       declined: Recusados
       expired: Expirados
+      cancelled: Cancelados
     date_error: deve ser maior que a data atual
     accepted_status: Aceito
     expired_status: Expirado
