@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      subscription: Assinatura
+
+  subscriptions:
+    become: Torne-se
+    subscriber: assinante
+    see_listed_projects: para ver projetos listados
+    see_and_request: para ver e fazer solicitações

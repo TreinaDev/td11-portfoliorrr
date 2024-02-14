@@ -1,10 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_subscriber, only: :create_invitation_request
 
   def index
     @invitation_request = current_user.invitation_requests.build
     @invitation_requests = current_user.invitation_requests.pluck(:project_id).to_json
     @invitation_requests_projects_ids = current_user.invitation_requests.pluck(:project_id)
+    @free_user = current_user.subscription.inactive?
   end
 
   def create_invitation_request
@@ -18,6 +20,12 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def authenticate_subscriber
+    return if current_user.subscription.active?
+
+    redirect_to root_path, alert: t('alerts.unauthorized')
+  end
 
   def invitation_request_params
     invitation_request_params = params.require(:invitation_request).permit(:message)
