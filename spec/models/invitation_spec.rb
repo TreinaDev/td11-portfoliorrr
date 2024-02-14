@@ -28,6 +28,7 @@ RSpec.describe Invitation, type: :model do
       it 'pending é o padrão para status' do
         profile = create(:profile)
         invitation = Invitation.create profile_id: profile.id,
+                                       project_id: 1,
                                        project_title: 'Projeto Cola?Bora!',
                                        project_description: 'Projeto Legal',
                                        project_category: 'Tecnologia',

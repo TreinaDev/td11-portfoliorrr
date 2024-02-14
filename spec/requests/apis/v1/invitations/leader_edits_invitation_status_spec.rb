@@ -4,7 +4,7 @@ describe 'Endpoint edita status do pedido' do
   context 'PATCH /api/v1/invitations/:id' do
     it 'mudar status do convite com sucesso' do
       profile = create(:profile)
-      invite = Invitation.create! profile:, project_title: 'Projeto Cola?Bora!',
+      invite = Invitation.create! profile:, project_id: 1, project_title: 'Projeto Cola?Bora!',
                                   project_description: 'Projeto Legal', project_category: 'Tecnologia',
                                   colabora_invitation_id: 1, message: 'Venha participar do meu projeto!',
                                   expiration_date: 1.week.from_now.to_date, status: 'pending'
@@ -27,7 +27,7 @@ describe 'Endpoint edita status do pedido' do
 
       it 'status inválido' do
         profile = create(:profile)
-        invite = Invitation.create! profile:, project_title: 'Projeto Cola?Bora!',
+        invite = Invitation.create! profile:, project_id: 1, project_title: 'Projeto Cola?Bora!',
                                     project_description: 'Projeto Legal', project_category: 'Tecnologia',
                                     colabora_invitation_id: 1, message: 'Venha participar do meu projeto!',
                                     expiration_date: 1.week.from_now.to_date, status: 'pending'

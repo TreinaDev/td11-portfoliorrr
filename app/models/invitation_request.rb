@@ -7,6 +7,10 @@ class InvitationRequest < ApplicationRecord
 
   after_create :queue_request_invitation_job
 
+  def accepted!
+    super if pending?
+  end
+
   def process_colabora_api_response(response)
     response = json_treated_response(response)
     if response.keys.first == 'data'
