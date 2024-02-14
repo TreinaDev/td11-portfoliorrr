@@ -3,9 +3,9 @@ class ReportsController < ApplicationController
   before_action :set_reportable_for_new, only: :new
   before_action :set_reportable_for_create, only: :create
   before_action :redirect_unless_published_post
-  before_action :authorize!, only: %i[index show]
   before_action :redirect_if_self_report, only: :create
-  before_action :set_report, only: %i[reject show remove_content]
+  before_action :authorize!, only: %i[index show reject remove_content remove_profile]
+  before_action :set_report, only: %i[reject show remove_content remove_profile]
 
   def new
     set_offences
@@ -33,6 +33,13 @@ class ReportsController < ApplicationController
 
   def remove_content
     @report.reportable.removed!
+    @report.granted!
+    redirect_to @report, notice: t('.success')
+  end
+
+  def remove_profile
+    @report.reportable.update removed: true
+    @report.reportable.inactive!
     @report.granted!
     redirect_to @report, notice: t('.success')
   end
