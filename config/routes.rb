@@ -27,10 +27,14 @@ Rails.application.routes.draw do
 
   resources :posts, only: %i[] do
     resources :likes, only: %i[create destroy], module: :posts
+  end
 
-    end
   resources :comments, only: %i[] do
     resources :likes, only: %i[create destroy], module: :comments
+  end
+
+  resources :replies, only: %i[] do
+    resources :likes, only: %i[create destroy], module: :replies
   end
 
   resources :users, only: [] do
