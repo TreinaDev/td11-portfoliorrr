@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_14_211350) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -47,6 +47,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "billings", force: :cascade do |t|
+    t.decimal "amount", precision: 8, scale: 2, null: false
+    t.integer "subscription_id", null: false
+    t.date "billing_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscription_id"], name: "index_billings_on_subscription_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -375,6 +384,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "billings", "subscriptions"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "connections", "profiles", column: "followed_profile_id"
