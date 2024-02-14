@@ -29,7 +29,7 @@ describe 'Usuário adiciona informações acadêmicas' do
       expect(page).to have_content 'Web Dev'
       expect(page).to have_content '25/12/2017'
       expect(page).to have_content '31/12/2022'
-      expect(page).to have_content 'Exibir no Perfil: Sim'
+      expect(page).to have_content 'Exibido no Perfil'
     end
 
     it 'com sucesso e não exibe no perfil' do
@@ -47,7 +47,7 @@ describe 'Usuário adiciona informações acadêmicas' do
 
       expect(page).to have_current_path profile_path(user.profile)
       expect(page).to have_content 'Campus Code'
-      expect(page).to have_content 'Exibir no Perfil: Não'
+      expect(page).to have_content 'Não Exibido no Perfil'
     end
 
     it 'e os campos "Instituição", "Curso" e "Início" e "Término" são obrigatórios' do

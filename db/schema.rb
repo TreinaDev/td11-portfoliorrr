@@ -56,6 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_130705) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "old_message"
+    t.integer "status", default: 0
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -134,7 +135,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_130705) do
     t.integer "notifiable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "read", default: false
+    t.integer "status", default: 0
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["profile_id"], name: "index_notifications_on_profile_id"
   end
@@ -176,7 +177,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_130705) do
     t.integer "profile_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "visibility", default: true
+    t.boolean "visibility", default: false
     t.text "description"
     t.boolean "current_job"
     t.index ["profile_id"], name: "index_professional_infos_on_profile_id"

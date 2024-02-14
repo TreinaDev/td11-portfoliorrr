@@ -1,5 +1,5 @@
 <% if @education_info.errors.any? %>
-  <p>Verifique o(s) erro(s) abaixo:</p>
+  <p><%= t('check_errors')%></p>
     <ul class="alert alert-warning" role="alert"> 
       <% @education_info.errors.full_messages.each do |msg| %>
         <li><%= msg %> </li>

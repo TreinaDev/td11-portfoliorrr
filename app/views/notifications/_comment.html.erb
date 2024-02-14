@@ -1,1 +1,11 @@
-<p><%= link_to notification.notifiable.user.full_name, profile_path(notification.notifiable.user.profile) %> comentou em sua publicação
+<% if notification.notifiable.post.user == current_user %>
+  <%= notification.notifiable.user.full_name %>
+  <%= t('notifications.commented_on_your_post') %>
+  <%= notification.notifiable.post.title %>
+<% else %>
+    <%= notification.notifiable.user.full_name %>
+    <%= t('notifications.commented_on_post') %>
+    <%= link_to notification.notifiable.post.title,
+        post_path(notification.notifiable.post,
+        anchor: "comment_#{notification.notifiable.id}") %>
+<% end %>

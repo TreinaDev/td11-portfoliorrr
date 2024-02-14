@@ -15,7 +15,7 @@ class Connection < ApplicationRecord
   def cant_follow_yourself
     return unless followed_profile == follower
 
-    errors.add(:followed_profile, 'não pode ser o mesmo do usuário')
+    errors.add(:followed_profile, I18n.t('connections.same_user'))
   end
 
   def create_notification

@@ -9,7 +9,10 @@ module Api
 
       def update
         status = params.permit(:status)[:status]
-        return render status: :bad_request, json: { error: 'Status inválido' } unless Invitation.statuses.key? status
+        unless Invitation.statuses.key? status
+          return render status: :bad_request,
+                        json: { error: I18n.t('invalid_status') }
+        end
 
         invitation = Invitation.find(params[:id])
         invitation.update!(status:)

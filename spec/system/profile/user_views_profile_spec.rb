@@ -22,7 +22,7 @@ describe 'Usuário visualiza informações pessoais' do
       expect(page).to have_content '34123069'
       expect(page).to have_content '11 4002 8922'
       expect(page).to have_content '25/12/1980'
-      expect(page).to have_content 'Exibir no Perfil: Sim'
+      expect(page).to have_content 'Exibido no Perfil'
     end
 
     it 'e escolhe não exibir informações' do
@@ -36,7 +36,7 @@ describe 'Usuário visualiza informações pessoais' do
       click_button class: 'dropdown-toggle'
       click_on 'João'
 
-      expect(page).to have_content 'Exibir no Perfil: Não'
+      expect(page).to have_content 'Não Exibido no Perfil'
       expect(page).to have_content 'Avenida Campus Code'
       expect(page).to have_content 'João Almeida'
     end

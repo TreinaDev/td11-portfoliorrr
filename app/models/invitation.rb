@@ -20,7 +20,7 @@ class Invitation < ApplicationRecord
   def expiration_date_cannot_be_in_the_past
     return unless expiration_date.present? && expiration_date < Time.zone.today
 
-    errors.add(:expiration_date, 'deve ser maior que a data atual')
+    errors.add(:expiration_date, I18n.t('invitations.date_error'))
   end
 
   def truncate_description

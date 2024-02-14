@@ -1,0 +1,11 @@
+.drop-menu{
+  margin-right: 2.5rem !important;
+}
+
+.dropdown-menu[data-bs-popper]{
+  left: -20px !important;
+}
+
+.dropdown-item:active {
+  background-color: #9030df !important; 
+}

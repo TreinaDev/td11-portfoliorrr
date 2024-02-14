@@ -27,6 +27,6 @@
     <%= professional_info.check_box :visibility, class:"form-check-input" %>
   </p>
   <p class='mt-3'>
-    <%= professional_info.submit 'Salvar', class:'btn btn-primary' %>
-    <%= link_to 'Voltar', profile_path(current_user.profile), class: 'btn btn-secondary' %>
+    <%= professional_info.submit t('save_btn'), class:'btn btn-primary' %>
+    <%= link_to t('return_btn'), profile_path(current_user.profile), class: 'btn btn-secondary' %>
   </p>

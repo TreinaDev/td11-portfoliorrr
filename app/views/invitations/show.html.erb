@@ -1,39 +1,34 @@
-<div class="container">
-  <div class="row">
-    <section>
-      <h2 class="text-center">Convite</h2>
+<h2 class="text-center"><%= Invitation.model_name.human %></h2>
 
-      <div class="col-md-6 offset-md-3">
-        <div class="card shadow rounded">
-          <div class="card-body">
-            <h4 class="text-break text-primary"><%= @invitation.project_title %></h4>
-
-            <p class="card-text"><%= @invitation.project_description %></p>
-            <p class="card-subtitle mb-2 text-muted">Categoria: <%= @invitation.project_category %></p>
-
-            <% if @invitation.pending? %>
-              <p class="card-subtitle mb-2 text-muted">Expira dia: <%= I18n.l(@invitation.expiration_date) %></p>
-
-              <div class="btn-group">
-                <div>
-                  <%= link_to 'Aceitar', 'http://localhost:4000', method: :patch, class: 'btn btn-primary me-4' %>
-                </div>
-                <div>
-                  <%= button_to 'Recusar', decline_invitation_path(@invitation), method: :patch, class: 'btn btn-secondary' %>
-                </div>
-              </div>
-
-            <p class="card-subtitle mb-2 text-muted">Mensagem: <%= @invitation.message %></p>
-            <% end %>
-
-            <p class="card-subtitle mb-2 text-success"><%= 'Aceito' if @invitation.accepted? %></p>
-            <p class="card-subtitle mb-2 text-danger"><%= 'Expirado' if @invitation.expired? %></p>
-            <p class="card-subtitle mb-2 text-danger"><%= 'Recusado' if @invitation.declined? %></p>
-            <p class="card-subtitle mb-2 text-dark"><%= 'Cancelado' if @invitation.cancelled? %></p>
-            <p class="card-subtitle mb-2 text-info"> <%= 'Processando' if @invitation.processing? %></p>
+<div class="col-md-6 offset-md-3">
+  <div class="card shadow rounded">
+    <div class="card-body">
+      <h4 class="text-break text-primary"><%= @invitation.project_title %></h4>
+      
+      <p class="card-text"><%= @invitation.project_description %></p>
+      <p class="card-subtitle mb-2 text-muted"><%= Invitation.human_attribute_name :category %>: <%= @invitation.project_category %></p>
+      <% if @invitation.message.present? %>
+        <p class="card-subtitle mb-2 text-muted"><%= Invitation.human_attribute_name :message %>: <%= @invitation.message %></p>
+      <% end %>
+      <% if @invitation.expiration_date.present? %>
+        <p class="card-subtitle mb-2 text-muted"><%= Invitation.human_attribute_name :expiration_date %>: <%= I18n.l(@invitation.expiration_date) %></p>
+      <% end %>
+      <% if @invitation.pending? %>  
+        <div class="btn-group">
+          <div>
+            <%= link_to t('accept_btn'), 'http://localhost:3000', class: 'btn btn-primary me-4' %>
+          </div>
+          <div>
+            <%= button_to t('decline_btn'), decline_invitation_path(@invitation), method: :patch, class: 'btn btn-secondary' %>
           </div>
         </div>
-      </div>
-    </section>
+      <% end %>
+
+      <p class="card-subtitle mb-2 text-success"><%= t('invitations.accepted_status') if @invitation.accepted? %></p>
+      <p class="card-subtitle mb-2 text-danger"><%= t('invitations.expired_status') if @invitation.expired? %></p>
+      <p class="card-subtitle mb-2 text-danger"><%= t('invitations.declined_status') if @invitation.declined? %></p>
+      <p class="card-subtitle mb-2 text-dark"><%= t('invitations.cancelled_status') if @invitation.cancelled? %></p>
+      <p class="card-subtitle mb-2 text-info"> <%= t('invitations.processing_status') if @invitation.processing? %></p>
+    </div>
   </div>
 </div>
