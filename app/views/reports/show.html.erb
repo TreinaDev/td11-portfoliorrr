@@ -59,7 +59,10 @@
                 <%= t('reports.index.rejected') if @report.rejected? %>
               </h4>
               <h4 class= "card-subtitle mb-2 text-danger">
-                <%= t('reports.index.granted') if @report.granted? %>
+                <% if @report.granted? %>
+                  <%= t('.profile_removed') if @report.reportable.is_a? Profile %>
+                  <%= t('.content_removed') unless @report.reportable.is_a? Profile %>
+                <% end %>
               </h4>
             </div>
           <% end %>

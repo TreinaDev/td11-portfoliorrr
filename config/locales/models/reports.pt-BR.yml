@@ -33,6 +33,8 @@ pt-BR:
       remove_profile_btn: Remover perfil
       remove_profile_warning: O usuário perderá o acesso à conta dele permanentemente. Tem certeza que deseja continuar?
       remove_content_warning: Esse conteúdo será deletado. Tem certeza que deseja continuar?
+      profile_removed: Perfil removido
+      content_removed: Conteúdo removido
     index:
       pending: Pendente
       granted: Conteúdo removido
