@@ -60,7 +60,7 @@ Rails.application.routes.draw do
       resources :job_categories, only: %i[index show]
       resources :profiles, only: %i[show index]
       resources :invitations, only: %i[create update]
-      resources :invitation_requests, only: %i[update]
+      resources :invitation_request, only: %i[update]
       
       get 'projects/request_invitation', controller: :projects
     end

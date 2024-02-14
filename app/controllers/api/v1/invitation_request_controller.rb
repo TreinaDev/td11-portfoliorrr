@@ -1,6 +1,6 @@
 module Api
   module V1
-    class InvitationRequestsController < ApiController
+    class InvitationRequestController < ApiController
       def update
         raise ActiveRecord::ParameterMissing if params[:id].blank?
 

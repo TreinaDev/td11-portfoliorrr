@@ -6,7 +6,7 @@ describe 'API solicitações' do
       user = create(:user)
       invitation_request = create(:invitation_request, profile: user.profile, status: :pending, message: 'oi projeto')
 
-      patch "/api/v1/invitation_requests/#{invitation_request.id}"
+      patch "/api/v1/invitation_request/#{invitation_request.id}"
       invitation_request.reload
 
       expect(response).to have_http_status(200)
@@ -29,11 +29,11 @@ describe 'API solicitações' do
       request4 = create(:invitation_request, status: :error)
       request5 = create(:invitation_request, status: :aborted)
 
-      response_status1 = patch "/api/v1/invitation_requests/#{request1.id}"
-      response_status2 = patch "/api/v1/invitation_requests/#{request2.id}"
-      response_status3 = patch "/api/v1/invitation_requests/#{request3.id}"
-      response_status4 = patch "/api/v1/invitation_requests/#{request4.id}"
-      response_status5 = patch "/api/v1/invitation_requests/#{request5.id}"
+      response_status1 = patch "/api/v1/invitation_request/#{request1.id}"
+      response_status2 = patch "/api/v1/invitation_request/#{request2.id}"
+      response_status3 = patch "/api/v1/invitation_request/#{request3.id}"
+      response_status4 = patch "/api/v1/invitation_request/#{request4.id}"
+      response_status5 = patch "/api/v1/invitation_request/#{request5.id}"
       request1.reload
       request2.reload
       request3.reload
@@ -57,7 +57,7 @@ describe 'API solicitações' do
     end
 
     it 'retorna erro 404 se a solicitação não for encontrada' do
-      patch '/api/v1/invitation_requests/1939'
+      patch '/api/v1/invitation_request/1939'
 
       expect(response.status).to eq 404
       expect(response.content_type).to include 'application/json'
@@ -68,7 +68,7 @@ describe 'API solicitações' do
     it 'retorna erro 500, com mensagem identificando erro do servidor' do
       allow(InvitationRequest).to receive(:find).and_raise(ActiveRecord::ActiveRecordError)
       invitation_request = create(:invitation_request)
-      patch "/api/v1/invitation_requests/#{invitation_request.id}"
+      patch "/api/v1/invitation_request/#{invitation_request.id}"
 
       expect(response.status).to eq 500
       expect(response.content_type).to include 'application/json'
