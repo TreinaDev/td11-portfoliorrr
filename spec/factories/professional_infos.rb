@@ -7,9 +7,6 @@ FactoryBot.define do
     visibility { true }
     profile
 
-    # Faker::Date.between(from: profile.professional_info.last.end_date.advance(months: rand(2..12)))
-    # Faker::Date.backwards(years: Time.zone.today - profile.personal_info.birth_date)
-
     trait :faked do
       company { Faker::TvShows::RuPaul.queen }
       position { %w[programador estagiário gerente].sample }

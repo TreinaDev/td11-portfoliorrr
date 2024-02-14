@@ -106,12 +106,12 @@ end
 # Adiciona comentários e likes
 Post.all.each do |post|
   rand(0..10).times do
-    FactoryBot.create(:like, :for_post, likeable: post, user:  User.all.reject { |user| post.likes.pluck(:user_id).include?(user.id) }.sample)
+    FactoryBot.create(:like, likeable: post, user:  User.all.reject { |user| post.likes.pluck(:user_id).include?(user.id) }.sample)
   end
   rand(0..10).times do
     comment = FactoryBot.create(:comment, :seed, post:, user: User.all.sample)
     rand(0..10).times do
-      FactoryBot.create(:like, :for_post, likeable: comment, user: User.all.reject { |user| comment.likes.pluck(:user_id).include?(user.id) }.sample)
+      FactoryBot.create(:like, likeable: comment, user: User.all.reject { |user| comment.likes.pluck(:user_id).include?(user.id) }.sample)
     end
   end
 end
