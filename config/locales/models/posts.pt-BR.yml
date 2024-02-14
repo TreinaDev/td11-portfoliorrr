@@ -6,6 +6,7 @@ pt-BR:
         other: Publicações
     attributes:
       post:
+        pinned: 'Destaque'
         title: Título da Publicação
         content: Conteúdo
         tag_list: Tags

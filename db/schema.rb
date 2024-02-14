@@ -176,7 +176,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_12_195603) do
     t.integer "profile_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "visibility", default: true
+    t.boolean "visibility", default: false
     t.text "description"
     t.boolean "current_job"
     t.index ["profile_id"], name: "index_professional_infos_on_profile_id"
