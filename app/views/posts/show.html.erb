@@ -99,7 +99,7 @@
                 <span><%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %></span>
                 <button onClick="showForm(<%= comment.id %>)" class="btn btn-outline-primary rounded-5 border-0 mx-2"><%= t('reply')%></button> 
                 <% if current_user != comment.user %>
-                  <div class="report-link-wrapper mt-3 mx-2">
+                  <div class="report-link-wrapper mt-3">
                     <p><%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %></p>
                   </div>
                 <% end %>
@@ -126,7 +126,7 @@
                 </button>
                 <div class="collapse mx-5 mt-3 reply-content" id="collapseReplies<%= comment.id %>">
                   <% comment.replies.each do |reply| %>
-                    <h6>
+                    <h6 class="mt-2">
                       <% if reply.user.profile.photo.present? %>
                         <%= image_tag reply.user.profile.photo, alt: 'Foto de perfil', width: '30rem', class: 'rounded-circle mx-3' %>
                       <% else %>
@@ -138,7 +138,7 @@
                       </small>
                     </h6>
                     <div class="reply-content text-dark">
-                      <p><%= reply.message %></p>
+                      <p class="mx-2"><%= reply.message %></p>
                       <div class="btn-group">
                         <% if user_signed_in? && reply.likes.where(user_id: current_user.id).any? %>
                         <% like = reply.likes.find_by(user_id: current_user.id) %>

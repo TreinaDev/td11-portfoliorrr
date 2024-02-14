@@ -92,12 +92,16 @@ input[type="checkbox"]:checked {
               background-color 1s ease-in-out;
 }
 
-.comment-message, .comment-actions, .reply-form{
+.comment-message, .reply-form{
   margin-left: 5.2rem !important;
 }
 
+.comment-actions{
+  margin-left: 5.0rem !important;
+}
+
 .reply-content{
-  margin-left: 4.9rem !important;
+  margin-left: 4.5rem !important;
 }
 
 .reply-form{
