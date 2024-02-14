@@ -153,11 +153,11 @@
                         <div class="me-2 mt-2">
                           <%= reply.likes.count %> <%= Like.model_name.human(count: reply.likes.count) %>
                         </div>
-                        
+                        <% if current_user != reply.user %>
                           <div class="report-link-wrapper mt-3">
                             <p><%= link_to t('reports.report_btn'), new_report_path(reportable: reply, reportable_type: reply.class), class: 'btn btn-secondary btn-sm' %></p>
                           </div>
-                        
+                        <% end %>
                       </div>
                     </div>
                   <% end %>

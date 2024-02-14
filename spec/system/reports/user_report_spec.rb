@@ -141,6 +141,19 @@ describe 'Usuário denuncia' do
       expect(last_report.status).to eq 'pending'
       expect(last_report.profile).to eq comment.user.profile
     end
+
+    it 'e não vê botão de report na própria resposta' do
+      user = create(:user)
+      reply = create(:reply, user:)
+
+      login_as user
+      visit post_path(reply.comment.post)
+      click_on '1 Resposta'
+
+      within "#collapseReplies#{reply.comment.id}" do
+        expect(page).not_to have_content 'Denunciar'
+      end
+    end
   end
 
   context 'um perfil' do
