@@ -11,6 +11,7 @@ pt-BR:
         offence_type: Tipo de ofensa
   reports:
     report_btn: Denunciar
+    removed_account: Sua conta foi removida pelos adminitradores
     create:
       self_report: Você não pode denunciar sí mesmo ou o próprio conteúdo.
       success: Sua denúncia foi registrada
@@ -21,12 +22,17 @@ pt-BR:
       success: Denúncia rejeitada com sucesso
     remove_content:
       success: Conteúdo removido com sucesso
+    remove_profile:
+      success: Perfil removido com sucesso
     comment:
       see_post: Ver publicação
     show:
       reporting_profile: Denunciado por
       reject_btn: Rejeitar denúncia
       remove_content_btn: Remover conteúdo
+      remove_profile_btn: Remover perfil
+      remove_profile_warning: O usuário perderá o acesso à conta dele permanentemente. Tem certeza que deseja continuar?
+      remove_content_warning: Esse conteúdo será deletado. Tem certeza que deseja continuar?
     index:
       pending: Pendente
       granted: Conteúdo removido
@@ -43,3 +49,4 @@ pt-BR:
     spam: Spam
     disturbin_content: Conteúdo pertubador
     harassment: Abuso/Perseguição
+
