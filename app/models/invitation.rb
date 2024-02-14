@@ -2,7 +2,7 @@ class Invitation < ApplicationRecord
   belongs_to :profile
   has_one :notification, as: :notifiable, dependent: :destroy
 
-  validates :profile_id, :project_title, :project_description,
+  validates :profile_id, :project_id, :project_title, :project_description,
             :project_category, :colabora_invitation_id, presence: true
 
   validate :expiration_date_cannot_be_in_the_past
@@ -11,7 +11,7 @@ class Invitation < ApplicationRecord
 
   after_create :set_status
   after_create :create_notification
-  after_create :queue_pending_request_status_update
+  after_create :validate_and_approve_pending_request
 
   def set_status
     self.status = 'pending'
@@ -33,7 +33,8 @@ class Invitation < ApplicationRecord
     Notification.create(profile:, notifiable: self)
   end
 
-  def queue_pending_request_status_update
-    AcceptInvitationRequestJob.perform_later(profile_id:, colabora_invitation_id:)
+  def validate_and_approve_pending_request
+    pending_invitation_request = InvitationRequest.pending.find_by(profile_id:, project_id:)
+    pending_invitation_request&.accepted!
   end
 end

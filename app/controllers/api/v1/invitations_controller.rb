@@ -18,7 +18,7 @@ module Api
       private
 
       def invite_params
-        invitation_params = :profile_id, :project_title,
+        invitation_params = :profile_id, :project_id, :project_title,
                             :project_description, :project_category,
                             :colabora_invitation_id, :message,
                             :expiration_date

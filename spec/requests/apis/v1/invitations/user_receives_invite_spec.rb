@@ -13,6 +13,7 @@ describe 'API convites' do
       post '/api/v1/invitations', params: {
         invitation: {
           profile_id: user_profile.id,
+          project_id: 1,
           project_title: 'Projeto Cola?Bora!',
           project_description: 'Projeto Legal',
           project_category: 'Tecnologia',
@@ -31,9 +32,9 @@ describe 'API convites' do
       expect(user_profile.invitations.first.colabora_invitation_id).to eq 1
     end
 
-    it 'enfileira job para validar solicitação pendente e alterar para aceita' do
+    it 'altera status da solicitação de convite de "Pendente" para "Aceita"' do
       user = create(:user)
-      create(:invitation_request, status: :pending, profile: user.profile, project_id: 1)
+      invitation_request = create(:invitation_request, status: :pending, profile: user.profile, project_id: 1)
       colabora_invitation_json = [{
         invitation_id: 1,
         expiration_date: 3.days.from_now.to_date,
@@ -42,16 +43,14 @@ describe 'API convites' do
         message: 'Venha fazer parte'
       }].to_json
 
-      accept_invitation_request_job_spy = spy(AcceptInvitationRequestJob)
-      stub_const('AcceptInvitationRequestJob', accept_invitation_request_job_spy)
-
       fake_response = double('faraday_response', status: 200, body: colabora_invitation_json)
       allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/invitations?profile_id=#{user.id}")
                     .and_return(fake_response)
 
       post '/api/v1/invitations', params: {
         invitation: {
-          profile_id: user.id,
+          profile_id: user.profile.id,
+          project_id: 1,
           project_title: 'Projeto Cola?Bora!',
           project_description: 'Projeto Legal',
           project_category: 'Tecnologia',
@@ -61,7 +60,7 @@ describe 'API convites' do
         }
       }
 
-      expect(accept_invitation_request_job_spy).to have_receive(:perform_later)
+      expect(invitation_request.reload.status).to eq 'accepted'
     end
 
     context 'com parâmetros inválidos' do
