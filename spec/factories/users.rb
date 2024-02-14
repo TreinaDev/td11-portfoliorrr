@@ -20,5 +20,11 @@ FactoryBot.define do
         user.subscription.inactive!
       end
     end
+
+    trait :paid do
+      after(:create) do |user|
+        user.subscription.active!
+      end
+    end
   end
 end

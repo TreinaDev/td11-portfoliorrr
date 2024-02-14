@@ -8,3 +8,18 @@ pt-BR:
     subscriber: assinante
     see_listed_projects: para ver projetos listados
     see_and_request: para ver e fazer solicitações
+    update:
+      success: Assinatura atualizada com sucesso!
+    index:
+      already_subscribed: Você já é assinante
+      subscribe_btn: Assinar
+      current_tier: Plano atual
+      free_account: Conta Gratuita
+      premium_account: Conta Premium
+      platform_access: Acesso à Perfis, Publicações
+      searchable_content: Pesquisa por outros usuários ou publicações
+      hiring_capabilities: Possibilidade de ser convidado para um projeto
+      projects_access: Acesso à pesquisas de projetos na plataforma parceira Cola?bora!
+      highlight_in_search_results: Destaque nos resultados das pesquisas por líderes de projetos.
+      no_ads: Zero anúncios na plataforma.
+      request_invitation: Solicitações de convites para participação de projetos ilimitadas.

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     post 'pin', on: :member
   end
 
+  resources :subscriptions, only: %i[index show update]
+
   resources :reports, only: %i[index new create show] do
     post 'reject', 'remove_content', on: :member
   end
@@ -63,7 +65,7 @@ Rails.application.routes.draw do
       resources :profiles, only: %i[show index]
       resources :invitations, only: %i[create update]
       resources :invitation_request, only: %i[update]
-      
+
       get 'projects/request_invitation', controller: :projects
     end
   end
