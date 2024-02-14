@@ -9,6 +9,8 @@ $theme-colors: (
   "dark":       #1b1b1b
 );
 
+$primary: #a130fd;
+
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'actiontext.css';

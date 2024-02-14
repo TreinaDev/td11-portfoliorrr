@@ -1,9 +1,9 @@
-<h2>Informações Pessoais</h2>
+<h2><%= PersonalInfo.model_name.human %></h2>
 <p>
   <% if URI.parse(request.referer || '').path == new_user_registration_path %>
-    <%= link_to 'Preencher Depois', root_path, class: 'btn btn-secondary' %>
+    <%= link_to t('profiles.edit.fill_later'), root_path, class: 'btn btn-secondary' %>
   <% else %>
-    <%= link_to 'Voltar', profile_path(current_user.profile), class: 'btn btn-secondary' %>
+    <%= link_to t('return_btn'), profile_path(current_user.profile), class: 'btn btn-secondary' %>
   <% end %>
 </p>
 <%= form_with model: @profile, url: user_profile_path, method: :patch do |form| %>
@@ -52,5 +52,5 @@
     <%= form.text_area :cover_letter, class:'form-control'  %>
   </p>
 
-  <%= form.submit 'Salvar', class:'btn btn-primary' %>
+  <%= form.submit t('save_btn'), class:'btn btn-primary' %>
 <% end %>

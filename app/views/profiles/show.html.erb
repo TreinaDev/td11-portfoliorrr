@@ -3,7 +3,7 @@
   <% if @profile.active? %>
     <% if @posts.pinned.any? %>
       <div id="fixed">
-        <h2 id="post-list-title"><%= Post.human_attribute_name(:pinned) %></h2>
+        <h2 id="post-list-title"><%= t('.highlight') %></h2>
         <section>
           <%= render partial: 'posts/listing', locals: { posts: @posts.pinned } %>
         </section>
@@ -11,9 +11,9 @@
     <% end %>
 
     <div id="publications">
-      <h2 id="post-list-title"><%= Post.model_name.human(count: @profile.user.posts.count) %></h2>
+      <h2 id="post-list-title"><%= Post.model_name.human(count: 2) %></h2>
       <% if @profile.user.posts.count - @profile.user.posts.pinned.count < 1 %>
-        <p>Ainda não tem nada aqui... <br> Mas novas publicações vão ocupar este espaço. :)</p>
+        <p><%= t('.nothing_here') %> <br> <%= t('.new_posts') %> :)</p>
       <% end %>
 
       <section>
@@ -54,15 +54,15 @@
           <% if current_user.profile != @profile %>
             <div>
               <% if @profile.following?(current_user.profile) %>
-                <%= button_to 'Deixar de Seguir', connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
+                <%= button_to t('.unfollow_btn'), connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
               <% elsif @profile.inactive_follower?(current_user.profile) %>
-                <%= button_to 'Seguir', connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
+                <%= button_to t('.follow_btn'), connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
               <% else %>
-                <%= button_to 'Seguir', profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
+                <%= button_to t('.follow_btn'), profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
               <% end %>
             </div>
-            <div class="mt-2 mb-2">
-              <%= link_to t('reports.report_btn'), new_report_path(reportable: @profile.id, reportable_type: @profile.class), class: 'btn btn-dark btn-sm' %>
+            <div class="mt-2">
+              <%= link_to t('reports.report_btn'), new_report_path(reportable: @profile.id, reportable_type: @profile.class), class: 'btn btn-secondary btn-sm' %>
             </div>
           <% end %>
         </div>
@@ -73,7 +73,7 @@
       </section>
     </aside>
   <% else %>
-    <h2 class="text-center">Conta Desativada</h2>
+    <h2 class="text-center"><%= t('.arquived_account') %></h2>
   <% end %>
   </div>
 </div>

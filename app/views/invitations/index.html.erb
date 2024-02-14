@@ -1,21 +1,21 @@
 <div class="container">
   <div class="row">
     <section>
-      <h2 class="text-center">Convites</h2>
+      <h2 class="text-center"><%= Invitation.model_name.human(count: 2) %></h2>
 
       <div class="nav-scroller border-bottom mb-4">
         <nav class="d-flex nav nav-underline">
-          <%= link_to 'Todos', invitations_path, class: "nav-item col nav-link link-body-emphasis" %>
-          <%= link_to 'Pendentes', invitations_path(status: :pending), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'pending'}" %>
-          <%= link_to 'Aceitos', invitations_path(status: :accepted), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'accepted'}" %>
-          <%= link_to 'Recusados', invitations_path(status: :declined), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'declined'}" %>
-          <%= link_to 'Expirados', invitations_path(status: :expired), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'expired'}" %>
+          <%= link_to t('all'), invitations_path, class: "nav-item col nav-link link-body-emphasis" %>
+          <%= link_to t('.pending'), invitations_path(status: :pending), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'pending'}" %>
+          <%= link_to t('.accepted'), invitations_path(status: :accepted), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'accepted'}" %>
+          <%= link_to t('.declined'), invitations_path(status: :declined), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'declined'}" %>
+          <%= link_to t('.expired'), invitations_path(status: :expired), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'expired'}" %>
         </nav>
       </div>
 
       <div class="d-flex flex-wrap justify-content-around">
         <% if @invitations.empty? %>
-          <p class="text-center">Nenhum convite encontrado</p>
+          <p class="text-center"> <%= t('.empty_state') %> </p>
         <% else %>
           <% @invitations.each do |invitation| %>
             <div class="col-md-5 p-4 m-4 rounded border w-25">
@@ -25,14 +25,14 @@
                   <p><%= invitation.truncate_description %></p>
 
                   <% if invitation.pending? && invitation.expiration_date %>
-                    <p class="card-subtitle mb-2 text-muted">Expira dia: <%= I18n.l(invitation.expiration_date) %></p>
+                    <p class="card-subtitle mb-2 text-muted"><%= Invitation.human_attribute_name :expiration_date %>: <%= I18n.l(invitation.expiration_date) %></p>
                   <% end %>
 
-                  <p class="card-subtitle mb-2 text-success"><%= 'Aceito' if invitation.accepted? %></p>
-                  <p class="card-subtitle mb-2 text-danger"><%= 'Expirado' if invitation.expired? %></p>
-                  <p class="card-subtitle mb-2 text-danger"><%= 'Recusado' if invitation.declined? %></p>
-                  <p class="card-subtitle mb-2 text-dark"><%= 'Cancelado' if invitation.cancelled? %></p>
-                  <p class="card-subtitle mb-2 text-info"> <%= 'Processando' if invitation.processing? %></p>
+                  <p class="card-subtitle mb-2 text-success"><%= t('invitations.accepted_status') if invitation.accepted? %></p>
+                  <p class="card-subtitle mb-2 text-danger"><%= t('invitations.expired_status') if invitation.expired? %></p>
+                  <p class="card-subtitle mb-2 text-danger"><%= t('invitations.declined_status') if invitation.declined? %></p>
+                  <p class="card-subtitle mb-2 text-dark"><%= t('invitations.cancelled_status') if invitation.cancelled? %></p>
+                  <p class="card-subtitle mb-2 text-info"> <%= t('invitations.processing_status') if invitation.processing? %></p>
                 </div>
               <% end %>
             </div>

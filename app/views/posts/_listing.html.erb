@@ -9,7 +9,7 @@
         <p>
           <%= content_fixer(post)  %>
         </p>
-        <p class="card-subtitle mb-2 text-muted">Publicado por: <%= post.user.full_name %></p>
+        <p class="card-subtitle mb-2 text-muted"><%= t('.published_by') %>: <%= post.user.full_name %></p>
         <% if post.scheduled?%>
           <small datetime="<%= post.published_at.to_datetime %>">
             <%= date_fixer(post) %> <%= I18n.l(post.published_at.to_datetime, format: :long) %>
