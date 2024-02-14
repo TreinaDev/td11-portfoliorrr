@@ -139,7 +139,7 @@
                     </h6>
                     <div class="reply-content text-dark">
                       <p class="mx-2"><%= reply.message %></p>
-                      <div class="btn-group">
+                      <div class="btn-group d-flex align-items-center mt-4">
                         <% if user_signed_in? && reply.likes.where(user_id: current_user.id).any? %>
                         <% like = reply.likes.find_by(user_id: current_user.id) %>
                           <%= button_to reply_like_path(reply, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
@@ -153,6 +153,11 @@
                         <div class="me-2 mt-2">
                           <%= reply.likes.count %> <%= Like.model_name.human(count: reply.likes.count) %>
                         </div>
+                        
+                          <div class="report-link-wrapper mt-3">
+                            <p><%= link_to t('reports.report_btn'), new_report_path(reportable: reply, reportable_type: reply.class), class: 'btn btn-secondary btn-sm' %></p>
+                          </div>
+                        
                       </div>
                     </div>
                   <% end %>

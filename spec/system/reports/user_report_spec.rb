@@ -117,6 +117,32 @@ describe 'Usuário denuncia' do
     end
   end
 
+  context 'uma resposta de um comentário' do
+    it 'com sucesso' do
+      comment = create(:comment)
+      replier = create(:user)
+      reported_reply = create(:reply, comment:, user: replier)
+
+      login_as comment.user
+      visit post_path(comment.post)
+      within "#comment_#{comment.id}" do
+        click_on '1 Resposta'
+        click_on 'Denunciar'
+      end
+      fill_in 'Mensagem', with: 'Isso é discurso de ódio'
+      select 'Discurso de ódio', from: 'Tipo de ofensa'
+      click_on 'Denunciar'
+
+      last_report = Report.last.reload
+      expect(page).to have_content 'Sua denúncia foi registrada'
+      expect(last_report.message).to eq 'Isso é discurso de ódio'
+      expect(last_report.offence_type).to eq 'Discurso de ódio'
+      expect(last_report.reportable).to eq reported_reply
+      expect(last_report.status).to eq 'pending'
+      expect(last_report.profile).to eq comment.user.profile
+    end
+  end
+
   context 'um perfil' do
     it 'com sucesso' do
       reported_user = create(:user)

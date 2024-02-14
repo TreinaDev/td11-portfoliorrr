@@ -34,6 +34,7 @@ class ReportsController < ApplicationController
     @reportable = Post.find(reportable_id) if params[:reportable_type] == 'Post'
     @reportable = Profile.find(reportable_id) if params[:reportable_type] == 'Profile'
     @reportable = Comment.find(reportable_id) if params[:reportable_type] == 'Comment'
+    @reportable = Reply.find(reportable_id) if params[:reportable_type] == 'Reply'
   end
 
   def set_reportable_for_create
@@ -70,10 +71,16 @@ class ReportsController < ApplicationController
   end
 
   def redirect_if_self_report
-    return if @reportable.is_a?(Profile) && @reportable != current_user.profile
-    return if @reportable.is_a?(Comment) && @reportable.user != current_user
-    return if @reportable.is_a?(Post) && @reportable.user != current_user
+    non_self_report = reportable_classes.any? do |klass|
+      @reportable.is_a?(klass) && @reportable.user != current_user
+    end
+
+    return if non_self_report
 
     redirect_to root_path, alert: t('.self_report')
+  end
+
+  def reportable_classes
+    [Profile, Comment, Post, Reply]
   end
 end

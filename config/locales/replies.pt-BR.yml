@@ -12,4 +12,3 @@ pt-BR:
     create:
       success: 'Resposta enviada com sucesso!'
       error: 'Não foi possível enviar sua resposta' 
-        
