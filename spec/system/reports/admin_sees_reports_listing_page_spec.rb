@@ -34,7 +34,7 @@ describe 'Admin visita página de index de denúnicas' do
     visit root_path
     click_button class: 'dropdown-toggle'
     click_on 'Denúncias'
-    click_on 'Deferido'
+    click_on 'Conteúdo removido'
 
     expect(page).not_to have_content report.truncated_message
     expect(page).not_to have_content 'Discurso de ódio'
@@ -50,7 +50,7 @@ describe 'Admin visita página de index de denúnicas' do
 
   it 'e visualiza denúncias indeferidas' do
     admin = create(:user, :admin)
-    report = create(:report, :for_post, offence_type: 'Discurso de ódio', status: :not_granted)
+    report = create(:report, :for_post, offence_type: 'Discurso de ódio', status: :rejected)
     other_report = create(:report, :for_comment, offence_type: 'Abuso/Perseguição')
     another_report = create(:report, :for_profile, offence_type: 'Spam')
 
@@ -58,7 +58,7 @@ describe 'Admin visita página de index de denúnicas' do
     visit root_path
     click_button class: 'dropdown-toggle'
     click_on 'Denúncias'
-    click_on 'Indeferido'
+    click_on 'Denúncias rejeitadas'
 
     expect(page).to have_content report.truncated_message
     expect(page).to have_content 'Discurso de ódio'
@@ -69,7 +69,7 @@ describe 'Admin visita página de index de denúnicas' do
     expect(page).not_to have_content another_report.truncated_message
     expect(page).not_to have_content 'Spam'
     expect(page).not_to have_content 'Perfil'
-    expect(page).to have_current_path reports_path({ filter: 'not_granted' })
+    expect(page).to have_current_path reports_path({ filter: 'rejected' })
   end
 
   it 'e não há denúncias disponíveis' do

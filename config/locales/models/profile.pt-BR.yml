@@ -1,0 +1,74 @@
+pt-BR:
+  activerecord:
+    models:
+      profile:
+        one: Perfil
+        other: Perfis
+    attributes:
+      profile:
+        cover_letter: Resumo Profissional
+        photo: Foto
+      profile/work_status:
+          open_to_work: 'Disponível para trabalho'
+          unavailable: 'Indisponível para trabalho'
+      profile/privacy:
+          public_profile: 'Perfil público'
+          private_profile: 'Perfil privado'
+  profiles:
+    update:
+      error: 'Sua alteração não pôde ser salva'
+      success: 'Sua foto foi alterada com sucesso'
+    remove_photo:
+      success: 'Sua foto foi removida com sucesso'
+    redirect_alert:
+      unauthorized_user: 'Você não possui autorização para essa ação'
+    search:
+      error: 'Você precisa informar um termo para fazer a pesquisa'
+      results:
+        one: 'resultado'
+        other: 'resultados'
+    work_unavailable:
+      success: Alteração salva com sucesso
+    open_to_work:
+      success: Alteração salva com sucesso
+    change_privacy:
+      success: Privacidade alterada com sucesso
+    show:
+      private: O perfil que você acessou é privado
+      highlight: Destaque
+      nothing_here: Ainda não tem nada aqui...
+      new_posts: Mas novas publicações vão ocupar este espaço.
+      change_photo: Alterar foto
+      change_availability: Alterar disponibilidade
+      change_privacy: Alterar privacidade
+      unfollow_btn: Deixar de Seguir
+      follow_btn: Seguir
+      arquived_account: Conta Desativada
+    profile: 
+      edit_personal_info: Editar Informações Pessoais
+      add_professional_info: Adicionar Experiência Profissional
+      edit_professional_info: Editar Experiência Profissional
+      add_educational_info: Adicionar Formação Acadêmica
+      edit_educational_info: Editar Formação Acadêmica
+    edit:
+      fill_later: Preencher Depois
+      change_photo: Alterar foto de perfil
+      remove_photo: Remover foto de perfil
+    profile_photo:
+      alt_text: Foto de perfil
+    settings:
+      profile_settings: Configurações do Perfil
+      attention: Atenção
+      arquive: Todos os dados relacionados ao seu perfil serão ARQUIVADOS. Você pode reativar sua conta fazendo log-in novamente.
+      arquive_btn: Desativar Perfil
+      arquive_turbo_warning: Seu perfil será DESATIVADO, deseja prosseguir?
+      delete: Todos os dados relacionados a conta serão EXCLUÍDOS e não poderão ser recuperados.
+      delete_btn: Excluir Conta
+      delete_turbo_warning: Sua conta será EXCLUÍDA, deseja prosseguir?
+    model:
+      photo_extention: deve ser do formato .jpg, .jpeg ou .png
+      photo_size: deve ter no máximo 3MB
+
+  profile:
+    update:
+      success: 'Informações pessoais atualizadas com sucesso'

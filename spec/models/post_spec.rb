@@ -25,7 +25,7 @@ RSpec.describe Post, type: :model do
     context 'data de publicação' do
       it 'não deve ser no passado' do
         user = create(:user)
-        post = build(:post, user:, published_at: Time.zone.yesterday)
+        post = build(:post, user:, published_at: Time.zone.yesterday, status: :scheduled)
 
         expect(post).not_to be_valid
         expect(post.errors[:published_at]).to include('não pode estar no passado')

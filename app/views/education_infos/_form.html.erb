@@ -19,6 +19,6 @@
   <%= education_info.label :visibility, class:"form-check-label" %>
 </p>
 <p class='mt-3'>
-  <%= education_info.submit 'Salvar', class:'btn btn-primary' %>
-  <%= link_to 'Voltar', profile_path(current_user.profile), class: 'btn btn-secondary' %>
+  <%= education_info.submit t('save_btn'), class:'btn btn-primary' %>
+  <%= link_to t('return_btn'), profile_path(current_user.profile), class: 'btn btn-secondary' %>
 </p>

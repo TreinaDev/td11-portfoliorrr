@@ -3,3 +3,5 @@ pt-BR:
   bad_request_error: Houve um erro ao processar sua solicitação.
   not_found_error: Não encontrado
   service_unavailable_error: Recurso não disponível
+  invalid_status: Status inválido
+  profile_not_found: Perfil não existe.

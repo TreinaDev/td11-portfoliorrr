@@ -1,0 +1,13 @@
+.follower-card:hover{
+  transform: scale(1.01, 1.01);
+  transition-duration: 300ms;
+}
+  
+.profile-image{
+   min-width: 80px;
+}
+
+.img-cover{
+  object-fit: cover;
+  object-position: center;
+}

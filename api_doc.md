@@ -373,9 +373,7 @@ Corpo da requisição:
 
 ```json
 {
-  "invitation": {
-                  "status": "accepted"
-                }
+  "status": "accepted"
 }
 ```
 
@@ -403,9 +401,7 @@ Outro exemplo de requisição que retornará este erro:
 
 ```json
 {
-  "invitation": {
-                  "status": "XXXinvalid_statusXXX"
-                }
+  "status": "XXXinvalid_statusXXX"
 }
 ```
 

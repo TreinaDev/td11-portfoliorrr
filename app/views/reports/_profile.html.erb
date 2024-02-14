@@ -34,9 +34,9 @@
 
 <div class="container d-flex flex-column">
   <div id="publications">
-    <h2 id="post-list-title">Publicações</h2>
+    <h2 id="post-list-title"><%= Post.model_name.human(count: 2)%></h2>
     <% if profile.posts.empty? %>
-      <p> Esse perfil não tem publicações </p>
+      <p> <%= t('.post_empty_state') %> </p>
     <% end %>
 
     <section>
