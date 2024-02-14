@@ -1,0 +1,15 @@
+pt-BR:
+  activerecord:
+    models:
+      reply:
+        one: Resposta
+        other: Respostas
+    attributes:
+      reply:
+        message: 'Resposta'
+  replies:
+    send: 'Enviar Resposta'
+    create:
+      success: 'Resposta enviada com sucesso!'
+      error: 'Não foi possível enviar sua resposta' 
+        

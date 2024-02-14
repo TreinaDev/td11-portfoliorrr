@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   resources :notifications, only: %i[index]
 
   resources :posts, only: %i[new create] do
-    resources :comments, only: %i[create]
+    resources :comments, shallow: true, only: %i[create] do
+      resources :replies, only: %i[create]
+    end
     post 'pin', on: :member
   end
 

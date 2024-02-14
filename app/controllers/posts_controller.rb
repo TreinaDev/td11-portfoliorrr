@@ -28,6 +28,7 @@ class PostsController < ApplicationController
     @comment = Comment.new
     @likes_count = @post.likes.count
     @liked = Like.find_by(user: current_user, likeable: @post)
+    @reply = Reply.new
   end
 
   def edit; end
