@@ -1,7 +1,7 @@
 <div>
   <% user_is_owner = profile.user == current_user %>
   <br>
-  <div class="border py-1 px-2 rounded mb-3">
+  <div class="border py-1 px-2 rounded mb-3 bg-white">
     <div class="d-flex gap-1">
       <%= image_tag 'about-icon', width: '23rem', class: 'mb-2'  %>
       <h3><%= Profile.human_attribute_name(:cover_letter) %></h3>
@@ -10,7 +10,7 @@
   </div>
 
   <% if profile.personal_info[:visibility] || user_is_owner %>
-    <div class="border py-1 px-2 rounded mb-3">
+    <div class="border py-1 px-2 rounded mb-3 bg-white">
       <div class="d-flex gap-1">
         <%= image_tag 'person-fill', width: '28rem', class: 'mb-2' %>
         <h3><%= PersonalInfo.model_name.human %></h3>  
@@ -20,7 +20,7 @@
     </div>
   <% end %>
 
-  <div class="border py-1 px-2 rounded mb-3">
+  <div class="border py-1 px-2 rounded mb-3 bg-white">
     <% if profile.professional_infos.visibles_list.any? || user_is_owner %>
       <div class="d-flex gap-1">
         <%= image_tag 'briefcase-solid', width: '24rem', class: 'mb-2 mx-1' %>
@@ -65,7 +65,7 @@
     <% end %>
   </div>
   
-  <div class="border py-1 px-2 rounded mb-3">
+  <div class="border py-1 px-2 rounded mb-3 bg-white">
     <% if profile.education_infos.visibles_list.any? || user_is_owner %>
       <div class="d-flex gap-2">
         <%= image_tag 'user-graduate-solid', width: '24rem', class: 'mb-2 mx-1' %>
@@ -103,7 +103,7 @@
       <% end %>
   </div>
 </div>
-<div id='profile-job-categories' class="border py-1 px-2 rounded mb-3">
+<div id='profile-job-categories' class="border py-1 px-2 rounded mb-3 bg-white">
   <% if profile.profile_job_categories.any? || user_is_owner %> 
     <div class="d-flex gap-1">
       <%= image_tag 'person-working', width: '28rem', class: 'mb-2 mx-1' %>

@@ -1,14 +1,14 @@
 <div class="card text-muted">
   <div class="card-body">
-    <h2 class="card-title"><%= @post.title %></h2>
+    <h2 class="card-title post-title"><%= @post.title %></h2>
     <div class="my-4">
       <% if current_user == @post.user %>
-        <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
-        <%= Post.human_attribute_name @post.status %>
+        <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary py-0', data: { turbo: false } %>
       <% else %>
         <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
+ 
 
     <h6 class="card-subtitle mb-2">
       <%= link_to t('.authored_by', author_name: @post.user.full_name), @post.user.profile %>

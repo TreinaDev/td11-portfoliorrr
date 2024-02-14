@@ -19,7 +19,7 @@ admin = FactoryBot.create(:user, full_name: 'Boninho da Globo', email: 'admin@ad
 
 
 # Setup
-@number_of_users = 40
+@number_of_users = 20
 
 
 # 30 categorias de Trabalho
@@ -88,9 +88,18 @@ images_for_posts = [
 
   # Cria um post com imagem e outros posts somente texto (WIP)
   html_post = %(<action-text-attachment sgid="#{images_for_posts.sample.attachable_sgid}"></action-text-attachment>)
-  user.posts.create(title: Faker::Lorem.sentence, content: "#{Faker::Lorem.paragraph} #{html_post}", tag_list: [tags].sample)
+  FactoryBot.create(:post,
+                    :published,
+                    title: Faker::Lorem.sentence, content: "#{Faker::Lorem.paragraphs(number: rand(3..6)).join(' ')} #{html_post}",
+                    tag_list: [tags].sample,
+                    user:)
   rand(1..3).times do
-    user.posts.create(title: Faker::Lorem.sentence, content: "#{Faker::Lorem.paragraph}", tag_list: [tags].sample)
+    FactoryBot.create(:post,
+                    :published,
+                    title: Faker::Lorem.sentence,
+                    content: "#{Faker::Lorem.paragraphs(number: rand(3..6)).join(' ')}",
+                    tag_list: [tags].sample,
+                    user:)
   end
 end
 

@@ -19,8 +19,13 @@ $primary: #a130fd;
 @import 'profile.scss';
 @import 'layout.scss';
 
+:root{
+  font-size: 0.8rem;
+}
+
 body{
   min-width: 400px;
+  background-color: #F6F7F8 !important;
 }
 
 input[type="checkbox"]:checked {
@@ -69,6 +74,7 @@ input[type="checkbox"]:checked {
 
 .trix-content{
   color: rgb(10, 10, 10);
+  text-align: left !important;
 }
 
 .dropdown-item:active {
