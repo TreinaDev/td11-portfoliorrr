@@ -9,7 +9,7 @@ describe 'Usuário não assinante' do
     click_button class: 'dropdown-toggle'
     click_on 'Solicitações de Convite'
 
-    expect(page).to have_current_path(projects_path)
+    expect(page).to have_current_path(invitation_requests_path)
     expect(page).to have_content 'Torne-se assinante para ver e fazer solicitações'
   end
 

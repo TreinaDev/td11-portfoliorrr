@@ -17,7 +17,7 @@ FactoryBot.define do
 
     trait :free do
       after(:create) do |user|
-        user.subscription.inative!
+        user.subscription.inactive!
       end
     end
   end

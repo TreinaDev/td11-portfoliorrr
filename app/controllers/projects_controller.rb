@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
     @invitation_request = current_user.invitation_requests.build
     @invitation_requests = current_user.invitation_requests.pluck(:project_id).to_json
     @invitation_requests_projects_ids = current_user.invitation_requests.pluck(:project_id)
-    @free_user = !current_user.subscription.active?
+    @free_user = current_user.subscription.inactive?
   end
 
   def create_invitation_request
