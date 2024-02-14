@@ -14,6 +14,10 @@ $primary: #a130fd;
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'actiontext.css';
+@import 'navbar.scss';
+@import 'posts.scss';
+@import 'profile.scss';
+@import 'layout.scss';
 
 body{
   min-width: 400px;

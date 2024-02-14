@@ -72,7 +72,7 @@ describe 'Usuário edita uma publicação' do
     login_as user
     visit profile_path(user)
     within "div#post-#{post.id}" do
-      click_on 'Fixar'
+      click_button id: 'pin'
     end
 
     within 'div#fixed' do
@@ -93,7 +93,7 @@ describe 'Usuário edita uma publicação' do
     login_as user
     visit profile_path(user)
     within 'div#fixed' do
-      click_on 'Desafixar'
+      click_button id: 'unpin'
     end
 
     expect(page).not_to have_content 'Destaque'
@@ -113,7 +113,7 @@ describe 'Usuário edita uma publicação' do
     login_as user
     visit profile_path(user)
     within "div#post-#{post.id}" do
-      click_on 'Fixar'
+      click_button id: 'pin'
     end
 
     within '#publications' do

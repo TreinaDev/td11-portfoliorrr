@@ -4,12 +4,13 @@
       <h2 class="text-center"><%= Invitation.model_name.human(count: 2) %></h2>
 
       <div class="nav-scroller border-bottom mb-4">
-        <nav class="d-flex nav nav-underline">
+        <nav class="d-flex nav nav-underline">          
           <%= link_to t('all'), invitations_path, class: "nav-item col nav-link link-body-emphasis" %>
           <%= link_to t('.pending'), invitations_path(status: :pending), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'pending'}" %>
           <%= link_to t('.accepted'), invitations_path(status: :accepted), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'accepted'}" %>
           <%= link_to t('.declined'), invitations_path(status: :declined), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'declined'}" %>
           <%= link_to t('.expired'), invitations_path(status: :expired), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'expired'}" %>
+          <%= link_to t('.cancelled'), invitations_path(status: :cancelled), class: "nav-item nav-link col link-body-emphasis #{'active' if params[:status] == 'cancelled'}" %>
         </nav>
       </div>
 

@@ -107,6 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_134106) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id", null: false
     t.index ["profile_id"], name: "index_invitations_on_profile_id"
   end
 
@@ -176,7 +177,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_134106) do
     t.integer "profile_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "visibility", default: true
+    t.boolean "visibility", default: false
     t.text "description"
     t.boolean "current_job"
     t.index ["profile_id"], name: "index_professional_infos_on_profile_id"
