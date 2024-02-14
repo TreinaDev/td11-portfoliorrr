@@ -83,7 +83,7 @@ class User < ApplicationRecord
   end
 
   def validate_citizen_id_number
-    errors.add(:citizen_id_number, 'inválido') unless CPF.valid?(citizen_id_number)
+    errors.add(:citizen_id_number, I18n.t('users.model.invalid_cpf')) unless CPF.valid?(citizen_id_number)
   end
 
   def transfer_posts_and_comments_to(clone)

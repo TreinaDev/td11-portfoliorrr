@@ -12,11 +12,11 @@
     <%= f.collection_select :job_category_id, JobCategory.order(:name), :id, :name, {prompt: 'Selecione uma categoria'}, class: 'form-select' %>
   </div>
   <div class="mb-3">
-    <%= f.label :description, 'Descrição', class: 'form-label' %>
+    <%= f.label :description, class: 'form-label' %>
     <%= f.text_area :description, class: 'form-control' %>
   </div>
   <div class="mb-3">
-    <%= f.submit t('buttons.save'), class: 'btn btn-primary' %>
-    <%= link_to 'Voltar', profile_path(current_user.profile), class: 'btn btn-secondary' %>
+    <%= f.submit t('save_btn'), class: 'btn btn-primary' %>
+    <%= link_to t('return_btn'), profile_path(current_user.profile), class: 'btn btn-secondary' %>
   </div>
 <% end %>

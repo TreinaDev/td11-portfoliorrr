@@ -38,8 +38,7 @@ class Profile < ApplicationRecord
   enum privacy: { private_profile: 0, public_profile: 10 }
   enum status: { inactive: 0, active: 5 }
 
-  delegate :full_name, to: :user
-  delegate :email, to: :user
+  delegate :full_name, :email, to: :user
 
   def self.advanced_search(search_query)
     left_outer_joins(:job_categories, :personal_info, :user).where(
@@ -115,13 +114,13 @@ class Profile < ApplicationRecord
   def valid_photo_content_type
     return if photo.present? && photo.content_type.in?(%w[image/jpg image/jpeg image/png])
 
-    errors.add(:photo, message: 'deve ser do formato .jpg, .jpeg ou .png') if photo.present?
+    errors.add(:photo, message: I18n.t('profiles.model.photo_extention')) if photo.present?
   end
 
   def photo_size_lower_than_3mb
     return if photo.present? && photo.byte_size <= 3.megabytes
 
-    errors.add(:photo, message: 'deve ter no máximo 3MB') if photo.present?
+    errors.add(:photo, message: I18n.t('profiles.model.photo_size')) if photo.present?
   end
 end
 

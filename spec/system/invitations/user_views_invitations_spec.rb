@@ -65,8 +65,8 @@ describe 'Usuário acessa página de convites' do
       user = create(:user)
       _accepted_invitation = create(:invitation, profile: user.profile, status: 'accepted')
       _pending_invitation = create(:invitation, profile: user.profile, project_title: 'Projeto Gotta cath`em all',
-                                               project_description: 'Capturar todos os Pokémons',
-                                               project_category: 'Collection', colabora_invitation_id: 2)
+                                                project_description: 'Capturar todos os Pokémons',
+                                                project_category: 'Collection', colabora_invitation_id: 2)
 
       login_as user
       visit invitations_path
@@ -82,8 +82,8 @@ describe 'Usuário acessa página de convites' do
       user = create(:user)
       _declined_invitation = create(:invitation, profile: user.profile, status: 'declined')
       _pending_invitation = create(:invitation, profile: user.profile, project_title: 'Projeto Gotta cath`em all',
-                                               project_description: 'Capturar todos os Pokémons',
-                                               project_category: 'Collection', colabora_invitation_id: 2)
+                                                project_description: 'Capturar todos os Pokémons',
+                                                project_category: 'Collection', colabora_invitation_id: 2)
 
       login_as user
       visit invitations_path
@@ -116,9 +116,10 @@ describe 'Usuário acessa página de convites' do
     user = create(:user)
     other_user = create(:user)
     _invitation = create(:invitation, profile: user.profile)
-    _other_user_invitation = create(:invitation, profile: other_user.profile, project_title: 'Projeto Gotta cath`em all',
-                                                 project_description: 'Capturar todos os Pokémons',
-                                                 project_category: 'Collection', colabora_invitation_id: 2)
+    _other_user_invitation = create(:invitation,
+                                    profile: other_user.profile, project_title: 'Projeto Gotta cath`em all',
+                                    project_description: 'Capturar todos os Pokémons',
+                                    project_category: 'Collection', colabora_invitation_id: 2)
 
     login_as user
 

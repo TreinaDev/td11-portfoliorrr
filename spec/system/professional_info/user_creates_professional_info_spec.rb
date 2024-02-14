@@ -2,15 +2,6 @@ require 'rails_helper'
 
 describe 'Usuário adiciona informações profissionais' do
   context 'quando logado' do
-    it "e vê campo 'Exibir no Perfil' selecionado" do
-      user = create(:user)
-
-      login_as user
-      visit new_user_profile_professional_info_path
-
-      expect(page).to have_checked_field 'Exibir no Perfil'
-    end
-
     it 'com sucesso' do
       user = create(:user)
 

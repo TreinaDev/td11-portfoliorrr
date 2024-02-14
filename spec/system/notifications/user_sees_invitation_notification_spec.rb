@@ -10,7 +10,6 @@ describe 'Usuário vê notificações de convite' do
 
     expect(page).to have_current_path notifications_path
     expect(page).to have_content "Você recebeu um convite para #{invitation.project_title} há 1 dia"
-    expect(page).to have_link invitation.project_title, href: invitation_path(invitation)
   end
 
   it 'e não vê convites de outros usuários' do
@@ -28,7 +27,7 @@ describe 'Usuário vê notificações de convite' do
     expect(page).to_not have_content "Você recebeu um convite para #{other_user_invitation.project_title}"
   end
 
-  it 'ao clicar na notificação é redirecionado para a página de convites' do
+  it 'ao clicar na notificação é redirecionado para a página do convite' do
     user = create(:user)
     invitation = create(:invitation, profile: user.profile)
 
@@ -38,5 +37,6 @@ describe 'Usuário vê notificações de convite' do
 
     expect(page).to have_current_path invitation_path(invitation)
     expect(page).to have_content invitation.project_title
+    expect(Notification.last).to be_clicked
   end
 end

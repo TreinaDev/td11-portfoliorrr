@@ -14,14 +14,16 @@ Rails.application.routes.draw do
   post '/projects', to: 'projects#create_invitation_request', as: 'invitation_request'
 
   resources :job_categories, only: %i[index create destroy]
-  resources :notifications, only: %i[index]
+  resources :notifications, only: %i[index update]
 
   resources :posts, only: %i[new create] do
     resources :comments, only: %i[create]
     post 'pin', on: :member
   end
 
-  resources :reports, only: %i[index new create show]
+  resources :reports, only: %i[index new create show] do
+    post 'reject', 'remove_content', on: :member
+  end
 
   resources :posts, only: %i[] do
     resources :likes, only: %i[create destroy], module: :posts
