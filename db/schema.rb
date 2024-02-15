@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_15_115707) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_15_181135) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -119,7 +119,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_115707) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_id", null: false
+    t.string "slug"
     t.index ["profile_id"], name: "index_invitations_on_profile_id"
+    t.index ["slug"], name: "index_invitations_on_slug", unique: true
   end
 
   create_table "job_categories", force: :cascade do |t|
@@ -177,6 +179,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_115707) do
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
+    t.string "slug"
+    t.index ["slug"], name: "index_posts_on_slug", unique: true
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
