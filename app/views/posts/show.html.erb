@@ -1,9 +1,11 @@
 <div class="card text-muted">
   <div class="card-body">
     <h2 class="card-title"><%= @post.title %></h2>
-    <div class="my-4">
+    <div class="my-4 d-flex gap-1">
       <% if current_user == @post.user %>
         <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
+        <%= button_to t('publish_btn'), publish_post_path(@post), method: :patch,
+          class: 'btn btn-primary', data: { turbo: false } if @post.scheduled? %>
         <%= Post.human_attribute_name @post.status %>
       <% else %>
         <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm' %>

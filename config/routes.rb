@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :posts, only: %i[] do
+    patch 'publish', on: :member
     resources :likes, only: %i[create destroy], module: :posts
 
     end

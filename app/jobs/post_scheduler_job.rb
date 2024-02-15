@@ -2,7 +2,8 @@ class PostSchedulerJob < ApplicationJob
   queue_as :default
 
   def perform(post)
+    return if post.published?
+
     post.published!
-    post.update(published_at: Time.zone.now)
   end
 end
