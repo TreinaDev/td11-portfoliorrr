@@ -25,7 +25,7 @@ describe 'Usuário responde à um comentário' do
     end
   end
 
-  it 'com mensagem de resposta em branco' do
+  it 'com falha por resposta em branco' do
     post_owner = create(:user, full_name: 'João')
     commenter = create(:user)
     post = create(:post, user: post_owner)

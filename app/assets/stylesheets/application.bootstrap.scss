@@ -8,9 +8,16 @@ $theme-colors: (
   "light":      rgba(255, 251, 251, 0.603),
   "dark":       #1b1b1b
 );
+
+$primary: #a130fd;
+
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'actiontext.css';
+@import 'navbar.scss';
+@import 'posts.scss';
+@import 'profile.scss';
+@import 'layout.scss';
 
 body{
   min-width: 400px;

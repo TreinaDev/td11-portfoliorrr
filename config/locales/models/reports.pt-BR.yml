@@ -1,0 +1,54 @@
+pt-BR:
+  activerecord:
+    models:
+      report:
+        one: Denúncia
+        other: Denúncias
+    attributes:
+      report:
+        reportable_type: Conteúdo reportado
+        message: Mensagem
+        offence_type: Tipo de ofensa
+  reports:
+    report_btn: Denunciar
+    removed_account: Sua conta foi removida pelos adminitradores
+    create:
+      self_report: Você não pode denunciar sí mesmo ou o próprio conteúdo.
+      success: Sua denúncia foi registrada
+      not_published_post: Essa publicação não está disponível.
+    new:
+      not_published_post: Essa publicação não está disponível.
+    reject:
+      success: Denúncia rejeitada com sucesso
+    remove_content:
+      success: Conteúdo removido com sucesso
+    remove_profile:
+      success: Perfil removido com sucesso
+    comment:
+      see_post: Ver publicação
+    show:
+      reporting_profile: Denunciado por
+      reject_btn: Rejeitar denúncia
+      remove_content_btn: Remover conteúdo
+      remove_profile_btn: Remover perfil
+      remove_profile_warning: O usuário perderá o acesso à conta dele permanentemente. Tem certeza que deseja continuar?
+      remove_content_warning: Esse conteúdo será deletado. Tem certeza que deseja continuar?
+      profile_removed: Perfil removido
+      content_removed: Conteúdo removido
+    index:
+      pending: Pendente
+      granted: Conteúdo removido
+      rejected: Denúncia rejeitada
+      rejected_tab: Denúncias rejeitadas
+      empty_state: Nenhuma denúncia encontrada
+      action: Ver mais
+      reported_when: Denunciado em
+    profile:
+      post_empty_state: Esse perfil não tem publicações
+    hate_speech: Discurso de ódio
+    pornography: Pornografia
+    racism: Racismo
+    spam: Spam
+    disturbin_content: Conteúdo pertubador
+    harassment: Abuso/Perseguição
+

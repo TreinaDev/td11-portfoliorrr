@@ -3,6 +3,6 @@ class InvitationsMailer < ApplicationMailer
     profile = Profile.find(params[:profile_id])
     project_title = params[:project_title]
     mail(subject: t('.subject'), to: profile.user.email,
-         body: "Você recebeu um convite para participar do projeto #{project_title}.")
+         body: t('.body', title: project_title))
   end
 end

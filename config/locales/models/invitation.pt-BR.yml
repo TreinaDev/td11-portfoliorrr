@@ -1,0 +1,36 @@
+pt-BR:
+  activerecord:
+    models:
+      invitation:
+        one: Convite
+        other: Convites
+    attributes:
+      invitation:
+        expiration_date: Expira dia
+        category: Categoria
+        message: Mensagem
+
+  invitations:
+    decline:
+      error: 'Impossível recusar um convite que não esteja pendente'
+      success: 'Convite recusado com sucesso'
+      processing: 'Convite sendo recusado'
+    index:
+      empty_state: Nenhum convite encontrado
+      all: Todos
+      pending: Pendentes
+      accepted: Aceitos
+      declined: Recusados
+      expired: Expirados
+      cancelled: Cancelados
+    date_error: deve ser maior que a data atual
+    accepted_status: Aceito
+    expired_status: Expirado
+    declined_status: Recusado
+    cancelled_status: Cancelado
+    processing_status: Processando
+
+  invitations_mailer:
+    received_invitation:
+      subject: 'Você recebeu um convite'
+    body: Você recebeu um convite para participar do projeto %{title}.

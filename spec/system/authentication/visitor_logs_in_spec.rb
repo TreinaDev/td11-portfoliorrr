@@ -91,5 +91,21 @@ describe 'Usuário faz login' do
       end
       expect(page).to have_content 'E-mail ou senha inválidos'
     end
+
+    it 'e seu perfil foi removido pelos administradores' do
+      user = create(:user)
+      user.profile.inactive!
+      user.profile.update removed: true
+
+      visit root_path
+      click_on 'Entrar'
+      within '#new_user' do
+        fill_in 'E-mail', with: user.email
+        fill_in 'Senha', with: user.password
+        click_on 'Entrar'
+      end
+
+      expect(page).to have_content 'Sua conta foi removida pelos adminitradores'
+    end
   end
 end

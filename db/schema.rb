@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_13_185205) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_14_134106) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_185205) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.text "old_message"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
@@ -106,6 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_185205) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id", null: false
     t.index ["profile_id"], name: "index_invitations_on_profile_id"
   end
 
@@ -133,7 +135,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_185205) do
     t.integer "notifiable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "read", default: false
+    t.integer "status", default: 0
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["profile_id"], name: "index_notifications_on_profile_id"
   end
@@ -160,7 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_185205) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-14 21:30:14"
+    t.datetime "edited_at"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
@@ -175,7 +177,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_185205) do
     t.integer "profile_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "visibility", default: true
+    t.boolean "visibility", default: false
     t.text "description"
     t.boolean "current_job"
     t.index ["profile_id"], name: "index_professional_infos_on_profile_id"
@@ -200,6 +202,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_185205) do
     t.integer "work_status", default: 10
     t.integer "privacy", default: 10
     t.integer "status", default: 5
+    t.boolean "removed", default: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

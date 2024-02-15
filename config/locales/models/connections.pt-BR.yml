@@ -1,0 +1,32 @@
+pt-BR:
+  activerecord:
+    models:
+      connection: 
+        one: Conexão
+        other: Conexões
+    attributes:
+      connection:
+        follower_id:
+          one: Seguidor
+          other: Seguidores
+        followed_profile_id: Seguindo
+  connections:
+    create:
+      success: Agora você está seguindo %{full_name}
+      error: Você já está seguindo este usuário
+    follow_again:
+      success: Agora você está seguindo %{full_name}
+      error: Você já está seguindo este usuário
+    unfollow:
+      success: Você deixou de seguir %{full_name}
+      error: Você ainda não segue este usuário
+    following:
+      following: Seguindo
+    index:
+      followed_by: Seguido por
+    same_user: não pode ser o mesmo do usuário
+
+
+  connections_mailer:
+    notify_follow:
+      subject: 'Alguém seguiu seu perfil'

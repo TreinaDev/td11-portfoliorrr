@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %w[show edit update pin]
   before_action :authorize!, only: %w[edit update pin]
   before_action :blocks_update, only: %w[update]
+  before_action :redirect_if_removed_content, only: %w[show edit update pin]
 
   require 'image_processing/mini_magick'
 
@@ -71,5 +72,11 @@ class PostsController < ApplicationController
 
   def blocks_update
     redirect_to root_path, alert: t('.error') if @post.published? && @post.published_at && post_params['published_at']
+  end
+
+  def redirect_if_removed_content
+    return if current_user&.admin?
+
+    redirect_to root_path, alert: t('.redirect_alert.invalid_user') if @post.removed?
   end
 end

@@ -77,6 +77,14 @@ class User < ApplicationRecord
     destroy
   end
 
+  def active_for_authentication?
+    super && !profile.removed?
+  end
+
+  def inactive_message
+    I18n.t('reports.removed_account')
+  end
+
   private
 
   def subscribe_likes_mailer_job
@@ -84,7 +92,7 @@ class User < ApplicationRecord
   end
 
   def validate_citizen_id_number
-    errors.add(:citizen_id_number, 'inválido') unless CPF.valid?(citizen_id_number)
+    errors.add(:citizen_id_number, I18n.t('users.model.invalid_cpf')) unless CPF.valid?(citizen_id_number)
   end
 
   def transfer_posts_and_comments_to(clone)
