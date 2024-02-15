@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_14_134106) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_15_115912) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -49,14 +49,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_134106) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "billings", force: :cascade do |t|
+    t.integer "subscription_id", null: false
+    t.date "billing_date", null: false
+    t.decimal "amount", precision: 8, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscription_id"], name: "index_billings_on_subscription_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "message"
     t.integer "post_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "old_message"
     t.integer "status", default: 0
+    t.text "old_message"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -162,7 +171,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_134106) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-13 03:11:57"
+    t.datetime "edited_at"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
@@ -313,6 +322,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_134106) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "status", default: 0
+    t.date "start_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -366,6 +384,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_134106) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "billings", "subscriptions"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "connections", "profiles", column: "followed_profile_id"
@@ -387,5 +406,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_134106) do
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "taggings", "tags"
 end

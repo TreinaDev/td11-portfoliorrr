@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :professional_infos, through: :profile
   has_many :education_infos, through: :profile
   has_many :invitation_requests, through: :profile
+  has_one :subscription, dependent: :destroy
 
   enum role: { user: 0, admin: 10 }
 
@@ -24,6 +25,7 @@ class User < ApplicationRecord
   after_create :'create_profile!'
   after_create :subscribe_likes_mailer_job
   after_create :update_search_name
+  after_create :create_subscription
 
   def description
     if admin?

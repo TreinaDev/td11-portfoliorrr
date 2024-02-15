@@ -10,5 +10,17 @@ FactoryBot.define do
         user.class.skip_callback(:create, :after, :create_profile!, raise: false)
       end
     end
+
+    trait :free do
+      after(:create) do |user|
+        user.subscription.inactive!
+      end
+    end
+
+    trait :paid do
+      after(:create) do |user|
+        user.subscription.active!
+      end
+    end
   end
 end
