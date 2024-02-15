@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe InvitationRequestService::InvitationRequest do
-  context '.send' do
+  context '.list' do
     it 'retorna array de objetos com informações completas do convite' do
       user = create(:user)
 
@@ -22,7 +22,7 @@ RSpec.describe InvitationRequestService::InvitationRequest do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      result = InvitationRequestService::InvitationRequest.send(requests)
+      result = InvitationRequestService::InvitationRequest.list(requests)
 
       expect(result.class).to eq Array
       expect(result.count).to eq 2
@@ -46,7 +46,7 @@ RSpec.describe InvitationRequestService::InvitationRequest do
     it 'retorna um array vazio quando não há solicitações de convite' do
       requests = []
 
-      result = InvitationRequestService::InvitationRequest.send(requests)
+      result = InvitationRequestService::InvitationRequest.list(requests)
 
       expect(result.class).to eq Array
       expect(result).to be_empty

@@ -6,7 +6,7 @@ class RequestInvitationJob < ApplicationJob
   end
 
   def perform(invitation_request:)
-    data = invitation_request.create_json_for_proposal_request
+    data = { invitation_request_id: invitation_request.id }.as_json
     response = Faraday.new(url: 'http://localhost:4000', params: data).get('/api/v1/projects/request_invitation')
     return raise Exceptions::PortfoliorrrAPIOffline if response.status == :internal_server_error
 
