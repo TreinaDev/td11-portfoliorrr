@@ -12,22 +12,34 @@ FactoryBot.define do
       position { %w[programador estagiário gerente].sample }
     end
 
-    trait :first_seed do
+    trait :first_job do
       company { Faker::Company.name }
       position { Faker::Job.position }
+      description { Faker::Lorem.sentences(number: 6)}
       profile
       start_date { Faker::Date.backward(days: Time.zone.today - profile.personal_info.birth_date + 5840) }
       end_date { Faker::Date.between(from: start_date, to: start_date.advance(months: rand(2..120))) }
     end
 
-    trait :seed do
+    trait :seed_job do
       company { Faker::Company.name }
       position { Faker::Job.position }
+      description { Faker::Lorem.sentences(number: 6)}
       start_date do
         Faker::Date.between(from: profile.professional_infos.last.end_date,
                             to: profile.professional_infos.last.end_date.advance(months: rand(2..12)))
       end
       end_date { Faker::Date.between(from: start_date, to: start_date.advance(months: rand(2..120))) }
+    end
+
+    trait :current_job do
+      company { Faker::Company.name }
+      position { Faker::Job.position }
+      description { Faker::Lorem.sentences(number: 6)}
+      profile
+      start_date { Faker::Date.backward(days: Time.zone.today - profile.personal_info.birth_date + 5840) }
+      end_date { }
+      current_job { true }
     end
   end
 end
