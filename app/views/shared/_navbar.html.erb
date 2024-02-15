@@ -34,13 +34,7 @@
               <%= link_to "#{current_user.description}", current_user.profile, class: 'nav-link' %>
             </li>
             <li class="dropdown-item">
-              <%= link_to t('projects.model.other'), projects_path, class: 'nav-link' %>
-            </li>
-            <li class="dropdown-item">
               <%= link_to Invitation.model_name.human(count: 2), invitations_path, class: 'nav-link' %>
-            </li>
-            <li class="dropdown-item">
-              <%= link_to 'Solicitações de Convites', invitation_requests_path, class: 'nav-link' %>
             </li>
             <li class="dropdown-item">
               <%= link_to notifications_path, class: 'nav-link' do %>
@@ -66,6 +60,16 @@
             </li>
             <li class="dropdown-item" href="#">
               <%= link_to t('settings.index.settings'), profile_settings_path(current_user.profile), class: 'nav-link' %>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li class="dropdown-item" href="#">
+              <%= link_to Subscription.model_name.human, subscriptions_path, class: 'nav-link text-primary' %>
+            </li>
+            <li class="dropdown-item">
+              <%= link_to t('projects.model.other'), projects_path, class: 'nav-link text-primary' %>
+            </li>
+            <li class="dropdown-item">
+              <%= link_to InvitationRequest.model_name.human(count: 2), invitation_requests_path, class: 'nav-link text-primary' %>
             </li>
             <li class="dropdown-item" href="#">
               <%= button_to t('log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-danger w-100' %>
