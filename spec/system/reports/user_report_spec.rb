@@ -167,6 +167,7 @@ describe 'Usuário denuncia' do
       login_as user, scope: :user
       visit profile_path(reported_user.profile)
 
+      click_button id: 'report-profile-dropdown'
       click_on 'Denunciar'
       fill_in 'Mensagem', with: 'Isso é discurso de ódio'
       select 'Discurso de ódio', from: 'Tipo de ofensa'
