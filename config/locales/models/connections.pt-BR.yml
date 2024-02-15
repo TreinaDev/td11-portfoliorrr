@@ -32,4 +32,4 @@ pt-BR:
       subject: 'Alguém seguiu seu perfil'
       greeting: Olá, %{recipient}!
       access_profile: para acessar seu perfil e continuar interagindo.
-      regards: Abraços
+      regards: Abraços,
