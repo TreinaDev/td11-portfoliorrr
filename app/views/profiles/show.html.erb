@@ -25,7 +25,6 @@
         <%= render partial: 'posts/listing', locals: { posts: @posts.unpinned.order(created_at: :desc) } %>
       </section>
     </div>
-
   </div>
 
   <div class="col-md-5">
@@ -34,7 +33,9 @@
         <div class="w-100">
           <div class="bg-primary mb-4 rounded-top d-flex flex-column profile-header">
             <div class="profile-card-body">
-              <%= render partial: 'profile_photo', locals: { profile: @profile } %>
+              <div class="ratio ratio-1x1 rounded-circle overflow-hidden w-25 mx-auto">
+                <%= render partial: 'profile_photo', locals: { profile: @profile } %>
+              </div>
               <h2><%= @user.full_name %></h2>
               <p><%= @user.email %></p>
             </div>

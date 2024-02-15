@@ -43,7 +43,9 @@
         <% if user_signed_in? %>
           <button class="btn dropdown-toggle mx-5" data-bs-toggle="dropdown" aria-expanded="false">
             <% if current_user.profile.photo_attachment %>
-              <%= image_tag current_user.profile.photo_attachment, width: '55rem', alt: 'Foto de perfil', class: 'profile-picture rounded rounded-circle px-2' %>
+            <div class="dropdown-profile-picture ratio ratio-1x1 rounded-circle overflow-hidden">
+              <%= image_tag current_user.profile.photo_attachment, width: '55rem', alt: 'Foto de perfil', class: 'img-cover rounded rounded-circle' %>
+            </div>
             <% else %>
               <%= image_tag 'default_portfoliorrr_photo.png', width: '55rem', alt: 'Foto de perfil', class: 'profile-picture rounded rounded-circle px-2' %>
             <% end %>

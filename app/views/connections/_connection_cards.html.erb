@@ -2,7 +2,9 @@
   <div class="card-body row justify-content-center align-items-center">
     <div class="col-md-3 col-sm-3 profile-image">
       <% if connection_profile.photo.present? %>
-        <%= image_tag connection_profile.photo_attachment, width: '85rem', alt: 'Foto de perfil', class: 'profile-picture rounded rounded-circle px-2' %>
+        <div class="ratio ratio-1x1 rounded-circle overflow-hidden">
+          <%= image_tag connection_profile.photo_attachment, width: '85rem', alt: 'Foto de perfil', class: 'img-cover profile-picture rounded rounded-circle px-2' %>
+        </div>
       <% else %>
         <%= image_tag 'default_portfoliorrr_photo.png', width: '85rem', alt: 'Foto de perfil', class: 'profile-picture rounded rounded-circle px-2' %>
       <% end %>
