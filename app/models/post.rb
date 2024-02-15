@@ -40,6 +40,11 @@ class Post < ApplicationRecord
     end
   end
 
+  def published!
+    super
+    update(published_at: Time.current)
+  end
+
   private
 
   def create_notification_to_followers

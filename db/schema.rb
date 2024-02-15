@@ -55,8 +55,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "old_message"
     t.integer "status", default: 0
+    t.text "old_message"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -162,7 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at", default: "2024-02-13 03:11:57"
+    t.datetime "edited_at"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
@@ -204,6 +204,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.integer "status", default: 5
     t.boolean "removed", default: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "comment_id", null: false
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_replies_on_comment_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -390,6 +400,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
   add_foreign_key "profile_job_categories", "job_categories"
   add_foreign_key "profile_job_categories", "profiles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "replies", "comments"
+  add_foreign_key "replies", "users"
   add_foreign_key "reports", "profiles"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
