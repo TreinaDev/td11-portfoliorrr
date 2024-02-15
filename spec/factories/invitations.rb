@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :invitation do
     profile
+    project_id { 1 }
     project_title { 'Projeto Cola?Bora!' }
     project_description { 'Um projeto muito legal' }
     project_category { 'Ruby on Rails' }

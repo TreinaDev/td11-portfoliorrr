@@ -55,8 +55,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status", default: 0
     t.text "old_message"
+    t.integer "status", default: 0
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -107,6 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id", null: false
     t.index ["profile_id"], name: "index_invitations_on_profile_id"
   end
 
@@ -161,7 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at"
+    t.datetime "edited_at", default: "2024-02-13 03:11:57"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
@@ -201,6 +202,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.integer "work_status", default: 10
     t.integer "privacy", default: 10
     t.integer "status", default: 5
+    t.boolean "removed", default: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

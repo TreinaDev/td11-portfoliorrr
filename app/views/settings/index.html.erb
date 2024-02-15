@@ -28,7 +28,7 @@
 		<%= form_with(url: deactivate_profile_path, method: :patch) do |form| %>
 			<%= form.submit t('.arquive_btn'),
 				class: "btn btn-danger",
-				data: { turbo_confirm: I18n.t('.turbo_arquive_warning') }
+				data: { turbo_confirm: I18n.t('settings.index.turbo_arquive_warning') }
 			%>
 		<% end %>
 	</div>
@@ -37,7 +37,7 @@
 		<%= form_with(url: delete_account_path, method: :delete) do |form| %>
 			<%= form.submit t('.delete_btn'),
 				class: "btn btn-danger",
-				data: { turbo_confirm: I18n.t('.turbo_delete_warning') }
+				data: { turbo_confirm: I18n.t('settings.index.turbo_delete_warning') }
 			%>
 		<% end %>
 	</div>

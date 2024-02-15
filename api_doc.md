@@ -305,6 +305,7 @@ Corpo da requisição:
 {
   "invitation": {
                   "profile_id": 3,
+                  "project_id": 5,
                   "project_title": "Projeto Cola?Bora!",
                   "project_description": "Projeto Legal",
                   "project_category": "Tecnologia",

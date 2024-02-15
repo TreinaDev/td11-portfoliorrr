@@ -78,6 +78,14 @@ class User < ApplicationRecord
     destroy
   end
 
+  def active_for_authentication?
+    super && !profile.removed?
+  end
+
+  def inactive_message
+    I18n.t('reports.removed_account')
+  end
+
   private
 
   def subscribe_likes_mailer_job

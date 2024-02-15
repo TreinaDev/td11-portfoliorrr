@@ -24,7 +24,11 @@ Rails.application.routes.draw do
   resources :subscriptions, only: %i[index update]
 
   resources :reports, only: %i[index new create show] do
-    post 'reject', 'remove_content', on: :member
+    member do
+      post 'reject'
+      post 'remove_content'
+      post 'remove_profile'
+    end
   end
 
   resources :posts, only: %i[] do

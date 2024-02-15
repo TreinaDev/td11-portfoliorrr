@@ -1,5 +1,6 @@
 module InvitationRequestService
   COLABORA_PROJECTS_URL = 'http://localhost:3000/api/v1/projects'.freeze
+  COLABORA_INVITATIONS_BASE_URL = 'http://localhost:3000/api/v1/invitations'.freeze
 
   class ColaboraProject
     def self.send
