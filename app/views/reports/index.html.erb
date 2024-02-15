@@ -30,7 +30,7 @@
             <tr>
               <td><%= report.offence_type %></td>
               <td><%= report.truncated_message %></td>
-              <td><%= I18n.t (report.reportable_type) %></td>
+              <td><%= report.reportable.class.model_name.human %></td>
               <td><%= link_to t('.action'), report_path(report), class: "see_more btn btn-sm btn-secondary"%></td>
             </tr>
           <% end %>
