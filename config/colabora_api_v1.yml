@@ -1,0 +1,9 @@
+development:
+  base_url: 'http://localhost:3000'
+  projects_url: '/api/v1/projects'
+  proposals_url: '/api/v1/proposals'
+
+test:
+  base_url: 'http://localhost:3000'
+  projects_url: '/api/v1/projects'
+  proposals_url: '/api/v1/proposals'

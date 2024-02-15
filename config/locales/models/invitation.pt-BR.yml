@@ -32,5 +32,8 @@ pt-BR:
 
   invitations_mailer:
     received_invitation:
+      greeting: Olá, %{recipient}!
       subject: 'Você recebeu um convite'
-    body: Você recebeu um convite para participar do projeto %{title}.
+      body: Você recebeu um convite para participar do projeto %{title}.
+      access_invitations: para ver seus convites e aceitá-los.
+      regards: Abraços,

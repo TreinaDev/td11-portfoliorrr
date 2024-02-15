@@ -38,5 +38,11 @@ module Portfoliorrr
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # ColaBora API configurations
+    config.colabora_api_v1 = config_for(:colabora_api_v1)
+
+    # Portfoliorrr API configurations
+    config.portfoliorrr_api_v1 = config_for(:portfoliorrr_api_v1)
   end
 end
