@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_15_195415) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -49,14 +49,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "advertisements", force: :cascade do |t|
+    t.string "link", null: false
+    t.integer "display_time", default: 0
+    t.integer "view_count", default: 0
+    t.string "title", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_advertisements_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "message"
     t.integer "post_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status", default: 0
     t.text "old_message"
+    t.integer "status", default: 0
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -162,7 +173,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pin", default: 0
-    t.datetime "edited_at"
+    t.datetime "edited_at", default: "2024-02-13 01:41:27"
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
@@ -385,6 +396,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_151256) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "advertisements", "users"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "connections", "profiles", column: "followed_profile_id"

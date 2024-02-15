@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      advertisement:
+        one: Anúncio
+        other: Anúncios
+    attributes:
+      advertisement:
+        title: Título
+        link: Link
+        image: Imagem
+        view_count: Visualizações
+        display_time: Prazo (em dias)
+  advertisements:
+    create:
+      success: Anúncio criado com sucesso

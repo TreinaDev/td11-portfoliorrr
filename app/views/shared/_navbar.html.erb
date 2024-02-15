@@ -71,6 +71,11 @@
             <li class="dropdown-item">
               <%= link_to InvitationRequest.model_name.human(count: 2), invitation_requests_path, class: 'nav-link text-primary' %>
             </li>
+            <% if current_user.admin? %>
+              <li class="dropdown-item">
+                <%= link_to t('ads_btn'), advertisements_path, class: 'nav-link text-primary' %>
+              </li>
+            <% end %>
             <li class="dropdown-item" href="#">
               <%= button_to t('log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-danger w-100' %>
             </li>
