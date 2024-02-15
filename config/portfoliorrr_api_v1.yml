@@ -1,0 +1,9 @@
+development:
+  base_url: 'http://localhost:4000'
+  invitations_url: '/api/v1/invitations/'
+  request_invitation_url: '/api/v1/projects/request_invitation'
+
+test:
+  base_url: 'http://localhost:4000'
+  invitations_url: '/api/v1/invitations/'
+  request_invitation_url: '/api/v1/projects/request_invitation'
