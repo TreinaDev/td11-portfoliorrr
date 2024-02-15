@@ -9,6 +9,6 @@ class NotificationsController < ApplicationController
   def update
     notification = Notification.find(params[:id])
     notification.clicked!
-    redirect_to NotificationDecorator.new(notification).redirect_after_click
+    redirect_to NotificationStrategy.new(notification).redirect_after_click
   end
 end
