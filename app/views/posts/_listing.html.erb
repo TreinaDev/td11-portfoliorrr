@@ -1,5 +1,5 @@
 <% posts.each do |post| %>
-  <div class="feed-post mb-3 p-3 rounded row bg-white" id="post-list">
+  <div class="feed-post mb-3 p-3 rounded row bg-white border" id="post-list">
     <%= link_to post, class: "text-decoration-none link-dark col-md-10" do %>
       <div class="card-body">
         <h4 class="text-break text-primary text-center"><%= post.title %></h4>

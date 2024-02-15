@@ -1,7 +1,21 @@
 <div class="container">
   <% if user_signed_in? %>
     <div class="row">
-      <button class="btn btn-primary w-75 mb-3 fs-5"> Crie você sua publicação +</button>
+      <div class="px-0 border w-75 border bg-white rounded mb-2 d-flex align-items-center justify-content-center">
+          <%= link_to current_user.profile, class: 'd-flex justify-content-center w-25' do %>
+            <% if current_user.profile.photo.present? && current_user.profile.valid? %>
+              <%= image_tag current_user.profile.photo, alt: t('.alt_text'), class: 'rounded-circle home-profile-picture my-3 w-50' %>
+            <% else %>
+              <%= image_tag 'default_portfoliorrr_photo.png', alt: t('.alt_text'), class: 'rounded-circle home-profile-picture my-3 w-50' %>
+            <% end %>
+          <% end %>
+        <div>
+          <%= button_to new_post_path, data: { turbo: false }, method: :get, class: 'btn btn-outline-primary rounded-5 py-3 home-publication-button mt-2 fw-bold' do %>
+            <span class="mx-3 text-decoration-underline"><%=t('posts.new.new_post_home')%></span>
+          <% end %>
+        </div>
+      </div>
+
       <section class="col-md-9 y-5">
         <% if current_user.profile.followed_count > 0 %>
           <% if @followed_posts.any? %>
@@ -24,9 +38,9 @@
 
       <aside class="col-md-3">
         <div class="most-followed-users">
-          <h3 class="most-followed-title bg-white text-center py-4 my-0"> <%= t('.most_followed') %> </h3>
+          <h3 class="home-cards-title bg-white text-center py-4 my-0 rounded-1"> <%= t('.most_followed') %> </h3>
           <% @most_followed.each do |profile| %>
-            <div class="bg-white text-center most-followed-cards my-0 py-0">
+            <div class="bg-white text-center home-cards my-0 py-0 rounded-1">
               <%= link_to profile_path(profile), class: 'row' do %>
                 <% if profile.photo.present? && profile.valid? %>
                   <%= image_tag profile.photo, alt: t('.alt_text'), width: '70rem', class: 'img-cover rounded-circle mx-auto mt-2 col-md-4' %>
@@ -40,6 +54,16 @@
               <% end %>
             </div>
           <% end %>
+        </div>
+        <div>
+          <h3 class="text-center home-cards-title bg-white text-center py-4 my-0 rounded-1 mt-4">Pode te interessar</h3>
+          <div class="d-flex flex-column">
+            <% get_tags(10).uniq.each do |tag| %>
+              <%= link_to searches_path(query: "##{tag}"), class:"bg-white text-center home-cards my-0 py-0 rounded-1" do %>
+                <h6>#<%= tag %></h6>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       </aside>
     </div>

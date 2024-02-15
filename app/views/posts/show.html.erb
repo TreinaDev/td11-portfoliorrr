@@ -4,10 +4,12 @@
     <div class="my-4">
       <% if current_user == @post.user %>
         <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary py-0', data: { turbo: false } %>
+        <%= Post.human_attribute_name @post.status %>
       <% else %>
         <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
+
  
 
     <h6 class="card-subtitle mb-2">
@@ -41,19 +43,30 @@
       <% end %>
     </p>
 
-    <div class="btn-group">
-      <div class="me-2 mt-2">
+    <div class="btn-group d-flex justify-content-between">
+      <div class="me-2 mt-2 d-flex align-items-center">
         <%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %>
+        <% if @liked %>
+          <%= button_to post_like_path(@post, @liked), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+            <%= image_tag 'thumbs-up-solid', width: '20rem' %>
+          <% end %>
+        <% else %>
+          <%= button_to post_likes_path(@post), method: :post, class: 'btn btn-sm', id: 'like' do %>
+            <%= image_tag 'thumbs-up-regular', width: '20rem' %>
+          <% end %>
+        <% end %>
       </div>
-      <% if @liked %>
-        <%= button_to post_like_path(@post, @liked), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
-          <%= image_tag 'thumbs-up-solid', width: '20rem' %>
-        <% end %>
-      <% else %>
-        <%= button_to post_likes_path(@post), method: :post, class: 'btn btn-sm', id: 'like' do %>
-          <%= image_tag 'thumbs-up-regular', width: '20rem' %>
-        <% end %>
-      <% end %>
+      <div class="dropdown">
+        <button type="button" class="btn btn-outline-primary rounded-5" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+          <%= image_tag 'share' %> <%= t('posts.share')%>
+        </button>
+        <form class="dropdown-menu p-4">
+          <div class="mb-3 share-link">
+            <label for="dropdownShare" class="form-label">Link</label>
+            <input type="text" class="form-control" id="dropdownShare" value = <%= request.url %>>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

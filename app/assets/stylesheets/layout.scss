@@ -1,5 +1,10 @@
+:root{
+  font-size: 0.8rem;
+}
+
 body{
   min-width: 400px;
+  background-color: #F6F7F8 !important;
 }
 
 ul{
@@ -29,17 +34,38 @@ input[type="checkbox"]:checked {
 
 .most-followed-users{
   size: 22rem;
+  margin-top: 0.15rem;
 }
 
-.most-followed-title{
+.home-cards-title{
   margin-bottom: 2px !important;
 }
 
-.most-followed-cards{
+.home-cards{
   padding: 1rem !important;
   margin-bottom: 2px !important;
 }
 
-.most-followed-cards a{
+.home-cards a{
   text-decoration: none !important;
+}
+
+.highlighted {
+  transform: scale(1.01s);
+  background-color: hsla(256, 85%, 82%, 0.2);
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+  transition: 
+              transform 1.5s ease-in-out,
+              box-shadow 1.5s ease-in-out,
+              background-color 1.5s ease-in-out;
+}
+
+[id^='comment_'] {
+  transform: reset;
+  background-color: reset;
+  box-shadow: reset;
+  transition: 
+              transform 1s ease-in-out,
+              box-shadow 1s ease-in-out,
+              background-color 1s ease-in-out;
 }

@@ -61,7 +61,8 @@ pt-BR:
       edit_post: Editar Publicação
     new:
       new_post: Criar Nova Publicação
-
+      new_post_home: Começar publicação
+    share: Compartilhar
     helpers:
       created_at: 'Criado em: '
       scheduled_for: 'Agendado para: '
