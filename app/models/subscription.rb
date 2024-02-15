@@ -1,13 +1,14 @@
 class Subscription < ApplicationRecord
+  SUBSCRIPTION_AMOUNT = 19.90
   belongs_to :user
   has_many :billings, dependent: :destroy
 
   enum status: { inactive: 0, active: 10 }
 
-  after_update :enqueue_billing_job, if: :active? && :saved_change_to_status?
+  after_update :create_billing, if: :active? && :saved_change_to_status?
 
   def active!
-    self.start_date = Time.zone.now
+    self.start_date = Time.zone.now.to_date
     super
   end
 
@@ -18,8 +19,15 @@ class Subscription < ApplicationRecord
 
   private
 
-  def enqueue_billing_job
-    billing_date = start_date.to_datetime + 1.month
-    BillingJob.set(wait_until: billing_date).perform_later(self)
+  def create_billing
+    return if start_date.nil?
+
+    billing_date = if start_date.day < 29
+                     start_date + 1.month
+                   else
+                     start_date.next_month.beginning_of_month + 1.month
+                   end
+
+    billings.create(billing_date:, amount: SUBSCRIPTION_AMOUNT)
   end
 end

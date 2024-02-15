@@ -10,8 +10,6 @@ RSpec.describe BillingJob, type: :job do
 
       perform_enqueued_jobs
 
-      debugger
-
       expect(Billing.count).to eq 1
     end
   end

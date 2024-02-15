@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Subscription, type: :model do
   describe '#active!' do
     it 'atualiza data de início automaticamente' do
-      subscription = create(:subscription, status: :inactive, start_date: nil)
+      user = create(:user, :free)
+      subscription = user.subscription
 
       subscription.active!
 
@@ -14,7 +15,8 @@ RSpec.describe Subscription, type: :model do
 
   describe '#active!' do
     it 'atualiza data de início automaticamente' do
-      subscription = create(:subscription, status: :active, start_date: Time.zone.now)
+      user = create(:user, :free)
+      subscription = user.subscription
 
       subscription.inactive!
 
