@@ -1,6 +1,6 @@
 module ProjectsService
-  COLABORA_BASE_URL = 'http://localhost:3000'.freeze
-  COLABORA_API_V1_PROJECTS_URL = '/api/v1/projects'.freeze
+  COLABORA_BASE_URL = Rails.configuration.colabora_api_v1.base_url
+  COLABORA_API_V1_PROJECTS_URL = Rails.configuration.colabora_api_v1.projects_url
 
   class ColaBoraProject
     def self.send

@@ -1,10 +1,9 @@
 module InvitationRequestService
   include ProjectsService
 
-  COLABORA_BASE_URL = 'http://localhost:3000'.freeze
-  COLABORA_API_V1_PROJECTS_URL = '/api/v1/projects'.freeze
-  COLABORA_API_V1_PROPOSALS_URL = '/api/v1/proposals'.freeze
-  COLABORA_API_V1_INVITATIONS_BASE_URL = '/api/v1/invitations'.freeze
+  COLABORA_BASE_URL = Rails.configuration.colabora_api_v1.base_url
+  COLABORA_API_V1_PROJECTS_URL = Rails.configuration.colabora_api_v1.projects_url
+  COLABORA_API_V1_PROPOSALS_URL = Rails.configuration.colabora_api_v1.proposals_url
 
   class InvitationRequest
     def self.list(requests)
