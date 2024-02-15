@@ -1,4 +1,4 @@
-<% posts.each do |post| %>
+<% posts.each_with_index do |post, index| %>
   <div class="feed-post shadow mb-4 p-3 rounded row" id="post-list">
     <%= link_to post, class: "text-decoration-none link-dark col-md-10" do %>
       <div class="card-body">
@@ -37,4 +37,7 @@
       </div>
     <% end %>
   </div>
+  <% if (index+1) % 5 == 0 %>
+    <%= render partial: 'advertisements/advertisement', locals: { advertisement: Advertisement.displayed.first } %>
+  <% end %>
 <% end %>

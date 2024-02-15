@@ -1,0 +1,7 @@
+<div id="advertisement_<%= advertisement.id %>">
+
+  <%= link_to advertisement.title, advertisement.link, class: 'advertisement' %>
+
+  <%= image_tag advertisement.image if advertisement.image.present? %>
+
+</div>

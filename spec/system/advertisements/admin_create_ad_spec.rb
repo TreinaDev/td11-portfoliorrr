@@ -37,8 +37,6 @@ describe 'Administrador cadastra um anúncio' do
     end
   end
 
-  pending 'Visualizar o anúncio pela listagem'
-
   pending 'e visitante visualzia anúncio no feed'
 
   pending 'e view_count atualiza quando o anúncio é clicado'
