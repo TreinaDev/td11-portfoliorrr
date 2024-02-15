@@ -22,7 +22,7 @@ describe 'Usuário vê notificação de novo seguidor' do
     visit notifications_path
     click_on 'Paulo começou a seguir você'
 
-    expect(page).to have_current_path profile_path(follower)
+    expect(page).to have_current_path profile_path(follower.profile.slug)
     expect(Notification.last).to be_clicked
   end
 end

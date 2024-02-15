@@ -12,7 +12,7 @@ describe 'Usuário deixa de seguir outro usuário' do
     click_on 'Deixar de Seguir'
 
     follower_relationship = Connection.last
-    expect(current_path).to eq profile_path(followed.profile)
+    expect(page).to have_current_path profile_path(followed.profile)
     expect(follower_relationship).to be_inactive
     expect(page).to have_content("Você deixou de seguir #{followed.full_name}")
     expect(page).to have_button('Seguir', exact: true)

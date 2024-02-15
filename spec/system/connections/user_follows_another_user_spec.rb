@@ -17,7 +17,7 @@ describe 'Usuário segue outro usuário' do
     expect(mail).to have_received(:deliver_later)
 
     expect(Connection.count).to eq 1
-    expect(current_path).to eq profile_path(followed)
+    expect(page).to have_current_path profile_path(followed.profile.slug)
     expect(page).to have_content('Agora você está seguindo Eliseu Ramos')
     expect(page).not_to have_button('Seguir', exact: true)
     expect(page).to have_button('Deixar de Seguir', exact: true)
@@ -28,7 +28,7 @@ describe 'Usuário segue outro usuário' do
 
     visit profile_path(followed.profile)
 
-    expect(current_path).to eq new_user_session_path
+    expect(page).to have_current_path new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
 
@@ -43,7 +43,7 @@ describe 'Usuário segue outro usuário' do
     click_on 'Seguir'
 
     follower_relationship = Connection.last
-    expect(current_path).to eq profile_path(followed.profile)
+    expect(page).to have_current_path profile_path(followed.profile)
     expect(follower_relationship).to be_active
     expect(page).to have_content('Agora você está seguindo Eliseu Ramos')
     expect(page).to have_button('Deixar de Seguir', exact: true)

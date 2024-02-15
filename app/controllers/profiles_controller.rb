@@ -50,7 +50,7 @@ class ProfilesController < ApplicationController
   end
 
   def set_profile_and_posts
-    @profile = Profile.find(params[:id])
+    @profile = Profile.friendly.find(params[:id])
     @posts = current_user == @profile.user ? @profile.posts : @profile.posts.published
   end
 
