@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     post 'pin', on: :member
   end
 
-  resources :subscriptions, only: %i[index show update]
+  resources :subscriptions, only: %i[index update]
 
   resources :reports, only: %i[index new create show] do
     post 'reject', 'remove_content', on: :member

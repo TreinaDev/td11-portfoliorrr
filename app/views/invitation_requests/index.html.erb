@@ -2,7 +2,7 @@
 
 <% if current_user.subscription.inactive? %>
   <div class="text-center become-premium-div mt-5">
-    <h2 class="become-premium-text"><%= t('subscriptions.become') %> <%= link_to t('subscriptions.subscriber'), subscriptions_path %> <%= t('subscriptions.see_and_request') %></h2 class="become-premium-text">
+    <h2 class="become-premium-text"><%= t('subscriptions.become') %> <%= link_to t('subscriptions.subscriber'), subscriptions_path %> <%= t('subscriptions.see_and_request') %></h2>
   </div>
 <% else %>
   <div class="container">

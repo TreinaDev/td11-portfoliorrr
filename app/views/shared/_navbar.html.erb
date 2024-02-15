@@ -63,7 +63,7 @@
             </li>
             <div class="dropdown-divider"></div>
             <li class="dropdown-item" href="#">
-              <%= link_to Subscription.model_name.human, subscriptions_path(current_user.subscription), class: 'nav-link text-primary' %>
+              <%= link_to Subscription.model_name.human, subscriptions_path, class: 'nav-link text-primary' %>
             </li>
             <li class="dropdown-item">
               <%= link_to t('projects.model.other'), projects_path, class: 'nav-link text-primary' %>
