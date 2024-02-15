@@ -14,7 +14,7 @@
             <p class="card-text fw-bold"><%= job.position %> | <%= job.company %></p>
           <% end %>
         <% else %>
-          <p class="card-text fw-bold"><%= t Profile.human_attribute_name("work_status.#{connection_profile.work_status}") %></p>
+          <p class="card-text fw-bold"><%= connection_profile.cover_letter%></p>
         <% end %>
     </div>
   </div>

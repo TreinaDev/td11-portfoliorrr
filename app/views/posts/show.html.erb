@@ -6,7 +6,7 @@
         <div class="d-flex flex-column">
           <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary py-0', data: { turbo: false } %>
           <%= button_to t('publish_btn'), publish_post_path(@post), method: :patch,
-            class: 'btn btn-primary', data: { turbo: false } if @post.scheduled? %>
+            class: 'btn btn-primary py-0', data: { turbo: false } if @post.scheduled? %>
           <span><%= Post.human_attribute_name @post.status %></span>
         </div>
       <% else %>
@@ -95,7 +95,17 @@
   </div>
   <% @post.comments.each do |comment| %>
     <% if comment.removed?%>
-      <p><%= t('comments.removed_content') %> </p>
+    <footer class="mx-3">
+      <h5>
+        <% if comment.user.profile.photo.present? %>
+          <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
+        <% else %>
+          <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
+        <% end %>
+        <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
+      </h5>
+      <p class="comment-message"><%= t('comments.removed_content') %> </p>
+    </footer>
     <% else %>
       <div class="card-body" id="<%= dom_id(comment) %>">
         <footer>

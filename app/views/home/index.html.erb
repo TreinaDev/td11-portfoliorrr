@@ -56,7 +56,7 @@
           <% end %>
         </div>
         <div>
-          <h3 class="text-center home-cards-title bg-white text-center py-4 my-0 rounded-1 mt-4">Pode te interessar</h3>
+          <h3 class="text-center home-cards-title bg-white text-center py-4 my-0 rounded-1 mt-4">Publicado recentemente</h3>
           <div class="d-flex flex-column">
             <% get_tags(10).uniq.each do |tag| %>
               <%= link_to searches_path(query: "##{tag}"), class:"bg-white text-center home-cards my-0 py-0 rounded-1" do %>

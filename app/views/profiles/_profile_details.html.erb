@@ -1,15 +1,14 @@
 <div>
   <% user_is_owner = profile.user == current_user %>
   <br>
-  <div class="border p-3 rounded mb-3 bg-white">
-    <div class="d-flex gap-1">
-      <%= image_tag 'about-icon', width: '23rem', class: 'mb-2'  %>
-      <h4><%= Profile.human_attribute_name(:cover_letter) %></h4>
-    </div>
-    <p class="profile-info-content pb-0 mb-0"><%= profile.cover_letter %></p>
-  </div>
-
   <% if profile.personal_info[:visibility] || user_is_owner %>
+    <div class="border p-3 rounded mb-3 bg-white">
+      <div class="d-flex gap-1">
+        <%= image_tag 'about-icon', width: '23rem', class: 'mb-2'  %>
+        <h4><%= Profile.human_attribute_name(:cover_letter) %></h4>
+      </div>
+      <p class="profile-info-content pb-0 mb-0"><%= profile.cover_letter %></p>
+    </div>
     <div class="border p-3 rounded mb-3 bg-white">
       <div class="d-flex gap-1">
         <%= image_tag 'person-fill', width: '28rem', class: 'mb-2' %>
@@ -24,55 +23,54 @@
     </div>
   <% end %>
 
-  <div class="border p-3 rounded mb-3 bg-white">
-    <% if profile.professional_infos.visibles_list.any? || user_is_owner %>
+  <% if profile.professional_infos.visibles_list.any? || user_is_owner %>
+    <div class="border p-3 rounded mb-3 bg-white">
       <div class="d-flex gap-1">
         <%= image_tag 'briefcase-solid', width: '24rem', class: 'mb-2 mx-1' %>
         <h3><%= ProfessionalInfo.model_name.human %></h3>
       </div>
-    <% end %>
-    
-    <p>
-      <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path, class:'btn btn-primary rounded-5 mt-3' if user_is_owner %>
-    </p>
-    <% professional_infos.each do |professional_info| %>
-      <% if professional_info.visibility || user_is_owner %>
-        <% if user_is_owner %>
-          <li class="fs-5 mb-3">
-            <span class="fw-semibold"><%= t(professional_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
-            <% if user_is_owner %>
-              <%= link_to edit_professional_info_path(professional_info), id: 'edit-professional-info', class:'edit-button btn btn-outline-info border-0 p-2 rounded-5' do %>
-                <%= image_tag 'pencil-square', width: '20 rem' %>
+      <p>
+        <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path, class:'btn btn-primary rounded-5 mt-3' if user_is_owner %>
+      </p>
+      <% professional_infos.each do |professional_info| %>
+        <% if professional_info.visibility || user_is_owner %>
+          <% if user_is_owner %>
+            <li class="fs-5 mb-3">
+              <span class="fw-semibold"><%= t(professional_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
+              <% if user_is_owner %>
+                <%= link_to edit_professional_info_path(professional_info), id: 'edit-professional-info', class:'edit-button btn btn-outline-info border-0 p-2 rounded-5' do %>
+                  <%= image_tag 'pencil-square', width: '20 rem' %>
+                <% end %>
               <% end %>
-            <% end %>
-          </li>
+            </li>
+          <% end %>
+          <div>
+            <h5 class="fw-semibold profile-info-title"><%= ProfessionalInfo.human_attribute_name(:position) %>: <%= professional_info.position %></h5>
+            <h6 class="profile-info-title">
+              <%= ProfessionalInfo.human_attribute_name(:company) %>: <%= professional_info.company %>
+            </h6>
+          </div>
+          <ul>
+            <li>
+              <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:current_job) %></span>: <%= t(professional_info.current_job) %>
+            </li>
+            <li>
+              <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:description) %></span>: <%= professional_info.description %>
+            </li>
+            <li>
+              <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:start_date) %></span>: <%= l professional_info.start_date if professional_info.start_date%>
+            </li>
+            <li>
+              <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:end_date) %></span>: <%= l professional_info.end_date if professional_info.end_date %>
+            </li>
+          </ul>
         <% end %>
-        <div>
-          <h5 class="fw-semibold profile-info-title"><%= ProfessionalInfo.human_attribute_name(:position) %>: <%= professional_info.position %></h5>
-          <h6 class="profile-info-title">
-            <%= ProfessionalInfo.human_attribute_name(:company) %>: <%= professional_info.company %>
-          </h6>
-        </div>
-        <ul>
-          <li>
-            <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:current_job) %></span>: <%= t(professional_info.current_job) %>
-          </li>
-          <li>
-            <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:description) %></span>: <%= professional_info.description %>
-          </li>
-          <li>
-            <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:start_date) %></span>: <%= l professional_info.start_date if professional_info.start_date%>
-          </li>
-          <li>
-            <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:end_date) %></span>: <%= l professional_info.end_date if professional_info.end_date %>
-          </li>
-        </ul>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
   
-  <div class="border py-1 px-2 rounded mb-3 bg-white">
     <% if profile.education_infos.visibles_list.any? || user_is_owner %>
+    <div class="border py-1 px-2 rounded mb-3 bg-white">
       <div class="d-flex gap-2">
         <%= image_tag 'user-graduate-solid', width: '24rem', class: 'mb-2 mx-1' %>
         <h3><%= EducationInfo.model_name.human %></h3>
@@ -111,8 +109,8 @@
       <% end %>
   </div>
 </div>
-<div id='profile-job-categories' class="border py-1 px-2 rounded mb-3 bg-white">
   <% if profile.profile_job_categories.any? || user_is_owner %> 
+  <div id='profile-job-categories' class="border py-1 px-2 rounded mb-3 bg-white">
     <div class="d-flex gap-1">
       <%= image_tag 'person-working', width: '28rem', class: 'mb-2 mx-1' %>
       <h3><%= t('content.section_title') %></h3>
