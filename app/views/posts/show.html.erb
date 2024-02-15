@@ -69,105 +69,109 @@
     <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
   </div>
   <% @post.comments.each do |comment| %>
-    <div class="card-body" id="<%= dom_id(comment) %>">
-      <footer>
-        <h5>
-          <% if comment.user.profile.photo.present? %>
-            <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'rounded-circle mx-3' %>
-          <% else %>
-            <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'rounded-circle mx-3' %>
-          <% end %>
-          <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
-        </h5>
-        <p class="comment-message"><%= comment.message %></p>
-      </footer>
-      <% if comment.user.deleted_at.nil? %>
-        <div class="btn-group flex-column">
-          <div>
-            <div class="mt-2 me-2">
-              <div class="d-flex align-items-center comment-actions">
-                <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
-                  <% like = comment.likes.find_by(user_id: current_user.id) %>
-                  <%= button_to comment_like_path(comment, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
-                    <%= image_tag 'thumbs-up-solid', width: '20rem', class: 'mb-2' %>
+    <% if comment.removed?%>
+      <p><%= t('comments.removed_content') %> </p>
+    <% else %>
+      <div class="card-body" id="<%= dom_id(comment) %>">
+        <footer>
+          <h5>
+            <% if comment.user.profile.photo.present? %>
+              <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'rounded-circle mx-3' %>
+            <% else %>
+              <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'rounded-circle mx-3' %>
+            <% end %>
+            <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
+          </h5>
+          <p class="comment-message"><%= comment.message %></p>
+        </footer>
+        <% if comment.user.deleted_at.nil? %>
+          <div class="btn-group flex-column">
+            <div>
+              <div class="mt-2 me-2">
+                <div class="d-flex align-items-center comment-actions">
+                  <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+                    <% like = comment.likes.find_by(user_id: current_user.id) %>
+                    <%= button_to comment_like_path(comment, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+                      <%= image_tag 'thumbs-up-solid', width: '20rem', class: 'mb-2' %>
+                    <% end %>
+                  <% else %>
+                    <%= button_to comment_likes_path(comment), method: :post, class: 'btn btn-sm', id: 'like' do %>
+                      <%= image_tag 'thumbs-up-regular', width: '20rem', class: 'mb-2' %>
+                    <% end %>
                   <% end %>
-                <% else %>
-                  <%= button_to comment_likes_path(comment), method: :post, class: 'btn btn-sm', id: 'like' do %>
-                    <%= image_tag 'thumbs-up-regular', width: '20rem', class: 'mb-2' %>
-                  <% end %>
-                <% end %>
-                <span><%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %></span>
-                <button onClick="showForm(<%= comment.id %>)" class="btn btn-outline-primary rounded-5 border-0 mx-2"><%= t('reply')%></button> 
-                <% if current_user != comment.user %>
-                  <div class="report-link-wrapper mt-3">
-                    <p><%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %></p>
-                  </div>
-                <% end %>
-              </div>
-              <div class="reply-form">
-                <%= form_with model: [comment, @reply], method: :post, class:'d-none row align-items-center mt-3', id:"comment-#{comment.id}" do |form| %>
-                  <div class="col-md-12">
-                    <%= form.label :message, class: 'd-none' %>
-                    <%= form.text_area :message, placeholder: 'Adicione uma resposta...', class: 'form-control' %>
-                  </div>
-                  <div class="col-md-6 mt-2">
-                    <%= form.submit t('replies.send'), class: 'btn btn-primary' %>
-                  </div>
-                <% end %>
-              </div>
-              <% if comment.replies.any? %>
-                <button class="btn btn-outline-info border-0 rounded-5 mt-2 dropdown-toggle reply-collapser" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        data-bs-target="#collapseReplies<%= comment.id %>" 
-                        aria-expanded="false" 
-                        aria-controls="collapseReplies<%= comment.id %>">
-                  <%= comment.replies.count %> <%= Reply.model_name.human(count: comment.replies.count) %>
-                </button>
-                <div class="collapse mx-5 mt-3 reply-content" id="collapseReplies<%= comment.id %>">
-                  <% comment.replies.each do |reply| %>
-                    <h6 class="mt-2">
-                      <% if reply.user.profile.photo.present? %>
-                        <%= image_tag reply.user.profile.photo, alt: 'Foto de perfil', width: '30rem', class: 'rounded-circle mx-3' %>
-                      <% else %>
-                        <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '30rem', class: 'rounded-circle mx-3' %>
-                      <% end %>
-                      <%= link_to reply.user.full_name, reply.user.profile %> <%= '(autor)' if reply.user == @post.user %>
-                      <small datetime="<%= reply.created_at.to_datetime %>">
-                        há <%= distance_of_time_in_words(Time.now, reply.created_at) %>
-                      </small>
-                    </h6>
-                    <div class="reply-content text-dark">
-                      <p class="mx-2"><%= reply.message %></p>
-                      <div class="btn-group d-flex align-items-center mt-4">
-                        <% if user_signed_in? && reply.likes.where(user_id: current_user.id).any? %>
-                        <% like = reply.likes.find_by(user_id: current_user.id) %>
-                          <%= button_to reply_like_path(reply, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
-                            <%= image_tag 'thumbs-up-solid', width: '20rem' %>
-                          <% end %>
-                        <% else %>
-                          <%= button_to reply_likes_path(reply), method: :post, class: 'btn btn-sm', id: 'like' do %>
-                            <%= image_tag 'thumbs-up-regular', width: '20rem' %>
-                          <% end %>
-                        <% end %>
-                        <div class="me-2 mt-2">
-                          <%= reply.likes.count %> <%= Like.model_name.human(count: reply.likes.count) %>
-                        </div>
-                        <% if current_user != reply.user %>
-                          <div class="report-link-wrapper mt-3">
-                            <p><%= link_to t('reports.report_btn'), new_report_path(reportable: reply, reportable_type: reply.class), class: 'btn btn-secondary btn-sm' %></p>
-                          </div>
-                        <% end %>
-                      </div>
+                  <span><%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %></span>
+                  <button onClick="showForm(<%= comment.id %>)" class="btn btn-outline-primary rounded-5 border-0 mx-2"><%= t('reply')%></button> 
+                  <% if current_user != comment.user %>
+                    <div class="report-link-wrapper mt-3">
+                      <p><%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %></p>
                     </div>
                   <% end %>
                 </div>
-              <%end%>
+                <div class="reply-form">
+                  <%= form_with model: [comment, @reply], method: :post, class:'d-none row align-items-center mt-3', id:"comment-#{comment.id}" do |form| %>
+                    <div class="col-md-12">
+                      <%= form.label :message, class: 'd-none' %>
+                      <%= form.text_area :message, placeholder: 'Adicione uma resposta...', class: 'form-control' %>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                      <%= form.submit t('replies.send'), class: 'btn btn-primary' %>
+                    </div>
+                  <% end %>
+                </div>
+                <% if comment.replies.any? %>
+                  <button class="btn btn-outline-info border-0 rounded-5 mt-2 dropdown-toggle reply-collapser" 
+                          type="button" 
+                          data-bs-toggle="collapse" 
+                          data-bs-target="#collapseReplies<%= comment.id %>" 
+                          aria-expanded="false" 
+                          aria-controls="collapseReplies<%= comment.id %>">
+                    <%= comment.replies.count %> <%= Reply.model_name.human(count: comment.replies.count) %>
+                  </button>
+                  <div class="collapse mx-5 mt-3 reply-content" id="collapseReplies<%= comment.id %>">
+                    <% comment.replies.each do |reply| %>
+                      <h6 class="mt-2">
+                        <% if reply.user.profile.photo.present? %>
+                          <%= image_tag reply.user.profile.photo, alt: 'Foto de perfil', width: '30rem', class: 'rounded-circle mx-3' %>
+                        <% else %>
+                          <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '30rem', class: 'rounded-circle mx-3' %>
+                        <% end %>
+                        <%= link_to reply.user.full_name, reply.user.profile %> <%= '(autor)' if reply.user == @post.user %>
+                        <small datetime="<%= reply.created_at.to_datetime %>">
+                          há <%= distance_of_time_in_words(Time.now, reply.created_at) %>
+                        </small>
+                      </h6>
+                      <div class="reply-content text-dark">
+                        <p class="mx-2"><%= reply.message %></p>
+                        <div class="btn-group d-flex align-items-center mt-4">
+                          <% if user_signed_in? && reply.likes.where(user_id: current_user.id).any? %>
+                          <% like = reply.likes.find_by(user_id: current_user.id) %>
+                            <%= button_to reply_like_path(reply, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+                              <%= image_tag 'thumbs-up-solid', width: '20rem' %>
+                            <% end %>
+                          <% else %>
+                            <%= button_to reply_likes_path(reply), method: :post, class: 'btn btn-sm', id: 'like' do %>
+                              <%= image_tag 'thumbs-up-regular', width: '20rem' %>
+                            <% end %>
+                          <% end %>
+                          <div class="me-2 mt-2">
+                            <%= reply.likes.count %> <%= Like.model_name.human(count: reply.likes.count) %>
+                          </div>
+                          <% if current_user != reply.user %>
+                            <div class="report-link-wrapper mt-3">
+                              <p><%= link_to t('reports.report_btn'), new_report_path(reportable: reply, reportable_type: reply.class), class: 'btn btn-secondary btn-sm' %></p>
+                            </div>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                <%end%>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
