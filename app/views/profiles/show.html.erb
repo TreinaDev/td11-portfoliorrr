@@ -12,7 +12,9 @@
 
     <div id="publications">
       <h2 id="post-list-title"><%= Post.model_name.human(count: 2) %></h2>
-      <% if @profile.user.posts.count - @profile.user.posts.pinned.count < 1 %>
+      <% published_posts = @profile.user.posts.published %>
+      
+      <% if published_posts.count - @profile.user.posts.pinned.count < 1 %>
         <p><%= t('.nothing_here') %> <br> <%= t('.new_posts') %> :)</p>
       <% end %>
 
