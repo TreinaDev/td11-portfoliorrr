@@ -7,16 +7,26 @@
 
     <p class="card-text"><%= post.content %></p>
 
-    <p class="card-subtitle mb-2">
-      <time datetime="<%= post.published_at.to_datetime %>">
-        <%= Post.human_attribute_name :published_at %> <%= I18n.l(post.published_at.to_datetime, format: :long) %>
-      </time>
-    </p>
-    <p>
-      <time datetime="<%= post.edited_at.to_date %>">
-        <%= t('posts.show.last_update', update_date: I18n.l(post.edited_at.to_datetime, format: :long)) %>
-      </time>
-    </p>
+    <% if post.published_at.present? %>
+      <p class="card-subtitle mb-2">
+        <time datetime="<%= post.published_at.to_datetime %>">
+          <%= Post.human_attribute_name :published_at %> <%= I18n.l(post.published_at.to_datetime, format: :long) %>
+        </time>
+      </p>
+    <% else %>
+      <p class="card-subtitle mb-2">
+        <time datetime="<%= post.created_at.to_datetime %>">
+          <%= Post.human_attribute_name :published_at %> <%= I18n.l(post.created_at.to_datetime, format: :long) %>
+        </time>
+      </p>
+    <% end %>
+    <% if post.edited_at.present? %>
+      <p>
+        <time datetime="<%= post.edited_at.to_date %>">
+          <%= t('posts.show.last_update', update_date: I18n.l(post.edited_at.to_datetime, format: :long)) %>
+        </time>
+      </p>
+    <% end %>
 
     <p class="card-subtitle mb-2 text-body-secondary tags">
       <% post.tags.each do |tag| %>
