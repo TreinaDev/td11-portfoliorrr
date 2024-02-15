@@ -69,3 +69,15 @@ input[type="checkbox"]:checked {
               box-shadow 1s ease-in-out,
               background-color 1s ease-in-out;
 }
+
+.page-header{
+  margin: 0 -0.66rem 0 -0.66rem;
+}
+
+.search-result-title:hover{
+  text-decoration: underline !important;
+}
+
+.edit-button{
+  margin-left: 8rem !important;
+}

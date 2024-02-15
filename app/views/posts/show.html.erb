@@ -3,10 +3,12 @@
     <div class="mb-3 d-flex justify-content-between">
       <h2 class="card-title post-title"><%= @post.title %></h2>
       <% if current_user == @post.user %>
-        <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary py-0', data: { turbo: false } %>
-        <%= button_to t('publish_btn'), publish_post_path(@post), method: :patch,
-          class: 'btn btn-primary', data: { turbo: false } if @post.scheduled? %>
-        <%= Post.human_attribute_name @post.status %>
+        <div class="d-flex flex-column">
+          <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary py-0', data: { turbo: false } %>
+          <%= button_to t('publish_btn'), publish_post_path(@post), method: :patch,
+            class: 'btn btn-primary', data: { turbo: false } if @post.scheduled? %>
+          <span><%= Post.human_attribute_name @post.status %></span>
+        </div>
       <% else %>
         <div class="dropdown">
           <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="bg-white rounded-5 border-0" id="report-post-dropdown">
@@ -21,8 +23,6 @@
         </div>
       <% end %>
     </div>
-
- 
 
     <h6 class="card-subtitle mb-2">
       <%= link_to t('.authored_by', author_name: @post.user.full_name), @post.user.profile %>
@@ -101,9 +101,9 @@
         <footer>
           <h5>
             <% if comment.user.profile.photo.present? %>
-              <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'rounded-circle mx-3' %>
+              <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
             <% else %>
-              <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'rounded-circle mx-3' %>
+              <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
             <% end %>
             <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
           </h5>
@@ -164,9 +164,9 @@
                     <% comment.replies.each do |reply| %>
                       <h6 class="mt-2">
                         <% if reply.user.profile.photo.present? %>
-                          <%= image_tag reply.user.profile.photo, alt: 'Foto de perfil', width: '30rem', class: 'rounded-circle mx-3' %>
+                          <%= image_tag reply.user.profile.photo, alt: 'Foto de perfil', width: '30rem', class: 'profile-picture rounded-circle mx-3' %>
                         <% else %>
-                          <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '30rem', class: 'rounded-circle mx-3' %>
+                          <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '30rem', class: 'profile-picture rounded-circle mx-3' %>
                         <% end %>
                         <%= link_to reply.user.full_name, reply.user.profile %> <%= '(autor)' if reply.user == @post.user %>
                         <small datetime="<%= reply.created_at.to_datetime %>">

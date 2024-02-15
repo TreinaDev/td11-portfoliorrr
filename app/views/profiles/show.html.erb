@@ -9,9 +9,10 @@
         </section>
       </div>
     <% end %>
-
     <div id="publications">
-      <h2 id="post-list-title"><%= Post.model_name.human(count: 2) %></h2>
+      <div class="mb-3 border-bottom border-dark">
+        <h2 id="post-list-title"><%= Post.model_name.human(count: 2) %></h2>
+      </div>
       <% published_posts = @profile.user.posts.published %>
       
       <% if published_posts.count - @profile.user.posts.pinned.count < 1 %>
@@ -29,58 +30,65 @@
     <aside class="px-5">
       <section class="text-center d-flex flex-column align-items-center border rounded bg-white">
         <div class="w-100">
-          <div class="bg-primary profile-header mb-4 w-100 rounded-top d-flex flex-column">
-            <%= render partial: 'profile_photo', locals: { profile: @profile } %>
+          <div class="bg-primary mb-4 rounded-top d-flex flex-column profile-header">
+            <div class="profile-card-body">
+              <%= render partial: 'profile_photo', locals: { profile: @profile } %>
+              <h2><%= @user.full_name %></h2>
+              <p><%= @user.email %></p>
+            </div>
             <%= link_to t('profiles.edit.change_photo'), edit_profile_path(@profile), class: 'badge bg-secondary mt-3' if current_user == @profile.user %>
           </div>
-          <div class="d-flex justify-content-between">
-            <h4 class="mx-auto"><%= @user.full_name %></h4>
-            <% if current_user.profile != @profile %>
-              <div class="dropdown">
-                <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="bg-white rounded-5 border-0" id="report-profile-dropdown">
-                  <%= image_tag 'three-dots-vertical'%>
-                </button>
-                <div class="dropdown-menu">
-                  <%= link_to new_report_path(reportable: @profile.id, reportable_type: @profile.class), class: 'btn btn-secondary btn-sm dropdown-item' do %>
-                    <%= image_tag 'flag' %>
-                    <span class="mx-2"><%= t('reports.report_btn') %></span>
+          <div class="row">
+            <div class="col-md-2 g-0">
+            </div>
+            <div class="col-md-8">
+              <div class="d-flex gap-4 justify-content-center">
+                <div class="d-flex flex-column" id="followers-count">
+                  <%= link_to profile_connections_path(@profile), class: "text-decoration-none fs-5" do %>
+                    <p><%= @profile.followers_count %> <%= t(Connection.human_attribute_name(:follower_id, count: @profile.followers_count ))%></p>
                   <% end %>
                 </div>
+                <div class="text-center d-flex flex-column" id="following-count">
+                  <%= link_to profile_following_path(@profile), class: "text-decoration-none fs-5" do %>
+                    <p><%= @profile.followed_count %> <%= t(Connection.human_attribute_name(:followed_profile_id))%> </p>
+                  <% end %>
+                </div>
+                <div class="fs-5">
+                  <p><%= @profile.user.posts.count %> <%= Post.model_name.human(count: @profile.user.posts.count) %> </p>
+                </div>
               </div>
-            <% end %>
+              <div>
+                <% if current_user.profile != @profile %>
+                  <div class="mb-2">
+                    <% if @profile.following?(current_user.profile) %>
+                      <%= button_to t('.unfollow_btn'), connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
+                    <% elsif @profile.inactive_follower?(current_user.profile) %>
+                      <%= button_to t('.follow_btn'), connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
+                    <% else %>
+                      <%= button_to t('.follow_btn'), profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-md-2 mt-2 g-0">
+              <% if current_user.profile != @profile %>
+                <div class="dropdown col-md-2">
+                  <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="bg-white rounded-5 border-0" id="report-profile-dropdown">
+                    <%= image_tag 'three-dots-vertical'%>
+                  </button>
+                  <div class="dropdown-menu">
+                    <%= link_to new_report_path(reportable: @profile.id, reportable_type: @profile.class), class: 'btn btn-secondary btn-sm dropdown-item' do %>
+                      <%= image_tag 'flag' %>
+                      <span class="mx-2"><%= t('reports.report_btn') %></span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
           </div>
-          <p><%= @user.email %></p>
-          <div class="d-flex gap-4 justify-content-center">
-            <div class="d-flex flex-column" id="followers-count">
-              <%= link_to profile_connections_path(@profile), class: "text-decoration-none fs-5" do %>
-                <p><%= @profile.followers_count %> <%= t(Connection.human_attribute_name(:follower_id, count: @profile.followers_count ))%></p>
-              <% end %>
-            </div>
-            <div class="text-center d-flex flex-column" id="following-count">
-              <%= link_to profile_following_path(@profile), class: "text-decoration-none fs-5" do %>
-                <p><%= @profile.followed_count %> <%= t(Connection.human_attribute_name(:followed_profile_id))%> </p>
-              <% end %>
-            </div>
-            <div class="fs-5">
-              <p><%= @profile.user.posts.count %> <%= Post.model_name.human(count: @profile.user.posts.count) %> </p>
-            </div>
-          </div>
+          
         </div>
-        <br>
-        <div class="w-75">
-          <% if current_user.profile != @profile %>
-            <div>
-              <% if @profile.following?(current_user.profile) %>
-                <%= button_to t('.unfollow_btn'), connection_unfollow_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-danger w-50' %>
-              <% elsif @profile.inactive_follower?(current_user.profile) %>
-                <%= button_to t('.follow_btn'), connection_follow_again_path(@profile.followers.find_by(follower: current_user.profile)), method: :patch, class: 'btn btn-primary w-50' %>
-              <% else %>
-                <%= button_to t('.follow_btn'), profile_connections_path(@profile), class: 'btn btn-primary w-50' %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-
       </section>
       <section>
         <%= render 'profile_details', profile: @profile, professional_infos: @professional_infos, personal_info: @personal_info %>

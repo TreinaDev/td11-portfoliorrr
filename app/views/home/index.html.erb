@@ -1,51 +1,51 @@
 <div class="container">
   <% if user_signed_in? %>
     <div class="row">
-      <div class="px-0 border w-75 border bg-white rounded mb-2 d-flex align-items-center justify-content-center">
+      <section class="col-md-9">
+         <div class="border bg-white rounded mb-5 d-flex align-items-center justify-content-center page-header">
           <%= link_to current_user.profile, class: 'd-flex justify-content-center w-25' do %>
             <% if current_user.profile.photo.present? && current_user.profile.valid? %>
-              <%= image_tag current_user.profile.photo, alt: t('.alt_text'), class: 'rounded-circle home-profile-picture my-3 w-50' %>
+              <%= image_tag current_user.profile.photo, alt: t('.alt_text'), class: 'profile-picture rounded-circle my-3 w-50' %>
             <% else %>
-              <%= image_tag 'default_portfoliorrr_photo.png', alt: t('.alt_text'), class: 'rounded-circle home-profile-picture my-3 w-50' %>
+              <%= image_tag 'default_portfoliorrr_photo.png', alt: t('.alt_text'), class: 'profile-picture rounded-circle my-3 w-50' %>
             <% end %>
           <% end %>
-        <div>
-          <%= button_to new_post_path, data: { turbo: false }, method: :get, class: 'btn btn-outline-primary rounded-5 py-3 home-publication-button mt-2 fw-bold' do %>
-            <span class="mx-3 text-decoration-underline"><%=t('posts.new.new_post_home')%></span>
-          <% end %>
+          <div>
+            <%= button_to new_post_path, data: { turbo: false }, method: :get, class: 'btn btn-outline-primary rounded-5 py-3 home-publication-button mt-2 fw-bold' do %>
+              <span class="mx-3 text-decoration-underline"><%=t('posts.new.new_post_home')%></span>
+            <% end %>
+          </div>
         </div>
-      </div>
-
-      <section class="col-md-9 y-5">
+        <h3>Últimas postagens</h3>
         <% if current_user.profile.followed_count > 0 %>
           <% if @followed_posts.any? %>
-            <div>
+            <div class="border-top border-dark-subtle pt-5">
               <%= render partial: 'posts/listing', locals: { posts: @followed_posts.each } %>
             </div>
           <% else %>
-            <div>
+            <div class="border-top border-dark-subtle pt-5">
               <h5> <%= t('.what_people_are_posting') %>: </h5>
               <%= render partial: 'posts/listing', locals: { posts: @posts } %>
             </div>
           <% end %>
         <% else %>
-          <div>
+          <div class="border-top border-dark-subtle pt-5">
             <h5> <%= t('.follow_someone') %> </h5>
             <%= render partial: 'posts/listing', locals: { posts: @posts } %>
           </div>
         <% end %>
       </section>
 
-      <aside class="col-md-3">
+      <aside class="home-aside-container col-md-3">
         <div class="most-followed-users">
           <h3 class="home-cards-title bg-white text-center py-4 my-0 rounded-1"> <%= t('.most_followed') %> </h3>
           <% @most_followed.each do |profile| %>
             <div class="bg-white text-center home-cards my-0 py-0 rounded-1">
               <%= link_to profile_path(profile), class: 'row' do %>
                 <% if profile.photo.present? && profile.valid? %>
-                  <%= image_tag profile.photo, alt: t('.alt_text'), width: '70rem', class: 'img-cover rounded-circle mx-auto mt-2 col-md-4' %>
+                  <%= image_tag profile.photo, alt: t('.alt_text'), width: '70rem', class: 'profile-picture img-cover rounded-circle mx-auto mt-2 col-md-4' %>
                 <% else %>
-                  <%= image_tag 'default_portfoliorrr_photo.png', width: '70rem', alt: t('.alt_text'), class: 'img-cover rounded-circle mx-auto mt-2 col-md-4' %>
+                  <%= image_tag 'default_portfoliorrr_photo.png', width: '70rem', alt: t('.alt_text'), class: 'profile-picture img-cover rounded-circle mx-auto mt-2 col-md-4' %>
                 <% end %>
                 <div class="col-md-8 mt-4">
                   <h5><%= profile.full_name %></h5>

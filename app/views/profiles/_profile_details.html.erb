@@ -1,26 +1,30 @@
 <div>
   <% user_is_owner = profile.user == current_user %>
   <br>
-  <div class="border py-1 px-2 rounded mb-3 bg-white">
+  <div class="border p-3 rounded mb-3 bg-white">
     <div class="d-flex gap-1">
       <%= image_tag 'about-icon', width: '23rem', class: 'mb-2'  %>
-      <h3><%= Profile.human_attribute_name(:cover_letter) %></h3>
+      <h4><%= Profile.human_attribute_name(:cover_letter) %></h4>
     </div>
-    <h5><%= profile.cover_letter %></h5><br>
+    <p class="profile-info-content pb-0 mb-0"><%= profile.cover_letter %></p>
   </div>
 
   <% if profile.personal_info[:visibility] || user_is_owner %>
-    <div class="border py-1 px-2 rounded mb-3 bg-white">
+    <div class="border p-3 rounded mb-3 bg-white">
       <div class="d-flex gap-1">
         <%= image_tag 'person-fill', width: '28rem', class: 'mb-2' %>
         <h3><%= PersonalInfo.model_name.human %></h3>  
+        <% if user_is_owner %>
+          <%= link_to edit_user_profile_path, id: 'edit-personal-info', class:'edit-button btn btn-outline-info border-0 p-2 rounded-5' do %>
+            <%= image_tag 'pencil-square', width: '20 rem' %>
+          <% end %>
+        <% end %>
       </div>
       <%= render 'personal_info', personal_info: personal_info, user_is_owner: user_is_owner %>
-      <%= link_to 'Editar Informações Pessoais', edit_user_profile_path, class:'btn btn-secondary mx-4 mb-3' if user_is_owner %>
     </div>
   <% end %>
 
-  <div class="border py-1 px-2 rounded mb-3 bg-white">
+  <div class="border p-3 rounded mb-3 bg-white">
     <% if profile.professional_infos.visibles_list.any? || user_is_owner %>
       <div class="d-flex gap-1">
         <%= image_tag 'briefcase-solid', width: '24rem', class: 'mb-2 mx-1' %>
@@ -29,39 +33,41 @@
     <% end %>
     
     <p>
-      <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path, class:'btn btn-primary' if user_is_owner %>
+      <%= link_to 'Adicionar Experiência Profissional', new_user_profile_professional_info_path, class:'btn btn-primary rounded-5 mt-3' if user_is_owner %>
     </p>
     <% professional_infos.each do |professional_info| %>
       <% if professional_info.visibility || user_is_owner %>
-        <h4>
-          <%= ProfessionalInfo.human_attribute_name(:company) %>: <%= professional_info.company %>
-        </h4>
+        <% if user_is_owner %>
+          <li class="fs-5 mb-3">
+            <span class="fw-semibold"><%= t(professional_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
+            <% if user_is_owner %>
+              <%= link_to edit_professional_info_path(professional_info), id: 'edit-professional-info', class:'edit-button btn btn-outline-info border-0 p-2 rounded-5' do %>
+                <%= image_tag 'pencil-square', width: '20 rem' %>
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+        <div>
+          <h5 class="fw-semibold profile-info-title"><%= ProfessionalInfo.human_attribute_name(:position) %>: <%= professional_info.position %></h5>
+          <h6 class="profile-info-title">
+            <%= ProfessionalInfo.human_attribute_name(:company) %>: <%= professional_info.company %>
+          </h6>
+        </div>
         <ul>
-          <% if user_is_owner %>
-            <li class="fs-5 mb-3">
-              <span class="fw-bold"><%= t(professional_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
-            </li>
-          <% end %>
           <li>
-            <span class="fw-bold"><%= ProfessionalInfo.human_attribute_name(:current_job) %></span>: <%= t(professional_info.current_job) %>
+            <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:current_job) %></span>: <%= t(professional_info.current_job) %>
           </li>
           <li>
-            <span class="fw-bold"><%= ProfessionalInfo.human_attribute_name(:position) %></span>: <%= professional_info.position %>
+            <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:description) %></span>: <%= professional_info.description %>
           </li>
           <li>
-            <span class="fw-bold"><%= ProfessionalInfo.human_attribute_name(:description) %></span>: <%= professional_info.description %>
+            <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:start_date) %></span>: <%= l professional_info.start_date if professional_info.start_date%>
           </li>
           <li>
-            <span class="fw-bold"><%= ProfessionalInfo.human_attribute_name(:start_date) %></span>: <%= l professional_info.start_date if professional_info.start_date%>
-          </li>
-          <li>
-            <span class="fw-bold"><%= ProfessionalInfo.human_attribute_name(:end_date) %></span>: <%= l professional_info.end_date if professional_info.end_date %>
+            <span class="fw-semibold"><%= ProfessionalInfo.human_attribute_name(:end_date) %></span>: <%= l professional_info.end_date if professional_info.end_date %>
           </li>
         </ul>
       <% end %>
-      <p>
-        <%= link_to 'Editar Experiência Profissional', edit_professional_info_path(professional_info), class:'btn btn-secondary' if user_is_owner %>
-      </p>
     <% end %>
   </div>
   
@@ -73,33 +79,35 @@
       </div>
     <% end %>
     <p>
-      <%= link_to 'Adicionar Formação Acadêmica', new_user_profile_education_info_path, class:'btn btn-primary' if user_is_owner %>
+      <%= link_to 'Adicionar Formação Acadêmica', new_user_profile_education_info_path, class:'btn btn-primary rounded-5 mt-3' if user_is_owner %>
     </p>
       <% profile.education_infos.each do |education_info| %>
         <% if education_info.visibility || user_is_owner %>
-          <h4>  
+          <% if user_is_owner %>
+            <li class="fs-5 mb-3">
+              <span class="fw-semibold"><%= t(education_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
+              <% if user_is_owner %>
+                <%= link_to edit_education_info_path(education_info), id: 'edit-education-info', class:'edit-button btn btn-outline-info border-0 p-2 rounded-5' do %>
+                  <%= image_tag 'pencil-square', width: '20 rem' %>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+          <h5 class="profile-info-title">  
             <%= EducationInfo.human_attribute_name(:institution) %>: <%= education_info.institution %>
-          </h4>
+          </h5>
           <ul>
-            <% if user_is_owner %>
-              <li class="fs-5 mb-3">
-                <span class="fw-bold"><%= t(education_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
-              </li>
-            <% end %>
             <li>
-              <span class="fw-bold"><%= EducationInfo.human_attribute_name(:course) %></span>: <%= education_info.course %>
+              <span class="fw-semibold"><%= EducationInfo.human_attribute_name(:course) %></span>: <%= education_info.course %>
             </li>
             <li>
-              <span class="fw-bold"><%= EducationInfo.human_attribute_name(:start_date) %></span>: <%= l education_info.start_date if education_info.start_date%>
+              <span class="fw-semibold"><%= EducationInfo.human_attribute_name(:start_date) %></span>: <%= l education_info.start_date if education_info.start_date%>
             </li>
             <li>
-              <span class="fw-bold"><%= EducationInfo.human_attribute_name(:end_date) %></span>: <%= l education_info.end_date if education_info.end_date %>
+              <span class="fw-semibold"><%= EducationInfo.human_attribute_name(:end_date) %></span>: <%= l education_info.end_date if education_info.end_date %>
             </li>
           </ul>
         <% end %>
-        <p>
-          <%= link_to 'Editar Formação Acadêmica', edit_education_info_path(education_info), class:'btn btn-secondary' if user_is_owner %>
-        </p>
       <% end %>
   </div>
 </div>
@@ -111,7 +119,7 @@
     </div>
   <% end %> 
 
-  <%= link_to t('links.new_profile_job_category_path'), new_profile_job_category_path, class:'btn btn-primary' if user_is_owner %>
+  <%= link_to t('links.new_profile_job_category_path'), new_profile_job_category_path, class:'btn btn-primary rounded-5 mt-3' if user_is_owner %>
   <div class='mt-2'>
     <% profile.profile_job_categories.each do |profile_job_category| %>
       <p><strong><%= profile_job_category.job_category.name %></strong></p>
