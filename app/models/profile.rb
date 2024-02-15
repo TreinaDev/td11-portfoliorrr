@@ -38,7 +38,14 @@ class Profile < ApplicationRecord
   enum privacy: { private_profile: 0, public_profile: 10 }
   enum status: { inactive: 0, active: 5 }
 
+  extend FriendlyId
+  friendly_id :profile_permalink, use: :slugged
+
   delegate :full_name, :email, to: :user
+
+  def profile_permalink
+    user.full_name.to_s
+  end
 
   def self.advanced_search(search_query)
     left_outer_joins(:job_categories, :personal_info, :user).where(

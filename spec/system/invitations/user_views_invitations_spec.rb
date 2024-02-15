@@ -13,7 +13,7 @@ describe 'Usuário acessa página de convites' do
         click_on 'Convites'
       end
 
-      expect(current_path).to eq invitations_path
+      expect(page).to have_current_path invitations_path
       expect(page).to have_content 'Projeto Cola?Bora!'
       expect(page).to have_content 'Um projeto muito legal'
       expect(page).to have_content "Expira dia: #{I18n.l(invitation.expiration_date, format: :default)}"
@@ -134,6 +134,6 @@ describe 'Usuário acessa página de convites' do
   it 'mas precisa estar logado' do
     visit invitations_path
 
-    expect(current_path).to eq new_user_session_path
+    expect(page).to have_current_path new_user_session_path
   end
 end

@@ -37,7 +37,7 @@ describe 'Usuário edita uma publicação' do
     login_as user
     visit edit_post_path(post)
 
-    expect(current_path).to eq root_path
+    expect(page).to have_current_path root_path
     expect(page).to have_content 'Você não pode acessar este conteúdo ou realizar esta ação'
   end
 
@@ -70,7 +70,7 @@ describe 'Usuário edita uma publicação' do
     post = create(:post, user:, title: 'Post A', content: 'Primeira postagem')
 
     login_as user
-    visit profile_path(user)
+    visit profile_path(user.profile.slug)
     within "div#post-#{post.id}" do
       click_button id: 'pin'
     end
@@ -91,7 +91,7 @@ describe 'Usuário edita uma publicação' do
     post = create(:post, user:, title: 'Post A', content: 'Primeira postagem', pin: 'pinned')
 
     login_as user
-    visit profile_path(user)
+    visit profile_path(user.profile.slug)
     within 'div#fixed' do
       click_button id: 'unpin'
     end
@@ -111,7 +111,7 @@ describe 'Usuário edita uma publicação' do
     post2 = create(:post, user:, title: 'Post B', content: 'Segunda postagem')
 
     login_as user
-    visit profile_path(user)
+    visit profile_path(user.profile.slug)
     within "div#post-#{post.id}" do
       click_button id: 'pin'
     end
@@ -134,7 +134,7 @@ describe 'Usuário edita uma publicação' do
     other_user = create(:user, citizen_id_number: '61328427056', email: 'visitor@email.com')
 
     login_as other_user
-    visit profile_path(user)
+    visit profile_path(user.profile.slug)
 
     expect(page).not_to have_content 'Fixar'
     expect(page).not_to have_content 'Desafixar'
