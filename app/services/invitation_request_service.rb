@@ -6,7 +6,7 @@ module InvitationRequestService
   COLABORA_API_V1_PROPOSALS_URL = Rails.configuration.colabora_api_v1.proposals_url
 
   class InvitationRequest
-    def self.list(requests)
+    def self.send(requests)
       return [] if requests.empty?
 
       projects = ProjectsService::ColaBoraProject.send

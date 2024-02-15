@@ -7,7 +7,7 @@ class InvitationRequestsController < ApplicationController
     @invitation_request_infos = []
 
     begin
-      @invitation_request_infos = InvitationRequestService::InvitationRequest.list(invitation_requests)
+      @invitation_request_infos = InvitationRequestService::InvitationRequest.send(invitation_requests)
     rescue StandardError
       return @error = true
     end

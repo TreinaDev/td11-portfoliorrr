@@ -4,7 +4,7 @@ module ProjectsService
 
   class ColaBoraProject
     def self.send
-      @response = Faraday.get("#{COLABORA_BASE_URL}#{COLABORA_API_V1_PROJECTS_URL}")
+      @response = ColaBoraApiGetProjects.send
       return build_projects if @response.success?
 
       raise StandardError
@@ -29,8 +29,6 @@ module ProjectsService
     def self.send
       url = "#{COLABORA_BASE_URL}#{COLABORA_API_V1_PROJECTS_URL}"
       Faraday.get(url)
-    rescue Faraday::ConnectionFailed
-      raise Exceptions::ColaBoraAPIOffline
     end
   end
 end
