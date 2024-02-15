@@ -11,6 +11,7 @@ export default {
       currentProjectId: null,
       invitationRequestsProjectsIds: window.invitationRequestsProjectsIds,
       errorMsg: false,
+      portfoliorrrProjectsApiUrl: window.portfoliorrrProjectsApiUrl,
     }
   },
   computed:{
@@ -45,7 +46,7 @@ export default {
 
   async created() {
     try {
-      let response = await fetch('/api/v1/projects', { signal });
+      let response = await fetch(this.portfoliorrrProjectsApiUrl, { signal });
       if (response.ok) {
         let data = await response.json();
         if (!data.message) {

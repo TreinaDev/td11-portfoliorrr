@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
     @invitation_request = current_user.invitation_requests.build
     @invitation_requests = current_user.invitation_requests.pluck(:project_id).to_json
     @invitation_requests_projects_ids = current_user.invitation_requests.pluck(:project_id)
+    @projects_url = Rails.configuration.portfoliorrr_api_v1.projects_url
   end
 
   def create_invitation_request
