@@ -13,8 +13,7 @@ describe 'API projects_request_invitation', type: :request do
       fake_colabora_response = double('faraday_response', status: 201, body: json_proposal_response)
 
       url = 'http://localhost:3000/api/v1/proposals'
-      headers = { 'Content-Type': 'application/json' }
-      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'], headers)
+      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'])
                                       .and_return(fake_colabora_response)
 
       get '/api/v1/projects/request_invitation', params: { invitation_request_id: invitation_request.id }.as_json
@@ -34,10 +33,9 @@ describe 'API projects_request_invitation', type: :request do
                                                         project_id: invitation_request.project_id } } }.as_json
 
       url = 'http://localhost:3000/api/v1/proposals'
-      headers = { 'Content-Type': 'application/json' }
       fake_colabora_response_body = { 'errors': ['Projeto não encontrado'] }.as_json
       fake_colabora_response = double('faraday_response', status: 404, body: fake_colabora_response_body)
-      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'], headers)
+      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'])
                                       .and_return(fake_colabora_response)
 
       get '/api/v1/projects/request_invitation', params: { invitation_request_id: invitation_request.id }.as_json
@@ -58,10 +56,9 @@ describe 'API projects_request_invitation', type: :request do
                                                         project_id: invitation_request.project_id } } }.as_json
 
       url = 'http://localhost:3000/api/v1/proposals'
-      headers = { 'Content-Type': 'application/json' }
       fake_colabora_response_body = { 'errors': ['Usuário já faz parte deste projeto'] }.as_json
       fake_colabora_response = double('faraday_response', status: 409, body: fake_colabora_response_body)
-      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'], headers)
+      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'])
                                       .and_return(fake_colabora_response)
 
       get '/api/v1/projects/request_invitation', params: { invitation_request_id: invitation_request.id }.as_json
@@ -82,10 +79,9 @@ describe 'API projects_request_invitation', type: :request do
                                                         project_id: invitation_request.project_id } } }.as_json
 
       url = 'http://localhost:3000/api/v1/proposals'
-      headers = { 'Content-Type': 'application/json' }
       fake_colabora_response_body = { 'errors': ['Erro interno de servidor.'] }.as_json
       fake_colabora_response = double('faraday_response', status: 500, body: fake_colabora_response_body)
-      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'], headers)
+      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'])
                                       .and_return(fake_colabora_response)
 
       get '/api/v1/projects/request_invitation', params: { invitation_request_id: invitation_request.id }.as_json
@@ -106,8 +102,7 @@ describe 'API projects_request_invitation', type: :request do
                                                         project_id: invitation_request.project_id } } }.as_json
 
       url = 'http://localhost:3000/api/v1/proposals'
-      headers = { 'Content-Type': 'application/json' }
-      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'], headers)
+      allow(Faraday).to receive(:post).with(url, invitation_request_params['data'])
                                       .and_raise(ActiveRecord::ConnectionNotEstablished)
 
       get '/api/v1/projects/request_invitation', params: { invitation_request_id: invitation_request.id }.as_json
