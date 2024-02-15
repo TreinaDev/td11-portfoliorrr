@@ -20,6 +20,9 @@ class Post < ApplicationRecord
 
   has_rich_text :content
 
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   def self.get_sample(amount)
     published.sample amount
   end

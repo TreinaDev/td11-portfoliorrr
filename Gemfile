@@ -13,6 +13,7 @@ gem 'devise'
 
 gem 'faker'
 gem 'faraday'
+gem 'friendly_id', '~> 5.5.0'
 gem 'image_processing', '>= 1.2'
 gem 'jbuilder'
 gem 'jsbundling-rails'
