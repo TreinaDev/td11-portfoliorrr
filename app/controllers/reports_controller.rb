@@ -71,16 +71,12 @@ class ReportsController < ApplicationController
   end
 
   def redirect_if_self_report
-    non_self_report = reportable_classes.any? do |klass|
+    reportable_classes = [Profile, Comment, Post, Reply]
+
+    return if reportable_classes.any? do |klass|
       @reportable.is_a?(klass) && @reportable.user != current_user
     end
 
-    return if non_self_report
-
     redirect_to root_path, alert: t('.self_report')
-  end
-
-  def reportable_classes
-    [Profile, Comment, Post, Reply]
   end
 end
