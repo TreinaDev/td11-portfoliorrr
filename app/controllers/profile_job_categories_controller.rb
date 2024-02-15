@@ -1,10 +1,11 @@
 class ProfileJobCategoriesController < ApplicationController
-  before_action :authenticate_user!, only: %w[new create]
+  before_action :authenticate_user!, only: %w[new create edit destroy update]
   before_action :check_if_job_categories_exist, only: %w[new create]
+  before_action :set_profile_job_category, only: %w[edit destroy update]
+  before_action :authorize, only: %w[edit destroy update]
 
   def new
     @profile_job_category = current_user.profile.profile_job_categories.build
-    flash.now[:notice] = t('.inform_user_edit_is_unavailable')
   end
 
   def create
@@ -18,6 +19,18 @@ class ProfileJobCategoriesController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def destroy
+    @profile_job_category.destroy!
+    redirect_to current_user.profile, notice: t('.success')
+  end
+
+  def update
+    @profile_job_category.update! profile_job_category_params
+    redirect_to current_user.profile, notice: t('.success')
+  end
+
   private
 
   def profile_job_category_params
@@ -29,5 +42,15 @@ class ProfileJobCategoriesController < ApplicationController
 
     redirect_to profile_path(current_user.profile),
                 notice: t('.check_if_job_categories_exist.error')
+  end
+
+  def set_profile_job_category
+    @profile_job_category = ProfileJobCategory.find params[:id]
+  end
+
+  def authorize
+    return if current_user.profile == @profile_job_category.profile
+
+    redirect_to current_user.profile, alert: t('alerts.unauthorized')
   end
 end

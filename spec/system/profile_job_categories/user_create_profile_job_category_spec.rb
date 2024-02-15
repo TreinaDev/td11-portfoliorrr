@@ -76,17 +76,6 @@ describe 'Usuário cadastra categoria de trabalho em seu perfil' do
     expect(page).to have_current_path profile_path(user.profile)
   end
 
-  it 'e é alertado no formulário sobre não poder editar ou remover os dados no futuro' do
-    user = create(:user)
-    create(:job_category)
-
-    login_as user
-    visit new_profile_job_category_path
-
-    alert_text = 'Atenção: Os dados cadastrados não poderão ser alterados após salvar. Preencha com cuidado.'
-    expect(page).to have_content alert_text
-  end
-
   it 'e vê um link para retornar à página de meu perfil' do
     user = create(:user)
     create(:job_category)
