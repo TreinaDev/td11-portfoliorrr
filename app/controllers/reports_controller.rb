@@ -47,6 +47,7 @@ class ReportsController < ApplicationController
   private
 
   def set_reportable_for_new
+    reportable_id = params[:reportable]
     reportable_type = params[:reportable_type]
     @reportable = Post.friendly.find(reportable_id) if reportable_type == 'Post'
     @reportable = Profile.friendly.find(reportable_id) if reportable_type == 'Profile'
