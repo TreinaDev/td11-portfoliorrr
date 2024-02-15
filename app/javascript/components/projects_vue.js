@@ -10,7 +10,6 @@ export default {
       showingForm: false,
       currentProjectId: null,
       invitationRequestsProjectsIds: window.invitationRequestsProjectsIds,
-      freeUser: window.freeUser,
       errorMsg: false,
     }
   },
