@@ -61,4 +61,47 @@ describe 'Usuário curte' do
       expect(Like.count).to eq 0
     end
   end
+
+  context 'Uma resposta de comentário' do
+    it 'com sucesso' do
+      post_owner = create(:user, full_name: 'João')
+      commenter = create(:user)
+      post = create(:post, user: post_owner)
+      comment = create(:comment, user: commenter, post:)
+      create(:reply, user: post_owner, comment:)
+
+      login_as commenter
+      visit post_path(post)
+      click_on '1 Resposta'
+      within "#collapseReplies#{comment.id}" do
+        click_button id: 'like'
+      end
+      click_on '1 Resposta'
+
+      within "#collapseReplies#{comment.id}" do
+        expect(page).to have_content('1 Curtida')
+        expect(page).not_to have_selector('#like')
+        expect(page).to have_selector('#unlike')
+      end
+    end
+
+    it 'e deixa de curtir' do
+      like = create(:like, :for_reply)
+      comment = like.likeable.comment
+
+      login_as like.user
+      visit post_path(comment.post)
+      click_on '1 Resposta'
+      within "#collapseReplies#{comment.id}" do
+        click_button id: 'unlike'
+      end
+      click_on '1 Resposta'
+
+      within "#collapseReplies#{comment.id}" do
+        expect(page).to have_content('0 Curtidas')
+        expect(page).to have_selector('#like')
+        expect(page).not_to have_selector('#unlike')
+      end
+    end
+  end
 end

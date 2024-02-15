@@ -2,7 +2,7 @@
   <h2 class="text-center"><%= t('.index_title') %> </h2>
 
   <div v-if="freeUser" class="text-center become-premium-div mt-5">
-    <h2 class="become-premium-text"><%= t('subscriptions.become') %> <strong><%= t('subscriptions.subscriber') %></strong> <%= t('subscriptions.see_listed_projects') %></h2 class="become-premium-text">
+    <h2 class="become-premium-text"><%= t('subscriptions.become') %> <%= link_to t('subscriptions.subscriber'), subscriptions_path %> <%= t('subscriptions.see_listed_projects') %></h2 class="become-premium-text">
   </div>
 
   <div v-else-if="emptyData" class="text-center">

@@ -25,7 +25,7 @@
       <aside class="col-md-3">
         <h2> <%= t('.most_followed') %> </h2>
 
-        <div class="py-2"  style="width: 18rem;">
+        <div style="width: 18rem;">
           <% @most_followed.each do |profile| %>
             <div class="card mb-3 bg-light-subtle text-center">
               <div class="card-body">
@@ -47,7 +47,7 @@
             <%= t('.find_connect_shine') %> <br>
             <span> <%= t('.your_profile_your_space') %> </span><br>
              <span class="text-primary fw-bold py-3"><%= t('.become_part_of_comunity') %></span> <br>
-            <%= link_to t('.create_account'), new_user_registration_path, class: 'btn btn-primary col-10 py-2 my-4 fs-4' %>
+            <%= link_to t('.create_account_btn'), new_user_registration_path, class: 'btn btn-primary col-10 py-2 my-4 fs-4' %>
           </h3>
         </div>
       </div>
