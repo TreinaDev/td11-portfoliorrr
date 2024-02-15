@@ -21,7 +21,7 @@ pt-BR:
         error: Essa página não está disponível no momento, entre em contato com o administrador.
       form_title: Cadastrar Categoria de Trabalho no Perfil
     edit:
-      form_title: Editar Categoria de Trabalho no Perfil
+      form_title: Editar Descrição de Categoria de Trabalho
     update:
       success: Categoria de trabalho editada com sucesso!
   links:
@@ -29,4 +29,3 @@ pt-BR:
   content:
     profile_job_category_without_description: Não foi adicionada uma descrição para essa categoria.
     section_title: Categorias de Trabalho
-    new_form_title: Cadastrar Categoria de Trabalho no Perfil

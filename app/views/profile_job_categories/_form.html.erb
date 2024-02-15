@@ -13,7 +13,7 @@
     </div>
   <% end %>
   <div class="mb-3">
-    <%= f.label :description, class: 'form-label' %>
+    <%= f.label :description, class: 'form-label' if should_render %>
     <%= f.text_area :description, class: 'form-control' %>
   </div>
   <div class="mb-3">
