@@ -24,4 +24,13 @@ module ProjectsService
       end
     end
   end
+
+  class ColaBoraApiGetProjects
+    def self.send
+      url = "#{COLABORA_BASE_URL}#{COLABORA_API_V1_PROJECTS_URL}"
+      Faraday.get(url)
+    rescue Faraday::ConnectionFailed
+      raise Exceptions::ColaBoraAPIOffline
+    end
+  end
 end
