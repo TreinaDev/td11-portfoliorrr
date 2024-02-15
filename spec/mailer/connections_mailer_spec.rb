@@ -14,7 +14,8 @@ RSpec.describe ConnectionsMailer, type: :mailer do
       expect(mail.subject).to include 'Alguém seguiu seu perfil'
       expect(mail.to).to eq [followed_profile.email]
       expect(mail.from).to eq ['notifications@portfoliorrr.com']
-      expect(mail.body).to include 'Danilo Martins começou a seguir você'
+      expect(mail.body).to include "<a href=\"#{profile_url(follower.profile)}\">"
+      expect(mail.body).to include 'Danilo Martins</a> começou a seguir você'
     end
   end
 end
