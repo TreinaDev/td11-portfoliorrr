@@ -67,13 +67,13 @@ describe 'Api busca usuários por categoria de trabalho' do
       expect(json_response['data'].class).to eq Array
       expect(json_response['data'].first.keys).not_to include 'created_at'
       expect(json_response['data'].first.keys).not_to include 'updated_at'
-      expect(json_response['data'].first['profile_id']).to eq 1
-      expect(json_response['data'].first['full_name']).to eq 'Joao Almeida'
-      expect(json_response['data'].first['job_categories']).to eq [{ 'name' => 'Ruby on Rails',
-                                                                     'description' => 'Especialista em Ruby.' }]
-      expect(json_response['data'].second['profile_id']).to eq 2
-      expect(json_response['data'].second['full_name']).to eq 'André Porteira'
-      expect(json_response['data'].second['job_categories']).to eq []
+      expect(json_response['data'].first['profile_id']).to eq 2
+      expect(json_response['data'].first['full_name']).to eq 'André Porteira'
+      expect(json_response['data'].first['job_categories']).to eq []
+      expect(json_response['data'].second['profile_id']).to eq 1
+      expect(json_response['data'].second['full_name']).to eq 'Joao Almeida'
+      expect(json_response['data'].second['job_categories']).to eq [{ 'name' => 'Ruby on Rails',
+                                                                      'description' => 'Especialista em Ruby.' }]
     end
 
     it 'retorna um erro interno do servidor' do
@@ -85,6 +85,40 @@ describe 'Api busca usuários por categoria de trabalho' do
       json_response = JSON.parse(response.body)
       expect(json_response.class).to eq Hash
       expect(json_response['error']).to eq 'Houve um erro interno no servidor ao processar sua solicitação.'
+    end
+
+    it 'retorna perfis premium primeiro e depois os perfis comuns' do
+      create(:user, :free, full_name: 'Eliseu Ramos')
+      create(:user, :free, full_name: 'André Porteira')
+      create(:user, full_name: 'Moisés Campus')
+      create(:user, full_name: 'Joao Almeida')
+
+      get '/api/v1/profiles'
+
+      expect(response.status).to eq 200
+      json_response = JSON.parse(response.body)
+      expect(json_response['data'].count).to eq 4
+      expect(json_response['data'].first['full_name']).to eq 'Joao Almeida'
+      expect(json_response['data'].second['full_name']).to eq 'Moisés Campus'
+      expect(json_response['data'].third['full_name']).to eq 'André Porteira'
+      expect(json_response['data'].fourth['full_name']).to eq 'Eliseu Ramos'
+    end
+
+    it 'retorna perfis premium primeiro e depois os perfis free na busca com parâmetro' do
+      ruby = create(:job_category, name: 'Ruby on Rails')
+
+      user_premium = create(:user, full_name: 'Moisés Campus')
+      user_premium.profile.profile_job_categories.create(job_category: ruby, description: 'Sou um especialista em Ruby')
+      user_free = create(:user, :free, full_name: 'André Almeida')
+      user_free.profile.profile_job_categories.create(job_category: ruby, description: 'Fiz um e-commerce em Ruby')
+
+      get '/api/v1/profiles', params: { search: 'ruby' }
+
+      expect(response.status).to eq 200
+      json_response = JSON.parse(response.body)
+      expect(json_response['data'].count).to eq 2
+      expect(json_response['data'].first['full_name']).to eq 'Moisés Campus'
+      expect(json_response['data'].second['full_name']).to eq 'André Almeida'
     end
   end
 end

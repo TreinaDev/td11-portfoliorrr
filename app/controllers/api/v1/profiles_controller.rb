@@ -3,10 +3,10 @@ module Api
     class ProfilesController < ApiController
       def index
         if params[:search].blank?
-          profiles = Profile.active.open_to_work
+          profiles = Profile.active.open_to_work.order_by_premium
           profiles = profiles.map { |profile| format_profile(profile) }
         else
-          profiles = Profile.active.open_to_work.get_profile_job_categories_json(params[:search])
+          profiles = Profile.active.open_to_work.order_by_premium.get_profile_job_categories_json(params[:search])
         end
         render status: :ok, json: { data: profiles }
       end
