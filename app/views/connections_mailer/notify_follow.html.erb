@@ -1,1 +1,7 @@
-<p><%= @notification.notifiable.follower.full_name %> <%= t('notifications.started_following_you') %></p>
+<p><%= t('.greeting', recipient: @notification.profile.full_name) %></p>
+
+<p><%= link_to @notification.notifiable.follower.full_name, profile_url(@notification.notifiable.follower) %> <%= t('notifications.started_following_you') %></p>
+
+<p><%= link_to t('click_btn'), profile_url(@notification.profile) %> <%= t('.access_profile') %></p>
+<%= t('.regards') %>,
+<p>Portfoliorrr</p>
