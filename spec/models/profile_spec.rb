@@ -248,4 +248,35 @@ RSpec.describe Profile, type: :model do
       expect(Connection.active.count).to eq 2
     end
   end
+
+  describe '#order_by_premium' do
+    it 'retorna perfis premium primeiro e depois os perfis free' do
+      create(:user, :free, full_name: 'André Porteira')
+      create(:user, :free, full_name: 'Eliseu Ramos')
+      create(:user, full_name: 'Moisés Campus')
+      user_premium_inactive = create(:user, full_name: 'Joao Almeida')
+      user_premium_inactive.subscription.inactive!
+
+      result = Profile.order_by_premium
+
+      expect(result.first.full_name).to eq 'Moisés Campus'
+      expect(result.second.full_name).to eq 'André Porteira'
+      expect(result.third.full_name).to eq 'Eliseu Ramos'
+      expect(result.fourth.full_name).to eq 'Joao Almeida'
+    end
+
+    it 'ordena por nome em caso de mesmo status de assinatura' do
+      create(:user, :free, full_name: 'André Almeida')
+      create(:user, :free, full_name: 'André Barbosa')
+      create(:user, full_name: 'André Campus')
+      create(:user, full_name: 'André Dias')
+
+      result = Profile.order_by_premium
+
+      expect(result.first.full_name).to eq 'André Campus'
+      expect(result.second.full_name).to eq 'André Dias'
+      expect(result.third.full_name).to eq 'André Almeida'
+      expect(result.fourth.full_name).to eq 'André Barbosa'
+    end
+  end
 end

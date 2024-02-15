@@ -1,29 +1,29 @@
 class Profile < ApplicationRecord
   belongs_to :user
+
+  has_one_attached :photo
   has_one :personal_info, dependent: :destroy
+
   has_many :professional_infos, dependent: :destroy
   has_many :education_infos, dependent: :destroy
   has_many :profile_job_categories, dependent: :destroy
+  has_many :invitations, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_many :invitation_requests, dependent: :destroy
+
+  has_many :posts, through: :user
+  has_many :job_categories, through: :profile_job_categories
+
+  has_many :reports_submitted, class_name: 'Report', dependent: :destroy
+  has_many :reports_received, class_name: 'Report', as: :reportable, dependent: :destroy
+
+  has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
 
   has_many :followers, class_name: 'Connection', foreign_key: :followed_profile_id, dependent: :destroy,
                        inverse_of: :follower
 
-  has_many :followed_profiles, class_name: 'Connection', foreign_key: :follower_id,
-                               dependent: :destroy, inverse_of: :followed_profile
-
-  has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
-
-  has_many :job_categories, through: :profile_job_categories
-  has_many :invitation_requests, dependent: :destroy
-
-  has_one_attached :photo
-  has_many :invitations, dependent: :destroy
-  has_many :posts, through: :user
-  has_many :notifications, dependent: :destroy
-
-  has_many :reports_submitted, class_name: 'Report', dependent: :destroy
-
-  has_many :reports_received, class_name: 'Report', as: :reportable, dependent: :destroy
+  has_many :followed_profiles, class_name: 'Connection', foreign_key: :follower_id, dependent: :destroy,
+                               inverse_of: :followed_profile
 
   accepts_nested_attributes_for :personal_info
   accepts_nested_attributes_for :professional_infos
@@ -39,6 +39,10 @@ class Profile < ApplicationRecord
   enum status: { inactive: 0, active: 5 }
 
   delegate :full_name, :email, to: :user
+
+  def self.order_by_premium
+    joins(user: :subscription).order('subscriptions.status DESC, users.full_name ASC')
+  end
 
   def self.advanced_search(search_query)
     left_outer_joins(:job_categories, :personal_info, :user).where(

@@ -37,8 +37,7 @@ module InvitationRequestService
 
       def post_connection
         url = "#{COLABORA_BASE_URL}#{COLABORA_API_V1_PROPOSALS_URL}"
-        headers = { 'Content-Type': 'application/json' }
-        @response = Faraday.post(url, build_invitation_request_params(@invitation_request), headers)
+        @response = Faraday.post(url, build_invitation_request_params(@invitation_request))
       end
     end
   end

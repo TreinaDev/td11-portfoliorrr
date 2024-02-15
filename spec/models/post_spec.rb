@@ -54,6 +54,7 @@ RSpec.describe Post, type: :model do
       expect(Post.get_sample(5).count).to eq 3
     end
   end
+
   describe '#pinned' do
     it 'e não altera o edited_at' do
       user = create(:user)
@@ -69,5 +70,16 @@ RSpec.describe Post, type: :model do
     post = Post.new
 
     expect(post.status).to eq 'published'
+  end
+
+  describe '#published!' do
+    it 'deve alterar status para published e atualizar published_at' do
+      post = create(:post, status: 'scheduled', published_at: 1.day.from_now)
+
+      post.published!
+
+      expect(post.reload).to be_published
+      expect(post.reload.published_at.to_date).to eq Time.current.to_date
+    end
   end
 end

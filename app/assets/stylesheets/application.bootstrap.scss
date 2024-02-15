@@ -2,7 +2,7 @@ $theme-colors: (
   "primary":    #a130fd,
   "secondary":  #515253,
   "success":    #2abd4cde,
-  "info":       #68a1f7,
+  "info":       #8fd0f5,
   "warning":    #ffc107,
   "danger":     #dc3545,
   "light":      rgba(255, 251, 251, 0.603),
@@ -97,4 +97,30 @@ input[type="checkbox"]:checked {
               transform 1s ease-in-out,
               box-shadow 1s ease-in-out,
               background-color 1s ease-in-out;
+}
+
+.comment-message, .reply-form{
+  margin-left: 5.2rem !important;
+}
+
+.comment-actions{
+  margin-left: 5.0rem !important;
+}
+
+.reply-content{
+  margin-left: 4.5rem !important;
+}
+
+.reply-form{
+  min-width: 350px;
+}
+
+.reply-collapser{
+  margin-left: 4.8rem !important;
+  color: #065fd4 !important;
+  font-size: large;
+}
+
+.reply-content, .comment-message{
+  font-size: large;
 }

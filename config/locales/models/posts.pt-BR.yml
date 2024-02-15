@@ -21,6 +21,8 @@ pt-BR:
         status_draft: Rascunho
         status_published: Publicada
   posts:
+    publish:
+      success: Publicada com sucesso!
     redirect_alert:
       invalid_user: Você não pode acessar este conteúdo ou realizar esta ação
     create:
