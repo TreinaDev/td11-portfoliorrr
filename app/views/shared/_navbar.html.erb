@@ -17,9 +17,26 @@
           </div>
         <% end %>
       </div>
+      <div class="d-flex align-items-center gap-5 w-25 justify-content-center">
+        <%= link_to notifications_path, class: 'd-flex flex-column text-decoration-none' do %>
+          <div class="badge-container">
+            <span class="badge bg-primary mx-auto notification-badge"><%= current_user.profile.notifications.unseen.count %></span>
+          </div>
+          <%= image_tag 'bell', class: 'mx-auto', width: '25rem' %>
+          <div>
+            <p class="text-muted fw-semibold"><%= Notification.model_name.human(count: 2) %></p>
+          </div>
+        <% end %>
+        <div>
+          <%= link_to new_post_path, class: 'd-flex flex-column text-decoration-none', data: { turbo: false } do %>
+            <%= image_tag 'newpost', class: 'mx-auto', width: '25rem' %>
+            <p class="text-muted fw-semibold text-justify"><%= t('posts.new.new_post')%></p>
+          <% end %>
+        </div>
+      </div>
     <% end %>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav">
         <li class="nav-item dropdown drop-menu">
         <% if user_signed_in? %>
           <button class="btn dropdown-toggle mx-5" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,16 +53,6 @@
             <li class="dropdown-item">
               <%= link_to Invitation.model_name.human(count: 2), invitations_path, class: 'nav-link' %>
             </li>
-            <li class="dropdown-item">
-              <%= link_to notifications_path, class: 'nav-link' do %>
-                <%= Notification.model_name.human(count: 2) %>
-                <% if current_user.profile.notifications.unseen.count > 0 %>
-                  <span class="badge bg-primary">
-                    <%= current_user.profile.notifications.unseen.count %>
-                  </span>
-                <% end %>
-              <% end %>
-            </li>
             <% if current_user.admin? %>
               <li class="dropdown-item" href="#">
                 <%= link_to JobCategory.model_name.human(count: 2), job_categories_path, class: 'nav-link' %>
@@ -55,9 +62,6 @@
                 <%= link_to Report.model_name.human(count: 2), reports_path, class: 'nav-link' %>
               </li>
             <% end %>
-            <li class="dropdown-item" href="#">
-              <%= link_to t('posts.new.new_post'), new_post_path, class: 'nav-link', data: { turbo: false }  %>
-            </li>
             <li class="dropdown-item" href="#">
               <%= link_to t('settings.index.settings'), profile_settings_path(current_user.profile), class: 'nav-link' %>
             </li>

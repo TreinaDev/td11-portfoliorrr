@@ -8,7 +8,7 @@ describe 'Usuário edita informações sobre sua formação' do
 
       login_as user
       visit profile_path(user.profile)
-      click_on 'Editar Formação Acadêmica'
+      click_on(id: 'edit-education-info')
       fill_in 'Instituição', with: 'UFJF'
       fill_in 'Curso', with: 'Bacharelado em Ciência da Computação'
       fill_in 'Início', with: '2012-12-25'
@@ -30,7 +30,7 @@ describe 'Usuário edita informações sobre sua formação' do
 
       login_as user
       visit profile_path(user.profile)
-      click_on 'Editar Formação Acadêmica'
+      click_on(id: 'edit-education-info')
       fill_in 'Instituição', with: ''
       fill_in 'Curso', with: ''
       fill_in 'Início', with: ''

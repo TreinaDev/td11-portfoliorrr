@@ -1,4 +1,4 @@
-<h2 class="text-center mb-5"><%= InvitationRequest.model_name.human(count: @invitation_request_infos.length) %></h2>
+<h2 class="invitation-request-title border-bottom border-dark mb-5"><%= InvitationRequest.model_name.human(count: @invitation_request_infos.length) %></h2>
 
 <% if current_user.subscription.inactive? %>
   <div class="text-center become-premium-div mt-5">
@@ -20,7 +20,7 @@
 
       <% if @invitation_request_infos.any? %>
         <% @invitation_request_infos.each do |invitation_request| %>
-          <div class="col-5 rounded border p-3" id="request_<%= invitation_request.id %>">
+          <div class="col-5 rounded border bg-white p-3" id="request_<%= invitation_request.id %>">
             <div class="card-body">
               <div class="d-flex flex-column gap-4">
                 <div class="d-flex flex-column gap-2">

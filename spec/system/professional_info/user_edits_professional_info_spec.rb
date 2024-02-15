@@ -8,7 +8,7 @@ describe 'Usuário edita informações profissionais' do
 
       login_as user
       visit profile_path(user.profile)
-      click_on 'Editar Experiência Profissional'
+      click_on(id: 'edit-professional-info')
 
       expect(page).to have_content 'Experiência Profissional'
 
