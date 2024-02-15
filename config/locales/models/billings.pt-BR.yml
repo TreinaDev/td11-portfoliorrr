@@ -1,0 +1,18 @@
+pt-BR:
+  activerecord:
+    models:
+      billings: 
+        one: Cobrança
+        other: Cobranças
+    attributes:
+      billings:
+        billing_date: Data de Cobrança
+        amount: Valor
+  billings_mailer:
+    notify_billing:
+      subject: Porfoliorrr - Assinatura mensal
+      greeting: Olá, %{recipient}!
+      reminder: Sua assinatura mensal do Porfoliorrr Premium vence hoje
+      call_to_action: Efetue o pagamento para continuar usando os benefícios da sua assinatura
+      due_date: "Vencimento: %{due_date}"
+      amount: "Valor: %{amount}"
