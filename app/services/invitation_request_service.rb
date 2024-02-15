@@ -1,37 +1,16 @@
 module InvitationRequestService
+  include ProjectsService
+
   COLABORA_BASE_URL = 'http://localhost:3000'.freeze
   COLABORA_API_V1_PROJECTS_URL = '/api/v1/projects'.freeze
   COLABORA_API_V1_PROPOSALS_URL = '/api/v1/proposals'.freeze
   COLABORA_API_V1_INVITATIONS_BASE_URL = '/api/v1/invitations'.freeze
 
-  class ColaboraProject
-    def self.send
-      @response = Faraday.get("#{COLABORA_BASE_URL}#{COLABORA_API_V1_PROJECTS_URL}")
-      return build_projects if @response.success?
-
-      raise StandardError
-    end
-
-    class << self
-      private
-
-      def build_projects
-        projects = JSON.parse(@response.body, symbolize_names: true)
-        projects.map do |project|
-          Project.new(id: project[:id],
-                      title: project[:title],
-                      description: project[:description],
-                      category: project[:category])
-        end
-      end
-    end
-  end
-
   class InvitationRequest
     def self.list(requests)
       return [] if requests.empty?
 
-      projects = ColaboraProject.send
+      projects = ProjectsService::ColaBoraProject.send
 
       requests.map do |request|
         project = projects.find { |proj| proj.id == request.project_id }

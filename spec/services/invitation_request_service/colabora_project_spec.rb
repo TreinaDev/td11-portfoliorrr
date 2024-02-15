@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvitationRequestService::ColaboraProject do
+RSpec.describe InvitationRequestService::ColaBoraProject do
   context '.send' do
     it 'retorna array de objetos do tipo Project' do
       json_data = File.read(Rails.root.join('./spec/support/json/projects.json'))
@@ -20,9 +20,9 @@ RSpec.describe InvitationRequestService::ColaboraProject do
                     category: 'Industrial')
       ]
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
-      allow(InvitationRequestService::ColaboraProject).to receive(:build_projects).and_return(projects)
+      allow(InvitationRequestService::ColaBoraProject).to receive(:build_projects).and_return(projects)
 
-      result = InvitationRequestService::ColaboraProject.send
+      result = InvitationRequestService::ColaBoraProject.send
 
       expect(result.class).to eq Array
       expect(result.count).to eq 4
@@ -33,7 +33,7 @@ RSpec.describe InvitationRequestService::ColaboraProject do
       fake_response = double('faraday_response', success?: false, status: :internal_server_error)
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      expect { InvitationRequestService::ColaboraProject.send }.to raise_error(StandardError)
+      expect { InvitationRequestService::ColaBoraProject.send }.to raise_error(StandardError)
     end
   end
 end
