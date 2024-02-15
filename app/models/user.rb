@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_one :subscription, dependent: :destroy
   has_many :posts, dependent: :nullify
   has_many :likes, dependent: :destroy
+  has_many :replies, dependent: :destroy
   has_many :comments, dependent: :nullify
   has_one :personal_info, through: :profile
   has_many :professional_infos, through: :profile

@@ -26,7 +26,7 @@
             <% if current_user.profile.photo_attachment %>
               <%= image_tag current_user.profile.photo_attachment, width: '55rem', alt: 'Foto de perfil', class: 'rounded rounded-circle px-2' %>
             <% else %>
-               <%= image_tag 'default_portfoliorrr_photo.png', width: '55rem', alt: 'Foto de perfil', class: 'rounded rounded-circle px-2' %>
+              <%= image_tag 'default_portfoliorrr_photo.png', width: '55rem', alt: 'Foto de perfil', class: 'rounded rounded-circle px-2' %>
             <% end %>
           </button>
           <ul class="dropdown-menu dropdown-menu-white">

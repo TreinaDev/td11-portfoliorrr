@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   resources :notifications, only: %i[index update]
 
   resources :posts, only: %i[new create] do
-    resources :comments, only: %i[create]
+    resources :comments, shallow: true, only: %i[create] do
+      resources :replies, only: %i[create]
+    end
     post 'pin', on: :member
   end
 
@@ -34,10 +36,14 @@ Rails.application.routes.draw do
   resources :posts, only: %i[] do
     patch 'publish', on: :member
     resources :likes, only: %i[create destroy], module: :posts
+  end
 
-    end
   resources :comments, only: %i[] do
     resources :likes, only: %i[create destroy], module: :comments
+  end
+
+  resources :replies, only: %i[] do
+    resources :likes, only: %i[create destroy], module: :replies
   end
 
   resources :users, only: [] do
