@@ -23,12 +23,16 @@ class Subscription < ApplicationRecord
   def create_billing
     return if start_date.nil?
 
-    billing_date = if start_date.day < 29
-                     start_date + 1.month
-                   else
-                     start_date.next_month.beginning_of_month + 1.month
-                   end
+    billing_date = set_billing_date
+    billing = billings.create(billing_date:, amount: SUBSCRIPTION_AMOUNT)
+    NotifyBillingJob.set(wait_until: billing_date.to_datetime).perform_later(billing)
+  end
 
-    billings.create(billing_date:, amount: SUBSCRIPTION_AMOUNT)
+  def set_billing_date
+    if start_date.day < 29
+      start_date + 1.month
+    else
+      start_date.next_month.beginning_of_month + 1.month
+    end
   end
 end
