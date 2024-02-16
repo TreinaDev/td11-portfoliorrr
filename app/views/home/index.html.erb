@@ -45,11 +45,13 @@
             <div class="bg-white text-center home-cards my-0 py-0 rounded-1">
               <%= link_to profile_path(profile), class: 'row' do %>
                 <% if profile.photo.present? && profile.valid? %>
-                  <div class="ratio ratio-1x1 rounded-circle overflow-hidden w-25">
+                  <div class="ratio ratio-1x1 rounded-circle overflow-hidden w-25 mx-auto">
                     <%= image_tag profile.photo, alt: t('.alt_text'), width: '70rem', class: 'profile-picture img-cover rounded-circle mx-auto mt-2 col-md-4' %>
                   </div>
                 <% else %>
-                  <%= image_tag 'default_portfoliorrr_photo.png', width: '70rem', alt: t('.alt_text'), class: 'rounded-circle mx-auto mt-2 col-md-4' %>
+                  <div class="ratio ratio-1x1 rounded-circle overflow-hidden w-25 mx-auto">
+                    <%= image_tag 'default_portfoliorrr_photo.png', width: '70rem', alt: t('.alt_text'), class: 'rounded-circle mx-auto mt-2 col-md-4' %>
+                  </div>
                 <% end %>
                 <div class="col-md-8 mt-4">
                   <h5><%= profile.full_name %></h5>

@@ -11,7 +11,7 @@ pt-BR:
         offence_type: Tipo de ofensa
   reports:
     report_btn: Denunciar
-    removed_account: Sua conta foi removida pelos adminitradores
+    removed_account: Sua conta foi removida pelos administradores
     create:
       self_report: Você não pode denunciar sí mesmo ou o próprio conteúdo.
       success: Sua denúncia foi registrada
