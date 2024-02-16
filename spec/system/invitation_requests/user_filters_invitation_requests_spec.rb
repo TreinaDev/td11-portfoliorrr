@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário acessa página de pedidos de convite' do
   it 'e filtra por status "Processando"' do
-    user = create(:user)
+    user = create(:user, :paid)
     processing_request_one = create(:invitation_request, profile: user.profile, message: 'Me aceita',
                                                          project_id: 1, status: :processing, created_at: 15.minutes.ago)
     processing_request_two = create(:invitation_request, profile: user.profile, message: 'Sou bom para este projeto',
@@ -45,7 +45,7 @@ describe 'Usuário acessa página de pedidos de convite' do
   end
 
   it 'e filtra por status "Pendente"' do
-    user = create(:user)
+    user = create(:user, :paid)
     processing_request = create(:invitation_request, profile: user.profile, message: 'Me aceita',
                                                      project_id: 1, status: :processing, created_at: 15.minutes.ago)
     pending_request = create(:invitation_request, profile: user.profile, message: 'Sou bom para este projeto',
@@ -73,7 +73,7 @@ describe 'Usuário acessa página de pedidos de convite' do
   end
 
   it 'e filtra por status "Aceita"' do
-    user = create(:user)
+    user = create(:user, :paid)
     aborted_request = create(:invitation_request, profile: user.profile, message: 'Me aceita',
                                                   project_id: 1, status: :aborted, created_at: 2.days.ago)
     accepted_request = create(:invitation_request, profile: user.profile, message: 'Sou bom para este projeto',
@@ -101,7 +101,7 @@ describe 'Usuário acessa página de pedidos de convite' do
   end
 
   it 'e filtra por status "Recusada"' do
-    user = create(:user)
+    user = create(:user, :paid)
     refused_request = create(:invitation_request, profile: user.profile, message: 'Me aceita',
                                                   project_id: 1, status: :refused, created_at: 2.days.ago)
     pending_request = create(:invitation_request, profile: user.profile, message: 'Sou bom para este projeto',
@@ -129,7 +129,7 @@ describe 'Usuário acessa página de pedidos de convite' do
   end
 
   it 'e filtra por status "Erro"' do
-    user = create(:user)
+    user = create(:user, :paid)
     error_request = create(:invitation_request, profile: user.profile, message: 'Me aceita',
                                                 project_id: 1, status: :error, created_at: 2.days.ago)
     accepted_request = create(:invitation_request, profile: user.profile, message: 'Sou bom para este projeto',
@@ -157,7 +157,7 @@ describe 'Usuário acessa página de pedidos de convite' do
   end
 
   it 'e filtra por status "Cancelada"' do
-    user = create(:user)
+    user = create(:user, :paid)
     aborted_request = create(:invitation_request, profile: user.profile, message: 'Me aceita',
                                                   project_id: 1, status: :aborted, created_at: 2.days.ago)
     accepted_request = create(:invitation_request, profile: user.profile, message: 'Sou bom para este projeto',
@@ -185,7 +185,7 @@ describe 'Usuário acessa página de pedidos de convite' do
   end
 
   it 'e não existe solicitação com o status selecionado no filtro' do
-    user = create(:user)
+    user = create(:user, :paid)
     pending_request = create(:invitation_request, profile: user.profile, message: 'Me aceita',
                                                   project_id: 1, status: :pending, created_at: 2.days.ago)
     accepted_request = create(:invitation_request, profile: user.profile, message: 'Sou bom para este projeto',
