@@ -6,8 +6,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :profile, dependent: :destroy
+  has_one :subscription, dependent: :destroy
   has_many :posts, dependent: :nullify
   has_many :likes, dependent: :destroy
+  has_many :replies, dependent: :destroy
   has_many :comments, dependent: :nullify
   has_one :personal_info, through: :profile
   has_many :professional_infos, through: :profile
@@ -24,6 +26,7 @@ class User < ApplicationRecord
   after_create :'create_profile!'
   after_create :subscribe_likes_mailer_job
   after_create :update_search_name
+  after_create :create_subscription
 
   def description
     if admin?

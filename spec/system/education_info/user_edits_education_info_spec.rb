@@ -8,7 +8,7 @@ describe 'Usuário edita informações sobre sua formação' do
 
       login_as user
       visit profile_path(user.profile)
-      click_on 'Editar Formação Acadêmica'
+      click_on(id: 'edit-education-info')
       fill_in 'Instituição', with: 'UFJF'
       fill_in 'Curso', with: 'Bacharelado em Ciência da Computação'
       fill_in 'Início', with: '2012-12-25'
@@ -30,7 +30,7 @@ describe 'Usuário edita informações sobre sua formação' do
 
       login_as user
       visit profile_path(user.profile)
-      click_on 'Editar Formação Acadêmica'
+      click_on(id: 'edit-education-info')
       fill_in 'Instituição', with: ''
       fill_in 'Curso', with: ''
       fill_in 'Início', with: ''
@@ -38,7 +38,7 @@ describe 'Usuário edita informações sobre sua formação' do
       check 'Exibir no Perfil'
       click_on 'Salvar'
 
-      expect(current_path).to eq edit_education_info_path(education_info)
+      expect(page).to have_current_path edit_education_info_path(education_info)
       expect(page).to have_content 'Não foi possível atualizar formação acadêmica'
       expect(page).to have_content 'Instituição não pode ficar em branco'
       expect(page).to have_content 'Curso não pode ficar em branco'

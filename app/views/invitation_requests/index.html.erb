@@ -1,48 +1,54 @@
-<h2 class="text-center mb-5"><%= InvitationRequest.model_name.human(count: @invitation_request_infos.length) %></h2>
+<h2 class="invitation-request-title border-bottom border-dark mb-5"><%= InvitationRequest.model_name.human(count: @invitation_request_infos.length) %></h2>
 
-<div class="container">
-  <div class="row justify-content-center gap-5">
-    <%= form_with url: invitation_requests_path, method: :get, class: 'col-10 me-5 px-0' do |f| %>
-      <div class="d-flex gap-2 col-3">
-        <%= f.label :filter, class: 'd-none' %>
-        <%= f.select :filter,
-                     invitation_request_filter_options,
-                     { include_blank: 'Todas', selected: params[:filter] },
-                     class: 'form-select' %>
-        <%= f.submit t(:filter_btn  ), class: 'btn btn-sm btn-primary' %>
-      </div>
-    <% end %>
+<% if current_user.subscription.inactive? %>
+  <div class="text-center become-premium-div mt-5">
+    <h2 class="become-premium-text"><%= t('subscriptions.become') %> <%= link_to t('subscriptions.subscriber'), subscriptions_path %> <%= t('subscriptions.see_and_request') %></h2>
+  </div>
+<% else %>
+  <div class="container">
+    <div class="row justify-content-center gap-5">
+      <%= form_with url: invitation_requests_path, method: :get, class: 'col-10 me-5 px-0' do |f| %>
+        <div class="d-flex gap-2 col-3">
+          <%= f.label :filter, class: 'd-none' %>
+          <%= f.select :filter,
+                      invitation_request_filter_options,
+                      { include_blank: 'Todas', selected: params[:filter] },
+                      class: 'form-select' %>
+          <%= f.submit t(:filter_btn  ), class: 'btn btn-sm btn-primary' %>
+        </div>
+      <% end %>
 
-    <% if @invitation_request_infos.any? %>
-      <% @invitation_request_infos.each do |invitation_request| %>
-        <div class="col-5 rounded border p-3" id="request_<%= invitation_request.id %>">
-          <div class="card-body">
-            <div class="d-flex flex-column gap-4">
-              <div class="d-flex flex-column gap-2">
-                <h4 class="text-break text-dark m-0"><%= invitation_request.project_title %></h4>
-                <div class="d-flex flex-column gap-2 align-items-start">
-                  <p class="m-0"><%= invitation_request.project_description %></p>
-                  <p class="m-0 fs-sm badge text-bg-secondary"><%= invitation_request.project_category %></p>
+      <% if @invitation_request_infos.any? %>
+        <% @invitation_request_infos.each do |invitation_request| %>
+          <div class="col-5 rounded border bg-white p-3" id="request_<%= invitation_request.id %>">
+            <div class="card-body">
+              <div class="d-flex flex-column gap-4">
+                <div class="d-flex flex-column gap-2">
+                  <h4 class="text-break text-dark m-0"><%= invitation_request.project_title %></h4>
+                  <div class="d-flex flex-column gap-2 align-items-start">
+                    <p class="m-0"><%= invitation_request.project_description %></p>
+                    <p class="m-0 fs-sm badge text-bg-secondary"><%= invitation_request.project_category %></p>
+                  </div>
                 </div>
-              </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <p class="m-0 text-muted">
-                  <%= t(:time_ago, time: time_ago_in_words(invitation_request.created_at)) %>
-                </p>
-                <p class="m-0 text-center <%= css_color_class(invitation_request.status.to_sym) %> fw-bold fs-5">
-                  <%= InvitationRequest.human_attribute_name("status.#{invitation_request.status}") %>
-                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="m-0 text-muted">
+                    <%= t(:time_ago, time: time_ago_in_words(invitation_request.created_at)) %>
+                  </p>
+                  <p class="m-0 text-center <%= css_color_class(invitation_request.status.to_sym) %> fw-bold fs-5">
+                    <%= InvitationRequest.human_attribute_name("status.#{invitation_request.status}") %>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        <% end %>
+      <% elsif @error %>
+        <h3 class="mt-5 alert alert-warning text-center" ><%= t(:project_api_error) %></h3>
+      <% elsif params[:filter].nil? || params[:filter].blank? %>
+        <h3 class="mt-5 alert alert-warning text-center" ><%= t(:no_invitation_request_msg) %></h3>
+      <% else %>
+        <h3 class="mt-5 alert alert-warning text-center" ><%= t(:no_filter_results_msg) %></h3>
       <% end %>
-    <% elsif @error %>
-      <h3 class="mt-5 alert alert-warning text-center" ><%= t(:project_api_error) %></h3>
-    <% elsif params[:filter].nil? || params[:filter].blank? %>
-      <h3 class="mt-5 alert alert-warning text-center" ><%= t(:no_invitation_request_msg) %></h3>
-    <% else %>
-      <h3 class="mt-5 alert alert-warning text-center" ><%= t(:no_filter_results_msg) %></h3>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

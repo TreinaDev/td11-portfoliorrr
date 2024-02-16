@@ -28,10 +28,10 @@ describe 'Usuário altera a privacidade do perfil' do
       fill_in 'Buscar', with: 'C++'
       click_on 'Pesquisar'
 
-      expect(current_path).to eq searches_path
       expect(page).to have_content('1 resultado para: C++')
       expect(page).not_to have_content private_user.full_name
       expect(page).to have_content public_user.full_name
+      expect(current_path).to eq searches_path
     end
 
     it 'e dados aparecem aos seguidores' do

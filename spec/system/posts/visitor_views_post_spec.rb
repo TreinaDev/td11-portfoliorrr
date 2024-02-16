@@ -6,7 +6,7 @@ describe 'Visitante visualiza uma publicação' do
 
     visit post_path(post)
 
-    expect(current_path).to eq post_path(post)
+    expect(page).to have_current_path post_path(post)
     expect(page).to have_content 'Título do post'
     expect(page).to have_content 'Conteúdo do post'
     expect(page).to have_link "Criado por #{post.user.full_name}", href: profile_path(post.user.profile)

@@ -1,0 +1,45 @@
+<h2 class="page-title subscription-title border-bottom border-dark pb-2"><%= Subscription.model_name.human %></h2>
+<div class="container justify-items-center text-center mt-3">
+  <div class="d-flex row gap-5 justify-content-center">
+    <div class="card column col-4 bg-white">
+      <div id="free-account-div" class="card-body d-flex flex-column justify-content-between">
+        <div>
+          <h3 class="card-title"><%= t('.free_account') %></h3>
+
+          <ul class="list-group">
+            <li class="list-group-item"><%= t('.platform_access') %></li>
+            <li class="list-group-item"><%= t('.searchable_content') %></li>
+            <li class="list-group-item"><%= t('.hiring_capabilities') %></li>
+          </ul>
+        </div>
+
+        <% if current_user.subscription.inactive? %>
+          <div class="card-footer bg-success text-white">
+            <h4><%= t('.current_tier') %></h4>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card column col-4 bg-white">
+      <div id="premium-account-div" class="card-body d-flex flex-column justify-content-between">
+        <h3 class="card-title"><%= t('.premium_account') %></h3>
+
+        <ul class="list-group">
+          <li class="list-group-item"><%= t('.projects_access') %></li>
+          <li class="list-group-item"><%= t('.highlight_in_search_results')%></li>
+          <li class="list-group-item"><%= t('.request_invitation') %></li>
+          <li class="list-group-item"><%= t('.no_ads') %></li>
+        </ul>
+
+        <% if current_user.subscription.inactive? %>
+          <%= button_to t('.subscribe_btn'), subscription_path(current_user.subscription), method: :patch, class: "btn btn-primary btn-lg mt-4" %>
+        <% else %>
+          <div class="card-footer bg-success text-white">
+            <h4><%= t('.current_tier') %></h4>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

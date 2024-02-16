@@ -11,7 +11,7 @@ describe 'Usuário edita informações pessoais' do
       visit root_path
       click_button class: 'dropdown-toggle'
       click_on user_name
-      click_on 'Editar Informações Pessoais'
+      click_on(id: 'edit-personal-info')
 
       expect(page).to have_current_path edit_user_profile_path
       expect(page).not_to have_link 'Preencher Depois', href: root_path
@@ -78,7 +78,7 @@ describe 'Usuário edita informações pessoais' do
     it 'e é redirecionado para a tela de login' do
       visit edit_user_profile_path
 
-      expect(current_path).to eq new_user_session_path
+      expect(page).to have_current_path new_user_session_path
       expect(page).to have_content 'Para continuar, faça login ou registre-se'
     end
   end

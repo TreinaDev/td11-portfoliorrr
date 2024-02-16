@@ -1,12 +1,26 @@
 <div class="card text-muted">
   <div class="card-body">
-    <h2 class="card-title"><%= @post.title %></h2>
-    <div class="my-4">
+    <div class="mb-3 d-flex justify-content-between">
+      <h2 class="card-title post-title"><%= @post.title %></h2>
       <% if current_user == @post.user %>
-        <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
-        <%= Post.human_attribute_name @post.status %>
+        <div class="d-flex flex-column">
+          <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary py-0', data: { turbo: false } %>
+          <%= button_to t('publish_btn'), publish_post_path(@post), method: :patch,
+            class: 'btn btn-primary py-0', data: { turbo: false } if @post.scheduled? %>
+          <span><%= Post.human_attribute_name @post.status %></span>
+        </div>
       <% else %>
-        <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm' %>
+        <div class="dropdown">
+          <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="bg-white rounded-5 border-0" id="report-post-dropdown">
+            <%= image_tag 'three-dots-vertical'%>
+          </button>
+          <div class="dropdown-menu">
+            <%= link_to new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm dropdown-item' do %>
+              <%= image_tag 'flag' %>
+              <span class="mx-2"><%= t('reports.report_btn') %></span>
+            <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
 
@@ -30,9 +44,11 @@
       </p>
     <% end %>
     <p>
-      <time datetime="<%= @post.edited_at.to_date %>">
-        <%= t('.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
-      </time>
+      <% if @post.edited_at.present? %>
+        <time datetime="<%= @post.edited_at.to_date %>">
+          <%= t('.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
+        </time>
+      <% end %>
     </p>
 
     <p class="card-subtitle mb-2 text-body-secondary tags">
@@ -41,19 +57,30 @@
       <% end %>
     </p>
 
-    <div class="btn-group">
-      <div class="me-2 mt-2">
+    <div class="btn-group d-flex justify-content-between">
+      <div class="me-2 mt-2 d-flex align-items-center">
         <%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %>
+        <% if @liked %>
+          <%= button_to post_like_path(@post, @liked), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+            <%= image_tag 'thumbs-up-solid', width: '20rem' %>
+          <% end %>
+        <% else %>
+          <%= button_to post_likes_path(@post), method: :post, class: 'btn btn-sm', id: 'like' do %>
+            <%= image_tag 'thumbs-up-regular', width: '20rem' %>
+          <% end %>
+        <% end %>
       </div>
-      <% if @liked %>
-        <%= button_to post_like_path(@post, @liked), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
-          <%= image_tag 'thumbs-up-solid', width: '20rem' %>
-        <% end %>
-      <% else %>
-        <%= button_to post_likes_path(@post), method: :post, class: 'btn btn-sm', id: 'like' do %>
-          <%= image_tag 'thumbs-up-regular', width: '20rem' %>
-        <% end %>
-      <% end %>
+      <div class="dropdown">
+        <button type="button" class="btn btn-outline-primary rounded-5" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+          <%= image_tag 'share' %> <%= t('posts.share')%>
+        </button>
+        <form class="dropdown-menu p-4">
+          <div class="mb-3 share-link">
+            <label for="dropdownShare" class="form-label">Link</label>
+            <input type="text" class="form-control" id="dropdownShare" value = <%= request.url %>>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -64,52 +91,139 @@
 <% end %>
 
 
-<div id="comments", class="card mt-3 mb-3 text-muted">
+<div id="comments", class="card mt-3 mb-3">
   <div class="card-header">
     <%= @post.comments.count %> <%= Comment.model_name.human(count: @post.comments.count) %>
   </div>
   <% @post.comments.each do |comment| %>
-    <div class="card-body comment" id="<%= dom_id(comment) %>">
-      <% if comment.removed?%>
-        <p><%= t('comments.removed_content') %> </p>
-      <% else %>
-        <blockquote class="blockquote mb-0">
-          <p><%= comment.message %></p>
-          <footer class="blockquote-footer">
+    <% if comment.removed?%>
+    <footer class="mx-3">
+      <h5>
+        <% if comment.user.profile.photo.present? %>
+          <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
+        <% else %>
+          <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
+        <% end %>
+        <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
+      </h5>
+      <p class="comment-message"><%= t('comments.removed_content') %> </p>
+    </footer>
+    <% else %>
+      <div class="card-body" id="<%= dom_id(comment) %>">
+        <footer>
+          <h5>
+            <% if comment.user.profile.photo.present? %>
+              <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
+            <% else %>
+              <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
+            <% end %>
             <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
-          </footer>
-        </blockquote>
-
+          </h5>
+          <p class="comment-message"><%= comment.message %></p>
+        </footer>
         <% if comment.user.deleted_at.nil? %>
           <div class="btn-group flex-column">
-            <div class="d-flex">
+            <div>
               <div class="mt-2 me-2">
-                <%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %>
-              </div>
-
-              <div class="me-2">
-                <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
-                  <% like = comment.likes.find_by(user_id: current_user.id) %>
-                  <%= button_to comment_like_path(comment, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
-                        <%= image_tag 'thumbs-up-solid', width: '20rem', class: 'mb-4' %>
+                <div class="d-flex align-items-center comment-actions">
+                  <% if user_signed_in? && comment.likes.where(user_id: current_user.id).any? %>
+                    <% like = comment.likes.find_by(user_id: current_user.id) %>
+                    <%= button_to comment_like_path(comment, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+                      <%= image_tag 'thumbs-up-solid', width: '20rem', class: 'mb-2' %>
+                    <% end %>
+                  <% else %>
+                    <%= button_to comment_likes_path(comment), method: :post, class: 'btn btn-sm', id: 'like' do %>
+                      <%= image_tag 'thumbs-up-regular', width: '20rem', class: 'mb-2' %>
+                    <% end %>
                   <% end %>
-                <% else %>
-                  <%= button_to comment_likes_path(comment), method: :post, class: 'btn btn-sm', id: 'like' do %>
-                    <%= image_tag 'thumbs-up-regular', width: '20rem', class: 'mb-2' %>
+                  <span><%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %></span>
+                  <button onClick="showForm(<%= comment.id %>)" class="btn btn-outline-primary rounded-5 border-0 mx-1"><%= t('reply')%></button> 
+                  <% if current_user != comment.user %>
+                    <div class="dropdown">
+                      <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="bg-white rounded-5 border-0" id="report-comment-dropdown">
+                        <%= image_tag 'three-dots-vertical'%>
+                      </button>
+                    <div class="dropdown-menu">
+                      <%= link_to new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm dropdown-item' do %>
+                        <%= image_tag 'flag' %>
+                        <span class="mx-2"><%= t('reports.report_btn') %></span>
+                      <% end %>
+                    </div>
+                  </div>
                   <% end %>
-                <% end %>
+                </div>
+                <div class="reply-form">
+                  <%= form_with model: [comment, @reply], method: :post, class:'d-none row align-items-center mt-3', id:"comment-#{comment.id}" do |form| %>
+                    <div class="col-md-12">
+                      <%= form.label :message, class: 'd-none' %>
+                      <%= form.text_area :message, placeholder: 'Adicione uma resposta...', class: 'form-control' %>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                      <%= form.submit t('replies.send'), class: 'btn btn-primary' %>
+                    </div>
+                  <% end %>
+                </div>
+                <% if comment.replies.any? %>
+                  <button class="btn btn-outline-info border-0 rounded-5 mt-2 dropdown-toggle reply-collapser" 
+                          type="button" 
+                          data-bs-toggle="collapse" 
+                          data-bs-target="#collapseReplies<%= comment.id %>" 
+                          aria-expanded="false" 
+                          aria-controls="collapseReplies<%= comment.id %>">
+                    <%= comment.replies.count %> <%= Reply.model_name.human(count: comment.replies.count) %>
+                  </button>
+                  <div class="collapse mx-5 mt-3 reply-content" id="collapseReplies<%= comment.id %>">
+                    <% comment.replies.each do |reply| %>
+                      <h6 class="mt-2">
+                        <% if reply.user.profile.photo.present? %>
+                          <%= image_tag reply.user.profile.photo, alt: 'Foto de perfil', width: '30rem', class: 'profile-picture rounded-circle mx-3' %>
+                        <% else %>
+                          <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '30rem', class: 'profile-picture rounded-circle mx-3' %>
+                        <% end %>
+                        <%= link_to reply.user.full_name, reply.user.profile %> <%= '(autor)' if reply.user == @post.user %>
+                        <small datetime="<%= reply.created_at.to_datetime %>">
+                          há <%= distance_of_time_in_words(Time.now, reply.created_at) %>
+                        </small>
+                      </h6>
+                      <div class="reply-content text-dark">
+                        <p class="mx-2"><%= reply.message %></p>
+                        <div class="btn-group d-flex align-items-center mt-4">
+                          <% if user_signed_in? && reply.likes.where(user_id: current_user.id).any? %>
+                          <% like = reply.likes.find_by(user_id: current_user.id) %>
+                            <%= button_to reply_like_path(reply, like), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+                              <%= image_tag 'thumbs-up-solid', width: '20rem' %>
+                            <% end %>
+                          <% else %>
+                            <%= button_to reply_likes_path(reply), method: :post, class: 'btn btn-sm', id: 'like' do %>
+                              <%= image_tag 'thumbs-up-regular', width: '20rem' %>
+                            <% end %>
+                          <% end %>
+                          <div class="me-2 mt-2">
+                            <%= reply.likes.count %> <%= Like.model_name.human(count: reply.likes.count) %>
+                          </div>
+                          <% if current_user != reply.user %>
+                            <div class="dropdown">
+                              <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="bg-white rounded-5 border-0" id="report-reply-dropdown">
+                                <%= image_tag 'three-dots-vertical'%>
+                              </button>
+                            <div class="dropdown-menu">
+                              <%= link_to new_report_path(reportable: reply, reportable_type: reply.class), class: 'btn btn-secondary btn-sm dropdown-item' do %>
+                                <%= image_tag 'flag' %>
+                                <span class="mx-2"><%= t('reports.report_btn') %></span>
+                              <% end %>
+                            </div>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                <%end%>
               </div>
             </div>
-
-            <% if current_user != comment.user %>
-              <div class="report-link-wrapper">
-                <%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %>
-              </div>
-            <% end %>
           </div>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
@@ -128,4 +242,9 @@
       }
     };
   });
+
+  function showForm(id){
+    form = document.getElementById(`comment-${id}`)
+    form.classList.toggle('d-none')
+  }
 </script>

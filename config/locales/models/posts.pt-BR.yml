@@ -21,6 +21,8 @@ pt-BR:
         status_draft: Rascunho
         status_published: Publicada
   posts:
+    publish:
+      success: Publicada com sucesso!
     redirect_alert:
       invalid_user: Você não pode acessar este conteúdo ou realizar esta ação
     create:
@@ -60,8 +62,9 @@ pt-BR:
     edit:
       edit_post: Editar Publicação
     new:
-      new_post: Criar Nova Publicação
-
+      new_post: Criar Publicação
+      new_post_home: Crie a sua publicação
+    share: Compartilhar
     helpers:
       created_at: 'Criado em: '
       scheduled_for: 'Agendado para: '

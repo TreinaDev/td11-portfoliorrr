@@ -17,9 +17,13 @@ Rails.application.routes.draw do
   resources :notifications, only: %i[index update]
 
   resources :posts, only: %i[new create] do
-    resources :comments, only: %i[create]
+    resources :comments, shallow: true, only: %i[create] do
+      resources :replies, only: %i[create]
+    end
     post 'pin', on: :member
   end
+
+  resources :subscriptions, only: %i[index update]
 
   resources :reports, only: %i[index new create show] do
     member do
@@ -30,11 +34,16 @@ Rails.application.routes.draw do
   end
 
   resources :posts, only: %i[] do
+    patch 'publish', on: :member
     resources :likes, only: %i[create destroy], module: :posts
+  end
 
-    end
   resources :comments, only: %i[] do
     resources :likes, only: %i[create destroy], module: :comments
+  end
+
+  resources :replies, only: %i[] do
+    resources :likes, only: %i[create destroy], module: :replies
   end
 
   resources :users, only: [] do
@@ -67,7 +76,7 @@ Rails.application.routes.draw do
       resources :profiles, only: %i[show index]
       resources :invitations, only: %i[create update]
       resources :invitation_request, only: %i[update]
-      
+
       get 'projects/request_invitation', controller: :projects
     end
   end
