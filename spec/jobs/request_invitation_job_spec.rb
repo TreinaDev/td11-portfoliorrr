@@ -3,11 +3,7 @@ require 'rails_helper'
 RSpec.describe RequestInvitationJob, type: :job do
   it 'altera a solicitação de convite para pending caso receba uma confirmação de sucesso do Cola?Bora!' do
     invitation_request = create(:invitation_request)
-    invitation_request_params = { data: { proposal: { invitation_request_id: invitation_request.id,
-                                                      project_id: invitation_request.project_id,
-                                                      profile_id: invitation_request.profile.id,
-                                                      email: invitation_request.profile.email,
-                                                      message: invitation_request.message } } }.as_json
+    invitation_request_params = { invitation_request_id: invitation_request.id }.as_json
 
     json_proposal_response = File.read(Rails.root.join('./spec/support/json/proposal_201.json'))
     fake_portfoliorrr_response = double('faraday_response', status: :ok, body: json_proposal_response)
@@ -30,11 +26,7 @@ RSpec.describe RequestInvitationJob, type: :job do
 
   it 'enfileira um novo job caso receba um aviso de erro no servidor do Cola?Bora!' do
     invitation_request = create(:invitation_request)
-    invitation_request_params = { data: { proposal: { invitation_request_id: invitation_request.id,
-                                                      project_id: invitation_request.project_id,
-                                                      profile_id: invitation_request.profile.id,
-                                                      email: invitation_request.profile.email,
-                                                      message: invitation_request.message } } }.as_json
+    invitation_request_params = { invitation_request_id: invitation_request.id }.as_json
 
     fake_colabora_response_body = { 'errors': ['Erro interno de servidor.'] }.as_json
     fake_portfoliorrr_response = double('faraday_response', status: :ok, body: fake_colabora_response_body)
@@ -57,11 +49,7 @@ RSpec.describe RequestInvitationJob, type: :job do
 
   it 'altera a solicitação de convite para error caso receba um aviso de erro do Cola?Bora!' do
     invitation_request = create(:invitation_request)
-    invitation_request_params = { data: { proposal: { invitation_request_id: invitation_request.id,
-                                                      project_id: invitation_request.project_id,
-                                                      profile_id: invitation_request.profile.id,
-                                                      email: invitation_request.profile.email,
-                                                      message: invitation_request.message } } }.as_json
+    invitation_request_params = { invitation_request_id: invitation_request.id }.as_json
 
     fake_colabora_response_body = { 'errors': ['Usuário já faz parte deste projeto'] }.as_json
     fake_portfoliorrr_response = double('faraday_response', status: :ok, body: fake_colabora_response_body)
@@ -84,11 +72,7 @@ RSpec.describe RequestInvitationJob, type: :job do
 
   it 'altera a solicitação de convite para aborted se receber pela quinta vez um erro da API do Cola?Bora!' do
     invitation_request = create(:invitation_request)
-    invitation_request_params = { data: { proposal: { invitation_request_id: invitation_request.id,
-                                                      project_id: invitation_request.project_id,
-                                                      profile_id: invitation_request.profile.id,
-                                                      email: invitation_request.profile.email,
-                                                      message: invitation_request.message } } }.as_json
+    invitation_request_params = { invitation_request_id: invitation_request.id }.as_json
 
     fake_colabora_response_body = { 'errors': ['Erro interno de servidor.'] }.as_json
     fake_portfoliorrr_response = double('faraday_response', status: :ok, body: fake_colabora_response_body)
@@ -114,11 +98,7 @@ RSpec.describe RequestInvitationJob, type: :job do
 
   it 'gera uma nova tentativa caso a API do Portfoliorrr esteja fora do ar, sem limite de tentativas' do
     invitation_request = create(:invitation_request)
-    invitation_request_params = { data: { proposal: { invitation_request_id: invitation_request.id,
-                                                      project_id: invitation_request.project_id,
-                                                      profile_id: invitation_request.profile.id,
-                                                      email: invitation_request.profile.email,
-                                                      message: invitation_request.message } } }.as_json
+    invitation_request_params = { invitation_request_id: invitation_request.id }.as_json
 
     fake_response_body = { 'error': 'Houve um erro interno no servidor ao processar sua solicitação.' }.as_json
     fake_portfoliorrr_response = double('faraday_response', status: :internal_server_error, body: fake_response_body)

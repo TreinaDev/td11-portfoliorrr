@@ -1,7 +1,11 @@
 <div class="container" id="vue-projects-app">
   <h2 class="text-center"><%= t('.index_title') %> </h2>
 
-  <div v-if="emptyData" class="text-center">
+  <div v-if="freeUser" class="text-center become-premium-div mt-5">
+    <h2 class="become-premium-text"><%= t('subscriptions.become') %> <%= link_to t('subscriptions.subscriber'), subscriptions_path %> <%= t('subscriptions.see_listed_projects') %></h2 class="become-premium-text">
+  </div>
+
+  <div v-else-if="emptyData" class="text-center">
     <p>{{ emptyData }}</p>
   </div>
 
@@ -40,7 +44,7 @@
     <h3 v-else-if="projects.length == 0 && !errorMsg" class="mt-5 alert alert-warning text-center">
       <%= t('.errors.no_result') %>
     </h3>
-    
+
     <div v-else>
       <div class="mt-5 border-top w-50 mx-auto" v-for="project in filteredProjects" :key="project.id">
         <h3 class="mt-3">{{ project.title }}</h3>
@@ -70,5 +74,7 @@
 </div>
 
 <script>
+  var portfoliorrrProjectsApiUrl = '<%= @projects_url %>'
   var invitationRequestsProjectsIds = <%= @invitation_requests_projects_ids %>
+  var freeUser = <%= @free_user %>
 </script>

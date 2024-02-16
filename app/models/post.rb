@@ -20,6 +20,9 @@ class Post < ApplicationRecord
 
   has_rich_text :content
 
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   def self.get_sample(amount)
     published.sample amount
   end
@@ -38,6 +41,11 @@ class Post < ApplicationRecord
     content.body.attachments.each do |attachment|
       return attachment.attachable if attachment.attachable.image?
     end
+  end
+
+  def published!
+    super
+    update(published_at: Time.current)
   end
 
   private

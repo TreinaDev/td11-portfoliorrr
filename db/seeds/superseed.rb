@@ -58,6 +58,7 @@ images_for_posts = [
 ]
 
 # Adiciona usuários, perfis, informações pessoais
+print "\n4. criando usuários "
 @number_of_users.times do
   user = FactoryBot.create(:user, :seed)
   profile = FactoryBot.create(:profile, :seed, user:)
@@ -65,10 +66,11 @@ images_for_posts = [
   personal_info = FactoryBot.create(:personal_info, :seed, profile:)
 
   # Adiciona experiências profissionais
-  FactoryBot.create(:professional_info, :first_seed, profile:)
+  FactoryBot.create(:professional_info, :first_job, profile:)
   rand(2..7).times do
-    FactoryBot.create(:professional_info, :seed, profile:)
+    FactoryBot.create(:professional_info, :seed_job, profile:)
   end
+  FactoryBot.create(:professional_info, :current_job, profile:)
 
   # Adiciona experiências acadêmicas
   FactoryBot.create(:education_info, :first_seed, profile:)
@@ -85,25 +87,33 @@ images_for_posts = [
                       job_category: job_categories.sample,
                       description: Faker::Lorem.paragraph)
   end
+  print '.'
+end
 
-  # Cria um post com imagem e outros posts somente texto (WIP)
+# Para cada user cria um post com imagem e de um a três sem imagens
+print "\n3. criando postagens "
+User.all.each do |user|
   html_post = %(<action-text-attachment sgid="#{images_for_posts.sample.attachable_sgid}"></action-text-attachment>)
-  user.posts.create(title: Faker::Lorem.sentence, content: "#{Faker::Lorem.paragraph} #{html_post}", tag_list: [tags].sample)
+  FactoryBot.create(:post, :seed, user:, content: "#{Faker::Lorem.paragraphs(number: 3).join(' ')} #{html_post}")
   rand(1..3).times do
-    user.posts.create(title: Faker::Lorem.sentence, content: "#{Faker::Lorem.paragraph}", tag_list: [tags].sample)
+    FactoryBot.create(:post, :seed, user:)
   end
+  print '.'
 end
 
 # Adiciona followers aos perfis
+print "\n2. estabelecendo seguidores e seguidos "
 User.all.each do |user|
   rand(2..5).times do
     not_followed_profiles = Profile.all.reject { |profile| profile.following?(user.profile) }
     followed_profile = not_followed_profiles.sample if not_followed_profiles.any?
     Connection.create!(follower: user.profile, followed_profile:) unless followed_profile == user.profile
   end
+  print '.'
 end
 
 # Adiciona comentários e likes
+print "\n1. criando comentários e dando likes "
 Post.all.each do |post|
   rand(0..10).times do
     FactoryBot.create(:like, likeable: post, user:  User.all.reject { |user| post.likes.pluck(:user_id).include?(user.id) }.sample)
@@ -114,7 +124,9 @@ Post.all.each do |post|
       FactoryBot.create(:like, likeable: comment, user: User.all.reject { |user| comment.likes.pluck(:user_id).include?(user.id) }.sample)
     end
   end
+  print '.'
 end
 
-puts "Pronto! #{@number_of_users} usuários criados."
+puts "\nPronto! #{@number_of_users} usuários criados."
 puts "Admin: #{admin.email}, senha: #{admin.password}"
+puts "\n"

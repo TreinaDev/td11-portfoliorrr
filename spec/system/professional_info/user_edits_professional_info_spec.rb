@@ -47,7 +47,7 @@ describe 'Usuário edita informações profissionais' do
 
       click_on 'Salvar'
 
-      expect(current_path).to eq edit_professional_info_path(professional_info)
+      expect(page).to have_current_path edit_professional_info_path(professional_info)
 
       expect(page).to have_content 'Não foi possível atualizar experiência profissional'
       expect(page).to have_content 'Empresa não pode ficar em branco'
@@ -93,7 +93,7 @@ describe 'Usuário edita informações profissionais' do
 
       visit edit_professional_info_path(professional_info_user1)
 
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path root_path
       expect(page).to have_content 'Não foi possível completar sua ação'
     end
   end

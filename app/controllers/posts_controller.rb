@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %w[new create edit pin]
-  before_action :set_post, only: %w[show edit update pin]
+  before_action :set_post, only: %w[show edit update pin publish]
   before_action :authorize!, only: %w[edit update pin]
   before_action :blocks_update, only: %w[update]
   before_action :redirect_if_removed_content, only: %w[show edit update pin]
@@ -29,6 +29,7 @@ class PostsController < ApplicationController
     @comment = Comment.new
     @likes_count = @post.likes.count
     @liked = Like.find_by(user: current_user, likeable: @post)
+    @reply = Reply.new
   end
 
   def edit; end
@@ -52,6 +53,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def publish
+    @post.published!
+    redirect_to post_path(@post), notice: t('.success')
+  end
+
   private
 
   def post_params
@@ -62,7 +68,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
   end
 
   def authorize!

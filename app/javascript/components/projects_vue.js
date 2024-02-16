@@ -10,7 +10,9 @@ export default {
       showingForm: false,
       currentProjectId: null,
       invitationRequestsProjectsIds: window.invitationRequestsProjectsIds,
+      freeUser: window.freeUser,
       errorMsg: false,
+      portfoliorrrProjectsApiUrl: window.portfoliorrrProjectsApiUrl,
     }
   },
   computed:{
@@ -44,21 +46,23 @@ export default {
   },
 
   async created() {
-    try {
-      let response = await fetch('/api/v1/projects', { signal });
-      if (response.ok) {
-        let data = await response.json();
-        if (!data.message) {
-          this.projects = data;
+    if (!freeUser) {
+      try {
+        let response = await fetch(this.portfoliorrrProjectsApiUrl, { signal });
+        if (response.ok) {
+          let data = await response.json();
+          if (!data.message) {
+            this.projects = data;
+          }
+        } else {
+          this.errorMsg = true;
         }
-      } else {
-        this.errorMsg = true;
-      }
-    } catch (error) {
-      if (error.name == 'AbortError') {
-        console.log('Requisição abortada');
-      } else {
-        this.errorMsg = true;
+      } catch (error) {
+        if (error.name == 'AbortError') {
+          console.log('Requisição abortada');
+        } else {
+          this.errorMsg = true;
+        }
       }
     }
   }

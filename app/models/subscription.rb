@@ -9,7 +9,7 @@ class Subscription < ApplicationRecord
   after_update :create_billing, if: :active? && :saved_change_to_status?
 
   def active!
-    self.start_date = Time.zone.now
+    self.start_date = Time.zone.now.to_date
     super
   end
 
@@ -21,6 +21,8 @@ class Subscription < ApplicationRecord
   private
 
   def create_billing
+    return if start_date.nil?
+
     billing_date = if start_date.day < 29
                      start_date + 1.month
                    else

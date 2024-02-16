@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_15_115912) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_15_181135) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -93,6 +93,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_115912) do
     t.index ["profile_id"], name: "index_education_infos_on_profile_id"
   end
 
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
   create_table "invitation_requests", force: :cascade do |t|
     t.integer "profile_id", null: false
     t.text "message"
@@ -117,7 +128,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_115912) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_id", null: false
+    t.string "slug"
     t.index ["profile_id"], name: "index_invitations_on_profile_id"
+    t.index ["slug"], name: "index_invitations_on_slug", unique: true
   end
 
   create_table "job_categories", force: :cascade do |t|
@@ -175,6 +188,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_115912) do
     t.integer "status", default: 0
     t.datetime "published_at"
     t.string "old_status"
+    t.string "slug"
+    t.index ["slug"], name: "index_posts_on_slug", unique: true
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -212,7 +227,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_115912) do
     t.integer "privacy", default: 10
     t.integer "status", default: 5
     t.boolean "removed", default: false
+    t.string "slug"
+    t.index ["slug"], name: "index_profiles_on_slug", unique: true
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "comment_id", null: false
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_replies_on_comment_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -324,8 +351,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_115912) do
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "status", default: 0
     t.date "start_date"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
@@ -400,6 +427,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_115912) do
   add_foreign_key "profile_job_categories", "job_categories"
   add_foreign_key "profile_job_categories", "profiles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "replies", "comments"
+  add_foreign_key "replies", "users"
   add_foreign_key "reports", "profiles"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

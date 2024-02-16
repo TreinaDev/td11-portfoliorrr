@@ -13,6 +13,9 @@ class Invitation < ApplicationRecord
   after_create :create_notification
   after_create :validate_and_approve_pending_request
 
+  extend FriendlyId
+  friendly_id :project_title, use: :slugged
+
   def set_status
     self.status = 'pending'
   end
