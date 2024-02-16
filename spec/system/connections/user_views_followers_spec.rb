@@ -44,7 +44,7 @@ describe 'Usuário vê lista de usuários seguidos' do
 
       visit profile_following_path(user.profile)
 
-      expect(current_path).to eq new_user_session_path
+      expect(page).to have_current_path new_user_session_path
     end
   end
 end

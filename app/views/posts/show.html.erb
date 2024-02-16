@@ -44,9 +44,11 @@
       </p>
     <% end %>
     <p>
-      <time datetime="<%= @post.edited_at.to_date %>">
-        <%= t('.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
-      </time>
+      <% if @post.edited_at.present? %>
+        <time datetime="<%= @post.edited_at.to_date %>">
+          <%= t('.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
+        </time>
+      <% end %>
     </p>
 
     <p class="card-subtitle mb-2 text-body-secondary tags">
