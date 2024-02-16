@@ -37,14 +37,16 @@ describe 'Admin visita página de index de denúnicas' do
     click_on 'Conteúdo removido'
 
     expect(page).not_to have_content report.truncated_message
-    expect(page).not_to have_content 'Discurso de ódio'
-    expect(page).not_to have_content 'Publicação'
-    expect(page).to have_content other_report.truncated_message
-    expect(page).to have_content 'Abuso/Perseguição'
-    expect(page).to have_content 'Comentário'
-    expect(page).not_to have_content another_report.truncated_message
-    expect(page).not_to have_content 'Spam'
-    expect(page).not_to have_content 'Perfil'
+    within 'main' do
+      expect(page).not_to have_content 'Discurso de ódio'
+      expect(page).not_to have_content 'Publicação'
+      expect(page).to have_content other_report.truncated_message
+      expect(page).to have_content 'Abuso/Perseguição'
+      expect(page).to have_content 'Comentário'
+      expect(page).not_to have_content another_report.truncated_message
+      expect(page).not_to have_content 'Spam'
+      expect(page).not_to have_content 'Perfil'
+    end
     expect(page).to have_current_path reports_path({ filter: 'granted' })
   end
 

@@ -16,7 +16,7 @@ describe 'Usuário cria uma postagem' do
       click_button class: 'dropdown-toggle'
 
       within 'nav' do
-        click_on 'Criar Nova Publicação'
+        click_on 'Criar Publicação'
       end
 
       fill_in 'Título da Publicação', with: 'Olá Mundo!'

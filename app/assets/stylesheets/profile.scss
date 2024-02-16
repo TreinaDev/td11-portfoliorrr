@@ -3,11 +3,32 @@
   transition-duration: 300ms;
 }
   
-.profile-image{
-   min-width: 80px;
-}
-
 .img-cover{
   object-fit: cover;
   object-position: center;
+}
+
+.profile-header-title{
+  margin: 0 -0.66rem 0.66rem -0.66rem;
+}
+
+.profile-header-picture{
+  transform: translateY(-50%);
+}
+
+.profile-picture{
+  background-color: #F6F7F8 !important;
+}
+
+.profile-card-body{
+  color: #F6F7F8 !important;
+}
+
+.profile-info-content{
+  font-size: 1.11rem;
+  margin-left: 2.12rem;
+}
+
+.profile-info-title{
+  margin-left: 2rem !important;
 }

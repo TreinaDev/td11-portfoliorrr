@@ -19,7 +19,7 @@ admin = FactoryBot.create(:user, full_name: 'Boninho da Globo', email: 'admin@ad
 
 
 # Setup
-@number_of_users = 40
+@number_of_users = 20
 
 
 # 30 categorias de Trabalho

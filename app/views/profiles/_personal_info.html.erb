@@ -1,14 +1,14 @@
-<ul>
+<ul class="mx-2">
   <% if personal_info.has_key?('visibility') && user_is_owner %>
-    <li class="fs-5 mb-3">
-      <span class="fw-bold"><%= t(personal_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
+    <li class="fs-5 mb-3 personal-info-visibility">
+      <span class="fw-semibold"><%= t(personal_info['visibility'] ? 'visibility.true' : 'visibility.false') %></span>
     </li>
   <% end %>
   <% personal_info.each do |attribute, value| %>    
     <% next if attribute == 'visibility' %>
       <% new_value = (value && attribute == 'birth_date') ? l(value.to_date) : value  %>
     <li>
-      <span class="fw-bold"><%= PersonalInfo.human_attribute_name(attribute) %></span>:
+      <span class="fw-semibold"><%= PersonalInfo.human_attribute_name(attribute) %></span>:
       <%= info_fixer(new_value) %>
     </li>
   <% end %>

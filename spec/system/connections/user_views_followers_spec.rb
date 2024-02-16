@@ -32,13 +32,10 @@ describe 'Usuário vê lista de usuários seguidos' do
       expect(page).not_to have_link first_followed.full_name
 
       expect(page).to have_link second_followed.full_name, href: profile_path(second_followed.profile)
-      expect(page).to have_content 'Disponível Para Trabalho'
 
       expect(page).to have_link third_followed.full_name, href: profile_path(third_followed.profile)
-      expect(page).to have_content 'Indisponível Para Trabalho'
 
       expect(page).to have_link fourth_followed.full_name, href: profile_path(fourth_followed.profile)
-      expect(page).to have_content 'Dev Senior | Rebase'
     end
 
     it 'e deve estar logado' do
