@@ -12,6 +12,6 @@
   <p><%= t('.most_liked_comment', comment: @most_liked_comment.message) %> <%= link_to @most_liked_comment.post.title, post_url(@most_liked_comment.post) %></p>
 <% end %>
 
-<p><%= link_to t('click_btn'), profile_url(@user.profile) %> <%= t('.access_profile') %></p>
+<p><%= link_to t('click_btn'), profile_url(@user.profile.slug) %> <%= t('.access_profile') %></p>
 <%= t('.regards') %>,
 <p>Portfoliorrr</p>

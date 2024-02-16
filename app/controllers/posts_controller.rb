@@ -46,10 +46,10 @@ class PostsController < ApplicationController
   def pin
     if @post.unpinned?
       @post.pinned!
-      redirect_to profile_path(current_user), notice: t('.pinned.success')
+      redirect_to profile_path(current_user.profile.slug), notice: t('.pinned.success')
     else
       @post.unpinned!
-      redirect_to profile_path(current_user), notice: t('.unpinned.success')
+      redirect_to profile_path(current_user.profile.slug), notice: t('.unpinned.success')
     end
   end
 
