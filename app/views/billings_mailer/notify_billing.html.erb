@@ -1,0 +1,9 @@
+<h3><%= t('.greeting', recipient: @user.full_name)%></h3>
+
+<p><%= t('.reminder')%></p>
+
+<p><%= t('.call_to_action')%></p>
+
+<p><%= t('.due_date', due_date: I18n.l(@billing.billing_date)) %></p>
+
+<p><%= t('.amount', amount: number_to_currency(@billing.amount)) %></p>

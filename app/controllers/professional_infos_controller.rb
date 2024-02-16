@@ -8,10 +8,10 @@ class ProfessionalInfosController < ApplicationController
   end
 
   def create
-    @professional_info = current_user.profile.professional_infos.build(professional_info_params)
+    @professional_info = current_user.professional_infos.build(professional_info_params)
 
     if @professional_info.save
-      redirect_to profile_path(current_user.profile), notice: t('.success')
+      redirect_to profile_path(current_user.profile.slug), notice: t('.success')
     else
       flash.now[:alert] = t('.error')
       render :new, status: :unprocessable_entity
@@ -22,7 +22,7 @@ class ProfessionalInfosController < ApplicationController
 
   def update
     if @professional_info.update(professional_info_params)
-      redirect_to profile_path(current_user.profile), notice: t('.success')
+      redirect_to profile_path(current_user.profile.slug), notice: t('.success')
     else
       flash.now[:alert] = t('.error')
       render :edit, status: :unprocessable_entity

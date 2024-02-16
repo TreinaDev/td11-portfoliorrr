@@ -40,7 +40,7 @@ class SettingsController < ApplicationController
   private
 
   def redirect_unauthorized_access
-    @profile = Profile.find(params[:profile_id])
+    @profile = Profile.friendly.find(params[:profile_id])
     return if current_user == @profile.user
 
     redirect_to root_path, alert: t('alerts.unauthorized')

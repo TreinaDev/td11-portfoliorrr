@@ -9,7 +9,7 @@ describe 'Usuário pesquisa' do
     fill_in 'Buscar', with: ''
     click_on 'Pesquisar'
 
-    expect(current_path).to eq root_path
+    expect(page).to have_current_path root_path
     expect(page).to have_content 'Você precisa informar um termo para fazer a pesquisa'
   end
 end

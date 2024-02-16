@@ -253,7 +253,7 @@ RSpec.describe Profile, type: :model do
     it 'retorna perfis premium primeiro e depois os perfis free' do
       create(:user, :free, full_name: 'André Porteira')
       create(:user, :free, full_name: 'Eliseu Ramos')
-      create(:user, full_name: 'Moisés Campus')
+      create(:user, :paid, full_name: 'Moisés Campus')
       user_premium_inactive = create(:user, full_name: 'Joao Almeida')
       user_premium_inactive.subscription.inactive!
 
@@ -268,8 +268,8 @@ RSpec.describe Profile, type: :model do
     it 'ordena por nome em caso de mesmo status de assinatura' do
       create(:user, :free, full_name: 'André Almeida')
       create(:user, :free, full_name: 'André Barbosa')
-      create(:user, full_name: 'André Campus')
-      create(:user, full_name: 'André Dias')
+      create(:user, :paid, full_name: 'André Campus')
+      create(:user, :paid, full_name: 'André Dias')
 
       result = Profile.order_by_premium
 

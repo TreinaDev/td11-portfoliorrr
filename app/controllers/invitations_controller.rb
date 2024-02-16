@@ -25,7 +25,7 @@ class InvitationsController < ApplicationController
   private
 
   def set_invitation
-    @invitation = Invitation.find(params[:id])
+    @invitation = Invitation.friendly.find(params[:id])
   end
 
   def authorize!

@@ -17,7 +17,7 @@ describe 'Usuário cria categoria de trabalho' do
   it 'e deve estar logado' do
     visit job_categories_path
 
-    expect(current_path).to eq(new_user_session_path)
+    expect(page).to have_current_path(new_user_session_path)
     expect(page).to have_content('Para continuar, faça login ou registre-se.')
   end
 

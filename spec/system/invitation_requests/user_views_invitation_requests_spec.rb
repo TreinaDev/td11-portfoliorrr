@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário acessa página de pedidos de convite' do
   it 'a partir da home' do
-    user = create(:user)
+    user = create(:user, :paid)
     create(:invitation_request, profile: user.profile, message: 'Me aceita',
                                 project_id: 1, status: :pending, created_at: 1.day.ago)
     create(:invitation_request, profile: user.profile, message: 'Sou bom para este projeto',
@@ -33,7 +33,7 @@ describe 'Usuário acessa página de pedidos de convite' do
   end
 
   it 'e não existem pedidos' do
-    user = create(:user)
+    user = create(:user, :paid)
 
     login_as user
     visit invitation_requests_path
@@ -42,7 +42,7 @@ describe 'Usuário acessa página de pedidos de convite' do
   end
 
   it 'e ocorre erro na conexão da API Cola?Bora!' do
-    user = create(:user)
+    user = create(:user, :paid)
     create(:invitation_request, profile: user.profile)
 
     fake_response = double('faraday_response', success?: false,

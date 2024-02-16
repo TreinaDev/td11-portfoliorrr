@@ -13,7 +13,7 @@ describe 'Usuário vê a lista de publicações' do
     click_on 'Pesquisar'
     click_on user.full_name
 
-    expect(page).to have_current_path(profile_path(user))
+    expect(page).to have_current_path(profile_path(user.profile.slug))
     within 'h2#post-list-title' do
       expect(page).to have_content('Publicações')
     end
@@ -39,7 +39,7 @@ describe 'Usuário vê a lista de publicações' do
                           published_at: 2.days.from_now)
 
     login_as user
-    visit profile_path(user)
+    visit profile_path(user.profile.slug)
 
     expect(page).to have_content 'Há 2 dias'
   end
@@ -56,7 +56,7 @@ describe 'Usuário vê a lista de publicações' do
     create(:post, user:, title: 'Conteúdo C', content: 'Primeira postagem')
 
     login_as user
-    visit profile_path(user)
+    visit profile_path(user.profile.slug)
 
     expect(page.body.index('Conteúdo C')).to be < page.body.index('Texto B')
     expect(page.body.index('Texto B')).to be < page.body.index('Post A')
