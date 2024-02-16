@@ -14,8 +14,8 @@
         </div>
 
         <% if current_user.subscription.inactive? %>
-          <div class="card-footer bg-success text-white">
-            <h4><%= t('.current_tier') %></h4>
+          <div class="card-footer bg-success text-white rounded">
+            <h3><%= t('.current_tier') %></h3>
           </div>
         <% end %>
       </div>
@@ -33,10 +33,18 @@
         </ul>
 
         <% if current_user.subscription.inactive? %>
-          <%= button_to t('.subscribe_btn'), subscription_path(current_user.subscription), method: :patch, class: "btn btn-primary btn-lg mt-4" %>
+          <div class="d-flex mt-5">
+            <div class="d-flex m-auto align-items-center">
+              <h3 class="mb-0">Apenas R$19,90</h3>
+            <div>
+            <div class="d-flex" style="margin-left: 3rem">
+              <%= button_to t('.subscribe_btn'), subscription_path(current_user.subscription), method: :patch, class: "btn btn-primary btn-lg" %>
+            <div>
+          <div>
+
         <% else %>
-          <div class="card-footer bg-success text-white">
-            <h4><%= t('.current_tier') %></h4>
+          <div class="card-footer bg-success text-white mt-5 rounded">
+            <h3><%= t('.current_tier') %></h3>
           </div>
         <% end %>
       </div>

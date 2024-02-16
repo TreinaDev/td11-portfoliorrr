@@ -105,7 +105,7 @@ describe 'Usuário faz login' do
         click_on 'Entrar'
       end
 
-      expect(page).to have_content 'Sua conta foi removida pelos adminitradores'
+      expect(page).to have_content 'Sua conta foi removida pelos administradores'
     end
   end
 end
