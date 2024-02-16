@@ -13,9 +13,11 @@ class AdvertisementsController < ApplicationController
   def create
     @advertisement = current_user.advertisements.build(ads_params)
 
-    return redirect_to advertisement_path(@advertisement), notice: t('.success') if @advertisement.save
-
-    render 'new', status: :unprocessable_entity
+    if @advertisement.save
+      redirect_to advertisement_path(@advertisement), notice: t('.success')
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def show
