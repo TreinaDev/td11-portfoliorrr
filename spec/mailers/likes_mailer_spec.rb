@@ -42,7 +42,7 @@ RSpec.describe LikesMailer, type: :mailer do
       expect(mail.body).to include "A publicação mais curtida foi <a href=\"#{post_url(post_b)}\">#{post_b.title}</a>"
       expect(mail.body).to include "O seu comentário mais curtido foi #{comment.message} na publicação "
       expect(mail.body).to include "<a href=\"#{post_url(comment.post)}\">#{comment.post.title}</a>"
-      expect(mail.body).to have_link 'Clique aqui', href: profile_url(user.profile)
+      expect(mail.body).to have_link 'Clique aqui', href: profile_url(user.profile.slug)
       expect(mail.body).to include 'para acessar seu perfil e continuar interagindo.'
     end
 
@@ -62,7 +62,7 @@ RSpec.describe LikesMailer, type: :mailer do
       expect(mail.body).to include "A publicação mais curtida foi <a href=\"#{post_url(post)}\">#{post.title}</a>"
       expect(mail.body).not_to include "O seu comentário mais curtido foi #{comment.message} na publicação "
       expect(mail.body).not_to include "<a href=\"#{post_url(comment.post)}\">#{comment.post.title}</a>"
-      expect(mail.body).to have_link 'Clique aqui', href: profile_url(user.profile)
+      expect(mail.body).to have_link 'Clique aqui', href: profile_url(user.profile.slug)
       expect(mail.body).to include 'para acessar seu perfil e continuar interagindo.'
     end
 
@@ -81,7 +81,7 @@ RSpec.describe LikesMailer, type: :mailer do
       expect(mail.body).not_to include "A publicação mais curtida foi <a href=\"#{post_url(post)}\">#{post.title}</a>"
       expect(mail.body).to include "O seu comentário mais curtido foi #{comment.message} na publicação "
       expect(mail.body).to include "<a href=\"#{post_url(comment.post)}\">#{comment.post.title}</a>"
-      expect(mail.body).to have_link 'Clique aqui', href: profile_url(user.profile)
+      expect(mail.body).to have_link 'Clique aqui', href: profile_url(user.profile.slug)
       expect(mail.body).to include 'para acessar seu perfil e continuar interagindo.'
     end
   end
