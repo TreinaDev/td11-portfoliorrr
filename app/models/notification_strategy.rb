@@ -1,14 +1,13 @@
 class NotificationStrategy < SimpleDelegator
+  STRATEGY = {
+    Invitation => ->(notifiable) { notifiable },
+    Post => ->(notifiable) { notifiable },
+    Comment => ->(notifiable) { notifiable.post },
+    Connection => ->(notifiable) { notifiable.follower },
+    Like => ->(notifiable) { notifiable.likeable.is_a?(Comment) ? notifiable.likeable.post : notifiable.likeable }
+  }.freeze
+
   def redirect_after_click
-    case notifiable
-    when Comment
-      notifiable.post
-    when Connection
-      notifiable.follower
-    when Like
-      notifiable.likeable.is_a?(Comment) ? notifiable.likeable.post : notifiable.likeable
-    else
-      notifiable
-    end
+    STRATEGY[notifiable.class].call(notifiable)
   end
 end
