@@ -96,7 +96,7 @@ describe 'Admin visita página de index de denúnicas' do
     login_as user
     visit reports_path
 
-    expect(current_path).to eq root_path
+    expect(page).to have_current_path root_path
     expect(page).to have_content 'Você não têm permissão para realizar essa ação.'
   end
 end

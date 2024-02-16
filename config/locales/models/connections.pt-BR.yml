@@ -30,3 +30,6 @@ pt-BR:
   connections_mailer:
     notify_follow:
       subject: 'Alguém seguiu seu perfil'
+      greeting: Olá, %{recipient}!
+      access_profile: para acessar seu perfil e continuar interagindo.
+      regards: Abraços,

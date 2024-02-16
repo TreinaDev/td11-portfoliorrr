@@ -15,7 +15,6 @@ describe 'Usuário busca outros usuários' do
     fill_in 'Buscar', with: 'gErAl'
     click_on 'Pesquisar'
 
-    expect(current_path).to eq searches_path
     expect(page).to have_content('2 resultados para: gErAl')
     expect(page).not_to have_content 'Horácio Fernandes'
     expect(page).to have_link 'Geraldo José'
@@ -26,6 +25,7 @@ describe 'Usuário busca outros usuários' do
     within 'h2' do
       expect(page).to have_content 'Resultados da Pesquisa'
     end
+    expect(current_path).to eq searches_path
   end
 
   it 'e não encontra nenhum usuário' do

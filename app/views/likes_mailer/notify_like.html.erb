@@ -6,12 +6,12 @@
   <dd><%= t('.comment_likes', like_count: @comment_likes.count) if @comment_likes.any? %></dd>
 </dl>
 <% if @post_likes.any? %>
-  <br><p><%= t('.most_liked_post') %> <%= link_to @most_liked_post.title, post_url(@most_liked_post) %></p>
+  <p><%= t('.most_liked_post') %> <%= link_to @most_liked_post.title, post_url(@most_liked_post) %></p>
 <% end %>
 <% if @comment_likes.any? %>
   <p><%= t('.most_liked_comment', comment: @most_liked_comment.message) %> <%= link_to @most_liked_comment.post.title, post_url(@most_liked_comment.post) %></p>
 <% end %>
 
-<br><p><%= link_to t('click_btn'), profile_url(@user.profile) %> <%= t('.access_profile') %></p>
+<p><%= link_to t('click_btn'), profile_url(@user.profile) %> <%= t('.access_profile') %></p>
 <%= t('.regards') %>,
-Portfoliorrr
+<p>Portfoliorrr</p>

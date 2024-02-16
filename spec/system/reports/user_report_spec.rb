@@ -31,7 +31,7 @@ describe 'Usuário denuncia' do
       login_as user
       visit new_report_path params: { reportable: post, reportable_type: post.class.name }
 
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path root_path
       expect(page).to have_content 'Essa publicação não está disponível.'
     end
 
@@ -209,7 +209,7 @@ describe 'Usuário denuncia' do
 
     visit new_report_path params: { reportable: post, reportable_type: post.class.name }
 
-    expect(current_path).to eq new_user_session_path
+    expect(page).to have_current_path new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
 end

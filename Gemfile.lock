@@ -136,6 +136,8 @@ GEM
       webrick (~> 1.7)
       websocket-driver (>= 0.6, < 0.8)
     ffi (1.16.3)
+    friendly_id (5.5.1)
+      activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -339,6 +341,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   faraday
+  friendly_id (~> 5.5.0)
   image_processing (>= 1.2)
   jbuilder
   jsbundling-rails

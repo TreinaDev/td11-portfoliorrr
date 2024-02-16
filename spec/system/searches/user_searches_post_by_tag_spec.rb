@@ -13,10 +13,10 @@ describe 'Usuário pesquisa hashtag' do
       click_on 'tdd'
     end
 
-    expect(current_path).to eq searches_path
     expect(page).to have_content post.title
     expect(page).to have_content another_post.title
     expect(page).not_to have_content other_post.title
+    expect(current_path).to eq searches_path
   end
 
   it 'ao buscar por uma hashtag no campo de busca da home' do
@@ -30,11 +30,11 @@ describe 'Usuário pesquisa hashtag' do
     fill_in 'Buscar', with: '#tdd'
     click_on 'Pesquisar'
 
-    expect(current_path).to eq searches_path
     expect(page).to have_content post.title
     expect(page).to have_content another_post.title
     expect(page).not_to have_content other_post.title
     expect(page).to have_content '2 Publicações com: #tdd'
+    expect(current_path).to eq searches_path
   end
 
   it 'deve ser uma busca exata' do
@@ -48,10 +48,10 @@ describe 'Usuário pesquisa hashtag' do
     fill_in 'Buscar', with: '#td'
     click_on 'Pesquisar'
 
-    expect(current_path).to eq searches_path
     expect(page).not_to have_content post.title
     expect(page).not_to have_content another_post.title
     expect(page).not_to have_content other_post.title
     expect(page).to have_content 'Nenhum resultado encontrado com: #td'
+    expect(current_path).to eq searches_path
   end
 end

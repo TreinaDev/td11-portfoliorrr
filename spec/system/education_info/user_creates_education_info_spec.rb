@@ -62,7 +62,7 @@ describe 'Usuário adiciona informações acadêmicas' do
       check 'Exibir no Perfil'
       click_on 'Salvar'
 
-      expect(current_path).to eq new_user_profile_education_info_path
+      expect(page).to have_current_path new_user_profile_education_info_path
       expect(page).to have_content 'Não foi possível cadastrar formação acadêmica'
       expect(page).to have_content 'Instituição não pode ficar em branco'
       expect(page).to have_content 'Curso não pode ficar em branco'

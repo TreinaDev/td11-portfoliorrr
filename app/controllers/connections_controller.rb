@@ -48,6 +48,6 @@ class ConnectionsController < ApplicationController
   end
 
   def set_profile
-    @profile = Profile.find params[:profile_id]
+    @profile = Profile.friendly.find params[:profile_id]
   end
 end

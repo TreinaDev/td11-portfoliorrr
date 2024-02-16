@@ -1,30 +1,22 @@
 class Profile < ApplicationRecord
   belongs_to :user
+  has_one_attached :photo
   has_one :personal_info, dependent: :destroy
   has_many :professional_infos, dependent: :destroy
   has_many :education_infos, dependent: :destroy
   has_many :profile_job_categories, dependent: :destroy
-
+  has_many :invitations, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_many :invitation_requests, dependent: :destroy
+  has_many :posts, through: :user
+  has_many :job_categories, through: :profile_job_categories
+  has_many :reports_submitted, class_name: 'Report', dependent: :destroy
+  has_many :reports_received, class_name: 'Report', as: :reportable, dependent: :destroy
+  has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
   has_many :followers, class_name: 'Connection', foreign_key: :followed_profile_id, dependent: :destroy,
                        inverse_of: :follower
-
-  has_many :followed_profiles, class_name: 'Connection', foreign_key: :follower_id,
-                               dependent: :destroy, inverse_of: :followed_profile
-
-  has_many :connections, foreign_key: :followed_profile_id, dependent: :destroy, inverse_of: :followed_profile
-
-  has_many :job_categories, through: :profile_job_categories
-  has_many :invitation_requests, dependent: :destroy
-
-  has_one_attached :photo
-  has_many :invitations, dependent: :destroy
-  has_many :posts, through: :user
-  has_many :notifications, dependent: :destroy
-
-  has_many :reports_submitted, class_name: 'Report', dependent: :destroy
-
-  has_many :reports_received, class_name: 'Report', as: :reportable, dependent: :destroy
-
+  has_many :followed_profiles, class_name: 'Connection', foreign_key: :follower_id, dependent: :destroy,
+                               inverse_of: :followed_profile
   accepts_nested_attributes_for :personal_info
   accepts_nested_attributes_for :professional_infos
   accepts_nested_attributes_for :education_infos
@@ -38,24 +30,33 @@ class Profile < ApplicationRecord
   enum privacy: { private_profile: 0, public_profile: 10 }
   enum status: { inactive: 0, active: 5 }
 
+  extend FriendlyId
+  friendly_id :profile_permalink, use: :slugged
+
   delegate :full_name, :email, to: :user
+
+  def profile_permalink
+    user.full_name.to_s
+  end
+
+  def self.order_by_premium
+    joins(user: :subscription).order('subscriptions.status DESC, users.full_name ASC')
+  end
 
   def self.advanced_search(search_query)
     left_outer_joins(:job_categories, :personal_info, :user).where(
-      'job_categories.name LIKE :term OR
-       personal_infos.city LIKE :term OR
-       users.full_name LIKE :term OR users.search_name LIKE :term',
+      'job_categories.name LIKE :term OR personal_infos.city LIKE :term OR users.full_name LIKE :term
+       OR users.search_name LIKE :term',
       { term: "%#{sanitize_sql_like(search_query)}%" }
     ).public_profile.active.uniq
   end
 
   def self.get_profile_job_categories_json(query)
     profiles = search_by_job_categories(query)
-    profiles_json = profiles.map do |profile|
+    profiles.map do |profile|
       { user_id: profile.user_id, full_name: profile.full_name,
         job_categories: ProfileJobCategory.generate_profile_job_categories_json(profile.id) }
-    end
-    profiles_json.as_json
+    end.as_json
   end
 
   def self.search_by_job_categories(query)
@@ -92,10 +93,7 @@ class Profile < ApplicationRecord
   def inactive!
     super
     user.update(old_name: user.full_name, full_name: 'Perfil Desativado')
-    user.posts.each do |post|
-      post.update(old_status: post.status)
-    end
-
+    user.posts.each { |post| post.update(old_status: post.status) }
     user.posts.each(&:archived!)
     Connection.where(follower: self).or(Connection.where(followed_profile: self)).find_each(&:inactive!)
   end
@@ -103,9 +101,7 @@ class Profile < ApplicationRecord
   def active!
     super
     user.update(full_name: user.old_name)
-    user.posts.each do |post|
-      post.update(status: post.old_status)
-    end
+    user.posts.each { |post| post.update(status: post.old_status) }
     Connection.where(follower: self).or(Connection.where(followed_profile: self)).find_each(&:active!)
   end
 

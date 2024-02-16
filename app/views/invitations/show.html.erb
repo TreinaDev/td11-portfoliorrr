@@ -16,7 +16,7 @@
       <% if @invitation.pending? %>  
         <div class="btn-group">
           <div>
-            <%= link_to t('accept_btn'), 'http://localhost:3000', class: 'btn btn-primary me-4' %>
+            <%= link_to t('accept_btn'), Rails.configuration.colabora_api_v1.base_url, class: 'btn btn-primary me-4' %>
           </div>
           <div>
             <%= button_to t('decline_btn'), decline_invitation_path(@invitation), method: :patch, class: 'btn btn-secondary' %>

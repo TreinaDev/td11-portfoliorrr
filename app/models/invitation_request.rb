@@ -22,14 +22,6 @@ class InvitationRequest < ApplicationRecord
     end
   end
 
-  def create_json_for_proposal_request
-    { data: { proposal: { invitation_request_id: id,
-                          project_id:,
-                          profile_id: profile.id,
-                          email: profile.email,
-                          message: } } }.as_json
-  end
-
   private
 
   def json_treated_response(response)
