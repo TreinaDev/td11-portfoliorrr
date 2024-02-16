@@ -70,7 +70,7 @@
   <% end %>
   
     <% if profile.education_infos.visibles_list.any? || user_is_owner %>
-    <div class="border py-1 px-2 rounded mb-3 bg-white">
+    <div class="border p-3 rounded mb-3 bg-white">
       <div class="d-flex gap-2">
         <%= image_tag 'user-graduate-solid', width: '24rem', class: 'mb-2 mx-1' %>
         <h3><%= EducationInfo.model_name.human %></h3>
@@ -110,7 +110,7 @@
   </div>
 </div>
   <% if profile.profile_job_categories.any? || user_is_owner %> 
-  <div id='profile-job-categories' class="border py-1 px-2 rounded mb-3 bg-white">
+  <div id='profile-job-categories' class="border p-3 rounded mb-3 bg-white">
     <div class="d-flex gap-1">
       <%= image_tag 'person-working', width: '28rem', class: 'mb-2 mx-1' %>
       <h3><%= t('content.section_title') %></h3>
@@ -118,7 +118,7 @@
   <% end %> 
 
   <%= link_to t('links.new_profile_job_category_path'), new_profile_job_category_path, class:'btn btn-primary rounded-5 mt-3' if user_is_owner %>
-  <div class='mt-2'>
+  <div class='mt-2 mx-4'>
     <% profile.profile_job_categories.each do |profile_job_category| %>
       <p><strong><%= profile_job_category.job_category.name %></strong></p>
       <% if profile_job_category.description.present? %>
