@@ -9,7 +9,7 @@ describe 'Usuário visita página de projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
 
       login_as user
 
@@ -41,7 +41,7 @@ describe 'Usuário visita página de projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
       login_as user
       visit projects_path
 
@@ -58,7 +58,7 @@ describe 'Usuário visita página de projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
 
       login_as user
       visit projects_path
@@ -86,7 +86,7 @@ describe 'Usuário visita página de projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
       login_as user
       visit projects_path
 
@@ -113,7 +113,7 @@ describe 'Usuário visita página de projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
       login_as user
       visit projects_path
 
@@ -140,7 +140,7 @@ describe 'Usuário visita página de projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
       login_as user
       visit projects_path
 
@@ -167,7 +167,7 @@ describe 'Usuário visita página de projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
       login_as user
       visit projects_path
 
@@ -194,7 +194,7 @@ describe 'Usuário visita página de projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
       login_as user
       visit projects_path
       expect(page).to have_content('Não foi possível carregar os projetos. Tente mais tarde')
@@ -206,7 +206,7 @@ describe 'Usuário visita página de projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
       login_as user
       visit projects_path
       expect(page).to have_content('Não foi possível carregar os projetos. Tente mais tarde')

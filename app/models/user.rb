@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :professional_infos, through: :profile
   has_many :education_infos, through: :profile
   has_many :invitation_requests, through: :profile
+  has_one :subscription, dependent: :destroy
 
   enum role: { user: 0, admin: 10 }
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Solicitação de convite tem status atualizado para "aceita"' do
   it 'quando recebe convite para o mesmo projeto' do
-    user = create(:user)
+    user = create(:user, :paid)
 
     invitation_request_one = create(:invitation_request, profile: user.profile,
                                                          project_id: 1, status: :pending)

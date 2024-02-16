@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_subscriber, only: :create_invitation_request
-
   def index
     @invitation_request = current_user.invitation_requests.build
     @invitation_requests = current_user.invitation_requests.pluck(:project_id).to_json
