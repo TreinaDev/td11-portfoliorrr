@@ -8,6 +8,6 @@ class HomeController < ApplicationController
 
     return if @followed_posts.any?
 
-    @posts = Post.get_sample(3)
+    @posts = Post.get_sample(10)
   end
 end

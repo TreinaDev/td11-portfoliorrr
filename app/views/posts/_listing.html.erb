@@ -1,4 +1,4 @@
-<% posts.each do |post| %>
+<% posts.each_with_index do |post, index| %>
   <div class="feed-post mb-3 p-3 rounded row bg-white border" id="post-list">
     <%= link_to post, class: "text-decoration-none link-dark col-md-10" do %>
       <div class="card-body">
@@ -37,4 +37,7 @@
       </div>
     <% end %>
   </div>
+  <% if current_user.subscription.inactive? && (index+1) % 5 == 0 && Advertisement.any? %>
+    <%= render partial: 'advertisements/advertisement', locals: { advertisement: Advertisement.displayed.first } %>
+  <% end %>
 <% end %>

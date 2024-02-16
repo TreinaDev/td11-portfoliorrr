@@ -69,6 +69,11 @@
             <li class="dropdown-item" href="#">
               <%= link_to t('settings.index.settings'), profile_settings_path(current_user.profile), class: 'nav-link' %>
             </li>
+            <% if current_user.admin? %>
+              <li class="dropdown-item">
+                <%= link_to t('ads_btn'), advertisements_path, class: 'nav-link' %>
+              </li>
+            <% end %>
             <div class="dropdown-divider"></div>
             <li class="dropdown-item" href="#">
               <%= link_to Subscription.model_name.human, subscriptions_path, class: 'nav-link text-primary' %>

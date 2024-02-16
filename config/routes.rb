@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  resources :advertisements, only: %i[index show new create update]
+
   resources :searches, only: %i[index]
   resources :invitations, only: %i[index show] do
     patch 'decline', on: :member

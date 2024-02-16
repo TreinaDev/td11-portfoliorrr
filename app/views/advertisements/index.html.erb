@@ -1,0 +1,11 @@
+<%= link_to t('new_ad_btn'), new_advertisement_path, class: 'btn btn-primary mt-3' %>
+
+<% @advertisements.each do |ad| %>
+
+<ul class="list-group mt-3">
+  <li class="list-group-item my-2">
+    <%= link_to ad.title, advertisement_path(ad) %>
+  </li>
+</ul>
+
+<% end %>

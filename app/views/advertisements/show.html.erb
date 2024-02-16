@@ -1,0 +1,14 @@
+<%= link_to t('return_btn'), advertisements_path, class: 'btn btn-secondary mb-3' %> <br>
+
+<div class="container">
+  <h4><%= @advertisement.title %></h4>
+  
+  <%= image_tag @advertisement.image, width: 400, class: 'mb-3' if @advertisement.image.present? %>
+
+  <p><strong>Tempo de exibição (em dias):</strong> <%= @advertisement.display_time %></p>
+
+  <p><strong>Link:</strong> <%= @advertisement.link %></p>
+
+  <p><strong>Cliques:</strong>  <%= @advertisement.view_count %></p>
+</div>
+
