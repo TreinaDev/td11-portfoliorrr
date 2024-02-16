@@ -115,17 +115,31 @@
       <%= image_tag 'person-working', width: '28rem', class: 'mb-2 mx-1' %>
       <h3><%= t('content.section_title') %></h3>
     </div>
-  <% end %> 
+  <% end %>
 
   <%= link_to t('links.new_profile_job_category_path'), new_profile_job_category_path, class:'btn btn-primary rounded-5 mt-3' if user_is_owner %>
   <div class='mt-2 mx-4'>
     <% profile.profile_job_categories.each do |profile_job_category| %>
       <p><strong><%= profile_job_category.job_category.name %></strong></p>
-      <% if profile_job_category.description.present? %>
-        <p><%= profile_job_category.description %></p>
-      <% else %>
-        <p><%= t('content.profile_job_category_without_description') %></p>
-      <% end %>
+      <div class='d-flex row'>
+        <div class='d-flex column col-6 align-text-top'>
+          <% if profile_job_category.description.present? %>
+            <p><%= profile_job_category.description %></p>
+          <% else %>
+            <p><%= t('content.profile_job_category_without_description') %></p>
+          <% end %>
+        </div>
+        <% if profile.user == current_user %>
+          <div class='d-flex column col-6'>
+            <%= button_to edit_profile_job_category_path(profile_job_category), method: :get, class:'btn btn-sm btn-edit-category' do %>
+              <%= image_tag 'edit-icon', width: '20rem', height: '20rem' %>
+            <% end %>
+            <%= button_to profile_job_category_path(profile_job_category), method: :delete, class:'btn btn-sm btn-delete-category' do %>
+              <%= image_tag 'x-icon', width: '20rem', height: '20rem' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

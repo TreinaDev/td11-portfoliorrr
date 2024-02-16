@@ -67,7 +67,7 @@ Rails.application.routes.draw do
     resources :education_infos, shallow: true, only: %i[new create edit update]
   end
 
-  resources :profile_job_categories, only: %i[new create]
+  resources :profile_job_categories, only: %i[new create edit destroy update]
 
   namespace :api do
     namespace :v1 do
