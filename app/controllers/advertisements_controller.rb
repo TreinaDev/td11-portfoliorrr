@@ -2,7 +2,9 @@ class AdvertisementsController < ApplicationController
   before_action :authenticate_user!, only: %i[index new create show]
   before_action :redirect_unauthorized_user, only: %i[index new create show]
 
-  def index; end
+  def index
+    @advertisements = Advertisement.all
+  end
 
   def new
     @advertisement = Advertisement.new
@@ -11,9 +13,9 @@ class AdvertisementsController < ApplicationController
   def create
     @advertisement = current_user.advertisements.build(ads_params)
 
-    if @advertisement.save
-      redirect_to advertisement_path(@advertisement), notice: t('.success')
-    end
+    return redirect_to advertisement_path(@advertisement), notice: t('.success') if @advertisement.save
+
+    render 'new', status: :unprocessable_entity
   end
 
   def show

@@ -31,8 +31,8 @@ describe 'Usuário visualiza anúncios na home page' do
     it 'e clica em um anúncio' do
       user = create(:user, :free)
       admin = create(:user, role: 'admin')
-      ad = create(:advertisement, user: admin, title: 'Cursos de Software',
-                  link: 'https://www.campuscode.com.br', view_count: 0)
+      ad = create(:advertisement, user: admin, title: 'Cursos de Software', link: 'https://www.campuscode.com.br',
+                                  view_count: 0)
       ad.image.attach(io: File.open('spec/support/assets/images/test_image.png'),
                       filename: 'test_image.png', content_type: 'image/png')
       ad.save
@@ -55,8 +55,8 @@ describe 'Usuário visualiza anúncios na home page' do
     it 'não visualiza anúncios' do
       user = create(:user, :paid)
       admin = create(:user, role: 'admin')
-      ad = create(:advertisement, user: admin, title: 'Cursos de Software',
-                  link: 'https://www.campuscode.com.br', view_count: 0)
+      ad = create(:advertisement, user: admin, title: 'Cursos de Software', link: 'https://www.campuscode.com.br',
+                                  view_count: 0)
       ad.image.attach(io: File.open('spec/support/assets/images/test_image.png'),
                       filename: 'test_image.png', content_type: 'image/png')
       ad.save
