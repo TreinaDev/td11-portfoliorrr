@@ -12,14 +12,14 @@ describe 'Administrador cadastra um anúncio' do
     end
     click_on 'Criar Anúncio'
     fill_in 'Título', with: 'Buscador'
-    fill_in 'Link', with: 'www.google.com'
+    fill_in 'Link', with: 'https://www.google.com'
     fill_in 'Prazo (em dias)', with: 7
     attach_file('Imagem', Rails.root.join('spec/support/assets/images/test_image.png'))
     click_on 'Salvar'
 
     ad = Advertisement.last
-    expect(page).to have_current_path advertisement_path(ad)
     expect(page).to have_content 'Anúncio criado com sucesso'
+    expect(page).to have_current_path advertisement_path(ad)
     expect(page).to have_content 'Buscador'
     expect(page).to have_css('img[src*="test_image.png"]')
     expect(page).to have_link 'Voltar', href: advertisements_path

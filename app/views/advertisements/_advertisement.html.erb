@@ -1,7 +1,7 @@
-<div id="advertisement_<%= advertisement.id %>">
+<div id="advertisement_<%= advertisement.id %>" class="text-center mb-3">
   <%= button_to advertisement_path(advertisement), method: :patch,
                 class: 'advertisement', data: { turbo: false }, id: 'to-ad' do %>
     <p><%= advertisement.title %></p>
-    <p><%= image_tag advertisement.image if advertisement.image.present? %></p>
+    <p><%= image_tag advertisement.image, width: '400rem', alt: 'advertisement' if advertisement.image.present? %></p>
   <% end %>
 </div>

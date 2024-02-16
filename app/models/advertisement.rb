@@ -1,8 +1,14 @@
 class Advertisement < ApplicationRecord
   belongs_to :user
   has_one_attached :image
+  validates :title, :link, presence: true
+  validates :link, format: URI::DEFAULT_PARSER.make_regexp(%w[http https])
 
   def self.displayed
-    where("created_at + display_time < ?", Time.zone.now).sample(1)
+    where.not(id: Advertisement.select(&:expired?)).sample(1)
+  end
+
+  def expired?
+    (created_at + display_time.days) < Time.zone.now
   end
 end

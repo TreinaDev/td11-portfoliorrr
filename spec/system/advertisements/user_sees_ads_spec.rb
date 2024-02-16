@@ -5,8 +5,8 @@ describe 'Usuário visualiza anúncios na home page' do
     it 'a cada 5 posts' do
       user = create(:user, :free)
       admin = create(:user, role: 'admin')
-      ad1 = create(:advertisement, user: admin, title: 'Cursos de Software', link: 'wwww.campuscode.com.br')
-      ad2 = create(:advertisement, user: admin, title: 'Venha ser Dev', link: 'wwww.dev.com.br')
+      ad1 = create(:advertisement, user: admin, title: 'Cursos de Software', link: 'https://campuscode.com.br')
+      ad2 = create(:advertisement, user: admin, title: 'Venha ser Dev', link: 'https://dev.com.br')
 
       10.times { create(:post) }
       allow(Post).to receive(:get_sample).and_return(Post.all)
