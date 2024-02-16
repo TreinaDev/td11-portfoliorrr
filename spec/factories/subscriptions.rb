@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :subscription do
     user
-    start_date { '2024-02-15' }
+    start_date { Time.zone.now.to_date }
     status { 0 }
   end
 end
