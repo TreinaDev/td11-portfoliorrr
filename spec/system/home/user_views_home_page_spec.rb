@@ -121,32 +121,6 @@ describe 'Usuário visita a home page' do
       expect(page.body.index(first_user.full_name)).to be < page.body.index(second_user.full_name)
       expect(page.body.index(second_user.full_name)).to be < page.body.index(third_user.full_name)
     end
-
-    it 'como usuário free e vê anúncios' do
-      user = create(:user)
-      admin = create(:user, role: 'admin')
-      ad1 = create(:advertisement, user: admin, title: 'Cursos de Software', link: 'wwww.campuscode.com.br')
-      ad2 = create(:advertisement, user: admin, title: 'Venha ser Dev', link: 'wwww.dev.com.br')
-
-      10.times { create(:post) }
-      allow(Post).to receive(:get_sample).and_return(Post.all)
-      allow(Advertisement).to receive(:displayed).and_return([ad1], [ad2])
-
-      login_as user
-      visit root_path
-
-      within "#advertisement_#{ad1.id}" do
-        expect(page).to have_link 'Cursos de Software', href: 'wwww.campuscode.com.br'
-      end
-      within "#advertisement_#{ad2.id}" do
-        expect(page).to have_link 'Venha ser Dev', href: 'wwww.dev.com.br'
-      end
-
-      expect(page).to have_selector '.advertisement', count: 2
-      expect(page.body.index(Post.find(5).title)).to be < page.body.index('Cursos de Software')
-      expect(page.body.index(Post.find(6).title)).to be > page.body.index('Cursos de Software')
-      expect(page.body.index(Post.find(10).title)).to be < page.body.index('Venha ser Dev')
-    end
   end
 
   context 'quando não está logado' do

@@ -20,6 +20,16 @@ class AdvertisementsController < ApplicationController
     @advertisement = Advertisement.find(params[:id])
   end
 
+  def update
+    @advertisement = Advertisement.find(params[:id])
+    @advertisement.update(view_count: @advertisement.view_count + 1)
+
+    url = @advertisement.link
+    url = "http://#{url}" unless url.start_with?('http://', 'https://')
+
+    redirect_to url, allow_other_host: true
+  end
+
   private
 
   def ads_params

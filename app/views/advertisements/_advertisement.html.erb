@@ -1,7 +1,7 @@
 <div id="advertisement_<%= advertisement.id %>">
-
-  <%= link_to advertisement.title, advertisement.link, class: 'advertisement' %>
-
-  <%= image_tag advertisement.image if advertisement.image.present? %>
-
+  <%= button_to advertisement_path(advertisement), method: :patch,
+                class: 'advertisement', data: { turbo: false }, id: 'to-ad' do %>
+    <p><%= advertisement.title %></p>
+    <p><%= image_tag advertisement.image if advertisement.image.present? %></p>
+  <% end %>
 </div>

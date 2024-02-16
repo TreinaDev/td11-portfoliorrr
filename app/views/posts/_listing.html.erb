@@ -37,7 +37,7 @@
       </div>
     <% end %>
   </div>
-  <% if (index+1) % 5 == 0 %>
+  <% if current_user.subscription.inactive? && (index+1) % 5 == 0 && Advertisement.any? %>
     <%= render partial: 'advertisements/advertisement', locals: { advertisement: Advertisement.displayed.first } %>
   <% end %>
 <% end %>

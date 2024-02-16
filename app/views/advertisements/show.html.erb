@@ -2,5 +2,5 @@
 
 <%= link_to t('return_btn'), advertisements_path, class: 'btn btn-secondary' %>
 
-<%= image_tag @advertisement.image %>
+<%= image_tag @advertisement.image if @advertisement.image.present? %>
 

@@ -36,8 +36,4 @@ describe 'Administrador cadastra um anúncio' do
       expect(page).not_to have_link 'Anúncios'
     end
   end
-
-  pending 'e visitante visualzia anúncio no feed'
-
-  pending 'e view_count atualiza quando o anúncio é clicado'
 end
