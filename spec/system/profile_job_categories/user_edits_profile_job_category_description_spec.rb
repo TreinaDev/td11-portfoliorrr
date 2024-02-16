@@ -12,7 +12,7 @@ describe 'Usuário edita descrição de categoria de trabalho em seu perfil' do
     login_as user
     visit profile_path(user.profile)
     page.all('.btn-edit-category').to_a.second.click
-    fill_in 'Descrição', with: 'Nova descrição para minha categoria'
+    fill_in 'profile_job_category_description', with: 'Nova descrição para minha categoria'
     click_on 'Salvar'
 
     expect(page).to have_content 'Categoria de trabalho editada com sucesso!'
