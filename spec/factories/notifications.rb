@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :notification do
     profile
-    read { false }
+    status { :unseen }
 
     trait :for_post do
       association :notifiable, factory: :post
