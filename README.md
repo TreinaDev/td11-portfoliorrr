@@ -22,6 +22,12 @@ O Portfoliorrr é uma rede social com funcionalidades de portfólio para pessoas
 - Rode o comando `bin/setup` e aguarde sua conclusão;
 - Rode o comando `yarn install` (necessário ter `node` instalado em sua máquina);
 
+## Populando o banco de dados
+
+- O seed comum, para desenvolvimento, pode ser feito normalmente com `rails db:seed`
+- Para apresentações e testes de front-end, é possível fazer um superseed, utilizando `rails db:seed:superseed`
+- O superseed utiliza as gems Faker e FactoryBot, que são instaladas durante a configuração (ver item anterior)
+
 ## Como visualizar a aplicação no navegador
 
 - Siga as instruções de configuração da aplicação

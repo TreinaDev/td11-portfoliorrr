@@ -1,14 +1,26 @@
 <div class="card text-muted">
   <div class="card-body">
-    <h2 class="card-title"><%= @post.title %></h2>
-    <div class="my-4 d-flex gap-1">
+    <div class="mb-3 d-flex justify-content-between">
+      <h2 class="card-title post-title"><%= @post.title %></h2>
       <% if current_user == @post.user %>
-        <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary', data: { turbo: false } %>
-        <%= button_to t('publish_btn'), publish_post_path(@post), method: :patch,
-          class: 'btn btn-primary', data: { turbo: false } if @post.scheduled? %>
-        <%= Post.human_attribute_name @post.status %>
+        <div class="d-flex flex-column">
+          <%= link_to t('edit_btn'), edit_post_path(@post), class: 'btn btn-primary py-0', data: { turbo: false } %>
+          <%= button_to t('publish_btn'), publish_post_path(@post), method: :patch,
+            class: 'btn btn-primary py-0', data: { turbo: false } if @post.scheduled? %>
+          <span><%= Post.human_attribute_name @post.status %></span>
+        </div>
       <% else %>
-        <%= link_to t('reports.report_btn'), new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm' %>
+        <div class="dropdown">
+          <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="bg-white rounded-5 border-0" id="report-post-dropdown">
+            <%= image_tag 'three-dots-vertical'%>
+          </button>
+          <div class="dropdown-menu">
+            <%= link_to new_report_path(reportable: @post, reportable_type: @post.class), class: 'btn btn-secondary btn-sm dropdown-item' do %>
+              <%= image_tag 'flag' %>
+              <span class="mx-2"><%= t('reports.report_btn') %></span>
+            <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
 
@@ -32,9 +44,11 @@
       </p>
     <% end %>
     <p>
-      <time datetime="<%= @post.edited_at.to_date %>">
-        <%= t('.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
-      </time>
+      <% if @post.edited_at.present? %>
+        <time datetime="<%= @post.edited_at.to_date %>">
+          <%= t('.last_update', update_date: I18n.l(@post.edited_at.to_datetime, format: :long)) %>
+        </time>
+      <% end %>
     </p>
 
     <p class="card-subtitle mb-2 text-body-secondary tags">
@@ -43,18 +57,29 @@
       <% end %>
     </p>
 
-    <div class="btn-group">
-      <% if @liked %>
-        <%= button_to post_like_path(@post, @liked), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
-          <%= image_tag 'thumbs-up-solid', width: '20rem' %>
-        <% end %>
-      <% else %>
-        <%= button_to post_likes_path(@post), method: :post, class: 'btn btn-sm', id: 'like' do %>
-          <%= image_tag 'thumbs-up-regular', width: '20rem' %>
-        <% end %>
-      <% end %>
-      <div class="me-2 mt-2">
+    <div class="btn-group d-flex justify-content-between">
+      <div class="me-2 mt-2 d-flex align-items-center">
         <%= @likes_count %> <%= Like.model_name.human(count: @likes_count) %>
+        <% if @liked %>
+          <%= button_to post_like_path(@post, @liked), method: :delete, class: 'btn btn-sm', id: 'unlike' do %>
+            <%= image_tag 'thumbs-up-solid', width: '20rem' %>
+          <% end %>
+        <% else %>
+          <%= button_to post_likes_path(@post), method: :post, class: 'btn btn-sm', id: 'like' do %>
+            <%= image_tag 'thumbs-up-regular', width: '20rem' %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="dropdown">
+        <button type="button" class="btn btn-outline-primary rounded-5" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+          <%= image_tag 'share' %> <%= t('posts.share')%>
+        </button>
+        <form class="dropdown-menu p-4">
+          <div class="mb-3 share-link">
+            <label for="dropdownShare" class="form-label">Link</label>
+            <input type="text" class="form-control" id="dropdownShare" value = <%= request.url %>>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -72,15 +97,25 @@
   </div>
   <% @post.comments.each do |comment| %>
     <% if comment.removed?%>
-      <p><%= t('comments.removed_content') %> </p>
+    <footer class="mx-3">
+      <h5>
+        <% if comment.user.profile.photo.present? %>
+          <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
+        <% else %>
+          <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
+        <% end %>
+        <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
+      </h5>
+      <p class="comment-message"><%= t('comments.removed_content') %> </p>
+    </footer>
     <% else %>
       <div class="card-body" id="<%= dom_id(comment) %>">
         <footer>
           <h5>
             <% if comment.user.profile.photo.present? %>
-              <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'rounded-circle mx-3' %>
+              <%= image_tag comment.user.profile.photo, alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
             <% else %>
-              <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'rounded-circle mx-3' %>
+              <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '35rem', class: 'profile-picture rounded-circle mx-3' %>
             <% end %>
             <%= link_to comment.user.full_name, comment.user.profile %> <%= '(autor)' if comment.user == @post.user %>
           </h5>
@@ -102,11 +137,19 @@
                     <% end %>
                   <% end %>
                   <span><%= comment.likes.count %> <%= Like.model_name.human(count: comment.likes.count) %></span>
-                  <button onClick="showForm(<%= comment.id %>)" class="btn btn-outline-primary rounded-5 border-0 mx-2"><%= t('reply')%></button> 
+                  <button onClick="showForm(<%= comment.id %>)" class="btn btn-outline-primary rounded-5 border-0 mx-1"><%= t('reply')%></button> 
                   <% if current_user != comment.user %>
-                    <div class="report-link-wrapper mt-3">
-                      <p><%= link_to t('reports.report_btn'), new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm' %></p>
+                    <div class="dropdown">
+                      <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="bg-white rounded-5 border-0" id="report-comment-dropdown">
+                        <%= image_tag 'three-dots-vertical'%>
+                      </button>
+                    <div class="dropdown-menu">
+                      <%= link_to new_report_path(reportable: comment, reportable_type: comment.class), class: 'btn btn-secondary btn-sm dropdown-item' do %>
+                        <%= image_tag 'flag' %>
+                        <span class="mx-2"><%= t('reports.report_btn') %></span>
+                      <% end %>
                     </div>
+                  </div>
                   <% end %>
                 </div>
                 <div class="reply-form">
@@ -133,9 +176,9 @@
                     <% comment.replies.each do |reply| %>
                       <h6 class="mt-2">
                         <% if reply.user.profile.photo.present? %>
-                          <%= image_tag reply.user.profile.photo, alt: 'Foto de perfil', width: '30rem', class: 'rounded-circle mx-3' %>
+                          <%= image_tag reply.user.profile.photo, alt: 'Foto de perfil', width: '30rem', class: 'profile-picture rounded-circle mx-3' %>
                         <% else %>
-                          <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '30rem', class: 'rounded-circle mx-3' %>
+                          <%= image_tag 'default_portfoliorrr_photo.png', alt: 'Foto de perfil', width: '30rem', class: 'profile-picture rounded-circle mx-3' %>
                         <% end %>
                         <%= link_to reply.user.full_name, reply.user.profile %> <%= '(autor)' if reply.user == @post.user %>
                         <small datetime="<%= reply.created_at.to_datetime %>">
@@ -159,8 +202,15 @@
                             <%= reply.likes.count %> <%= Like.model_name.human(count: reply.likes.count) %>
                           </div>
                           <% if current_user != reply.user %>
-                            <div class="report-link-wrapper mt-3">
-                              <p><%= link_to t('reports.report_btn'), new_report_path(reportable: reply, reportable_type: reply.class), class: 'btn btn-secondary btn-sm' %></p>
+                            <div class="dropdown">
+                              <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="bg-white rounded-5 border-0" id="report-reply-dropdown">
+                                <%= image_tag 'three-dots-vertical'%>
+                              </button>
+                            <div class="dropdown-menu">
+                              <%= link_to new_report_path(reportable: reply, reportable_type: reply.class), class: 'btn btn-secondary btn-sm dropdown-item' do %>
+                                <%= image_tag 'flag' %>
+                                <span class="mx-2"><%= t('reports.report_btn') %></span>
+                              <% end %>
                             </div>
                           <% end %>
                         </div>

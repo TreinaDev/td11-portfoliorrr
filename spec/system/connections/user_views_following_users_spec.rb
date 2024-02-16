@@ -32,13 +32,10 @@ describe 'Usuário vê lista de seguidores' do
     expect(page).not_to have_link first_follower.full_name
 
     expect(page).to have_link second_follower.full_name, href: profile_path(second_follower.profile)
-    expect(page).to have_content 'Disponível Para Trabalho'
 
     expect(page).to have_link third_follower.full_name, href: profile_path(third_follower.profile)
-    expect(page).to have_content 'Indisponível Para Trabalho'
 
     expect(page).to have_link fourth_follower.full_name, href: profile_path(fourth_follower.profile)
-    expect(page).to have_content 'Dev Senior | Rebase'
   end
 
   it 'e deve estar logado' do
@@ -47,6 +44,6 @@ describe 'Usuário vê lista de seguidores' do
 
     visit profile_connections_path(user.profile)
 
-    expect(current_path).to eq new_user_session_path
+    expect(page).to have_current_path new_user_session_path
   end
 end

@@ -42,7 +42,7 @@ describe 'Usuário adiciona informações profissionais' do
 
         click_on 'Salvar'
 
-        expect(current_path).to eq new_user_profile_professional_info_path
+        expect(page).to have_current_path new_user_profile_professional_info_path
 
         expect(page).to have_content 'Não foi possível cadastrar experiência profissional'
         expect(page).to have_content 'Empresa não pode ficar em branco'
@@ -67,7 +67,7 @@ describe 'Usuário adiciona informações profissionais' do
 
         click_on 'Salvar'
 
-        expect(current_path).to eq new_user_profile_professional_info_path
+        expect(page).to have_current_path new_user_profile_professional_info_path
 
         expect(page).to have_content 'Não foi possível cadastrar experiência profissional'
         expect(page).to have_content 'Empresa não pode ficar em branco'

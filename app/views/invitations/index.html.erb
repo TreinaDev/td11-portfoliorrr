@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <section>
-      <h2 class="text-center"><%= Invitation.model_name.human(count: 2) %></h2>
+      <h2 class="border-bottom border-dark mb-3"><%= Invitation.model_name.human(count: 2) %></h2>
 
       <div class="nav-scroller border-bottom mb-4">
         <nav class="d-flex nav nav-underline">          
@@ -19,7 +19,7 @@
           <p class="text-center"> <%= t('.empty_state') %> </p>
         <% else %>
           <% @invitations.each do |invitation| %>
-            <div class="col-md-5 p-4 m-4 rounded border w-25">
+            <div class="col-md-5 p-4 m-4 rounded border w-25 bg-white">
               <%= link_to invitation_path(invitation), class: "text-decoration-none" do %>
                 <div class="card-body">
                   <h4 class="text-break text-dark"><%= invitation.project_title %></h4>

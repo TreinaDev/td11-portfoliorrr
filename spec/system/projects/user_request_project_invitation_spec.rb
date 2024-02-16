@@ -6,7 +6,7 @@ describe 'Usuário solicita convite para projetos' do
       json_projects_data = File.read(Rails.root.join('./spec/support/json/projects.json'))
       fake_projects_response = double('faraday_response', status: 200, body: json_projects_data)
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_projects_response)
-      user = create(:user)
+      user = create(:user, :paid)
       request_invitation_job_spy = spy(RequestInvitationJob)
       stub_const('RequestInvitationJob', request_invitation_job_spy)
 
@@ -30,7 +30,7 @@ describe 'Usuário solicita convite para projetos' do
 
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/projects').and_return(fake_projects_response)
 
-      user = create(:user)
+      user = create(:user, :paid)
 
       login_as user
 

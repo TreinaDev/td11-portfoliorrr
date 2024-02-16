@@ -2,19 +2,22 @@ require 'rails_helper'
 
 describe 'Usuário solicita convite para um projeto' do
   it 'com sucesso' do
-    user = create(:user)
-
+    user = create(:user, :paid)
     login_as user
-    post invitation_request_path, params: { invitation_request: { message: 'Me convida', project_id: 1 } }
-
+    post invitation_request_path, params: {
+      'project_id' => 1,
+      'invitation_request' => {
+        'message' => 'Me convida'
+      }
+    }
     user_requests = user.profile.invitation_requests
 
-    expect(user_requests.count).to eq 1
+    expect(user_requests.reload.count).to eq 1
     expect(user_requests.last.message).to eq 'Me convida'
   end
 
   it 'e falha se já solicitou convite para o mesmo projeto' do
-    user = create(:user)
+    user = create(:user, :paid)
     create(:invitation_request, profile: user.profile)
     login_as user
 

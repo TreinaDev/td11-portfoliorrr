@@ -12,6 +12,7 @@ export default {
       invitationRequestsProjectsIds: window.invitationRequestsProjectsIds,
       freeUser: window.freeUser,
       errorMsg: false,
+      portfoliorrrProjectsApiUrl: window.portfoliorrrProjectsApiUrl,
     }
   },
   computed:{
@@ -47,7 +48,7 @@ export default {
   async created() {
     if (!freeUser) {
       try {
-        let response = await fetch('/api/v1/projects', { signal });
+        let response = await fetch(this.portfoliorrrProjectsApiUrl, { signal });
         if (response.ok) {
           let data = await response.json();
           if (!data.message) {

@@ -10,6 +10,7 @@ describe 'Usuário denuncia' do
       login_as user, scope: :user
       visit post_path(post)
 
+      click_button id: 'report-post-dropdown'
       click_on 'Denunciar'
       fill_in 'Mensagem', with: 'Isso é discurso de ódio'
       select 'Discurso de ódio', from: 'Tipo de ofensa'
@@ -30,7 +31,7 @@ describe 'Usuário denuncia' do
       login_as user
       visit new_report_path params: { reportable: post, reportable_type: post.class.name }
 
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path root_path
       expect(page).to have_content 'Essa publicação não está disponível.'
     end
 
@@ -69,6 +70,7 @@ describe 'Usuário denuncia' do
       visit post_path(post)
 
       within '#comments' do
+        click_button id: 'report-comment-dropdown'
         click_on 'Denunciar'
       end
 
@@ -97,7 +99,7 @@ describe 'Usuário denuncia' do
       visit post_path(post)
 
       within '#comments' do
-        expect(page).to have_link('Denunciar').twice
+        expect(page).to have_button(id: 'report-comment-dropdown').twice
       end
       expect(page.all('.comment').to_a.second).not_to have_link 'Denunciar'
     end
@@ -127,6 +129,7 @@ describe 'Usuário denuncia' do
       visit post_path(comment.post)
       within "#comment_#{comment.id}" do
         click_on '1 Resposta'
+        click_button id: 'report-reply-dropdown'
         click_on 'Denunciar'
       end
       fill_in 'Mensagem', with: 'Isso é discurso de ódio'
@@ -164,6 +167,7 @@ describe 'Usuário denuncia' do
       login_as user, scope: :user
       visit profile_path(reported_user.profile)
 
+      click_button id: 'report-profile-dropdown'
       click_on 'Denunciar'
       fill_in 'Mensagem', with: 'Isso é discurso de ódio'
       select 'Discurso de ódio', from: 'Tipo de ofensa'
@@ -205,7 +209,7 @@ describe 'Usuário denuncia' do
 
     visit new_report_path params: { reportable: post, reportable_type: post.class.name }
 
-    expect(current_path).to eq new_user_session_path
+    expect(page).to have_current_path new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
 end

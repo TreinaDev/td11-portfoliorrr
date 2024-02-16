@@ -90,8 +90,8 @@ describe 'Api busca usuários por categoria de trabalho' do
     it 'retorna perfis premium primeiro e depois os perfis comuns' do
       create(:user, :free, full_name: 'Eliseu Ramos')
       create(:user, :free, full_name: 'André Porteira')
-      create(:user, full_name: 'Moisés Campus')
-      create(:user, full_name: 'Joao Almeida')
+      create(:user, :paid, full_name: 'Moisés Campus')
+      create(:user, :paid, full_name: 'Joao Almeida')
 
       get '/api/v1/profiles'
 
@@ -107,7 +107,7 @@ describe 'Api busca usuários por categoria de trabalho' do
     it 'retorna perfis premium primeiro e depois os perfis free na busca com parâmetro' do
       ruby = create(:job_category, name: 'Ruby on Rails')
 
-      user_premium = create(:user, full_name: 'Moisés Campus')
+      user_premium = create(:user, :paid, full_name: 'Moisés Campus')
       user_premium.profile.profile_job_categories.create(job_category: ruby, description: 'Sou um especialista em Ruby')
       user_free = create(:user, :free, full_name: 'André Almeida')
       user_free.profile.profile_job_categories.create(job_category: ruby, description: 'Fiz um e-commerce em Ruby')

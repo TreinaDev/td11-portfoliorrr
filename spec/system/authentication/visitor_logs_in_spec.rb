@@ -59,7 +59,7 @@ describe 'Usuário faz login' do
     click_button class: 'dropdown-toggle'
     click_on 'Sair'
 
-    expect(current_path).to eq root_path
+    expect(page).to have_current_path root_path
     expect(page).to have_content 'Logout efetuado com sucesso'
   end
 
